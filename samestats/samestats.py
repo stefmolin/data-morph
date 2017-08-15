@@ -69,7 +69,7 @@ initial_datasets = ['dino', 'rando', 'slant', 'big_slant']
 
 #
 # these are the initial datasets which are used in the paper
-# 
+#
 def load_dataset(name="dino"):
     if name == "dino":
         df = pd.read_csv("seed_datasets/Datasaurus_data.csv", header=None, names=['x','y'])
@@ -88,7 +88,7 @@ def load_dataset(name="dino"):
 
 #
 # This function calculates the summary statistics for the given set of points
-# 
+#
 def get_values(df):
     xm = df.x.mean()
     ym = df.y.mean()
@@ -289,7 +289,7 @@ def perturb(df, initial, target='circle',
     i_xm = df['x'][row]
     i_ym = df['y'][row]
 
-    # this is the simulated annealing step, if "do_bad", then we are willing to 
+    # this is the simulated annealing step, if "do_bad", then we are willing to
     # accept a new state which is worse than the current one
     do_bad = np.random.random_sample() < temp
 
@@ -341,7 +341,7 @@ def perturb(df, initial, target='circle',
         # or, if it is less than our allowed distance
         # or, if we are do_bad, that means we are accpeting it no matter what
         # if one of these conditions are met, jump out of the loop
-        if ((new_dist < old_dist or new_dist < allowed_dist or do_bad) and 
+        if ((new_dist < old_dist or new_dist < allowed_dist or do_bad) and
             ym > y_bounds[0] and ym < y_bounds[1] and xm > x_bounds[0] and xm < x_bounds[1]):
             break
 
@@ -370,7 +370,7 @@ def is_kernel():
 # num_frames: how many frames to save to disk (for animations)
 # decimals: how many decimal points to keep fixed
 # shake: the maximum movement for a single interation
-# 
+#
 def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.2,
                 max_temp = 0.4, min_temp = 0,
                 ramp_in = False, ramp_out = False, freeze_for = 0,
@@ -429,7 +429,7 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
 #
 # function to load a dataset, and then perturb it
 # start_dataset is a string, and one of ['dino', 'rando', 'slant', 'big_slant']
-# 
+#
 
 def do_single_run(start_dataset, target, iterations=100000, decimals=2, num_frames=100):
     global it_count
@@ -449,8 +449,8 @@ def print_stats(df):
     print ("Y SD: ", df.y.std())
     print ("Pearson correlation: ", df.corr().x.y)
 
-# run <shape_start> <shape_end> [<iters>][<decimals>]
-if __name__ == '__main__':
+def main():
+    # run <shape_start> <shape_end> [<iters>][<decimals>]
     arguments = docopt(__doc__, version='Same Stats 1.0')
     if arguments['run']:
         it = 100000
@@ -473,3 +473,5 @@ if __name__ == '__main__':
             print("shape_start must be one of ", initial_datasets)
             print("shape_end must be one of ", all_targets)
 
+if __name__ == '__main__':
+    main()

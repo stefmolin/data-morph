@@ -1,6 +1,6 @@
 """
 Usage:
-    same_stats.py run <shape_start> <shape_end> [<iters>][<decimals>][<frames>]
+    samestats run <shape_start> <shape_end> [<iters>][<decimals>][<frames>]
 
     This is code created for the paper:
     Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing
@@ -11,7 +11,8 @@ Usage:
     For any questions, please contact Justin Matejka (Justin.Matejka@Autodesk.com)
 
     The most basic way to try this out is to run a command like this from the command line:
-    python same_stats.py dino circle
+
+        > samestats run dino circle
 
     That will start with the Dinosaurus dataset, and morph it into a circle.
 
@@ -23,8 +24,7 @@ Usage:
 """
 
 
-from __future__ import division
-from __future__ import print_function
+from __future__ import division, print_function
 
 import warnings
 warnings.simplefilter(action = "ignore", category = FutureWarning)
@@ -32,15 +32,16 @@ warnings.simplefilter(action = "ignore", category = UserWarning)
 
 import os
 import sys
+import math
+import operator
+import itertools
+import pkg_resources as pkg
 
 import pandas as pd
 import seaborn as sns
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import math
-import operator
-import itertools
 
 from scipy import stats
 
@@ -69,18 +70,29 @@ initial_datasets = ['dino', 'rando', 'slant', 'big_slant']
 
 #
 # these are the initial datasets which are used in the paper
-# 
+#
 def load_dataset(name="dino"):
+    DATASETS = {
+        'dino': 'Datasaurus_data.csv',
+        'rando': 'random_cloud.csv',
+        'slant': 'slanted_less.csv',
+        'big_slant': 'less_angled_blob.csv',
+    }
+    dataset_filename = DATASETS.get(name)
+    if dataset_filename is None:
+        raise ValueError('Unknown dataset {}'.format(name))
+
+    stream = pkg.resource_stream('samestats.datasets.seed', dataset_filename)
     if name == "dino":
-        df = pd.read_csv("seed_datasets/Datasaurus_data.csv", header=None, names=['x','y'])
+        df = pd.read_csv(stream, header=None, names=['x','y'])
     elif name == "rando":
-        df = pd.read_csv("seed_datasets/random_cloud.csv")
+        df = pd.read_csv(stream)
         df = df[['x', 'y']]
     elif name == "slant":
-    	df = pd.read_csv("seed_datasets/slanted_less.csv")
-    	df = df[['x', 'y']]
+        df = pd.read_csv(stream)
+        df = df[['x', 'y']]
     elif name == "big_slant":
-        df = pd.read_csv("seed_datasets/less_angled_blob.csv")
+        df = pd.read_csv(stream)
         df = df[['x', 'y']]
         df = df.clip(1, 99)
 
@@ -88,7 +100,7 @@ def load_dataset(name="dino"):
 
 #
 # This function calculates the summary statistics for the given set of points
-# 
+#
 def get_values(df):
     xm = df.x.mean()
     ym = df.y.mean()
@@ -289,7 +301,7 @@ def perturb(df, initial, target='circle',
     i_xm = df['x'][row]
     i_ym = df['y'][row]
 
-    # this is the simulated annealing step, if "do_bad", then we are willing to 
+    # this is the simulated annealing step, if "do_bad", then we are willing to
     # accept a new state which is worse than the current one
     do_bad = np.random.random_sample() < temp
 
@@ -341,7 +353,7 @@ def perturb(df, initial, target='circle',
         # or, if it is less than our allowed distance
         # or, if we are do_bad, that means we are accpeting it no matter what
         # if one of these conditions are met, jump out of the loop
-        if ((new_dist < old_dist or new_dist < allowed_dist or do_bad) and 
+        if ((new_dist < old_dist or new_dist < allowed_dist or do_bad) and
             ym > y_bounds[0] and ym < y_bounds[1] and xm > x_bounds[0] and xm < x_bounds[1]):
             break
 
@@ -370,7 +382,7 @@ def is_kernel():
 # num_frames: how many frames to save to disk (for animations)
 # decimals: how many decimal points to keep fixed
 # shake: the maximum movement for a single interation
-# 
+#
 def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.2,
                 max_temp = 0.4, min_temp = 0,
                 ramp_in = False, ramp_out = False, freeze_for = 0,
@@ -418,7 +430,7 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
             r_good = test_good
 
         # save this chart to the file
-        for x in xrange(write_frames.count(i)):
+        for x in range(write_frames.count(i)):
             save_scatter_and_results(r_good, target + "-image-"+format(int(frame_count), '05'), 150, labels = labels)
             #save_scatter(r_good, target + "-image-"+format(int(frame_count), '05'), 150)
             r_good.to_csv(target + "-data-" + format(int(frame_count), '05') + ".csv")
@@ -429,7 +441,7 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
 #
 # function to load a dataset, and then perturb it
 # start_dataset is a string, and one of ['dino', 'rando', 'slant', 'big_slant']
-# 
+#
 
 def do_single_run(start_dataset, target, iterations=100000, decimals=2, num_frames=100):
     global it_count
@@ -449,8 +461,8 @@ def print_stats(df):
     print ("Y SD: ", df.y.std())
     print ("Pearson correlation: ", df.corr().x.y)
 
-# run <shape_start> <shape_end> [<iters>][<decimals>]
-if __name__ == '__main__':
+def main():
+    # run <shape_start> <shape_end> [<iters>][<decimals>]
     arguments = docopt(__doc__, version='Same Stats 1.0')
     if arguments['run']:
         it = 100000
@@ -473,3 +485,5 @@ if __name__ == '__main__':
             print("shape_start must be one of ", initial_datasets)
             print("shape_end must be one of ", all_targets)
 
+if __name__ == '__main__':
+    main()

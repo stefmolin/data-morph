@@ -1,6 +1,6 @@
 """
 Usage:
-    same_stats.py run <shape_start> <shape_end> [<iters>][<decimals>][<frames>]
+    samestats run <shape_start> <shape_end> [<iters>][<decimals>][<frames>]
 
     This is code created for the paper:
     Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing
@@ -11,7 +11,8 @@ Usage:
     For any questions, please contact Justin Matejka (Justin.Matejka@Autodesk.com)
 
     The most basic way to try this out is to run a command like this from the command line:
-    python same_stats.py dino circle
+
+        > samestats run dino circle
 
     That will start with the Dinosaurus dataset, and morph it into a circle.
 
@@ -23,8 +24,7 @@ Usage:
 """
 
 
-from __future__ import division
-from __future__ import print_function
+from __future__ import division, print_function
 
 import warnings
 warnings.simplefilter(action = "ignore", category = FutureWarning)
@@ -32,15 +32,16 @@ warnings.simplefilter(action = "ignore", category = UserWarning)
 
 import os
 import sys
+import math
+import operator
+import itertools
+import pkg_resources as pkg
 
 import pandas as pd
 import seaborn as sns
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import math
-import operator
-import itertools
 
 from scipy import stats
 
@@ -71,16 +72,27 @@ initial_datasets = ['dino', 'rando', 'slant', 'big_slant']
 # these are the initial datasets which are used in the paper
 #
 def load_dataset(name="dino"):
+    DATASETS = {
+        'dino': 'Datasaurus_data.csv',
+        'rando': 'random_cloud.csv',
+        'slant': 'slanted_less.csv',
+        'big_slant': 'less_angled_blob.csv',
+    }
+    dataset_filename = DATASETS.get(name)
+    if dataset_filename is None:
+        raise ValueError('Unknown dataset {}'.format(name))
+
+    stream = pkg.resource_stream('samestats.datasets.seed', dataset_filename)
     if name == "dino":
-        df = pd.read_csv("seed_datasets/Datasaurus_data.csv", header=None, names=['x','y'])
+        df = pd.read_csv(stream, header=None, names=['x','y'])
     elif name == "rando":
-        df = pd.read_csv("seed_datasets/random_cloud.csv")
+        df = pd.read_csv(stream)
         df = df[['x', 'y']]
     elif name == "slant":
-    	df = pd.read_csv("seed_datasets/slanted_less.csv")
-    	df = df[['x', 'y']]
+        df = pd.read_csv(stream)
+        df = df[['x', 'y']]
     elif name == "big_slant":
-        df = pd.read_csv("seed_datasets/less_angled_blob.csv")
+        df = pd.read_csv(stream)
         df = df[['x', 'y']]
         df = df.clip(1, 99)
 
@@ -418,7 +430,7 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
             r_good = test_good
 
         # save this chart to the file
-        for x in xrange(write_frames.count(i)):
+        for x in range(write_frames.count(i)):
             save_scatter_and_results(r_good, target + "-image-"+format(int(frame_count), '05'), 150, labels = labels)
             #save_scatter(r_good, target + "-image-"+format(int(frame_count), '05'), 150)
             r_good.to_csv(target + "-data-" + format(int(frame_count), '05') + ".csv")

@@ -389,13 +389,6 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
                 labels=["X Mean", "Y Mean", "X SD", "Y SD", "Corr."],
                 reset_counts = False, custom_points = False):
 
-    global frame_count
-    global it_count
-
-    if reset_counts:
-        it_count = 0
-        frame_count = 0
-
     r_good = df.copy()
 
     # this is a list of frames that we will end up writing to file
@@ -416,6 +409,7 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
     if is_kernel():
         looper = tnrange
 
+    frame_count = 0
     # this is the main loop, were we run for many iterations to come up with the pattern
     for i in looper(iters+1, leave=True, ascii=True, desc=target + " pattern"):
         t = (max_temp - min_temp) * s_curve(((iters-i)/iters)) + min_temp
@@ -430,12 +424,13 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
             r_good = test_good
 
         # save this chart to the file
-        for x in range(write_frames.count(i)):
-            save_scatter_and_results(r_good, target + "-image-"+format(int(frame_count), '05'), 150, labels = labels)
-            #save_scatter(r_good, target + "-image-"+format(int(frame_count), '05'), 150)
-            r_good.to_csv(target + "-data-" + format(int(frame_count), '05') + ".csv")
+        for _ in range(write_frames.count(i)):
+            save_scatter_and_results(r_good, '{}-image-{:05d}'.format(target, frame_count), 150, labels = labels)
+            #save_scatter(r_good, "{}-image-{:05d}".format(target, frame_count), 150)
+            r_good.to_csv("{}-data-{:05d}.csv".format(target, frame_count))
 
-            frame_count = frame_count + 1
+            frame_count += 1
+
     return r_good
 
 #
@@ -444,11 +439,6 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
 #
 
 def do_single_run(start_dataset, target, iterations=100000, decimals=2, num_frames=100):
-    global it_count
-    global frame_count
-    it_count = 0
-    frame_count = 0
-
     df = load_dataset(start_dataset)
     temp = run_pattern(df, target, iters=iterations, num_frames=num_frames)
     return temp

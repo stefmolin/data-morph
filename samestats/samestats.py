@@ -199,7 +199,13 @@ def distance_point_line(px, py, x1, y1, x2, y2):
 
 
 def save_scatter(df, iteration, dp=72):
-    """Save the plot to an image file"""
+    """Save the plot to an image file
+
+    Args:
+        df (pd.DataFrame):  The data set to plot
+        iteration (int):    The iteration count
+        dp (int):           The DPI of the plot
+    """
     show_scatter(df)
     plt.savefig('{}.png'.format(iteration), dpi=dp)
     plt.clf()
@@ -207,19 +213,45 @@ def save_scatter(df, iteration, dp=72):
     plt.close()
 
 
-def save_scatter_and_results(df, iter, dp=72, labels=["X Mean", "Y Mean", "X SD", "Y SD", "Corr."]):
+DEFAULT_RESULT_LABELS = ("X Mean", "Y Mean", "X SD", "Y SD", "Corr.")
+
+
+def save_scatter_and_results(df, iteration, dp=72, labels=DEFAULT_RESULT_LABELS):
+    """Save the plot with statistical summary embedded to an image file
+
+    Args:
+        df (pd.DataFrame):  The data set to plot
+        iteration (int):    The iteration count
+        dp (int):           The DPI of the plot
+        labels (list[str]): The labels to use on the plot for statistical data
+    """
     show_scatter_and_results(df, labels=labels)
-    plt.savefig(str(iter) + ".png", dpi=dp)
+    plt.savefig(str(iteration) + ".png", dpi=dp)
     plt.clf()
     plt.cla()
     plt.close()
 
 
-# create a plot of the data
 def show_scatter(df, xlim=(-5, 105), ylim=(-5, 105), color="black", marker="o", reg_fit=False):
-    sns.regplot("x", y="y", data=df, ci=None, fit_reg=reg_fit, marker=marker,
-           scatter_kws={"s": 50, "alpha": 0.7, "color":color},
-                line_kws={"linewidth":4, "color":"red"})
+    """Create a scatter plot of the data
+
+    Args:
+        df (pd.DataFrame):      The data set to plot
+        xlim ((float, float)):  The x-axis limits
+        ylim ((float, float)):  The y-axis limits
+        color (str):            The color of the scatter points
+        marker (str):           The marker style for the scatter points
+        reg_fit (bool):         Whether to plot a linear regression on the graph
+    """
+    sns.regplot(
+        x="x",
+        y="y",
+        data=df,
+        ci=None,
+        fit_reg=reg_fit,
+        marker=marker,
+        scatter_kws={"s": 50, "alpha": 0.7, "color": color},
+        line_kws={"linewidth": 4, "color": "red"})
     plt.xlim(xlim)
     plt.ylim(ylim)
     plt.tight_layout()

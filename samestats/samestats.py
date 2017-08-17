@@ -126,17 +126,24 @@ def get_values(df):
 
     return [xm, ym, xsd, ysd, pc]
 
-#
-# checks to see if the statistics are still within the acceptable bounds
-# with df1 as the original dataset, and df2 as the one we are testing
-#
+
 def is_error_still_ok(df1, df2, decimals=2):
+    """Checks to see if the statistics are still within the acceptable bounds
+
+    Args:
+        df1 (pd.DataFrame): The original data set
+        df2 (pd.DataFrame): The test data set
+        decimals (int):     The number of decimals of precision to check
+
+    Returns:
+        bool: ``True`` if the maximum error is acceptable, ``False`` otherwise
+    """
     r1 = get_values(df1)
     r2 = get_values(df2)
 
     # check each of the error values to check if they are the same to the correct number of decimals
-    r1 = [math.floor(r*10**decimals) for r in r1]
-    r2 = [math.floor(r*10**decimals) for r in r2]
+    r1 = [math.floor(r * 10**decimals) for r in r1]
+    r2 = [math.floor(r * 10**decimals) for r in r2]
 
     # we are good if r1 and r2 have the same numbers
     er = np.subtract(r1, r2)

@@ -69,8 +69,7 @@ LINE_SHAPES = [
     'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
     'slant_down', 'center', 'star', 'down_parab'
 ]
-ALL_TARGETS = list(LINE_SHAPES)
-ALL_TARGETS.extend(['circle', 'bullseye', 'dots'])
+ALL_TARGETS = LINE_SHAPES + ['circle', 'bullseye', 'dots']
 INITIAL_DATASETS = ['dino', 'rando', 'slant', 'big_slant']
 
 #

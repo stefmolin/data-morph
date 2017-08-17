@@ -47,22 +47,26 @@ from scipy import stats
 import pytweening
 from tqdm import *
 from docopt import docopt
-
 # setting up the style for the charts
 sns.set_style("darkgrid")
 mpl.rcParams['font.size'] = 12.0
 mpl.rcParams['font.family'] = 'monospace'
 mpl.rcParams['font.weight'] = 'normal'
-mpl.rcParams['font.sans-serif'] = (
-    'Helveitca', 'Bitstream Vera Sans', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Avant Garde',
-    'sans-serif')
-mpl.rcParams['font.monospace'] = (
-    'Decima Mono', 'Bitstream Vera Sans Mono', 'Andale Mono', 'Nimbus Mono L', 'Courier New', 'Courier', 'Fixed',
-    'Terminal', 'monospace')
+mpl.rcParams['font.sans-serif'] = ('Helveitca', 'Bitstream Vera Sans',
+                                   'Lucida Grande', 'Verdana', 'Geneva',
+                                   'Lucid', 'Arial', 'Avant Garde',
+                                   'sans-serif')
+mpl.rcParams['font.monospace'] = ('Decima Mono', 'Bitstream Vera Sans Mono',
+                                  'Andale Mono', 'Nimbus Mono L',
+                                  'Courier New', 'Courier', 'Fixed',
+                                  'Terminal', 'monospace')
 mpl.rcParams['text.color'] = '#222222'
 mpl.rcParams['pdf.fonttype'] = 42
 
-line_shapes = ['x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up', 'slant_down', 'center', 'star', 'down_parab']
+line_shapes = [
+    'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
+    'slant_down', 'center', 'star', 'down_parab'
+]
 all_targets = list(line_shapes)
 all_targets.extend(['circle', 'bullseye', 'dots'])
 initial_datasets = ['dino', 'rando', 'slant', 'big_slant']

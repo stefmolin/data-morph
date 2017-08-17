@@ -23,12 +23,11 @@ Usage:
     will have the project hosted on GitHub so it is easier to share.
 """
 
-
 from __future__ import division, print_function
 
 import warnings
-warnings.simplefilter(action = "ignore", category = FutureWarning)
-warnings.simplefilter(action = "ignore", category = UserWarning)
+warnings.simplefilter(action="ignore", category=FutureWarning)
+warnings.simplefilter(action="ignore", category=UserWarning)
 
 import os
 import sys

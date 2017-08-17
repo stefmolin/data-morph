@@ -108,10 +108,16 @@ def load_dataset(name="dino"):
 
     return df.copy()
 
-#
-# This function calculates the summary statistics for the given set of points
-#
+
 def get_values(df):
+    """Calculates the summary statistics for the given set of points
+
+    Args:
+        df (pd.DataFrame): A ``DataFrame`` with ``x`` and ``y`` columns
+
+    Returns:
+        list: ``[x-mean, y-mean, x-stdev, y-stdev, correlation]``
+    """
     xm = df.x.mean()
     ym = df.y.mean()
     xsd = df.x.std()

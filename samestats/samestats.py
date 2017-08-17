@@ -47,21 +47,23 @@ from scipy import stats
 import pytweening
 from tqdm import *
 from docopt import docopt
-# setting up the style for the charts
-sns.set_style("darkgrid")
-mpl.rcParams['font.size'] = 12.0
-mpl.rcParams['font.family'] = 'monospace'
-mpl.rcParams['font.weight'] = 'normal'
-mpl.rcParams['font.sans-serif'] = ('Helveitca', 'Bitstream Vera Sans',
-                                   'Lucida Grande', 'Verdana', 'Geneva',
-                                   'Lucid', 'Arial', 'Avant Garde',
-                                   'sans-serif')
-mpl.rcParams['font.monospace'] = ('Decima Mono', 'Bitstream Vera Sans Mono',
-                                  'Andale Mono', 'Nimbus Mono L',
-                                  'Courier New', 'Courier', 'Fixed',
-                                  'Terminal', 'monospace')
-mpl.rcParams['text.color'] = '#222222'
-mpl.rcParams['pdf.fonttype'] = 42
+
+
+def plot_settings():
+    style = sns.axes_style('darkgrid')
+    style['font.size'] = 12.0
+    style['font.family'] = 'monospace'
+    style['font.weight'] = 'normal'
+    style['font.sans-serif'] = ('Helveitca', 'Bitstream Vera Sans',
+                                'Lucida Grande', 'Verdana', 'Geneva', 'Lucid',
+                                'Arial', 'Avant Garde', 'sans-serif')
+    style['font.monospace'] = ('Decima Mono', 'Bitstream Vera Sans Mono',
+                               'Andale Mono', 'Nimbus Mono L', 'Courier New',
+                               'Courier', 'Fixed', 'Terminal', 'monospace')
+    style['text.color'] = '#222222'
+    style['pdf.fonttype'] = 42
+    return style
+
 
 line_shapes = [
     'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
@@ -458,25 +460,26 @@ def main():
     # run <shape_start> <shape_end> [<iters>][<decimals>]
     arguments = docopt(__doc__, version='Same Stats 1.0')
     if arguments['run']:
-        it = 100000
-        de = 2
-        frames = 100
-        if arguments['<iters>']:
-            it = int(arguments['<iters>'])
-        if arguments['<decimals>']:
-            de = int(arguments['<decimals>'])
-        if arguments['<decimals>']:
-            frames = int(arguments['<frames>'])
+        with plot_settings():
+            it = 100000
+            de = 2
+            frames = 100
+            if arguments['<iters>']:
+                it = int(arguments['<iters>'])
+            if arguments['<decimals>']:
+                de = int(arguments['<decimals>'])
+            if arguments['<decimals>']:
+                frames = int(arguments['<frames>'])
 
-        shape_start = arguments['<shape_start>']
-        shape_end = arguments['<shape_end>']
+            shape_start = arguments['<shape_start>']
+            shape_end = arguments['<shape_end>']
 
-        if shape_start in initial_datasets and shape_end in all_targets:
-            do_single_run(shape_start, shape_end, iterations=it, decimals=de, num_frames=frames)
-        else:
-            print ("************* One of those shapes isn't correct:")
-            print("shape_start must be one of ", initial_datasets)
-            print("shape_end must be one of ", all_targets)
+            if shape_start in initial_datasets and shape_end in all_targets:
+                do_single_run(shape_start, shape_end, iterations=it, decimals=de, num_frames=frames)
+            else:
+                print ("************* One of those shapes isn't correct:")
+                print("shape_start must be one of ", initial_datasets)
+                print("shape_end must be one of ", all_targets)
 
 if __name__ == '__main__':
     main()

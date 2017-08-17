@@ -65,13 +65,13 @@ def plot_settings():
     return style
 
 
-line_shapes = [
+LINE_SHAPES = [
     'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
     'slant_down', 'center', 'star', 'down_parab'
 ]
-all_targets = list(line_shapes)
-all_targets.extend(['circle', 'bullseye', 'dots'])
-initial_datasets = ['dino', 'rando', 'slant', 'big_slant']
+ALL_TARGETS = list(LINE_SHAPES)
+ALL_TARGETS.extend(['circle', 'bullseye', 'dots'])
+INITIAL_DATASETS = ['dino', 'rando', 'slant', 'big_slant']
 
 #
 # these are the initial datasets which are used in the paper
@@ -347,7 +347,7 @@ def perturb(df, initial, target='circle',
             old_dist = np.min([dist([x,y], [df['x'][row], df['y'][row]]) for x,y in itertools.product(xs, ys)])
             new_dist = np.min([dist([x,y], [xm, ym]) for x,y in itertools.product(xs, ys)])
 
-        elif target in line_shapes:
+        elif target in LINE_SHAPES:
             lines = get_points_for_shape(target)
 
             # calculate how far the point is from the closest one of these
@@ -419,7 +419,7 @@ def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.
     for i in looper(iters+1, leave=True, ascii=True, desc=target + " pattern"):
         t = (max_temp - min_temp) * s_curve(((iters-i)/iters)) + min_temp
 
-        if target in all_targets:
+        if target in ALL_TARGETS:
             test_good = perturb(r_good.copy(), initial=df, target=target, temp=t)
         else:
             raise Exception("bah, that's not a proper type of pattern")
@@ -474,12 +474,12 @@ def main():
             shape_start = arguments['<shape_start>']
             shape_end = arguments['<shape_end>']
 
-            if shape_start in initial_datasets and shape_end in all_targets:
+            if shape_start in INITIAL_DATASETS and shape_end in ALL_TARGETS:
                 do_single_run(shape_start, shape_end, iterations=it, decimals=de, num_frames=frames)
             else:
                 print ("************* One of those shapes isn't correct:")
-                print("shape_start must be one of ", initial_datasets)
-                print("shape_end must be one of ", all_targets)
+                print("shape_start must be one of ", INITIAL_DATASETS)
+                print("shape_end must be one of ", ALL_TARGETS)
 
 if __name__ == '__main__':
     main()

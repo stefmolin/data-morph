@@ -94,7 +94,7 @@ def load_dataset(name="dino"):
 
     stream = pkg.resource_stream('samestats.datasets.seed', dataset_filename)
     if name == "dino":
-        df = pd.read_csv(stream, header=None, names=['x','y'])
+        df = pd.read_csv(stream, header=None, names=['x', 'y'])
     elif name == "rando":
         df = pd.read_csv(stream)
         df = df[['x', 'y']]

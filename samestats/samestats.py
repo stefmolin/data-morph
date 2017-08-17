@@ -197,13 +197,15 @@ def distance_point_line(px, py, x1, y1, x2, y2):
 
     return distance
 
-# save the plot to an image file
-def save_scatter(df, iter, dp=72):
+
+def save_scatter(df, iteration, dp=72):
+    """Save the plot to an image file"""
     show_scatter(df)
-    plt.savefig(str(iter) + ".png", dpi=dp)
+    plt.savefig('{}.png'.format(iteration), dpi=dp)
     plt.clf()
     plt.cla()
     plt.close()
+
 
 def save_scatter_and_results(df, iter, dp=72, labels=["X Mean", "Y Mean", "X SD", "Y SD", "Corr."]):
     show_scatter_and_results(df, labels=labels)

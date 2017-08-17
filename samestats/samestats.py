@@ -161,40 +161,41 @@ def line_magnitude(x1, y1, x2, y2):
         x2 (float): The x coordinate of the second point
         y2 (float): The y coordinate of the second point
     """
-    line_magnitude = math.sqrt(math.pow((x2 - x1), 2) + math.pow((y2 - y1), 2))
-    return line_magnitude
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
-#
-# This function calcualtes the minimum distance between a point and a line, used
-# to determine if the points are getting closer to the target
-#
-def DistancePointLine (px, py, x1, y1, x2, y2):
-    #http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
-    LineMag = line_magnitude(x1, y1, x2, y2)
 
-    if LineMag < 0.00000001:
-        DistancePointLine = 9999
-        return DistancePointLine
+def distance_point_line(px, py, x1, y1, x2, y2):
+    """Calculates the minimum distance between a point and a line, used to
+    determine if the points are getting closer to the target. Implementation
+    based on `this VBA code`_
+
+    .. this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
+    """
+    line_mag = line_magnitude(x1, y1, x2, y2)
+
+    if line_mag < 0.00000001:
+        # Arbitrarily large value
+        return 9999
 
     u1 = (((px - x1) * (x2 - x1)) + ((py - y1) * (y2 - y1)))
-    u = u1 / (LineMag * LineMag)
+    u = u1 / (line_mag * line_mag)
 
     if (u < 0.00001) or (u > 1):
-        #// closest point does not fall within the line segment, take the shorter distance
-        #// to an endpoint
+        # closest point does not fall within the line segment, take the shorter
+        # distance to an endpoint
         ix = line_magnitude(px, py, x1, y1)
         iy = line_magnitude(px, py, x2, y2)
         if ix > iy:
-            DistancePointLine = iy
+            distance = iy
         else:
-            DistancePointLine = ix
+            distance = ix
     else:
         # Intersecting point is on the line, use the formula
         ix = x1 + u * (x2 - x1)
         iy = y1 + u * (y2 - y1)
-        DistancePointLine = line_magnitude(px, py, ix, iy)
+        distance = line_magnitude(px, py, ix, iy)
 
-    return DistancePointLine
+    return distance
 
 # save the plot to an image file
 def save_scatter(df, iter, dp=72):
@@ -376,8 +377,8 @@ def perturb(df, initial, target='circle',
             lines = get_points_for_shape(target)
 
             # calculate how far the point is from the closest one of these
-            old_dist = np.min([DistancePointLine(i_xm, i_ym, l[0][0], l[0][1], l[1][0], l[1][1]) for l in lines])
-            new_dist = np.min([DistancePointLine(xm, ym, l[0][0], l[0][1], l[1][0], l[1][1]) for l in lines])
+            old_dist = np.min([distance_point_line(i_xm, i_ym, l[0][0], l[0][1], l[1][0], l[1][1]) for l in lines])
+            new_dist = np.min([distance_point_line(xm, ym, l[0][0], l[0][1], l[1][0], l[1][1]) for l in lines])
 
         # check if the new distance is closer than the old distance
         # or, if it is less than our allowed distance

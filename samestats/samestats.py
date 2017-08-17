@@ -152,10 +152,17 @@ def is_error_still_ok(df1, df2, decimals=2):
     return np.max(er) == 0
 
 
+def line_magnitude(x1, y1, x2, y2):
+    """Calculates the distance between ``(x1, y1)`` and ``(x2, y2)``
 
-def lineMagnitude (x1, y1, x2, y2):
-    lineMagnitude = math.sqrt(math.pow((x2 - x1), 2)+ math.pow((y2 - y1), 2))
-    return lineMagnitude
+    Args:
+        x1 (float): The x coordinate of the first point
+        y1 (float): The y coordinate of the first point
+        x2 (float): The x coordinate of the second point
+        y2 (float): The y coordinate of the second point
+    """
+    line_magnitude = math.sqrt(math.pow((x2 - x1), 2) + math.pow((y2 - y1), 2))
+    return line_magnitude
 
 #
 # This function calcualtes the minimum distance between a point and a line, used
@@ -163,7 +170,7 @@ def lineMagnitude (x1, y1, x2, y2):
 #
 def DistancePointLine (px, py, x1, y1, x2, y2):
     #http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
-    LineMag = lineMagnitude(x1, y1, x2, y2)
+    LineMag = line_magnitude(x1, y1, x2, y2)
 
     if LineMag < 0.00000001:
         DistancePointLine = 9999
@@ -175,8 +182,8 @@ def DistancePointLine (px, py, x1, y1, x2, y2):
     if (u < 0.00001) or (u > 1):
         #// closest point does not fall within the line segment, take the shorter distance
         #// to an endpoint
-        ix = lineMagnitude(px, py, x1, y1)
-        iy = lineMagnitude(px, py, x2, y2)
+        ix = line_magnitude(px, py, x1, y1)
+        iy = line_magnitude(px, py, x2, y2)
         if ix > iy:
             DistancePointLine = iy
         else:
@@ -185,7 +192,7 @@ def DistancePointLine (px, py, x1, y1, x2, y2):
         # Intersecting point is on the line, use the formula
         ix = x1 + u * (x2 - x1)
         iy = y1 + u * (y2 - y1)
-        DistancePointLine = lineMagnitude(px, py, ix, iy)
+        DistancePointLine = line_magnitude(px, py, ix, iy)
 
     return DistancePointLine
 

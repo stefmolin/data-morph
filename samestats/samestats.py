@@ -72,10 +72,16 @@ LINE_SHAPES = [
 ALL_TARGETS = LINE_SHAPES + ['circle', 'bullseye', 'dots']
 INITIAL_DATASETS = ['dino', 'rando', 'slant', 'big_slant']
 
-#
-# these are the initial datasets which are used in the paper
-#
+
 def load_dataset(name="dino"):
+    """Loads the example data sets used in the paper.
+
+    Args:
+        name (str): One of 'dino', 'rando', 'slant', or 'big_slant'
+
+    Returns:
+        pd.DataFrame: A ``DataFrame`` with ``x`` and ``y`` columns
+    """
     DATASETS = {
         'dino': 'Datasaurus_data.csv',
         'rando': 'random_cloud.csv',

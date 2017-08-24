@@ -22,8 +22,8 @@ Usage:
     That will start with the Dinosaurus dataset, and morph it into a circle.
 
     I have stripped out some of the functionality for some examples in the
-    paper, for the time being, to make the code easeier to follow. If you would
-    like the dirty, perhaps unrunnable for you, code, contact me and I can get
+    paper, for the time being, to make the code easier to follow. If you would
+    like the dirty, perhaps un-runnable for you, code, contact me and I can get
     it to you. I will be adding all that functionality back in, in a more
     reasonable way shortly, and will have the project hosted on GitHub so it is
     easier to share.
@@ -315,7 +315,7 @@ def average_location(pairs):
 
 
 def get_points_for_shape(line_shape):
-    """These are the hardcoded shapes which we perturb towards. It would useful
+    """These are the hard-coded shapes which we perturb towards. It would useful
     to have a tool for drawing these shapes instead
     """
     lines = []
@@ -457,7 +457,7 @@ def perturb(
 
         # check if the new distance is closer than the old distance
         # or, if it is less than our allowed distance
-        # or, if we are do_bad, that means we are accpeting it no matter what
+        # or, if we are do_bad, that means we are accepting it no matter what
         # if one of these conditions are met, jump out of the loop
         close_enough = (new_dist < old_dist or new_dist < allowed_dist or do_bad)
         within_bounds = ym > y_bounds[0] and ym < y_bounds[1] and xm > x_bounds[0] and xm < x_bounds[1]
@@ -475,6 +475,8 @@ def s_curve(v):
 
 
 def is_kernel():
+    """Detects if running in an IPython session
+    """
     if 'IPython' not in sys.modules:
         # IPython hasn't been imported, definitely not
         return False
@@ -482,82 +484,111 @@ def is_kernel():
     # check for `kernel` attribute on the IPython instance
     return getattr(get_ipython(), 'kernel', None) is not None
 
-#
-# this is the main fucntion, for taking one datset and perturbing it into a target shape
-# df: the initial dataset
-# target: the shape we are aiming for
-# iters: how many iterations to run the algorithm for
-# num_frames: how many frames to save to disk (for animations)
-# decimals: how many decimal points to keep fixed
-# shake: the maximum movement for a single interation
-#
-def run_pattern(df, target, iters = 100000, num_frames=100, decimals=2, shake=0.2,
-                max_temp = 0.4, min_temp = 0,
-                ramp_in = False, ramp_out = False, freeze_for = 0,
-                labels=["X Mean", "Y Mean", "X SD", "Y SD", "Corr."],
-                reset_counts = False, custom_points = False):
 
+def run_pattern(df,
+                target,
+                iters=100000,
+                num_frames=100,
+                decimals=2,
+                shake=0.2,
+                max_temp=0.4,
+                min_temp=0,
+                ramp_in=False,
+                ramp_out=False,
+                freeze_for=0,
+                reset_counts=False,
+                custom_points=False):
+    """The main function, transforms one dataset into a target shape by
+    perturbing it.
+
+    Args:
+        df: the initial dataset
+        target: the shape we are aiming for
+        iters: how many iterations to run the algorithm for
+        num_frames: how many frames to save to disk (for animations)
+        decimals: how many decimal points to keep fixed
+        shake: the maximum movement for a single iteration
+    """
     r_good = df.copy()
 
     # this is a list of frames that we will end up writing to file
-    write_frames = [int(round(pytweening.linear(x) * iters)) for x in np.arange(0, 1, 1/(num_frames-freeze_for))]
+    write_frames = [
+        int(round(pytweening.linear(x) * iters))
+        for x in np.arange(0, 1, 1 / (num_frames - freeze_for))
+    ]
 
     if ramp_in and not ramp_out:
-        write_frames = [int(round(pytweening.easeInSine(x) * iters)) for x in np.arange(0, 1, 1/(num_frames-freeze_for))]
+        write_frames = [
+            int(round(pytweening.easeInSine(x) * iters))
+            for x in np.arange(0, 1, 1 / (num_frames - freeze_for))
+        ]
     elif ramp_out and not ramp_in:
-        write_frames = [int(round(pytweening.easeOutSine(x) * iters)) for x in np.arange(0, 1, 1/(num_frames-freeze_for))]
+        write_frames = [
+            int(round(pytweening.easeOutSine(x) * iters))
+            for x in np.arange(0, 1, 1 / (num_frames - freeze_for))
+        ]
     elif ramp_out and ramp_in:
-        write_frames = [int(round(pytweening.easeInOutSine(x) * iters)) for x in np.arange(0, 1, 1/(num_frames-freeze_for))]
+        write_frames = [
+            int(round(pytweening.easeInOutSine(x) * iters))
+            for x in np.arange(0, 1, 1 / (num_frames - freeze_for))
+        ]
 
     extras = [iters] * freeze_for
     write_frames.extend(extras)
 
-    # this gets us the nice progress bars in the notbook, but keeps it from crashing
-    looper = trange
-    if is_kernel():
-        looper = tnrange
+    # this gets us the nice progress bars in the notebook, but keeps it from crashing
+    looper = tqdm.tnrange if is_kernel() else tqdm.trange
 
     frame_count = 0
     # this is the main loop, were we run for many iterations to come up with the pattern
-    for i in looper(iters+1, leave=True, ascii=True, desc=target + " pattern"):
-        t = (max_temp - min_temp) * s_curve(((iters-i)/iters)) + min_temp
+    for i in looper(
+            iters + 1, leave=True, ascii=True, desc=target + " pattern"):
+        t = (max_temp - min_temp) * s_curve(((iters - i) / iters)) + min_temp
 
         if target in ALL_TARGETS:
-            test_good = perturb(r_good.copy(), initial=df, target=target, temp=t)
+            test_good = perturb(
+                r_good.copy(), initial=df, target=target, temp=t)
         else:
             raise Exception("bah, that's not a proper type of pattern")
 
-        # here we are checking that after the purturbation, that the statistics are still within the allowable bounds
+        # here we are checking that after the perturbation, that the statistics are still within the allowable bounds
         if is_error_still_ok(df, test_good, decimals):
             r_good = test_good
 
         # save this chart to the file
         for _ in range(write_frames.count(i)):
-            save_scatter_and_results(r_good, '{}-image-{:05d}'.format(target, frame_count), 150, labels = labels)
-            #save_scatter(r_good, "{}-image-{:05d}".format(target, frame_count), 150)
+            save_scatter_and_results(
+                r_good,
+                '{}-image-{:05d}'.format(target, frame_count),
+                150)
+            # save_scatter(r_good, "{}-image-{:05d}".format(target, frame_count), 150)
             r_good.to_csv("{}-data-{:05d}.csv".format(target, frame_count))
 
             frame_count += 1
 
     return r_good
 
-#
-# function to load a dataset, and then perturb it
-# start_dataset is a string, and one of ['dino', 'rando', 'slant', 'big_slant']
-#
 
 def do_single_run(start_dataset, target, iterations=100000, decimals=2, num_frames=100):
+    """Loads a dataset, and then perturbs it.
+
+    ``start_dataset`` is a string, and one of::
+
+        ['dino', 'rando', 'slant', 'big_slant']
+    """
     df = load_dataset(start_dataset)
     temp = run_pattern(df, target, iters=iterations, num_frames=num_frames)
     return temp
 
+
 def print_stats(df):
-    print ("N: ", len(df))
-    print ("X mean: ", df.x.mean())
-    print ("X SD: ", df.x.std())
-    print ("Y mean: ", df.y.mean())
-    print ("Y SD: ", df.y.std())
-    print ("Pearson correlation: ", df.corr().x.y)
+    print("N: ", len(df))
+    print("X mean: ", df.x.mean())
+    print("X SD: ", df.x.std())
+    print("Y mean: ", df.y.mean())
+    print("Y SD: ", df.y.std())
+    print("Pearson correlation: ", df.corr().x.y)
+
 
 def main():
     # run <shape_start> <shape_end> [<iters>][<decimals>]
@@ -580,9 +611,10 @@ def main():
             if shape_start in INITIAL_DATASETS and shape_end in ALL_TARGETS:
                 do_single_run(shape_start, shape_end, iterations=it, decimals=de, num_frames=frames)
             else:
-                print ("************* One of those shapes isn't correct:")
+                print("************* One of those shapes isn't correct:")
                 print("shape_start must be one of ", INITIAL_DATASETS)
                 print("shape_end must be one of ", ALL_TARGETS)
+
 
 if __name__ == '__main__':
     import warnings

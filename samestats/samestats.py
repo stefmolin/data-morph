@@ -296,19 +296,28 @@ def show_scatter_and_results(df):
 
 
 def dist(p1, p2):
+    """Calculates the euclidean distance between ``p1`` and ``p2`` where these
+    are 2-tuples (or lists, numpy arrays, etc).
+
+    Args:
+        p1 ((float, float)): The first point
+        p2 ((float, float)): The second point
+    """
     return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
 
 
 def average_location(pairs):
-    xs = [p[0] for p in pairs]
-    ys = [p[1] for p in pairs]
-    return [np.mean(xs), np.mean(ys)]
+    """Calculates the average of all the x-coordinates and y-coordinates of the
+    pairs given. In other words, if ``pairs`` is a list of ``[(x_i, y_i)]``
+    points, then this calculates ``[(mean(x_i), mean(y_i))]``.
+    """
+    return np.mean(pairs, axis=1)
 
-#
-# These are the hardcoded shapes which we perturb towards. It would useful to have
-# a tool for drawing these shapes instead
-#
+
 def get_points_for_shape(line_shape):
+    """These are the hardcoded shapes which we perturb towards. It would useful
+    to have a tool for drawing these shapes instead
+    """
     lines = []
     if line_shape == 'x':
         l1 = [[20, 0], [100, 100]]
@@ -346,14 +355,19 @@ def get_points_for_shape(line_shape):
         l1 = [[cx, cy], [cx, cy]]
         lines = [l1]
     elif line_shape == 'star':
-        star_pts = [10,40,40,40,50,10,60,40,90,40,65,60,75,90,50,70,25,90,35,60]
-        pts = [star_pts[i:i+2] for i in range(0, len(star_pts), 2)]
-        pts = [[p[0]*0.8 + 20, 100 - p[1]] for p in pts]
+        star_pts = [
+            10, 40, 40, 40, 50, 10, 60, 40, 90, 40, 65, 60, 75, 90, 50, 70, 25,
+            90, 35, 60
+        ]
+        pts = [star_pts[i:i + 2] for i in range(0, len(star_pts), 2)]
+        pts = [[p[0] * 0.8 + 20, 100 - p[1]] for p in pts]
         pts.append(pts[0])
-        lines = [pts[i:i+2] for i in range(0, len(pts)-1, 1)]
+        lines = [pts[i:i + 2] for i in range(0, len(pts) - 1, 1)]
     elif line_shape == 'down_parab':
-        curve = [[x, -((x-50)/4)**2 + 90] for x in np.arange(0, 100, 3)]
-        lines = [curve[i:i+2] for i in range(0, len(curve)-1, 1)]
+        curve = [[x, -((x - 50) / 4)**2 + 90] for x in np.arange(0, 100, 3)]
+        lines = [curve[i:i + 2] for i in range(0, len(curve) - 1, 1)]
+    else:
+        raise ValueError(line_shape)
 
     return lines
 

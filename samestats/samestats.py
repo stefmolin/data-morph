@@ -10,7 +10,7 @@ Usage:
     ACM CHI 2017
 
     The paper, video, and associated code and datasets can be found on the
-    Autodesk Research website: http://www.autodeskresearch.com/papers/samestats
+    Autodesk Research website: https://www.autodeskresearch.com/publications/samestats
 
     For any questions, please contact Justin Matejka (Justin.Matejka@Autodesk.com)
 

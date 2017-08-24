@@ -12,6 +12,7 @@ Currently this project is not available in any package repository like PyPI or
 Anaconda, so you will have to install from source:
 
     $ git clone https://github.com/jmatejka/same-stats-different-graphs
+    $ cd same-stats-different-graphs
     $ python setup.py install
 
 This should download all dependencies, but just in case it's difficult to get

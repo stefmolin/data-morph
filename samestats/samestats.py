@@ -369,21 +369,25 @@ def get_points_for_shape(line_shape):
     return lines
 
 
-#
-# This is the function which does one round of perturbation
-# df: is the current dataset
-# initial: is the original dataset
-# target: is the name of the target shape
-# shake: the maximum amount of movement in each iteration
-#
-def perturb(df, initial, target='circle',
-            line_error = 1.5,
-            shake=0.1,
-            allowed_dist = 3, # should be 2, just making it bigger for the sp example
-            temp = 0,
-            x_bounds=[0, 100], y_bounds=[0, 100],
-            custom_points = None):
+def perturb(
+        df,
+        initial,
+        target='circle',
+        line_error=1.5,
+        shake=0.1,
+        allowed_dist=3,  # should be 2, just making it bigger for the sp example
+        temp=0,
+        x_bounds=[0, 100],
+        y_bounds=[0, 100],
+        custom_points=None):
+    """This is the function which does one round of perturbation
 
+    Args:
+        df: is the current dataset
+        initial: is the original dataset
+        target: is the name of the target shape
+        shake: the maximum amount of movement in each iteration
+    """
     # take one row at random, and move one of the points a bit
     row = np.random.randint(0, len(df))
     i_xm = df['x'][row]
@@ -394,8 +398,8 @@ def perturb(df, initial, target='circle',
     do_bad = np.random.random_sample() < temp
 
     while True:
-        xm = i_xm + np.random.randn()*shake
-        ym = i_ym + np.random.randn()*shake
+        xm = i_xm + np.random.randn() * shake
+        ym = i_ym + np.random.randn() * shake
 
         if target == 'circle':
             # info for the circle
@@ -427,22 +431,37 @@ def perturb(df, initial, target='circle',
             xs = [25, 50, 75]
             ys = [20, 50, 80]
 
-            old_dist = np.min([dist([x,y], [df['x'][row], df['y'][row]]) for x,y in itertools.product(xs, ys)])
-            new_dist = np.min([dist([x,y], [xm, ym]) for x,y in itertools.product(xs, ys)])
+            old_dist = np.min([
+                dist([x, y], [df['x'][row], df['y'][row]])
+                for x, y in itertools.product(xs, ys)
+            ])
+            new_dist = np.min([
+                dist([x, y], [xm, ym])
+                for x, y in itertools.product(xs, ys)
+            ])
 
         elif target in LINE_SHAPES:
             lines = get_points_for_shape(target)
 
             # calculate how far the point is from the closest one of these
-            old_dist = np.min([distance_point_line(i_xm, i_ym, l[0][0], l[0][1], l[1][0], l[1][1]) for l in lines])
-            new_dist = np.min([distance_point_line(xm, ym, l[0][0], l[0][1], l[1][0], l[1][1]) for l in lines])
+            old_dist = np.min([
+                distance_point_line(i_xm, i_ym, l[0][0], l[0][1], l[1][0], l[1][1])
+                for l in lines
+            ])
+            new_dist = np.min([
+                distance_point_line(xm, ym, l[0][0], l[0][1], l[1][0], l[1][1])
+                for l in lines
+            ])
+        else:
+            raise ValueError(target)
 
         # check if the new distance is closer than the old distance
         # or, if it is less than our allowed distance
         # or, if we are do_bad, that means we are accpeting it no matter what
         # if one of these conditions are met, jump out of the loop
-        if ((new_dist < old_dist or new_dist < allowed_dist or do_bad) and
-            ym > y_bounds[0] and ym < y_bounds[1] and xm > x_bounds[0] and xm < x_bounds[1]):
+        close_enough = (new_dist < old_dist or new_dist < allowed_dist or do_bad)
+        within_bounds = ym > y_bounds[0] and ym < y_bounds[1] and xm > x_bounds[0] and xm < x_bounds[1]
+        if close_enough and within_bounds:
             break
 
     # set the new data point, and return the set
@@ -450,10 +469,11 @@ def perturb(df, initial, target='circle',
     df['y'][row] = ym
     return df
 
+
 def s_curve(v):
     return pytweening.easeInOutQuad(v)
 
-import sys
+
 def is_kernel():
     if 'IPython' not in sys.modules:
         # IPython hasn't been imported, definitely not

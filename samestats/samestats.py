@@ -3,49 +3,47 @@ Usage:
     samestats run <shape_start> <shape_end> [<iters>][<decimals>][<frames>]
 
     This is code created for the paper:
-    Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing
+    Same Stats, Different Graphs: Generating Datasets with Varied Appearance and
+    Identical Statistics through Simulated Annealing
+
     Justin Matejka and George Fitzmaurice
     ACM CHI 2017
 
-    The paper, video, and associated code and datasets can be found on the Autodesk Research website: http://www.autodeskresearch.com/papers/samestats
+    The paper, video, and associated code and datasets can be found on the
+    Autodesk Research website: http://www.autodeskresearch.com/papers/samestats
+
     For any questions, please contact Justin Matejka (Justin.Matejka@Autodesk.com)
 
-    The most basic way to try this out is to run a command like this from the command line:
+    The most basic way to try this out is to run a command like this from the
+    command line::
 
         > samestats run dino circle
 
     That will start with the Dinosaurus dataset, and morph it into a circle.
 
+    I have stripped out some of the functionality for some examples in the
+    paper, for the time being, to make the code easeier to follow. If you would
+    like the dirty, perhaps unrunnable for you, code, contact me and I can get
+    it to you. I will be adding all that functionality back in, in a more
+    reasonable way shortly, and will have the project hosted on GitHub so it is
+    easier to share.
 
-    I have stripped out some of the functionality for some examples in the paper, for the time being, to make
-    the code easeier to follow. If you would like the dirty, perhaps unrunnable for you, code, contact me and
-    I can get it to you. I will be adding all that functionality back in, in a more reasonable way shortly, and
-    will have the project hosted on GitHub so it is easier to share.
 """
 
 from __future__ import division, print_function
 
-import warnings
-warnings.simplefilter(action="ignore", category=FutureWarning)
-warnings.simplefilter(action="ignore", category=UserWarning)
-
-import os
 import sys
 import math
-import operator
 import itertools
 import pkg_resources as pkg
 
 import pandas as pd
 import seaborn as sns
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scipy import stats
-
 import pytweening
-from tqdm import *
+import tqdm
 from docopt import docopt
 
 
@@ -141,7 +139,8 @@ def is_error_still_ok(df1, df2, decimals=2):
     r1 = get_values(df1)
     r2 = get_values(df2)
 
-    # check each of the error values to check if they are the same to the correct number of decimals
+    # check each of the error values to check if they are the same to the
+    # correct number of decimals
     r1 = [math.floor(r * 10**decimals) for r in r1]
     r2 = [math.floor(r * 10**decimals) for r in r2]
 
@@ -213,19 +212,15 @@ def save_scatter(df, iteration, dp=72):
     plt.close()
 
 
-DEFAULT_RESULT_LABELS = ("X Mean", "Y Mean", "X SD", "Y SD", "Corr.")
-
-
-def save_scatter_and_results(df, iteration, dp=72, labels=DEFAULT_RESULT_LABELS):
+def save_scatter_and_results(df, iteration, dp=72):
     """Save the plot with statistical summary embedded to an image file
 
     Args:
         df (pd.DataFrame):  The data set to plot
         iteration (int):    The iteration count
         dp (int):           The DPI of the plot
-        labels (list[str]): The labels to use on the plot for statistical data
     """
-    show_scatter_and_results(df, labels=labels)
+    show_scatter_and_results(df)
     plt.savefig(str(iteration) + ".png", dpi=dp)
     plt.clf()
     plt.cla()
@@ -256,11 +251,17 @@ def show_scatter(df, xlim=(-5, 105), ylim=(-5, 105), color="black", marker="o", 
     plt.ylim(ylim)
     plt.tight_layout()
 
-# create a plot which shows both the plot, and the text of the summary statistics
-def show_scatter_and_results(df, labels=["X Mean", "Y Mean", "X SD", "Y SD", "Corr."]):
+
+def show_scatter_and_results(df):
+    """Creates a plot which shows both the plot and the statistical summary
+
+    Args:
+        df (pd.DataFrame):  The data set to plot
+        labels (List[str]): The labels to use for
+    """
     plt.figure(figsize=(12, 5))
     sns.regplot("x", y="y", data=df, ci=None, fit_reg=False,
-                scatter_kws={"s": 50, "alpha": 0.7, "color":"black"})
+                scatter_kws={"s": 50, "alpha": 0.7, "color": "black"})
     plt.xlim(-5, 105)
     plt.ylim(-5, 105)
     plt.tight_layout()
@@ -268,24 +269,35 @@ def show_scatter_and_results(df, labels=["X Mean", "Y Mean", "X SD", "Y SD", "Co
     res = get_values(df)
     fs = 30
     y_off = -5
+
+    labels = ("X Mean", "Y Mean", "X SD", "Y SD", "Corr.")
     max_label_length = max([len(l) for l in labels])
 
-    plt.text(110, y_off + 80, labels[0].ljust(max_label_length) + ": " + format(res[0], "0.9f")[:-2], fontsize=fs, alpha=0.3)
-    plt.text(110, y_off + 65, labels[1].ljust(max_label_length) + ": " + format(res[1], "0.9f")[:-2], fontsize=fs, alpha=0.3)
-    plt.text(110, y_off + 50, labels[2].ljust(max_label_length) + ": " + format(res[2], "0.9f")[:-2], fontsize=fs, alpha=0.3)
-    plt.text(110, y_off + 35, labels[3].ljust(max_label_length) + ": " + format(res[3], "0.9f")[:-2], fontsize=fs, alpha=0.3)
-    plt.text(110, y_off + 20, labels[4].ljust(max_label_length) + ": " + format(res[4], "+.9f")[:-2], fontsize=fs, alpha=0.3)
+    # If `max_label_length = 10`, this string will be "{:<10}: {:0.9f}", then we
+    # can pull the `.format` method for that string to reduce typing it
+    # repeatedly
+    formatter = '{{:<{pad}}}: {{:0.9f}}'.format(pad=max_label_length).format
+    corr_formatter = '{{:<{pad}}}: {{:+.9f}}'.format(pad=max_label_length).format
 
-    plt.text(110, y_off + 80, labels[0].ljust(max_label_length) + ": " + format(res[0], ".9f")[:-7], fontsize=fs, alpha=1)
-    plt.text(110, y_off + 65, labels[1].ljust(max_label_length) + ": " + format(res[1], "0.9f")[:-7], fontsize=fs, alpha=1)
-    plt.text(110, y_off + 50, labels[2].ljust(max_label_length) + ": " + format(res[2], "0.9f")[:-7], fontsize=fs, alpha=1)
-    plt.text(110, y_off + 35, labels[3].ljust(max_label_length) + ": " + format(res[3], "0.9f")[:-7], fontsize=fs, alpha=1)
-    plt.text(110, y_off + 20, labels[4].ljust(max_label_length) + ": " + format(res[4], "+.9f")[:-7], fontsize=fs, alpha=1)
+    opts = dict(fontsize=fs, alpha=0.3)
+    plt.text(110, y_off + 80, formatter(labels[0], res[0])[:-2], **opts)
+    plt.text(110, y_off + 65, formatter(labels[1], res[1])[:-2], **opts)
+    plt.text(110, y_off + 50, formatter(labels[2], res[2])[:-2], **opts)
+    plt.text(110, y_off + 35, formatter(labels[3], res[3])[:-2], **opts)
+    plt.text(110, y_off + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-2], **opts)
+
+    opts['alpha'] = 1
+    plt.text(110, y_off + 80, formatter(labels[0], res[0])[:-7], **opts)
+    plt.text(110, y_off + 65, formatter(labels[1], res[1])[:-7], **opts)
+    plt.text(110, y_off + 50, formatter(labels[2], res[2])[:-7], **opts)
+    plt.text(110, y_off + 35, formatter(labels[3], res[3])[:-7], **opts)
+    plt.text(110, y_off + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-7], **opts)
     plt.tight_layout(rect=[0, 0, 0.57, 1])
 
 
 def dist(p1, p2):
-    return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
+    return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
 
 def average_location(pairs):
     xs = [p[0] for p in pairs]
@@ -542,4 +554,7 @@ def main():
                 print("shape_end must be one of ", ALL_TARGETS)
 
 if __name__ == '__main__':
+    import warnings
+    warnings.simplefilter(action="ignore", category=FutureWarning)
+    warnings.simplefilter(action="ignore", category=UserWarning)
     main()

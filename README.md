@@ -52,3 +52,8 @@ uploaded to PyPI and Anaconda, if possible, and the documentation uploaded to
 We may also look into providing an easy-to-use API for generating these types of
 data sets from your own data, with the goal of making it easy to generate good
 test data for use in unit tests.
+
+Another goal is to provide an API for "anonymizing" data sets. If the desired
+statistical properties can be preserved while adding noise to the underlying
+values, this could be a useful technique for protecting the privacy of study
+participants or users when publishing a dataset online.

@@ -11,6 +11,7 @@ from PIL import Image
 from . import MAIN_DIR
 from .stats import get_values
 
+
 def plot_with_custom_style(plotting_function):
     @wraps(plotting_function)
     def plot_in_style(*args, **kwargs):

@@ -16,7 +16,6 @@ statistics to a given number of decimal points through simulated annealing.
 
 import argparse
 import itertools
-from importlib.resources import files
 import math
 import os
 import sys
@@ -28,45 +27,18 @@ import pytweening
 import seaborn as sns
 import tqdm
 
+from .load_data import load_dataset
 from .plotting import plot, stitch_gif_animation
 from .stats import get_values
 
 
 # TODO: make a constants file or something for this stuff
-MAIN_DIR = 'data_morph'
-DATASETS = {
-    'dino': 'dino.csv',
-}
 LINE_SHAPES = [
     'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
     'slant_down', 'center', 'star', 'down_parab'
 ]
 ALL_TARGETS = LINE_SHAPES + ['circle', 'bullseye', 'dots']
 
-
-def load_dataset(dataset):
-    """Loads the example data sets used in the paper.
-
-    Args:
-        name (str): One of 'dino', 'rando', 'slant', or 'big_slant'
-
-    Returns:
-        pd.DataFrame: A ``DataFrame`` with ``x`` and ``y`` columns
-    """
-    try:
-        return dataset, pd.read_csv(files(MAIN_DIR).joinpath(f'data/{DATASETS[dataset]}'))
-    except KeyError:
-        try:
-            # TODO: for custom datasets we need to scale it to be within the 
-            # bounds of the target datasets or find a map to map the logic to
-            # target dataset values dynamically
-            return os.path.splitext(os.path.basename(dataset))[0], pd.read_csv(dataset)
-        except FileNotFoundError:
-            raise ValueError(
-                f'Unknown dataset "{dataset}". '
-                'Provide a valid path to a CSV dataset or use one of '
-                f'the included datasets: {", ".join(DATASETS.keys())}.'
-            )
 
 def is_error_still_ok(df1, df2, decimals=2):
     """Checks to see if the statistics are still within the acceptable bounds
@@ -402,7 +374,7 @@ def run_pattern(start_shape,
                 r_good,
                 save_to=os.path.join(output_dir, f'{start_shape_name}-to-{target}-image-{frame_count:05d}.png'),
                 dpi=150
-            ) # TODO: add name of starting item to filenames
+            )
             if write_data:
                 r_good.to_csv(os.path.join(output_dir, f'{start_shape_name}-to-{target}-data-{frame_count:05d}.csv'))
 
@@ -429,16 +401,22 @@ def main():
         )
     )
     parser.add_argument(
-        'target_shape', nargs='+',
+        '--target-shape', nargs='*', default='all',
         help=(
             'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
-            'will be converted to each target shape separately. TODO: pass all option'
+            'will be converted to each target shape separately. Valid target shapes are '
+            f'{", ".join(ALL_TARGETS)}. Omit to convert to all target shapes in a single run.'
         )
     )
-    parser.add_argument('--iterations', default=100000, type=int, help='The number of iterations to run.')
-    parser.add_argument('--decimals', default=2, type=int, help='The number of decimal places to preserve equality.')
     parser.add_argument(
-        '--output-dir', default=os.path.join(os.getcwd(), 'morphed_data'), help='Path to a directory for writing output files.'
+        '--iterations', default=100000, type=int, help='The number of iterations to run.'
+    )
+    parser.add_argument(
+        '--decimals', default=2, type=int, help='The number of decimal places to preserve equality.'
+    )
+    parser.add_argument(
+        '--output-dir', default=os.path.join(os.getcwd(), 'morphed_data'), 
+        help='Path to a directory for writing output files.'
     )
     parser.add_argument(
         '--keep-frames', default=False, action='store_true',
@@ -451,9 +429,16 @@ def main():
 
     args = parser.parse_args()
 
-    target_shapes = ALL_TARGETS if args.target_shape == ['all'] else set(args.target_shape).intersection(ALL_TARGETS)
+    target_shapes = (
+        ALL_TARGETS
+        if args.target_shape == 'all'
+        else set(args.target_shape).intersection(ALL_TARGETS)
+    )
     if not target_shapes:
-        raise ValueError('No valid target shapes were provided.') # TODO print options here too
+        raise ValueError(
+            'No valid target shapes were provided. Valid options are '
+            f'{", ".join(ALL_TARGETS)}.'
+        )
 
     start_shape = load_dataset(args.start_shape)
 

@@ -13,25 +13,29 @@ DATASETS = {
 }
 
 def load_dataset(dataset, bounds):
-    """Loads the example data sets used in the paper.
+    """
+    Load dataset and apply normalization.
 
-    Args:
-        name (str): One of 'dino', 'rando', 'slant', or 'big_slant'
+    Parameters
+    ----------
+    name : str
+        Either one of TODO or a path to a CSV file containing two columns: x and y.
 
-    Returns:
-        pd.DataFrame: A ``DataFrame`` with ``x`` and ``y`` columns
+    Returns
+    -------
+    pandas.DataFrame
     """
     try:
         return (
             dataset,
-            normalize_data(files(MAIN_DIR).joinpath(f'data/{DATASETS[dataset]}'), bounds)
+            read_normalize_data(files(MAIN_DIR).joinpath(f'data/{DATASETS[dataset]}'), bounds)
         )
     except KeyError:
         try:
             # TODO: for custom datasets we need to scale it to be within the 
             # bounds of the target datasets or find a map to map the logic to
             # target dataset values dynamically
-            return os.path.splitext(os.path.basename(dataset))[0], normalize_data(dataset, bounds)
+            return os.path.splitext(os.path.basename(dataset))[0], read_normalize_data(dataset, bounds)
         except FileNotFoundError:
             raise ValueError(
                 f'Unknown dataset "{dataset}". '
@@ -39,8 +43,8 @@ def load_dataset(dataset, bounds):
                 f'the included datasets: {", ".join(DATASETS.keys())}.'
             )
 
-def normalize_data(filepath, bounds):
-    # TODO: docstring
+def read_normalize_data(filepath, bounds):
+    
     a, b = bounds
     return pd.read_csv(filepath).assign(
         x=lambda df: a + (df.x - df.x.min()).multiply(b - a).div(df.x.max() - df.x.min()),

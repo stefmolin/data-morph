@@ -5,10 +5,12 @@ import os
 
 from .data_morph import run_pattern
 from .load_data import load_dataset
-from .shapes import ALL_TARGETS
+from .shapes import ShapeFactory
 
 
 def main():
+    ALL_TARGETS = ShapeFactory.AVAILABLE_SHAPES.keys()
+
     parser = argparse.ArgumentParser(
         prog='Data Morph',
         description=(
@@ -69,11 +71,13 @@ def main():
             f'{", ".join(ALL_TARGETS)}.'
         )
 
-    start_shape = load_dataset(args.start_shape)
+    start_shape_name, start_shape_data = load_dataset(args.start_shape)
+    shape_factory = ShapeFactory(start_shape_data)
 
     for target_shape in target_shapes:
         run_pattern(
-            start_shape, target_shape,
+            start_shape_name, start_shape_data,
+            shape_factory.generate_shape(target_shape),
             iters=args.iterations, decimals=args.decimals,
             output_dir=args.output_dir, keep_frames=args.keep_frames, 
             write_data=args.write_data, seed=args.seed,

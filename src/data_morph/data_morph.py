@@ -28,7 +28,7 @@ import seaborn as sns
 import tqdm
 
 from .plotting import plot, stitch_gif_animation
-from .shapes import ALL_TARGETS, Bullseye, Circle, Dots, LINE_SHAPES
+from .shapes import ShapeFactory
 from .stats import get_values
 
 
@@ -57,63 +57,6 @@ def is_error_still_ok(df1, df2, decimals=2):
 
     return np.max(er) == 0
 
-
-def line_magnitude(x1, y1, x2, y2):
-    """Calculates the distance between ``(x1, y1)`` and ``(x2, y2)``
-
-    Args:
-        x1 (float): The x coordinate of the first point
-        y1 (float): The y coordinate of the first point
-        x2 (float): The x coordinate of the second point
-        y2 (float): The y coordinate of the second point
-    """
-    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-
-
-def distance_point_line(px, py, x1, y1, x2, y2):
-    """Calculates the minimum distance between a point and a line, used to
-    determine if the points are getting closer to the target. Implementation
-    based on `this VBA code`_
-
-    .. this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
-    """
-    line_mag = line_magnitude(x1, y1, x2, y2)
-
-    if line_mag < 0.00000001:
-        # Arbitrarily large value
-        return 9999
-
-    u1 = (((px - x1) * (x2 - x1)) + ((py - y1) * (y2 - y1)))
-    u = u1 / (line_mag * line_mag)
-
-    if (u < 0.00001) or (u > 1):
-        # closest point does not fall within the line segment, take the shorter
-        # distance to an endpoint
-        ix = line_magnitude(px, py, x1, y1)
-        iy = line_magnitude(px, py, x2, y2)
-        if ix > iy:
-            distance = iy
-        else:
-            distance = ix
-    else:
-        # Intersecting point is on the line, use the formula
-        ix = x1 + u * (x2 - x1)
-        iy = y1 + u * (y2 - y1)
-        distance = line_magnitude(px, py, ix, iy)
-
-    return distance
-
-def dist(p1, p2):
-    """Calculates the Euclidean distance between ``p1`` and ``p2`` where these
-    are 2-tuples (or lists, numpy arrays, etc).
-
-    Args:
-        p1 ((float, float)): The first point
-        p2 ((float, float)): The second point
-    """
-    return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
-
-
 def average_location(pairs):
     """Calculates the average of all the x-coordinates and y-coordinates of the
     pairs given. In other words, if ``pairs`` is a list of ``[(x_i, y_i)]``
@@ -122,66 +65,9 @@ def average_location(pairs):
     return np.mean(pairs, axis=1)
 
 
-def get_points_for_shape(line_shape):
-    """These are the hard-coded shapes which we perturb towards. It would useful
-    to have a tool for drawing these shapes instead
-    """
-    lines = []
-    if line_shape == 'x':
-        l1 = [[20, 0], [100, 100]]
-        l2 = [[20, 100], [100, 0]]
-        lines = [l1, l2]
-    elif line_shape == "h_lines":
-        lines = [[[0, y], [100, y]] for y in [10, 30, 50, 70, 90]]
-    elif line_shape == 'v_lines':
-        lines = [[[x, 0], [x, 100]] for x in [10, 30, 50, 70, 90]]
-    elif line_shape == 'wide_lines':
-        l1 = [[10, 0], [10, 100]]
-        l2 = [[90, 0], [90, 100]]
-        lines = [l1, l2]
-    elif line_shape == 'high_lines':
-        l1 = [[0, 10], [100, 10]]
-        l2 = [[0, 90], [100, 90]]
-        lines = [l1, l2]
-    elif line_shape == 'slant_up':
-        l1 = [[0, 0], [100, 100]]
-        l2 = [[0, 30], [70, 100]]
-        l3 = [[30, 0], [100, 70]]
-        l4 = [[50, 0], [100, 50]]
-        l5 = [[0, 50], [50, 100]]
-        lines = [l1, l2, l3, l4, l5]
-    elif line_shape == 'slant_down':
-        l1 = [[0, 100], [100, 0]]
-        l2 = [[0, 70], [70, 0]]
-        l3 = [[30, 100], [100, 30]]
-        l4 = [[0, 50], [50, 0]]
-        l5 = [[50, 100], [100, 50]]
-        lines = [l1, l2, l3, l4, l5]
-    elif line_shape == 'center':
-        cx = 54.26
-        cy = 47.83
-        l1 = [[cx, cy], [cx, cy]]
-        lines = [l1]
-    elif line_shape == 'star':
-        star_pts = [10, 40, 40, 40, 50, 10, 60, 40, 90, 40, 65, 60, 75, 90, 50, 70, 25, 90, 35, 60]
-        pts = [star_pts[i:i + 2] for i in range(0, len(star_pts), 2)]
-        pts = [[p[0] * 0.8 + 20, 100 - p[1]] for p in pts]
-        pts.append(pts[0])
-        lines = [pts[i:i + 2] for i in range(0, len(pts) - 1, 1)]
-    elif line_shape == 'down_parab':
-        curve = [[x, -((x - 50) / 4)**2 + 90] for x in np.arange(0, 100, 3)]
-        lines = [curve[i:i + 2] for i in range(0, len(curve) - 1, 1)]
-    else:
-        raise ValueError(line_shape)
-
-    return lines
-
-
 def perturb(
         df,
-        initial,
         target, # TODO: pass in the shape object here
-        line_error=1.5,
         shake=0.1,
         allowed_dist=3,  # should be 2, just making it bigger for the sp example
         temp=0,
@@ -192,7 +78,7 @@ def perturb(
     Args:
         df: is the current dataset
         initial: is the original dataset
-        target: is the name of the target shape
+        target: is the target shape
         shake: the maximum amount of movement in each iteration
     """
     # take one row at random, and move one of the points a bit
@@ -208,49 +94,8 @@ def perturb(
         xm = i_xm + np.random.randn() * shake
         ym = i_ym + np.random.randn() * shake
 
-        if target == 'circle':
-            circle = Circle(
-                cx=initial.x.mean(),
-                cy=initial.y.mean(),
-                r=30, # TODO: think about how this could be calculated
-            )
-
-            old_dist = circle.distance(i_xm, i_ym)
-            new_dist = circle.distance(xm, ym)
-
-        elif target == 'bullseye':
-            bullseye = Bullseye(
-                cx=initial.x.mean(),
-                cy=initial.y.mean(),
-                rs=[18, 37], # TODO: think about how this could be calculated
-            )
-
-            old_dist = bullseye.distance(i_xm, i_ym)
-            new_dist = bullseye.distance(xm, ym)
-
-        elif target == 'dots':
-            dots = Dots(
-                xs=initial.x.quantile([0.05, 0.5, 0.95]).tolist(),
-                ys=initial.y.quantile([0.05, 0.5, 0.95]).tolist(),
-            )
-
-            old_dist = dots.distance(i_xm, i_ym)
-            new_dist = dots.distance(xm, ym)
-
-        elif target in LINE_SHAPES:
-            lines = get_points_for_shape(target)
-
-            # calculate how far the point is from the closest one of these
-            old_dist = np.min([
-                distance_point_line(i_xm, i_ym, l[0][0], l[0][1], l[1][0], l[1][1])
-                for l in lines
-            ])
-            new_dist = np.min([
-                distance_point_line(xm, ym, l[0][0], l[0][1], l[1][0], l[1][1])
-                for l in lines
-            ])
-        else:
-            raise ValueError(target)
+        old_dist = target.distance(i_xm, i_ym)
+        new_dist = target.distance(xm, ym)
 
         # check if the new distance is closer than the old distance
         # or, if it is less than our allowed distance
@@ -276,7 +121,8 @@ def is_kernel():
     # check for `kernel` attribute on the IPython instance
     return getattr(get_ipython(), 'kernel', None) is not None
 
-def run_pattern(start_shape,
+def run_pattern(start_shape_name,
+                start_shape_data,
                 target,
                 iters=100000,
                 num_frames=100,
@@ -300,10 +146,8 @@ def run_pattern(start_shape,
         num_frames: how many frames to save to disk (for animations)
         decimals: how many decimal points to keep fixed
     """
-    if target not in ALL_TARGETS:
-        raise ValueError(f'"{target}" is not a valid target shape.')
-
-    start_shape_name, df = start_shape
+    # TODO: be more consistent about passing around target_shape and target as string or object
+    df = start_shape_data # TODO: rename this everywhere
     r_good = df.copy()
 
     if seed is not None:
@@ -339,10 +183,10 @@ def run_pattern(start_shape,
 
     frame_count = 0
     # this is the main loop, were we run for many iterations to come up with the pattern
-    for i in looper(iters, leave=True, ascii=True, desc=target + " pattern"):
+    for i in looper(iters, leave=True, ascii=True, desc=f'{target} pattern'):
         t = (max_temp - min_temp) * pytweening.easeInOutQuad(((iters - i) / iters)) + min_temp
 
-        test_good = perturb(r_good.copy(), initial=df, target=target, temp=t)
+        test_good = perturb(r_good.copy(), target=target, temp=t)
 
         # here we are checking that after the perturbation, that the statistics are still within the allowable bounds
         if is_error_still_ok(df, test_good, decimals):

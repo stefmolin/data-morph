@@ -179,21 +179,6 @@ class WideLines(Lines):
         return 'wide_lines'
 
 
-class WideLines(Lines):
-    """Class for the wide lines shape."""
-
-    def __init__(self, data) -> None:
-        q1, q3 = data.x.quantile([0.25, 0.75])
-
-        super().__init__(
-            [[q1, 0], [q1, 100]],
-            [[q3, 0], [q3, 100]]
-        ) # TODO: figure out way to get 0, 100 min/max plus offset?
-
-    def __repr__(self) -> str:
-        return 'wide_lines'
-
-
 class HighLines(Lines):
     """Class for the high lines shape."""
 
@@ -204,9 +189,46 @@ class HighLines(Lines):
             [[0, q1], [100, q1]],
             [[0, q3], [100, q3]]
         ) # TODO: figure out way to get 0, 100 min/max plus offset?
+        # TODO q1, q3 works better on some datasets than others (might need to move it a little)
 
     def __repr__(self) -> str:
         return 'high_lines'
+
+
+class SlantUpLines(Lines):
+    """Class for the slant up lines shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.y.quantile([0.25, 0.75])
+
+        super().__init__(
+            [[0, 0], [100, 100]],
+            [[0, 30], [70, 100]],
+            [[30, 0], [100, 70]],
+            [[50, 0], [100, 50]],
+            [[0, 50], [50, 100]]
+        ) # TODO: figure out how to use the data to derive these
+
+    def __repr__(self) -> str:
+        return 'slant_up'
+
+
+class SlantDownLines(Lines):
+    """Class for the slant down lines shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.y.quantile([0.25, 0.75])
+
+        super().__init__(
+            [[0, 100], [100, 0]],
+            [[0, 70], [70, 0]],
+            [[30, 100], [100, 30]],
+            [[0, 50], [50, 0]],
+            [[50, 100], [100, 50]]
+        ) # TODO: figure out how to use the data to derive these
+
+    def __repr__(self) -> str:
+        return 'slant_down'
 
 
 # class Center(Lines): # TODO: does this even work?
@@ -229,6 +251,8 @@ class ShapeFactory:
         'v_lines': VerticalLines,
         'wide_lines': WideLines,
         'high_lines': HighLines,
+        'slant_up': SlantUpLines,
+        'slant_down': SlantDownLines,
         # 'center': Center,
     }
 
@@ -241,21 +265,6 @@ class ShapeFactory:
         except KeyError:
             raise ValueError(f'No such shape as {shape}.')
 
-
-#     elif line_shape == 'slant_up':
-#         l1 = [[0, 0], [100, 100]]
-#         l2 = [[0, 30], [70, 100]]
-#         l3 = [[30, 0], [100, 70]]
-#         l4 = [[50, 0], [100, 50]]
-#         l5 = [[0, 50], [50, 100]]
-#         lines = [l1, l2, l3, l4, l5]
-#     elif line_shape == 'slant_down':
-#         l1 = [[0, 100], [100, 0]]
-#         l2 = [[0, 70], [70, 0]]
-#         l3 = [[30, 100], [100, 30]]
-#         l4 = [[0, 50], [50, 0]]
-#         l5 = [[50, 100], [100, 50]]
-#         lines = [l1, l2, l3, l4, l5]
 #     elif line_shape == 'star':
 #         star_pts = [10, 40, 40, 40, 50, 10, 60, 40, 90, 40, 65, 60, 75, 90, 50, 70, 25, 90, 35, 60]
 #         pts = [star_pts[i:i + 2] for i in range(0, len(star_pts), 2)]

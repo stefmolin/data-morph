@@ -14,11 +14,9 @@ statistics to a given number of decimal points through simulated annealing.
     Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.
 """
 
-import itertools
 import math
 import os
 import sys
-from turtle import circle
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -28,9 +26,10 @@ import seaborn as sns
 import tqdm
 
 from .plotting import plot, stitch_gif_animation
-from .shapes import ShapeFactory
 from .stats import get_values
 
+
+# TODO: class that does the morphing
 
 def is_error_still_ok(df1, df2, decimals=2):
     """Checks to see if the statistics are still within the acceptable bounds

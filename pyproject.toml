@@ -48,3 +48,6 @@ where = ["src"]
 [tool.setuptools.package-data]
 "data_morph.data" = ["*"]
 "data_morph.config" = ["*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "data_morph.__version__"}

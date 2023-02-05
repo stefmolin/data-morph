@@ -42,5 +42,9 @@ dev = [
 [project.urls]
 source = "https://github.com/stefmolin/data-morph"
 
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.setuptools.package-data]
 "data_morph.data" = ["*"]
+"data_morph.config" = ["*"]

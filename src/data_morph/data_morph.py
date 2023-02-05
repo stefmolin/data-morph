@@ -15,9 +15,8 @@ statistics to a given number of decimal points through simulated annealing.
 """
 
 import argparse
-from functools import wraps
 import itertools
-from importlib.resources import files, as_file
+from importlib.resources import files
 import math
 import os
 import sys
@@ -29,10 +28,12 @@ import pytweening
 import seaborn as sns
 import tqdm
 
+from .plotting import plot, stitch_gif_animation
+from .stats import get_values
+
 
 # TODO: make a constants file or something for this stuff
 MAIN_DIR = 'data_morph'
-DATA_DIR = 'data'
 DATASETS = {
     'dino': 'dino.csv',
 }
@@ -41,18 +42,7 @@ LINE_SHAPES = [
     'slant_down', 'center', 'star', 'down_parab'
 ]
 ALL_TARGETS = LINE_SHAPES + ['circle', 'bullseye', 'dots']
-INITIAL_DATASETS = ['dino']
 
-
-def plot_with_custom_style(plotting_function):
-    @wraps(plotting_function)
-    def plot_in_style(*args, **kwargs):
-        style = files(MAIN_DIR).joinpath('plot_style.mplstyle')
-        with as_file(style) as style_path:
-            with plt.style.context(style_path):
-                output = plotting_function(*args, **kwargs)
-        return output
-    return plot_in_style
 
 def load_dataset(dataset):
     """Loads the example data sets used in the paper.
@@ -64,38 +54,19 @@ def load_dataset(dataset):
         pd.DataFrame: A ``DataFrame`` with ``x`` and ``y`` columns
     """
     try:
-        return pd.read_csv(files(MAIN_DIR).joinpath(f'{DATA_DIR}/{DATASETS[dataset]}'))
+        return dataset, pd.read_csv(files(MAIN_DIR).joinpath(f'data/{DATASETS[dataset]}'))
     except KeyError:
         try:
             # TODO: for custom datasets we need to scale it to be within the 
             # bounds of the target datasets or find a map to map the logic to
             # target dataset values dynamically
-            return pd.read_csv(dataset)
+            return os.path.splitext(os.path.basename(dataset))[0], pd.read_csv(dataset)
         except FileNotFoundError:
             raise ValueError(
                 f'Unknown dataset "{dataset}". '
                 'Provide a valid path to a CSV dataset or use one of '
                 f'the included datasets: {", ".join(DATASETS.keys())}.'
             )
-
-
-def get_values(df):
-    """Calculates the summary statistics for the given set of points
-
-    Args:
-        df (pd.DataFrame): A ``DataFrame`` with ``x`` and ``y`` columns
-
-    Returns:
-        list: ``[x-mean, y-mean, x-stdev, y-stdev, correlation]``
-    """
-    xm = df.x.mean()
-    ym = df.y.mean()
-    xsd = df.x.std()
-    ysd = df.y.std()
-    pc = df.corr().x.y
-
-    return [xm, ym, xsd, ysd, pc]
-
 
 def is_error_still_ok(df1, df2, decimals=2):
     """Checks to see if the statistics are still within the acceptable bounds
@@ -167,54 +138,6 @@ def distance_point_line(px, py, x1, y1, x2, y2):
         distance = line_magnitude(px, py, ix, iy)
 
     return distance
-
-@plot_with_custom_style
-def plot(df, save_to, **save_kwds):
-    """Creates a plot which shows both the plot and the statistical summary
-
-    Args:
-        df (pd.DataFrame):  The data set to plot
-    """
-    y_offset = 0
-    fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')
-    ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
-    ax.set(xlim=(0, 105), ylim=(y_offset, 105))
-
-    res = get_values(df)
-    fs = 30
-
-    labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
-    max_label_length = max([len(l) for l in labels])
-
-    # If `max_label_length = 10`, this string will be "{:<10}: {:0.9f}", then we
-    # can pull the `.format` method for that string to reduce typing it
-    # repeatedly
-    formatter = '{{:<{pad}}}: {{:0.9f}}'.format(pad=max_label_length).format
-    corr_formatter = '{{:<{pad}}}: {{:+.9f}}'.format(pad=max_label_length).format
-
-    opts = dict(fontsize=fs, alpha=0.3)
-    ax.text(110, y_offset + 80, formatter(labels[0], res[0])[:-2], **opts)
-    ax.text(110, y_offset + 65, formatter(labels[1], res[1])[:-2], **opts)
-    ax.text(110, y_offset + 50, formatter(labels[2], res[2])[:-2], **opts)
-    ax.text(110, y_offset + 35, formatter(labels[3], res[3])[:-2], **opts)
-    ax.text(110, y_offset + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-2], **opts)
-
-    opts['alpha'] = 1
-    ax.text(110, y_offset + 80, formatter(labels[0], res[0])[:-7], **opts)
-    ax.text(110, y_offset + 65, formatter(labels[1], res[1])[:-7], **opts)
-    ax.text(110, y_offset + 50, formatter(labels[2], res[2])[:-7], **opts)
-    ax.text(110, y_offset + 35, formatter(labels[3], res[3])[:-7], **opts)
-    ax.text(110, y_offset + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-7], **opts)
-
-    if not save_to:
-        return ax
-
-    dirname = os.path.dirname(save_to)
-    if not os.path.isdir(dirname):
-        os.makedirs(dirname)
-
-    fig.savefig(save_to, **save_kwds)
-    plt.close(fig)
 
 def dist(p1, p2):
     """Calculates the Euclidean distance between ``p1`` and ``p2`` where these
@@ -405,7 +328,7 @@ def is_kernel():
     return getattr(get_ipython(), 'kernel', None) is not None
 
 
-def run_pattern(df,
+def run_pattern(start_shape,
                 target,
                 iters=100000,
                 num_frames=100,
@@ -431,6 +354,7 @@ def run_pattern(df,
     if target not in ALL_TARGETS:
         raise ValueError(f'"{target}" is not a valid target shape.')
 
+    start_shape_name, df = start_shape
     r_good = df.copy()
 
     # this is a list of frames that we will end up writing to file
@@ -476,15 +400,15 @@ def run_pattern(df,
         for _ in range(write_frames.count(i)):
             plot(
                 r_good,
-                save_to=os.path.join(output_dir, f'{target}-image-{frame_count:05d}.png'),
+                save_to=os.path.join(output_dir, f'{start_shape_name}-to-{target}-image-{frame_count:05d}.png'),
                 dpi=150
-            )
+            ) # TODO: add name of starting item to filenames
             if write_data:
-                r_good.to_csv(os.path.join(output_dir, f'{target}-data-{frame_count:05d}.csv'))
+                r_good.to_csv(os.path.join(output_dir, f'{start_shape_name}-to-{target}-data-{frame_count:05d}.csv'))
 
             frame_count += 1
 
-    # TODO stitch together the animation and pass in keep_frames to determine whether frames should be deleted
+    stitch_gif_animation(output_dir, start_shape_name, target_shape=target, keep_frames=keep_frames)
     return r_good
 
 def main():
@@ -540,7 +464,3 @@ def main():
             output_dir=args.output_dir, keep_frames=args.keep_frames, 
             write_data=args.write_data, num_frames=100,
         )
-
-
-if __name__ == '__main__':
-    main()

@@ -164,6 +164,51 @@ class VerticalLines(Lines):
         return 'v_lines'
 
 
+class WideLines(Lines):
+    """Class for the wide lines shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.x.quantile([0.25, 0.75])
+
+        super().__init__(
+            [[q1, 0], [q1, 100]],
+            [[q3, 0], [q3, 100]]
+        ) # TODO: figure out way to get 0, 100 min/max plus offset?
+
+    def __repr__(self) -> str:
+        return 'wide_lines'
+
+
+class WideLines(Lines):
+    """Class for the wide lines shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.x.quantile([0.25, 0.75])
+
+        super().__init__(
+            [[q1, 0], [q1, 100]],
+            [[q3, 0], [q3, 100]]
+        ) # TODO: figure out way to get 0, 100 min/max plus offset?
+
+    def __repr__(self) -> str:
+        return 'wide_lines'
+
+
+class HighLines(Lines):
+    """Class for the high lines shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.y.quantile([0.25, 0.75])
+
+        super().__init__(
+            [[0, q1], [100, q1]],
+            [[0, q3], [100, q3]]
+        ) # TODO: figure out way to get 0, 100 min/max plus offset?
+
+    def __repr__(self) -> str:
+        return 'high_lines'
+
+
 # class Center(Lines): # TODO: does this even work?
 #     """Class for the center shape."""
 
@@ -182,6 +227,8 @@ class ShapeFactory:
         'x': XLines,
         'h_lines': HorizontalLines,
         'v_lines': VerticalLines,
+        'wide_lines': WideLines,
+        'high_lines': HighLines,
         # 'center': Center,
     }
 
@@ -195,14 +242,6 @@ class ShapeFactory:
             raise ValueError(f'No such shape as {shape}.')
 
 
-#     elif line_shape == 'wide_lines':
-#         l1 = [[10, 0], [10, 100]]
-#         l2 = [[90, 0], [90, 100]]
-#         lines = [l1, l2]
-#     elif line_shape == 'high_lines':
-#         l1 = [[0, 10], [100, 10]]
-#         l2 = [[0, 90], [100, 90]]
-#         lines = [l1, l2]
 #     elif line_shape == 'slant_up':
 #         l1 = [[0, 0], [100, 100]]
 #         l2 = [[0, 30], [70, 100]]

@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data_morph"
+authors = [
+    {name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com"},
+    {name = "Aaron Stevens", email = "bheklilr2@gmail.com"},
+    {name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com"}
+]
+description = "Teaching tool on the importance of data visualization."
+readme = "README.md"
+keywords = ["data visualization", "summary statistics", "data animation"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Framework :: Matplotlib",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: BSD License",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "matplotlib>=3.3",
+    "numpy>=1.20",
+    "pandas>=1.2",
+    "pytweening>=1.0.3",
+    "scipy>=1.10.0",
+    "seaborn>=0.11.2",
+    "tqdm>=4.64.1",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+]
+
+[project.urls]
+source = "https://github.com/stefmolin/data-morph"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"data_morph.data" = ["*"]
+"data_morph.config" = ["*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "data_morph.__version__"}

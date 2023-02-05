@@ -28,7 +28,7 @@ import seaborn as sns
 import tqdm
 
 from .plotting import plot, stitch_gif_animation
-from .shapes import ALL_TARGETS, Circle
+from .shapes import ALL_TARGETS, Bullseye, Circle, LINE_SHAPES
 from .stats import get_values
 
 
@@ -180,7 +180,7 @@ def get_points_for_shape(line_shape):
 def perturb(
         df,
         initial,
-        target,
+        target, # TODO: pass in the shape object here
         line_error=1.5,
         shake=0.1,
         allowed_dist=3,  # should be 2, just making it bigger for the sp example
@@ -211,9 +211,9 @@ def perturb(
         if target == 'circle':
             # info for the circle
             circle = Circle(
-                cx=54.26,
-                cy=47.83,
-                r=30,
+                cx=initial.x.mean(),
+                cy=initial.y.mean(),
+                r=30, # TODO: think about how this could be calculated
             )
 
             old_dist = circle.distance(i_xm, i_ym)
@@ -221,15 +221,14 @@ def perturb(
 
         elif target == 'bullseye':
             # info for the bullseye
-            cx = 54.26
-            cy = 47.83
-            rs = [18, 37]
+            bullseye = Bullseye(
+                cx=initial.x.mean(),
+                cy=initial.y.mean(),
+                rs=[18, 37], # TODO: think about how this could be calculated
+            )
 
-            dc1 = dist([df['x'][row], df['y'][row]], [cx, cy])
-            dc2 = dist([xm, ym], [cx, cy])
-
-            old_dist = np.min([abs(dc1 - r) for r in rs])
-            new_dist = np.min([abs(dc2 - r) for r in rs])
+            old_dist = bullseye.distance(i_xm, i_ym)
+            new_dist = bullseye.distance(xm, ym)
 
         elif target == 'dots':
             # create a grid of "cluster points" and move if you are getting closer

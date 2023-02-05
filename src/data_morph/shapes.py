@@ -39,3 +39,15 @@ class Circle(Shape):
             self._euclidean_distance((self.cx, self.cy), (x, y))
             - self.r
         )
+
+class Bullseye(Shape):
+    """Class representing a bullseye shape comprising two concentric circles."""
+
+    def __init__(self, cx, cy, rs):
+        self.circles = [
+            Circle(cx, cy, r)
+            for r in rs
+        ]
+
+    def distance(self, x, y) -> float:
+        return min(circle.distance(x, y) for circle in self.circles)

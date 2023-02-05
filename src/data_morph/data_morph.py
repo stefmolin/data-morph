@@ -14,11 +14,11 @@ statistics to a given number of decimal points through simulated annealing.
     Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.
 """
 
-import argparse
 import itertools
 import math
 import os
 import sys
+from turtle import circle
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -27,17 +27,9 @@ import pytweening
 import seaborn as sns
 import tqdm
 
-from .load_data import load_dataset
 from .plotting import plot, stitch_gif_animation
+from .shapes import ALL_TARGETS, Circle
 from .stats import get_values
-
-
-# TODO: make a constants file or something for this stuff
-LINE_SHAPES = [
-    'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
-    'slant_down', 'center', 'star', 'down_parab'
-]
-ALL_TARGETS = LINE_SHAPES + ['circle', 'bullseye', 'dots']
 
 
 def is_error_still_ok(df1, df2, decimals=2):
@@ -188,7 +180,7 @@ def get_points_for_shape(line_shape):
 def perturb(
         df,
         initial,
-        target='circle',
+        target,
         line_error=1.5,
         shake=0.1,
         allowed_dist=3,  # should be 2, just making it bigger for the sp example
@@ -218,15 +210,14 @@ def perturb(
 
         if target == 'circle':
             # info for the circle
-            cx = 54.26
-            cy = 47.83
-            r = 30
+            circle = Circle(
+                cx=54.26,
+                cy=47.83,
+                r=30,
+            )
 
-            dc1 = dist([df['x'][row], df['y'][row]], [cx, cy])
-            dc2 = dist([xm, ym], [cx, cy])
-
-            old_dist = abs(dc1 - r)
-            new_dist = abs(dc2 - r)
+            old_dist = circle.distance(i_xm, i_ym)
+            new_dist = circle.distance(xm, ym)
 
         elif target == 'bullseye':
             # info for the bullseye
@@ -312,7 +303,8 @@ def run_pattern(start_shape,
                 freeze_for=0,
                 output_dir='.',
                 write_data=False,
-                keep_frames=False):
+                keep_frames=False,
+                seed=None):
     """The main function, transforms one dataset into a target shape by
     perturbing it.
 
@@ -328,6 +320,9 @@ def run_pattern(start_shape,
 
     start_shape_name, df = start_shape
     r_good = df.copy()
+
+    if seed is not None:
+        np.random.seed(seed)
 
     # this is a list of frames that we will end up writing to file
     write_frames = [
@@ -382,70 +377,3 @@ def run_pattern(start_shape,
 
     stitch_gif_animation(output_dir, start_shape_name, target_shape=target, keep_frames=keep_frames)
     return r_good
-
-def main():
-    parser = argparse.ArgumentParser(
-        prog='Data Morph',
-        description=(
-            'Morph an input dataset of 2D points into select shapes, while '
-            'preserving the summary statistics to a given number of decimal '
-            'points through simulated annealing.'
-        ),
-        epilog = 'For example, python -m data_morph dino circle'
-    )
-    parser.add_argument(
-        'start_shape',
-        help=(
-            'The starting shape. This could be something in the data folder or '
-            'a path to a CSV file, in which case it should have two columns "x" and "y".'
-        )
-    )
-    parser.add_argument(
-        '--target-shape', nargs='*', default='all',
-        help=(
-            'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
-            'will be converted to each target shape separately. Valid target shapes are '
-            f'{", ".join(ALL_TARGETS)}. Omit to convert to all target shapes in a single run.'
-        )
-    )
-    parser.add_argument(
-        '--iterations', default=100000, type=int, help='The number of iterations to run.'
-    )
-    parser.add_argument(
-        '--decimals', default=2, type=int, help='The number of decimal places to preserve equality.'
-    )
-    parser.add_argument(
-        '--output-dir', default=os.path.join(os.getcwd(), 'morphed_data'), 
-        help='Path to a directory for writing output files.'
-    )
-    parser.add_argument(
-        '--keep-frames', default=False, action='store_true',
-        help='Whether to keep individual frame images in the output directory.'
-    )
-    parser.add_argument(
-        '--write-data', default=False, action='store_true',
-        help='Whether to write CSV files to the output directory with the data for each frame.'
-    )
-
-    args = parser.parse_args()
-
-    target_shapes = (
-        ALL_TARGETS
-        if args.target_shape == 'all'
-        else set(args.target_shape).intersection(ALL_TARGETS)
-    )
-    if not target_shapes:
-        raise ValueError(
-            'No valid target shapes were provided. Valid options are '
-            f'{", ".join(ALL_TARGETS)}.'
-        )
-
-    start_shape = load_dataset(args.start_shape)
-
-    for target_shape in target_shapes:
-        run_pattern(
-            start_shape, target_shape,
-            iters=args.iterations, decimals=args.decimals,
-            output_dir=args.output_dir, keep_frames=args.keep_frames, 
-            write_data=args.write_data, num_frames=100,
-        )

@@ -1,5 +1,6 @@
 """Utility functions for calculating summary statistics."""
 
+
 def get_values(df):
     """Calculates the summary statistics for the given set of points
 

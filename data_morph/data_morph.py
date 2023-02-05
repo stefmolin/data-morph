@@ -1,77 +1,60 @@
 """
-Usage:
-    samestats run <shape_start> <shape_end> [<iters>][<decimals>][<frames>]
+Morph an input dataset of 2D points into select shapes, while preserving the summary
+statistics to a given number of decimal points through simulated annealing.
 
-    This is code created for the paper:
-    Same Stats, Different Graphs: Generating Datasets with Varied Appearance and
-    Identical Statistics through Simulated Annealing
-
-    Justin Matejka and George Fitzmaurice
-    ACM CHI 2017
+.. note::
+    This code has been altered by Stefanie Molin to work for other input datasets
+    by parameterizing the target shapes with information from the input shape.
+    The original code works for a specific dataset called the "dinosaurus" and was created
+    for the paper "Same Stats, Different Graphs: Generating Datasets with Varied Appearance and
+    Identical Statistics through Simulated Annealing" by Justin Matejka and George Fitzmaurice
+    (ACM CHI 2017).
 
     The paper, video, and associated code and datasets can be found on the
-    Autodesk Research website: https://www.autodeskresearch.com/publications/samestats
-
-    For any questions, please contact Justin Matejka (Justin.Matejka@Autodesk.com)
-
-    The most basic way to try this out is to run a command like this from the
-    command line::
-
-        > samestats run dino circle
-
-    That will start with the Dinosaurus dataset, and morph it into a circle.
-
-    I have stripped out some of the functionality for some examples in the
-    paper, for the time being, to make the code easier to follow. If you would
-    like the dirty, perhaps un-runnable for you, code, contact me and I can get
-    it to you. I will be adding all that functionality back in, in a more
-    reasonable way shortly, and will have the project hosted on GitHub so it is
-    easier to share.
-
+    Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.
 """
 
-from __future__ import division, print_function
-
-import sys
-import math
+import argparse
+from functools import wraps
 import itertools
-import pkg_resources as pkg
+from importlib.resources import files, as_file
+import math
+import os
+import sys
 
-import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-
+import pandas as pd
 import pytweening
+import seaborn as sns
 import tqdm
-from docopt import docopt
 
 
-def plot_settings():
-    style = sns.axes_style('darkgrid')
-    style['font.size'] = 12.0
-    style['font.family'] = 'monospace'
-    style['font.weight'] = 'normal'
-    style['font.sans-serif'] = ('Helveitca', 'Bitstream Vera Sans',
-                                'Lucida Grande', 'Verdana', 'Geneva', 'Lucid',
-                                'Arial', 'Avant Garde', 'sans-serif')
-    style['font.monospace'] = ('Decima Mono', 'Bitstream Vera Sans Mono',
-                               'Andale Mono', 'Nimbus Mono L', 'Courier New',
-                               'Courier', 'Fixed', 'Terminal', 'monospace')
-    style['text.color'] = '#222222'
-    style['pdf.fonttype'] = 42
-    return style
-
-
+# TODO: make a constants file or something for this stuff
+MAIN_DIR = 'data_morph'
+DATA_DIR = 'data'
+DATASETS = {
+    'dino': 'dino.csv',
+}
 LINE_SHAPES = [
     'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
     'slant_down', 'center', 'star', 'down_parab'
 ]
 ALL_TARGETS = LINE_SHAPES + ['circle', 'bullseye', 'dots']
-INITIAL_DATASETS = ['dino', 'rando', 'slant', 'big_slant']
+INITIAL_DATASETS = ['dino']
 
 
-def load_dataset(name="dino"):
+def plot_with_custom_style(plotting_function):
+    @wraps(plotting_function)
+    def plot_in_style(*args, **kwargs):
+        style = files(MAIN_DIR).joinpath('plot_style.mplstyle')
+        with as_file(style) as style_path:
+            with plt.style.context(style_path):
+                output = plotting_function(*args, **kwargs)
+        return output
+    return plot_in_style
+
+def load_dataset(dataset):
     """Loads the example data sets used in the paper.
 
     Args:
@@ -80,31 +63,20 @@ def load_dataset(name="dino"):
     Returns:
         pd.DataFrame: A ``DataFrame`` with ``x`` and ``y`` columns
     """
-    DATASETS = {
-        'dino': 'Datasaurus_data.csv',
-        'rando': 'random_cloud.csv',
-        'slant': 'slanted_less.csv',
-        'big_slant': 'less_angled_blob.csv',
-    }
-    dataset_filename = DATASETS.get(name)
-    if dataset_filename is None:
-        raise ValueError('Unknown dataset {}'.format(name))
-
-    stream = pkg.resource_stream('samestats.datasets.seed', dataset_filename)
-    if name == "dino":
-        df = pd.read_csv(stream, header=None, names=['x', 'y'])
-    elif name == "rando":
-        df = pd.read_csv(stream)
-        df = df[['x', 'y']]
-    elif name == "slant":
-        df = pd.read_csv(stream)
-        df = df[['x', 'y']]
-    elif name == "big_slant":
-        df = pd.read_csv(stream)
-        df = df[['x', 'y']]
-        df = df.clip(1, 99)
-
-    return df.copy()
+    try:
+        return pd.read_csv(files(MAIN_DIR).joinpath(f'{DATA_DIR}/{DATASETS[dataset]}'))
+    except KeyError:
+        try:
+            # TODO: for custom datasets we need to scale it to be within the 
+            # bounds of the target datasets or find a map to map the logic to
+            # target dataset values dynamically
+            return pd.read_csv(dataset)
+        except FileNotFoundError:
+            raise ValueError(
+                f'Unknown dataset "{dataset}". '
+                'Provide a valid path to a CSV dataset or use one of '
+                f'the included datasets: {", ".join(DATASETS.keys())}.'
+            )
 
 
 def get_values(df):
@@ -196,81 +168,22 @@ def distance_point_line(px, py, x1, y1, x2, y2):
 
     return distance
 
-
-def save_scatter(df, iteration, dp=72):
-    """Save the plot to an image file
-
-    Args:
-        df (pd.DataFrame):  The data set to plot
-        iteration (int):    The iteration count
-        dp (int):           The DPI of the plot
-    """
-    show_scatter(df)
-    plt.savefig('{}.png'.format(iteration), dpi=dp)
-    plt.clf()
-    plt.cla()
-    plt.close()
-
-
-def save_scatter_and_results(df, iteration, dp=72):
-    """Save the plot with statistical summary embedded to an image file
-
-    Args:
-        df (pd.DataFrame):  The data set to plot
-        iteration (int):    The iteration count
-        dp (int):           The DPI of the plot
-    """
-    show_scatter_and_results(df)
-    plt.savefig(str(iteration) + ".png", dpi=dp)
-    plt.clf()
-    plt.cla()
-    plt.close()
-
-
-def show_scatter(df, xlim=(-5, 105), ylim=(-5, 105), color="black", marker="o", reg_fit=False):
-    """Create a scatter plot of the data
-
-    Args:
-        df (pd.DataFrame):      The data set to plot
-        xlim ((float, float)):  The x-axis limits
-        ylim ((float, float)):  The y-axis limits
-        color (str):            The color of the scatter points
-        marker (str):           The marker style for the scatter points
-        reg_fit (bool):         Whether to plot a linear regression on the graph
-    """
-    sns.regplot(
-        x="x",
-        y="y",
-        data=df,
-        ci=None,
-        fit_reg=reg_fit,
-        marker=marker,
-        scatter_kws={"s": 50, "alpha": 0.7, "color": color},
-        line_kws={"linewidth": 4, "color": "red"})
-    plt.xlim(xlim)
-    plt.ylim(ylim)
-    plt.tight_layout()
-
-
-def show_scatter_and_results(df):
+@plot_with_custom_style
+def plot(df, save_to, **save_kwds):
     """Creates a plot which shows both the plot and the statistical summary
 
     Args:
         df (pd.DataFrame):  The data set to plot
-        labels (List[str]): The labels to use for
     """
-    plt.figure(figsize=(12, 5))
-    sns.regplot("x", y="y", data=df, ci=None, fit_reg=False,
-                scatter_kws={"s": 50, "alpha": 0.7, "color": "black"})
-    plt.xlim(-5, 105)
-    plt.ylim(-5, 105)
-    plt.tight_layout()
+    y_offset = 0
+    fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')
+    ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
+    ax.set(xlim=(0, 105), ylim=(y_offset, 105))
 
     res = get_values(df)
     fs = 30
-    y_off = -5
 
-    labels = ("X Mean", "Y Mean", "X SD", "Y SD", "Corr.")
+    labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
     max_label_length = max([len(l) for l in labels])
 
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.9f}", then we
@@ -280,23 +193,31 @@ def show_scatter_and_results(df):
     corr_formatter = '{{:<{pad}}}: {{:+.9f}}'.format(pad=max_label_length).format
 
     opts = dict(fontsize=fs, alpha=0.3)
-    plt.text(110, y_off + 80, formatter(labels[0], res[0])[:-2], **opts)
-    plt.text(110, y_off + 65, formatter(labels[1], res[1])[:-2], **opts)
-    plt.text(110, y_off + 50, formatter(labels[2], res[2])[:-2], **opts)
-    plt.text(110, y_off + 35, formatter(labels[3], res[3])[:-2], **opts)
-    plt.text(110, y_off + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-2], **opts)
+    ax.text(110, y_offset + 80, formatter(labels[0], res[0])[:-2], **opts)
+    ax.text(110, y_offset + 65, formatter(labels[1], res[1])[:-2], **opts)
+    ax.text(110, y_offset + 50, formatter(labels[2], res[2])[:-2], **opts)
+    ax.text(110, y_offset + 35, formatter(labels[3], res[3])[:-2], **opts)
+    ax.text(110, y_offset + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-2], **opts)
 
     opts['alpha'] = 1
-    plt.text(110, y_off + 80, formatter(labels[0], res[0])[:-7], **opts)
-    plt.text(110, y_off + 65, formatter(labels[1], res[1])[:-7], **opts)
-    plt.text(110, y_off + 50, formatter(labels[2], res[2])[:-7], **opts)
-    plt.text(110, y_off + 35, formatter(labels[3], res[3])[:-7], **opts)
-    plt.text(110, y_off + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-7], **opts)
-    plt.tight_layout(rect=[0, 0, 0.57, 1])
+    ax.text(110, y_offset + 80, formatter(labels[0], res[0])[:-7], **opts)
+    ax.text(110, y_offset + 65, formatter(labels[1], res[1])[:-7], **opts)
+    ax.text(110, y_offset + 50, formatter(labels[2], res[2])[:-7], **opts)
+    ax.text(110, y_offset + 35, formatter(labels[3], res[3])[:-7], **opts)
+    ax.text(110, y_offset + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-7], **opts)
 
+    if not save_to:
+        return ax
+
+    dirname = os.path.dirname(save_to)
+    if not os.path.isdir(dirname):
+        os.makedirs(dirname)
+
+    fig.savefig(save_to, **save_kwds)
+    plt.close(fig)
 
 def dist(p1, p2):
-    """Calculates the euclidean distance between ``p1`` and ``p2`` where these
+    """Calculates the Euclidean distance between ``p1`` and ``p2`` where these
     are 2-tuples (or lists, numpy arrays, etc).
 
     Args:
@@ -378,8 +299,7 @@ def perturb(
         allowed_dist=3,  # should be 2, just making it bigger for the sp example
         temp=0,
         x_bounds=[0, 100],
-        y_bounds=[0, 100],
-        custom_points=None):
+        y_bounds=[0, 100]):
     """This is the function which does one round of perturbation
 
     Args:
@@ -390,8 +310,8 @@ def perturb(
     """
     # take one row at random, and move one of the points a bit
     row = np.random.randint(0, len(df))
-    i_xm = df['x'][row]
-    i_ym = df['y'][row]
+    i_xm = df.at[row, 'x']
+    i_ym = df.at[row, 'y']
 
     # this is the simulated annealing step, if "do_bad", then we are willing to
     # accept a new state which is worse than the current one
@@ -465,8 +385,8 @@ def perturb(
             break
 
     # set the new data point, and return the set
-    df['x'][row] = xm
-    df['y'][row] = ym
+    df.loc[row, 'x'] = xm
+    df.loc[row, 'y'] = ym
     return df
 
 
@@ -490,14 +410,14 @@ def run_pattern(df,
                 iters=100000,
                 num_frames=100,
                 decimals=2,
-                shake=0.2,
                 max_temp=0.4,
                 min_temp=0,
                 ramp_in=False,
                 ramp_out=False,
                 freeze_for=0,
-                reset_counts=False,
-                custom_points=False):
+                output_dir='.',
+                write_data=False,
+                keep_frames=False):
     """The main function, transforms one dataset into a target shape by
     perturbing it.
 
@@ -507,8 +427,10 @@ def run_pattern(df,
         iters: how many iterations to run the algorithm for
         num_frames: how many frames to save to disk (for animations)
         decimals: how many decimal points to keep fixed
-        shake: the maximum movement for a single iteration
     """
+    if target not in ALL_TARGETS:
+        raise ValueError(f'"{target}" is not a valid target shape.')
+
     r_good = df.copy()
 
     # this is a list of frames that we will end up writing to file
@@ -541,15 +463,10 @@ def run_pattern(df,
 
     frame_count = 0
     # this is the main loop, were we run for many iterations to come up with the pattern
-    for i in looper(
-            iters + 1, leave=True, ascii=True, desc=target + " pattern"):
+    for i in looper(iters, leave=True, ascii=True, desc=target + " pattern"):
         t = (max_temp - min_temp) * s_curve(((iters - i) / iters)) + min_temp
 
-        if target in ALL_TARGETS:
-            test_good = perturb(
-                r_good.copy(), initial=df, target=target, temp=t)
-        else:
-            raise Exception("bah, that's not a proper type of pattern")
+        test_good = perturb(r_good.copy(), initial=df, target=target, temp=t)
 
         # here we are checking that after the perturbation, that the statistics are still within the allowable bounds
         if is_error_still_ok(df, test_good, decimals):
@@ -557,67 +474,73 @@ def run_pattern(df,
 
         # save this chart to the file
         for _ in range(write_frames.count(i)):
-            save_scatter_and_results(
+            plot(
                 r_good,
-                '{}-image-{:05d}'.format(target, frame_count),
-                150)
-            # save_scatter(r_good, "{}-image-{:05d}".format(target, frame_count), 150)
-            r_good.to_csv("{}-data-{:05d}.csv".format(target, frame_count))
+                save_to=os.path.join(output_dir, f'{target}-image-{frame_count:05d}.png'),
+                dpi=150
+            )
+            if write_data:
+                r_good.to_csv(os.path.join(output_dir, f'{target}-data-{frame_count:05d}.csv'))
 
             frame_count += 1
 
+    # TODO stitch together the animation and pass in keep_frames to determine whether frames should be deleted
     return r_good
 
-
-def do_single_run(start_dataset, target, iterations=100000, decimals=2, num_frames=100):
-    """Loads a dataset, and then perturbs it.
-
-    ``start_dataset`` is a string, and one of::
-
-        ['dino', 'rando', 'slant', 'big_slant']
-    """
-    df = load_dataset(start_dataset)
-    temp = run_pattern(df, target, iters=iterations, num_frames=num_frames)
-    return temp
-
-
-def print_stats(df):
-    print("N: ", len(df))
-    print("X mean: ", df.x.mean())
-    print("X SD: ", df.x.std())
-    print("Y mean: ", df.y.mean())
-    print("Y SD: ", df.y.std())
-    print("Pearson correlation: ", df.corr().x.y)
-
-
 def main():
-    # run <shape_start> <shape_end> [<iters>][<decimals>]
-    arguments = docopt(__doc__, version='Same Stats 1.0')
-    if arguments['run']:
-        with plot_settings():
-            it = 100000
-            de = 2
-            frames = 100
-            if arguments['<iters>']:
-                it = int(arguments['<iters>'])
-            if arguments['<decimals>']:
-                de = int(arguments['<decimals>'])
-            if arguments['<decimals>']:
-                frames = int(arguments['<frames>'])
+    parser = argparse.ArgumentParser(
+        prog='Data Morph',
+        description=(
+            'Morph an input dataset of 2D points into select shapes, while '
+            'preserving the summary statistics to a given number of decimal '
+            'points through simulated annealing.'
+        ),
+        epilog = 'For example, python -m data_morph dino circle'
+    )
+    parser.add_argument(
+        'start_shape',
+        help=(
+            'The starting shape. This could be something in the data folder or '
+            'a path to a CSV file, in which case it should have two columns "x" and "y".'
+        )
+    )
+    parser.add_argument(
+        'target_shape', nargs='+',
+        help=(
+            'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
+            'will be converted to each target shape separately. TODO: pass all option'
+        )
+    )
+    parser.add_argument('--iterations', default=100000, type=int, help='The number of iterations to run.')
+    parser.add_argument('--decimals', default=2, type=int, help='The number of decimal places to preserve equality.')
+    parser.add_argument(
+        '--output-dir', default=os.path.join(os.getcwd(), 'morphed_data'), help='Path to a directory for writing output files.'
+    )
+    parser.add_argument(
+        '--keep-frames', default=False, action='store_true',
+        help='Whether to keep individual frame images in the output directory.'
+    )
+    parser.add_argument(
+        '--write-data', default=False, action='store_true',
+        help='Whether to write CSV files to the output directory with the data for each frame.'
+    )
 
-            shape_start = arguments['<shape_start>']
-            shape_end = arguments['<shape_end>']
+    args = parser.parse_args()
 
-            if shape_start in INITIAL_DATASETS and shape_end in ALL_TARGETS:
-                do_single_run(shape_start, shape_end, iterations=it, decimals=de, num_frames=frames)
-            else:
-                print("************* One of those shapes isn't correct:")
-                print("shape_start must be one of ", INITIAL_DATASETS)
-                print("shape_end must be one of ", ALL_TARGETS)
+    target_shapes = ALL_TARGETS if args.target_shape == ['all'] else set(args.target_shape).intersection(ALL_TARGETS)
+    if not target_shapes:
+        raise ValueError('No valid target shapes were provided.') # TODO print options here too
+
+    start_shape = load_dataset(args.start_shape)
+
+    for target_shape in target_shapes:
+        run_pattern(
+            start_shape, target_shape,
+            iters=args.iterations, decimals=args.decimals,
+            output_dir=args.output_dir, keep_frames=args.keep_frames, 
+            write_data=args.write_data, num_frames=100,
+        )
 
 
 if __name__ == '__main__':
-    import warnings
-    warnings.simplefilter(action="ignore", category=FutureWarning)
-    warnings.simplefilter(action="ignore", category=UserWarning)
     main()

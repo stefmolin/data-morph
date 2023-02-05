@@ -71,7 +71,11 @@ def main():
             f'{", ".join(ALL_TARGETS)}.'
         )
 
-    start_shape_name, start_shape_data = load_dataset(args.start_shape)
+    # TODO: maybe the bounds should be configurable on the command line too?
+    # TODO: these bounds need to be tied into the visualization logic
+    # and passed into the annealing process, but both should have them wider
+    # since we need flexibility to transform the data
+    start_shape_name, start_shape_data = load_dataset(args.start_shape, bounds=[10, 90])
     shape_factory = ShapeFactory(start_shape_data)
 
     for target_shape in target_shapes:

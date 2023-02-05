@@ -18,11 +18,8 @@ import math
 import os
 import sys
 
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import pytweening
-import seaborn as sns
 import tqdm
 
 from .plotting import plot, stitch_gif_animation
@@ -80,6 +77,7 @@ def perturb(
         target: is the target shape
         shake: the maximum amount of movement in each iteration
     """
+    # TODO: better variable names
     # take one row at random, and move one of the points a bit
     row = np.random.randint(0, len(df))
     i_xm = df.at[row, 'x']

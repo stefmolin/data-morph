@@ -56,7 +56,7 @@ def is_error_still_ok(df1, df2, decimals=2):
 
     return np.max(er) == 0
 
-def average_location(pairs):
+def average_location(pairs): # TODO: is this used anywhere? maybe to morph arbitary shapes? will need a shape class for this
     """Calculates the average of all the x-coordinates and y-coordinates of the
     pairs given. In other words, if ``pairs`` is a list of ``[(x_i, y_i)]``
     points, then this calculates ``[(mean(x_i), mean(y_i))]``.
@@ -66,11 +66,11 @@ def average_location(pairs):
 
 def perturb(
         df,
-        target, # TODO: pass in the shape object here
-        shake=0.1,
-        allowed_dist=3,  # should be 2, just making it bigger for the sp example
+        target,
+        shake=0.3,
+        allowed_dist=2,
         temp=0,
-        x_bounds=[0, 100],
+        x_bounds=[0, 100], # TODO: derive these bounds based on the data? or just normalize the data to be within these to start?
         y_bounds=[0, 100]):
     """This is the function which does one round of perturbation
 
@@ -110,7 +110,7 @@ def perturb(
     df.loc[row, 'y'] = ym
     return df
 
-def is_kernel():
+def is_kernel(): # TODO: is this necessary?
     """Detects if running in an IPython session
     """
     if 'IPython' not in sys.modules:

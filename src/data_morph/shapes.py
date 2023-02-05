@@ -3,6 +3,7 @@
 from abc import ABC
 import itertools
 
+import numpy as np
 from scipy.spatial import distance
 
 
@@ -231,7 +232,41 @@ class SlantDownLines(Lines):
         return 'slant_down'
 
 
-# class Center(Lines): # TODO: does this even work?
+class Star(Lines):
+    """Class for the star shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.y.quantile([0.25, 0.75])
+
+        # TODO: figure out how to use the data to derive these
+        star_pts = [10, 40, 40, 40, 50, 10, 60, 40, 90, 40, 65, 60, 75, 90, 50, 70, 25, 90, 35, 60]
+        pts = [star_pts[i:i + 2] for i in range(0, len(star_pts), 2)]
+        pts = [[p[0] * 0.8 + 20, 100 - p[1]] for p in pts]
+        pts.append(pts[0])
+
+        super().__init__(
+            *[pts[i:i + 2] for i in range(0, len(pts) - 1, 1)]
+        )
+
+
+class DownParab(Lines):
+    """Class for the down parabola shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.y.quantile([0.25, 0.75])
+
+        # TODO: figure out how to use the data to derive these
+        curve = [[x, -((x - 50) / 4)**2 + 90] for x in np.arange(0, 100, 3)]
+
+        super().__init__(
+            *[curve[i:i + 2] for i in range(0, len(curve) - 1, 1)]
+        )
+
+    def __repr__(self) -> str:
+        return 'down_parab'
+
+
+# class Center(Lines): # TODO: did this ever work?
 #     """Class for the center shape."""
 
 #     def __init__(self, data) -> None:
@@ -240,7 +275,7 @@ class SlantDownLines(Lines):
 
 
 class ShapeFactory:
-    """Generates the desired shape."""
+    """Factory for generating shapes."""
 
     AVAILABLE_SHAPES = {
         'circle': Circle,
@@ -253,6 +288,8 @@ class ShapeFactory:
         'high_lines': HighLines,
         'slant_up': SlantUpLines,
         'slant_down': SlantDownLines,
+        'star': Star,
+        'down_parab': DownParab,
         # 'center': Center,
     }
 
@@ -260,17 +297,19 @@ class ShapeFactory:
         self.data = data
 
     def generate_shape(self, shape) -> Shape:
+        """
+        Generate the shape object based on the dataset.
+        
+        Parameters
+        ----------
+        shape : str
+            The desired shape. See :attr:`AVAILABLE_SHAPES`.
+        
+        Returns
+        -------
+        Shape
+        """
         try:
             return self.AVAILABLE_SHAPES[shape](self.data)
         except KeyError:
             raise ValueError(f'No such shape as {shape}.')
-
-#     elif line_shape == 'star':
-#         star_pts = [10, 40, 40, 40, 50, 10, 60, 40, 90, 40, 65, 60, 75, 90, 50, 70, 25, 90, 35, 60]
-#         pts = [star_pts[i:i + 2] for i in range(0, len(star_pts), 2)]
-#         pts = [[p[0] * 0.8 + 20, 100 - p[1]] for p in pts]
-#         pts.append(pts[0])
-#         lines = [pts[i:i + 2] for i in range(0, len(pts) - 1, 1)]
-#     elif line_shape == 'down_parab':
-#         curve = [[x, -((x - 50) / 4)**2 + 90] for x in np.arange(0, 100, 3)]
-#         lines = [curve[i:i + 2] for i in range(0, len(curve) - 1, 1)]

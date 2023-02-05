@@ -28,7 +28,7 @@ import seaborn as sns
 import tqdm
 
 from .plotting import plot, stitch_gif_animation
-from .shapes import ALL_TARGETS, Bullseye, Circle, LINE_SHAPES
+from .shapes import ALL_TARGETS, Bullseye, Circle, Dots, LINE_SHAPES
 from .stats import get_values
 
 
@@ -209,7 +209,6 @@ def perturb(
         ym = i_ym + np.random.randn() * shake
 
         if target == 'circle':
-            # info for the circle
             circle = Circle(
                 cx=initial.x.mean(),
                 cy=initial.y.mean(),
@@ -220,7 +219,6 @@ def perturb(
             new_dist = circle.distance(xm, ym)
 
         elif target == 'bullseye':
-            # info for the bullseye
             bullseye = Bullseye(
                 cx=initial.x.mean(),
                 cy=initial.y.mean(),
@@ -231,19 +229,13 @@ def perturb(
             new_dist = bullseye.distance(xm, ym)
 
         elif target == 'dots':
-            # create a grid of "cluster points" and move if you are getting closer
-            # (or are already close enough)
-            xs = [25, 50, 75]
-            ys = [20, 50, 80]
+            dots = Dots(
+                xs=initial.x.quantile([0.05, 0.5, 0.95]).tolist(),
+                ys=initial.y.quantile([0.05, 0.5, 0.95]).tolist(),
+            )
 
-            old_dist = np.min([
-                dist([x, y], [df['x'][row], df['y'][row]])
-                for x, y in itertools.product(xs, ys)
-            ])
-            new_dist = np.min([
-                dist([x, y], [xm, ym])
-                for x, y in itertools.product(xs, ys)
-            ])
+            old_dist = dots.distance(i_xm, i_ym)
+            new_dist = dots.distance(xm, ym)
 
         elif target in LINE_SHAPES:
             lines = get_points_for_shape(target)
@@ -274,11 +266,6 @@ def perturb(
     df.loc[row, 'y'] = ym
     return df
 
-
-def s_curve(v):
-    return pytweening.easeInOutQuad(v)
-
-
 def is_kernel():
     """Detects if running in an IPython session
     """
@@ -288,7 +275,6 @@ def is_kernel():
     from IPython import get_ipython
     # check for `kernel` attribute on the IPython instance
     return getattr(get_ipython(), 'kernel', None) is not None
-
 
 def run_pattern(start_shape,
                 target,
@@ -354,7 +340,7 @@ def run_pattern(start_shape,
     frame_count = 0
     # this is the main loop, were we run for many iterations to come up with the pattern
     for i in looper(iters, leave=True, ascii=True, desc=target + " pattern"):
-        t = (max_temp - min_temp) * s_curve(((iters - i) / iters)) + min_temp
+        t = (max_temp - min_temp) * pytweening.easeInOutQuad(((iters - i) / iters)) + min_temp
 
         test_good = perturb(r_good.copy(), initial=df, target=target, temp=t)
 

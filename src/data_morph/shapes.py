@@ -1,11 +1,12 @@
 """Classes for specific shapes that data can be morphed into."""
 
 from abc import ABC
+import itertools
 
 from scipy.spatial import distance
 
 
-# TODO: make a constants file or something for this stuff
+# TODO: make this a mapping of name to class
 LINE_SHAPES = [
     'x', 'h_lines', 'v_lines', 'wide_lines', 'high_lines', 'slant_up',
     'slant_down', 'center', 'star', 'down_parab'
@@ -51,3 +52,15 @@ class Bullseye(Shape):
 
     def distance(self, x, y) -> float:
         return min(circle.distance(x, y) for circle in self.circles)
+
+class Dots(Shape):
+    """Class representing a 3x3 grid of dots."""
+
+    def __init__(self, xs, ys):
+        self.dots = list(itertools.product(xs, ys))
+
+    def distance(self, x, y) -> float:
+        return min(
+            self._euclidean_distance(dot, (x, y))
+            for dot in self.dots
+        )

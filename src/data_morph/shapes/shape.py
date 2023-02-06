@@ -16,6 +16,19 @@ class Shape(ABC):
         return self.__class__.__name__.lower()
 
     def distance(self, x, y) -> float:
+        """
+        Calculate the distance between points this shape and a point (x, y).
+
+        Parameters
+        ----------
+        x, y : int or float
+            Coordinates of point in 2D space.
+
+        Returns
+        -------
+        float
+            The distance between this shape and a point (x, y).
+        """
         raise NotImplementedError
 
     @staticmethod
@@ -27,12 +40,12 @@ class Shape(ABC):
         ----------
         a, b : Iterable[int|float]
             Coordinates of points in space.
-        
+
         Returns
         -------
         float
             The Euclidean distance between a and b.
-        
+
         See Also
         --------
         scipy.spatial.distance.euclidean

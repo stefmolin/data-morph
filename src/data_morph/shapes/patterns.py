@@ -2,6 +2,13 @@
 
 from .lines import Lines
 
+# class Center(Lines): # TODO: did this ever work?
+#     """Class for the center shape."""
+
+#     def __init__(self, data) -> None:
+#         cx, cy = data.mean()[['x', 'y']]
+#         super().__init__([[cx, cy], [cx, cy]])
+
 
 class HighLines(Lines):
     """Class for the high lines shape."""

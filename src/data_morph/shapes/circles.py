@@ -87,11 +87,3 @@ class Dots(Shape):
             The minimum Euclidean distance any of the dots in this grid the point (x, y).
         """
         return min(self._euclidean_distance(dot, (x, y)) for dot in self.dots)
-
-
-# class Center(Lines): # TODO: did this ever work?
-#     """Class for the center shape."""
-
-#     def __init__(self, data) -> None:
-#         cx, cy = data.mean()[['x', 'y']]
-#         super().__init__([[cx, cy], [cx, cy]])

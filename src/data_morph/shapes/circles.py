@@ -35,7 +35,7 @@ class Bullseye(Shape):
 
     def __init__(self, data) -> None:
         self.circles = [
-            Circle(data.x.mean(), data.y.mean(), r)
+            Circle(data)
             for r in [18, 37]  # TODO: think about how this could be calculated
         ]
 

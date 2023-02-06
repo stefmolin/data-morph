@@ -35,6 +35,25 @@ class HorizontalLines(Lines):
         return 'h_lines'
 
 
+class SlantDownLines(Lines):
+    """Class for the slant down lines shape."""
+
+    def __init__(self, data) -> None:
+        # q1, q3 = data.y.quantile([0.25, 0.75])
+
+        super().__init__(
+            [[0, 100], [100, 0]],
+            [[0, 70], [70, 0]],
+            [[30, 100], [100, 30]],
+            [[0, 50], [50, 0]],
+            [[50, 100], [100, 50]],
+        )  # TODO: figure out how to use the data to derive these
+
+    def __repr__(self) -> str:
+        """Return string representation of the shape."""
+        return 'slant_down'
+
+
 class SlantUpLines(Lines):
     """Class for the slant up lines shape."""
 

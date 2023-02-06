@@ -51,3 +51,48 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "data_morph.__version__"}
+
+# configuration for supported pre-commit hooks
+[tool.codespell]
+ignore-words-list = "recuse"
+ignore-regex = 'https://([\w/\.])+'
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311"]
+skip-string-normalization = true
+exclude = '''
+/(
+    \.eggs         # exclude a few common directories in the
+  | \.git          # root of the project
+  | \.vscode
+  | build
+)/
+'''
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 100
+exclude = ["setup.py", "docs", "build"]
+verbose = 2
+quiet = false
+color = true
+omit-covered-files = false
+# TODO: revisit this later when I add badges to the README
+# generate-badge = "."
+# badge-format = "svg"
+
+[tool.isort]
+atomic = true
+profile = "black"
+line_length = 88
+skip_gitignore = true

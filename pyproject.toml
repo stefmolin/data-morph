@@ -56,3 +56,16 @@ version = {attr = "data_morph.__version__"}
 [tool.codespell]
 ignore-words-list = "recuse"
 ignore-regex = 'https://([\w/\.])+'
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311"]
+skip-string-normalization = true
+exclude = '''
+/(
+    \.eggs         # exclude a few common directories in the
+  | \.git          # root of the project
+  | \.vscode
+  | build
+)/
+'''

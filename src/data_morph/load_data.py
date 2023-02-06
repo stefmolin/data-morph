@@ -20,22 +20,28 @@ def load_dataset(dataset, bounds):
     ----------
     name : str
         Either one of TODO or a path to a CSV file containing two columns: x and y.
+    bounds : Iterable[int]
+        An iterable of min/max bounds for normalization.
 
     Returns
     -------
     pandas.DataFrame
     """
     try:
+        filepath = files(MAIN_DIR).joinpath(f'data/{DATASETS[dataset]}')
         return (
             dataset,
-            read_normalize_data(files(MAIN_DIR).joinpath(f'data/{DATASETS[dataset]}'), bounds)
+            pd.read_csv(filepath).pipe(normalize_data, bounds)
         )
     except KeyError:
         try:
             # TODO: for custom datasets we need to scale it to be within the 
             # bounds of the target datasets or find a map to map the logic to
             # target dataset values dynamically
-            return os.path.splitext(os.path.basename(dataset))[0], read_normalize_data(dataset, bounds)
+            return (
+                os.path.splitext(os.path.basename(dataset))[0],
+                pd.read_csv(dataset).pipe(normalize_data, bounds)
+            )
         except FileNotFoundError:
             raise ValueError(
                 f'Unknown dataset "{dataset}". '
@@ -43,14 +49,14 @@ def load_dataset(dataset, bounds):
                 f'the included datasets: {", ".join(DATASETS.keys())}.'
             )
 
-def read_normalize_data(filepath, bounds):
+def normalize_data(data, bounds):
     """
-    Read in a CSV file with columns x and y, then apply normalization.
+    Apply normalization.
 
     Parameters
     ----------
-    filepath : str or Path
-        String path to the file or a :class:`Path` object.
+    data : pandas.DataFrame
+        DataFrame containing columns x and y.
     bounds : Iterable[int]
         An iterable of min/max bounds for normalization.
 
@@ -59,7 +65,7 @@ def read_normalize_data(filepath, bounds):
     pandas.DataFrame
     """
     a, b = bounds
-    return pd.read_csv(filepath).assign(
+    return data.assign(
         x=lambda df: a + (df.x - df.x.min()).multiply(b - a).div(df.x.max() - df.x.min()),
         y=lambda df: a + (df.y - df.y.min()).multiply(b - a).div(df.y.max() - df.y.min()),
     )

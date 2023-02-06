@@ -10,6 +10,19 @@ class Lines(Shape):
         self.lines = lines
 
     def distance(self, x, y) -> float:
+        """
+        Calculate the minimum distance from the lines of this shape to a point (x, y).
+
+        Parameters
+        ----------
+        x, y : int or float
+            Coordinates of a point in 2D space.
+
+        Returns
+        -------
+        float
+            The minimum distance from the lines of this shape to the point (x, y).
+        """
         return min(
             self.distance_point_to_line(point=(x, y), line=line) for line in self.lines
         )

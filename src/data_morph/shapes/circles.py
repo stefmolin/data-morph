@@ -25,7 +25,7 @@ class Circle(Shape):
         Returns
         -------
         float
-            The absolute distance between this circle's edge and a point (x, y).
+            The absolute distance between this circle's edge and the point (x, y).
         """
         return abs(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r)
 
@@ -53,7 +53,7 @@ class Bullseye(Shape):
         -------
         float
             The minimum absolute distance between this bullseye's inner and outer
-            circles' edges and a point (x, y).
+            circles' edges and the point (x, y).
 
         See Also
         --------
@@ -84,7 +84,7 @@ class Dots(Shape):
         Returns
         -------
         float
-            The minimum Euclidean distance any of the dots in this grid a point (x, y).
+            The minimum Euclidean distance any of the dots in this grid the point (x, y).
         """
         return min(self._euclidean_distance(dot, (x, y)) for dot in self.dots)
 

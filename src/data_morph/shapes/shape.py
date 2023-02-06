@@ -27,7 +27,7 @@ class Shape(ABC):
         Returns
         -------
         float
-            The distance between this shape and a point (x, y).
+            The distance between this shape and the point (x, y).
         """
         raise NotImplementedError
 

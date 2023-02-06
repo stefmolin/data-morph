@@ -12,6 +12,7 @@ class Shape(ABC):
         raise NotImplementedError
 
     def __repr__(self) -> str:
+        """Return string representation of the shape."""
         return self.__class__.__name__.lower()
 
     def distance(self, x, y) -> float:

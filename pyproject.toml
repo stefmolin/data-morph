@@ -30,7 +30,6 @@ dependencies = [
     "pandas>=1.2",
     "pytweening>=1.0.3",
     "scipy>=1.10.0",
-    "seaborn>=0.11.2",
     "tqdm>=4.64.1",
 ]
 dynamic = ["version"]

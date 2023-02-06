@@ -19,3 +19,15 @@ class DownParab(Lines):
     def __repr__(self) -> str:
         """Return string representation of the shape."""
         return 'down_parab'
+
+
+# class UpParab(Lines): # TODO
+#     """Class for the up parabola shape."""
+
+#     def __init__(self, data) -> None:
+#         # TODO
+#         pass
+
+#     def __repr__(self) -> str:
+#         """Return string representation of the shape."""
+#         return 'up_parab'

@@ -19,6 +19,22 @@ class HorizontalLines(Lines):
         return 'h_lines'
 
 
+class VerticalLines(Lines):
+    """Class for the vertical lines shape."""
+
+    def __init__(self, data) -> None:
+        # xmin, ymin = data.min()[['x', 'y']]
+        # xmax, ymax = data.max()[['x', 'y']]
+
+        super().__init__(
+            *[[[x, 0], [x, 100]] for x in [10, 30, 50, 70, 90]]
+        )  # TODO: figure out the values based on the data
+
+    def __repr__(self) -> str:
+        """Return string representation of the shape."""
+        return 'v_lines'
+
+
 class XLines(Lines):
     """Class for the X shape consisting of two crossing, perpendicular lines."""
 

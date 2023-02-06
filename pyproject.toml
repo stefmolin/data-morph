@@ -51,3 +51,8 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "data_morph.__version__"}
+
+# configuration for supported pre-commit hooks
+[tool.codespell]
+ignore-words-list = "recuse"
+ignore-regex = 'https://([\w/\.])+'

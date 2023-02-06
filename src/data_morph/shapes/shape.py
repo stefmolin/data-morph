@@ -20,4 +20,21 @@ class Shape(ABC):
 
     @staticmethod
     def _euclidean_distance(a, b) -> float:
+        """
+        Calculate the Euclidean distance between points a and b.
+
+        Parameters
+        ----------
+        a, b : Iterable[int|float]
+            Coordinates of points in space.
+        
+        Returns
+        -------
+        float
+            The Euclidean distance between a and b.
+        
+        See Also
+        --------
+        scipy.spatial.distance.euclidean
+        """
         return distance.euclidean(a, b)

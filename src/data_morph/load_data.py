@@ -44,7 +44,20 @@ def load_dataset(dataset, bounds):
             )
 
 def read_normalize_data(filepath, bounds):
-    
+    """
+    Read in a CSV file with columns x and y, then apply normalization.
+
+    Parameters
+    ----------
+    filepath : str or Path
+        String path to the file or a :class:`Path` object.
+    bounds : Iterable[int]
+        An iterable of min/max bounds for normalization.
+
+    Returns
+    -------
+    pandas.DataFrame
+    """
     a, b = bounds
     return pd.read_csv(filepath).assign(
         x=lambda df: a + (df.x - df.x.min()).multiply(b - a).div(df.x.max() - df.x.min()),

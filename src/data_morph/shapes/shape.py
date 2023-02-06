@@ -17,7 +17,7 @@ class Shape(ABC):
 
     def distance(self, x, y) -> float:
         """
-        Calculate the distance between points this shape and a point (x, y).
+        Calculate the distance between this shape and a point (x, y).
 
         Parameters
         ----------

@@ -1,6 +1,6 @@
 """Polygon shapes made from lines."""
 
-from .lines import Lines
+from .bases.lines import Lines
 
 
 class Star(Lines):

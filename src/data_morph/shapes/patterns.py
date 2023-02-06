@@ -1,6 +1,6 @@
 """Shapes that are patterns of lines."""
 
-from .lines import Lines
+from .bases.lines import Lines
 
 # class Center(Lines): # TODO: did this ever work?
 #     """Class for the center shape."""

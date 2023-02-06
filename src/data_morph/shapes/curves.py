@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from .lines import Lines
+from .bases.lines import Lines
 
 
 class DownParab(Lines):

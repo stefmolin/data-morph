@@ -2,7 +2,7 @@
 
 import itertools
 
-from .shape import Shape
+from .bases.shape import Shape
 
 
 class Circle(Shape):

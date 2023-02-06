@@ -1,4 +1,4 @@
-"""Shapes that are circular."""
+"""Shapes that are circular in nature."""
 
 import itertools
 
@@ -14,6 +14,19 @@ class Circle(Shape):
         self.r = 30  # TODO: think about how this could be calculated
 
     def distance(self, x, y) -> float:
+        """
+        Calculate the absolute distance between this circle's edge and a point (x, y).
+
+        Parameters
+        ----------
+        x, y : int or float
+            Coordinates of a point in 2D space.
+
+        Returns
+        -------
+        float
+            The the absolute distance between this circle's edge and a point (x, y).
+        """
         return abs(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r)
 
 

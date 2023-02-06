@@ -22,7 +22,7 @@ class Shape(ABC):
         Parameters
         ----------
         x, y : int or float
-            Coordinates of point in 2D space.
+            Coordinates a of point in 2D space.
 
         Returns
         -------

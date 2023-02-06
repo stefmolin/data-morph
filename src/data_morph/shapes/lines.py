@@ -1,10 +1,10 @@
-"""Shapes that are composed of lines."""
+"""Base class for shapes that are composed of lines."""
 
 from .shape import Shape
 
 
 class Lines(Shape):
-    """Class representing a shape consisting of multiple lines."""
+    """Class representing a shape consisting of one or more lines."""
 
     def __init__(self, *lines) -> None:
         self.lines = lines

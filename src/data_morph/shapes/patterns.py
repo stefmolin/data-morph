@@ -3,6 +3,22 @@
 from .lines import Lines
 
 
+class HighLines(Lines):
+    """Class for the high lines shape."""
+
+    def __init__(self, data) -> None:
+        q1, q3 = data.y.quantile([0.25, 0.75])
+
+        super().__init__(
+            [[0, q1], [100, q1]], [[0, q3], [100, q3]]
+        )  # TODO: figure out way to get 0, 100 min/max plus offset?
+        # TODO q1, q3 works better on some datasets than others (might need to move it a little)
+
+    def __repr__(self) -> str:
+        """Return string representation of the shape."""
+        return 'high_lines'
+
+
 class HorizontalLines(Lines):
     """Class for the horizontal lines shape."""
 

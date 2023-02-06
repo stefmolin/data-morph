@@ -73,4 +73,17 @@ class Dots(Shape):
         )
 
     def distance(self, x, y) -> float:
+        """
+        Calculate the minimum Euclidean distance any of the dots in this grid a point (x, y).
+
+        Parameters
+        ----------
+        x, y : int or float
+            Coordinates of a point in 2D space.
+
+        Returns
+        -------
+        float
+            The minimum Euclidean distance any of the dots in this grid a point (x, y).
+        """
         return min(self._euclidean_distance(dot, (x, y)) for dot in self.dots)

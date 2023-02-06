@@ -25,7 +25,7 @@ class Circle(Shape):
         Returns
         -------
         float
-            The the absolute distance between this circle's edge and a point (x, y).
+            The absolute distance between this circle's edge and a point (x, y).
         """
         return abs(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r)
 
@@ -40,6 +40,25 @@ class Bullseye(Shape):
         ]
 
     def distance(self, x, y) -> float:
+        """
+        Calculate the minimum absolute distance between this bullseye's inner and outer
+        circles' edges and a point (x, y).
+
+        Parameters
+        ----------
+        x, y : int or float
+            Coordinates of a point in 2D space.
+
+        Returns
+        -------
+        float
+            The minimum absolute distance between this bullseye's inner and outer
+            circles' edges and a point (x, y).
+
+        See Also
+        --------
+        Circle.distance
+        """
         return min(circle.distance(x, y) for circle in self.circles)
 
 

@@ -72,7 +72,7 @@ def plot(df, save_to, **save_kwds):
     fig.savefig(save_to, **save_kwds)
     plt.close(fig)
 
-def stitch_gif_animation(output_dir, start_shape, target_shape, keep_frames=False):
+def stitch_gif_animation(output_dir, start_shape, target_shape, keep_frames=False, forward_only_animation=False):
     # find the frames and sort them
     imgs = sorted(glob.glob(os.path.join(output_dir, f'{start_shape}-to-{target_shape}*.png')))
     
@@ -88,8 +88,9 @@ def stitch_gif_animation(output_dir, start_shape, target_shape, keep_frames=Fals
     end_image = Image.open(imgs[-1])
     frames.extend([end_image for _ in range(50)])
     
-    # add the animation in reverse
-    frames.extend(frames[::-1])
+    if not forward_only_animation:
+        # add the animation in reverse
+        frames.extend(frames[::-1])
 
     frames[0].save(
         os.path.join(output_dir, f'{start_shape}_to_{target_shape}.gif'),

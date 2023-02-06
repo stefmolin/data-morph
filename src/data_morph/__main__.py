@@ -46,6 +46,15 @@ def main():
         help='Path to a directory for writing output files.'
     )
     parser.add_argument(
+        '--forward-only', default=False, action='store_true',
+        help=(
+            'By default, this module will create an animation that plays '
+            'first forward (applying the transformation) and then unwinds, '
+            'playing backward to undo the transformation. Pass this argument '
+            'to only play the animation in the forward direction before looping.'
+        )
+    )
+    parser.add_argument(
         '--keep-frames', default=False, action='store_true',
         help='Whether to keep individual frame images in the output directory.'
     )
@@ -85,6 +94,7 @@ def main():
             iters=args.iterations, decimals=args.decimals,
             output_dir=args.output_dir, keep_frames=args.keep_frames, 
             write_data=args.write_data, seed=args.seed,
+            forward_only_animation=args.forward_only,
             num_frames=100, # TODO: should this be variable?
         )
 

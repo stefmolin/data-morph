@@ -132,7 +132,8 @@ def run_pattern(start_shape_name,
                 output_dir='.',
                 write_data=False,
                 keep_frames=False,
-                seed=None):
+                seed=None,
+                forward_only_animation=False):
     """The main function, transforms one dataset into a target shape by
     perturbing it.
 
@@ -201,5 +202,8 @@ def run_pattern(start_shape_name,
 
             frame_count += 1
 
-    stitch_gif_animation(output_dir, start_shape_name, target_shape=target, keep_frames=keep_frames)
+    stitch_gif_animation(
+        output_dir, start_shape_name, target_shape=target, keep_frames=keep_frames,
+        forward_only_animation=forward_only_animation
+    )
     return r_good

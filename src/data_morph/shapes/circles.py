@@ -8,10 +8,10 @@ from .bases.shape import Shape
 class Circle(Shape):
     """Class representing a hollow circle."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data, r=30) -> None:
         self.cx = data.x.mean()
         self.cy = data.y.mean()
-        self.r = 30  # TODO: think about how this could be calculated
+        self.r = r  # TODO: think about how this could be calculated
 
     def distance(self, x, y) -> float:
         """
@@ -35,7 +35,7 @@ class Bullseye(Shape):
 
     def __init__(self, data) -> None:
         self.circles = [
-            Circle(data)
+            Circle(data, r)
             for r in [18, 37]  # TODO: think about how this could be calculated
         ]
 
@@ -68,7 +68,10 @@ class Dots(Shape):
     def __init__(self, data) -> None:
         self.dots = list(
             itertools.product(
-                data[coord].quantile([0.05, 0.5, 0.95]).tolist() for coord in ['x', 'y']
+                *(
+                    data[coord].quantile([0.05, 0.5, 0.95]).tolist()
+                    for coord in ['x', 'y']
+                )
             )
         )
 

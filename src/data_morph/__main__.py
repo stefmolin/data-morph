@@ -40,7 +40,7 @@ if __name__ == '__main__':
         '--iterations',
         default=100000,
         type=int,
-        help='The number of iterations to run.',
+        help='The number of iterations to run. Datasets with more observations will take more iterations.',
     )
     parser.add_argument(
         '--decimals',

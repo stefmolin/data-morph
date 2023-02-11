@@ -40,9 +40,14 @@ def plot(df: pd.DataFrame, save_to: str, decimals: int, **save_kwds) -> None:
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.7f}", then we
     # can pull the `.format` method for that string to reduce typing it
     # repeatedly
-    formatter = '{{:<{pad}}}: {{:0.7f}}'.format(pad=max_label_length).format
-    corr_formatter = '{{:<{pad}}}: {{:+.7f}}'.format(pad=max_label_length).format
-    stat_clip = 7 - decimals
+    visible_decimals = 7
+    formatter = '{{:<{pad}}}: {{:0.{decimals}f}}'.format(
+        pad=max_label_length, decimals=visible_decimals
+    ).format
+    corr_formatter = '{{:<{pad}}}: {{:+.{decimals}f}}'.format(
+        pad=max_label_length, decimals=visible_decimals
+    ).format
+    stat_clip = visible_decimals - decimals
 
     opts = dict(fontsize=fs, alpha=0.3)
     ax.text(110, y_offset + 80, formatter(labels[0], res.x_mean), **opts)

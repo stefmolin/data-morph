@@ -1,19 +1,14 @@
 """Shapes that are patterns of lines."""
 
+import pandas as pd
+
 from .bases.lines import Lines
-
-# class Center(Lines): # TODO: did this ever work?
-#     """Class for the center shape."""
-
-#     def __init__(self, data) -> None:
-#         cx, cy = data.mean()[['x', 'y']]
-#         super().__init__([[cx, cy], [cx, cy]])
 
 
 class HighLines(Lines):
     """Class for the high lines shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         q1, q3 = data.y.quantile([0.25, 0.75])
 
         super().__init__(
@@ -29,7 +24,7 @@ class HighLines(Lines):
 class HorizontalLines(Lines):
     """Class for the horizontal lines shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         # xmin, ymin = data.min()[['x', 'y']]
         # xmax, ymax = data.max()[['x', 'y']]
 
@@ -45,7 +40,7 @@ class HorizontalLines(Lines):
 class SlantDownLines(Lines):
     """Class for the slant down lines shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         # q1, q3 = data.y.quantile([0.25, 0.75])
 
         super().__init__(
@@ -64,7 +59,7 @@ class SlantDownLines(Lines):
 class SlantUpLines(Lines):
     """Class for the slant up lines shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         # q1, q3 = data.y.quantile([0.25, 0.75])
 
         super().__init__(
@@ -83,7 +78,7 @@ class SlantUpLines(Lines):
 class VerticalLines(Lines):
     """Class for the vertical lines shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         # xmin, ymin = data.min()[['x', 'y']]
         # xmax, ymax = data.max()[['x', 'y']]
 
@@ -99,7 +94,7 @@ class VerticalLines(Lines):
 class WideLines(Lines):
     """Class for the wide lines shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         q1, q3 = data.x.quantile([0.25, 0.75])
 
         super().__init__(
@@ -114,7 +109,7 @@ class WideLines(Lines):
 class XLines(Lines):
     """Class for the X shape consisting of two crossing, perpendicular lines."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         xmin, ymin = data.min()
         xmax, ymax = data.max()
 

@@ -6,7 +6,7 @@ from typing import Iterable, Tuple, Union
 
 import pandas as pd
 
-from . import MAIN_DIR
+from .. import MAIN_DIR
 
 
 class DataLoader:
@@ -22,6 +22,8 @@ class DataLoader:
     DATASETS: dict = {
         'dino': 'dino.csv',
     }
+
+    DATA_PATH: str = 'data/datasets/'
 
     def __init__(self, bounds: Iterable[Union[int, float]]) -> None:
         self._bounds: Iterable[Union[int, float]] = bounds
@@ -41,7 +43,9 @@ class DataLoader:
             The normalized dataset for morphing.
         """
         try:
-            filepath = files(MAIN_DIR).joinpath(f'data/{self.DATASETS[dataset]}')
+            filepath = files(MAIN_DIR).joinpath(
+                f'{self.DATA_PATH}/{self.DATASETS[dataset]}'
+            )
             return (dataset, pd.read_csv(filepath).pipe(self._normalize_data))
         except KeyError:
             try:

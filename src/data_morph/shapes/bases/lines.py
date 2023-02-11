@@ -1,5 +1,7 @@
 """Base class for shapes that are composed of lines."""
 
+from typing import Iterable, Union
+
 from .shape import Shape
 
 
@@ -9,7 +11,7 @@ class Lines(Shape):
     def __init__(self, *lines) -> None:
         self.lines = lines
 
-    def distance(self, x, y) -> float:
+    def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
         Calculate the minimum distance from the lines of this shape to a point (x, y).
 
@@ -27,7 +29,11 @@ class Lines(Shape):
             self.distance_point_to_line(point=(x, y), line=line) for line in self.lines
         )
 
-    def distance_point_to_line(self, point, line) -> float:
+    def distance_point_to_line(
+        self,
+        point: Iterable[Union[int, float]],
+        line: Iterable[Iterable[Union[int, float]]],
+    ) -> float:
         """
         Calculate the minimum distance between a point and a line.
 
@@ -39,9 +45,9 @@ class Lines(Shape):
 
         Parameters
         ----------
-        point : Iterable[int|float]
+        point : Iterable[Union[int, float]]
             Coordinates of a point in 2D space.
-        line : Iterable[Iterable[int|float]]
+        line : Iterable[Iterable[Union[int, float]]]
             Coordinates of the endpoints of a line in 2D space.
 
         Returns

@@ -1,12 +1,14 @@
 """Polygon shapes made from lines."""
 
+import pandas as pd
+
 from .bases.lines import Lines
 
 
 class Star(Lines):
     """Class for the star shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         # q1, q3 = data.y.quantile([0.25, 0.75])
 
         # TODO: figure out how to use the data to derive these

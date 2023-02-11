@@ -1,6 +1,7 @@
 """Shapes that are composed of curves."""
 
 import numpy as np
+import pandas as pd
 
 from .bases.lines import Lines
 
@@ -8,7 +9,7 @@ from .bases.lines import Lines
 class DownParab(Lines):
     """Class for the down parabola shape."""
 
-    def __init__(self, data) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         q1, q3 = data.y.quantile([0.25, 0.75])
 
         # TODO: figure out how to use the data to derive these

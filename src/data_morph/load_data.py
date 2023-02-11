@@ -2,6 +2,7 @@
 
 from importlib.resources import files
 import os
+from typing import Iterable, Tuple, Union
 
 import pandas as pd
 
@@ -12,7 +13,7 @@ DATASETS = {
     'dino': 'dino.csv',
 }
 
-def load_dataset(dataset, bounds):
+def load_dataset(dataset: str, bounds: Iterable[Union[int, float]]) -> Tuple[str, pd.DataFrame]:
     """
     Load dataset and apply normalization.
 
@@ -20,7 +21,7 @@ def load_dataset(dataset, bounds):
     ----------
     name : str
         Either one of TODO or a path to a CSV file containing two columns: x and y.
-    bounds : Iterable[int]
+    bounds : Iterable[Union[int, float]]
         An iterable of min/max bounds for normalization.
 
     Returns
@@ -49,7 +50,7 @@ def load_dataset(dataset, bounds):
                 f'the included datasets: {", ".join(DATASETS.keys())}.'
             )
 
-def normalize_data(data, bounds):
+def normalize_data(data: pd.DataFrame, bounds: Iterable[Union[int, float]]) -> pd.DataFrame:
     """
     Apply normalization.
 
@@ -57,7 +58,7 @@ def normalize_data(data, bounds):
     ----------
     data : pandas.DataFrame
         DataFrame containing columns x and y.
-    bounds : Iterable[int]
+    bounds : Iterable[Union[int, float]]
         An iterable of min/max bounds for normalization.
 
     Returns

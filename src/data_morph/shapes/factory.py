@@ -1,5 +1,7 @@
 """Factory class for generating shape objects."""
 
+import pandas as pd
+
 from . import circles, curves, patterns, polygons
 from .bases.shape import Shape
 
@@ -7,10 +9,11 @@ from .bases.shape import Shape
 class ShapeFactory:
     """Factory for generating shapes."""
 
-    AVAILABLE_SHAPES = {
+    AVAILABLE_SHAPES: dict = {
         'circle': circles.Circle,
         'bullseye': circles.Bullseye,
         'dots': circles.Dots,
+        'scatter': circles.Scatter,
         'x': patterns.XLines,
         'h_lines': patterns.HorizontalLines,
         'v_lines': patterns.VerticalLines,
@@ -22,10 +25,10 @@ class ShapeFactory:
         'down_parab': curves.DownParab,
     }
 
-    def __init__(self, data) -> None:
-        self.data = data
+    def __init__(self, data: pd.DataFrame) -> None:
+        self.data: pd.DataFrame = data
 
-    def generate_shape(self, shape) -> Shape:
+    def generate_shape(self, shape: str) -> Shape:
         """
         Generate the shape object based on the dataset.
 
@@ -37,6 +40,7 @@ class ShapeFactory:
         Returns
         -------
         Shape
+            An shape object of the requested type.
         """
         try:
             return self.AVAILABLE_SHAPES[shape](self.data)

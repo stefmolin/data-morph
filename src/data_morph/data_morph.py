@@ -22,11 +22,11 @@ import numpy as np
 import pytweening
 import tqdm
 
+from .data.stats import get_values
 from .plotting import plot, stitch_gif_animation
-from .stats import get_values
-
 
 # TODO: class that does the morphing
+
 
 def is_error_still_ok(df1, df2, decimals=2):
     """Checks to see if the statistics are still within the acceptable bounds
@@ -53,7 +53,10 @@ def is_error_still_ok(df1, df2, decimals=2):
 
     return np.max(er) == 0
 
-def average_location(pairs): # TODO: is this used anywhere? maybe to morph arbitary shapes? will need a shape class for this
+
+def average_location(
+    pairs,
+):  # TODO: is this used anywhere? maybe to morph arbitrary shapes? will need a shape class for this
     """Calculates the average of all the x-coordinates and y-coordinates of the
     pairs given. In other words, if ``pairs`` is a list of ``[(x_i, y_i)]``
     points, then this calculates ``[(mean(x_i), mean(y_i))]``.
@@ -62,13 +65,17 @@ def average_location(pairs): # TODO: is this used anywhere? maybe to morph arbit
 
 
 def perturb(
-        df,
-        target,
-        shake=0.3,
-        allowed_dist=2,
-        temp=0,
-        x_bounds=[0, 100], # TODO: derive these bounds based on the data? or just normalize the data to be within these to start?
-        y_bounds=[0, 100]):
+    df,
+    target,
+    shake=0.3,
+    allowed_dist=2,
+    temp=0,
+    x_bounds=[
+        0,
+        100,
+    ],  # TODO: derive these bounds based on the data? or just normalize the data to be within these to start?
+    y_bounds=[0, 100],
+):
     """This is the function which does one round of perturbation
 
     Args:
@@ -98,8 +105,13 @@ def perturb(
         # or, if it is less than our allowed distance
         # or, if we are do_bad, that means we are accepting it no matter what
         # if one of these conditions are met, jump out of the loop
-        close_enough = (new_dist < old_dist or new_dist < allowed_dist or do_bad)
-        within_bounds = ym > y_bounds[0] and ym < y_bounds[1] and xm > x_bounds[0] and xm < x_bounds[1]
+        close_enough = new_dist < old_dist or new_dist < allowed_dist or do_bad
+        within_bounds = (
+            ym > y_bounds[0]
+            and ym < y_bounds[1]
+            and xm > x_bounds[0]
+            and xm < x_bounds[1]
+        )
         if close_enough and within_bounds:
             break
 
@@ -108,32 +120,36 @@ def perturb(
     df.loc[row, 'y'] = ym
     return df
 
-def is_kernel(): # TODO: is this necessary?
-    """Detects if running in an IPython session
-    """
+
+def is_kernel():  # TODO: is this necessary?
+    """Detects if running in an IPython session"""
     if 'IPython' not in sys.modules:
         # IPython hasn't been imported, definitely not
         return False
     from IPython import get_ipython
+
     # check for `kernel` attribute on the IPython instance
     return getattr(get_ipython(), 'kernel', None) is not None
 
-def run_pattern(start_shape_name,
-                start_shape_data,
-                target,
-                iters=100000,
-                num_frames=100,
-                decimals=2,
-                max_temp=0.4,
-                min_temp=0,
-                ramp_in=False,
-                ramp_out=False,
-                freeze_for=0,
-                output_dir='.',
-                write_data=False,
-                keep_frames=False,
-                seed=None,
-                forward_only_animation=False):
+
+def run_pattern(
+    start_shape_name,
+    start_shape_data,
+    target,
+    iters=100000,
+    num_frames=100,
+    decimals=2,
+    max_temp=0.4,
+    min_temp=0,
+    ramp_in=False,
+    ramp_out=False,
+    freeze_for=0,
+    output_dir='.',
+    write_data=False,
+    keep_frames=False,
+    seed=None,
+    forward_only_animation=False,
+):
     """The main function, transforms one dataset into a target shape by
     perturbing it.
 
@@ -145,7 +161,7 @@ def run_pattern(start_shape_name,
         decimals: how many decimal points to keep fixed
     """
     # TODO: be more consistent about passing around target_shape and target as string or object
-    df = start_shape_data # TODO: rename this everywhere
+    df = start_shape_data  # TODO: rename this everywhere
     r_good = df.copy()
 
     if seed is not None:
@@ -182,7 +198,9 @@ def run_pattern(start_shape_name,
     frame_count = 0
     # this is the main loop, were we run for many iterations to come up with the pattern
     for i in looper(iters, leave=True, ascii=True, desc=f'{target} pattern'):
-        t = (max_temp - min_temp) * pytweening.easeInOutQuad(((iters - i) / iters)) + min_temp
+        t = (max_temp - min_temp) * pytweening.easeInOutQuad(
+            ((iters - i) / iters)
+        ) + min_temp
 
         test_good = perturb(r_good.copy(), target=target, temp=t)
 
@@ -194,16 +212,27 @@ def run_pattern(start_shape_name,
         for _ in range(write_frames.count(i)):
             plot(
                 r_good,
-                save_to=os.path.join(output_dir, f'{start_shape_name}-to-{target}-image-{frame_count:05d}.png'),
-                dpi=150
+                save_to=os.path.join(
+                    output_dir,
+                    f'{start_shape_name}-to-{target}-image-{frame_count:05d}.png',
+                ),
+                dpi=150,
             )
             if write_data:
-                r_good.to_csv(os.path.join(output_dir, f'{start_shape_name}-to-{target}-data-{frame_count:05d}.csv'))
+                r_good.to_csv(
+                    os.path.join(
+                        output_dir,
+                        f'{start_shape_name}-to-{target}-data-{frame_count:05d}.csv',
+                    )
+                )
 
             frame_count += 1
 
     stitch_gif_animation(
-        output_dir, start_shape_name, target_shape=target, keep_frames=keep_frames,
-        forward_only_animation=forward_only_animation
+        output_dir,
+        start_shape_name,
+        target_shape=target,
+        keep_frames=keep_frames,
+        forward_only_animation=forward_only_animation,
     )
     return r_good

@@ -23,7 +23,8 @@ import pytweening
 import tqdm
 
 from .data.stats import get_values
-from .plotting import plot, stitch_gif_animation
+from .plotting.animation import stitch_gif_animation
+from .plotting.static import plot
 from .shapes.bases.shape import Shape
 
 

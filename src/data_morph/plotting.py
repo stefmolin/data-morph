@@ -1,18 +1,18 @@
 """Utility functions for plotting and animating."""
 
-from functools import wraps
 import glob
-from importlib.resources import files, as_file
 import os
+from functools import wraps
+from importlib.resources import as_file, files
 
 import matplotlib.pyplot as plt
 from PIL import Image
 
 from . import MAIN_DIR
-from .stats import get_values
-
+from .data.stats import get_values
 
 # TODO: docstrings
+
 
 def plot_with_custom_style(plotting_function):
     @wraps(plotting_function)
@@ -22,7 +22,9 @@ def plot_with_custom_style(plotting_function):
             with plt.style.context(style_path):
                 output = plotting_function(*args, **kwargs)
         return output
+
     return plot_in_style
+
 
 @plot_with_custom_style
 def plot(df, save_to, **save_kwds):
@@ -40,7 +42,7 @@ def plot(df, save_to, **save_kwds):
     fs = 30
 
     labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
-    max_label_length = max([len(l) for l in labels])
+    max_label_length = max([len(label) for label in labels])
 
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.9f}", then we
     # can pull the `.format` method for that string to reduce typing it
@@ -49,18 +51,28 @@ def plot(df, save_to, **save_kwds):
     corr_formatter = '{{:<{pad}}}: {{:+.9f}}'.format(pad=max_label_length).format
 
     opts = dict(fontsize=fs, alpha=0.3)
-    ax.text(110, y_offset + 80, formatter(labels[0], res[0])[:-2], **opts)
-    ax.text(110, y_offset + 65, formatter(labels[1], res[1])[:-2], **opts)
-    ax.text(110, y_offset + 50, formatter(labels[2], res[2])[:-2], **opts)
-    ax.text(110, y_offset + 35, formatter(labels[3], res[3])[:-2], **opts)
-    ax.text(110, y_offset + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-2], **opts)
+    ax.text(110, y_offset + 80, formatter(labels[0], res.x_mean)[:-2], **opts)
+    ax.text(110, y_offset + 65, formatter(labels[1], res.y_mean)[:-2], **opts)
+    ax.text(110, y_offset + 50, formatter(labels[2], res.x_stdev)[:-2], **opts)
+    ax.text(110, y_offset + 35, formatter(labels[3], res.y_stdev)[:-2], **opts)
+    ax.text(
+        110,
+        y_offset + 20,
+        corr_formatter(labels[4], res.correlation, pad=max_label_length)[:-2],
+        **opts,
+    )
 
     opts['alpha'] = 1
-    ax.text(110, y_offset + 80, formatter(labels[0], res[0])[:-7], **opts)
-    ax.text(110, y_offset + 65, formatter(labels[1], res[1])[:-7], **opts)
-    ax.text(110, y_offset + 50, formatter(labels[2], res[2])[:-7], **opts)
-    ax.text(110, y_offset + 35, formatter(labels[3], res[3])[:-7], **opts)
-    ax.text(110, y_offset + 20, corr_formatter(labels[4], res[4], pad=max_label_length)[:-7], **opts)
+    ax.text(110, y_offset + 80, formatter(labels[0], res.x_mean)[:-7], **opts)
+    ax.text(110, y_offset + 65, formatter(labels[1], res.y_mean)[:-7], **opts)
+    ax.text(110, y_offset + 50, formatter(labels[2], res.x_stdev)[:-7], **opts)
+    ax.text(110, y_offset + 35, formatter(labels[3], res.y_stdev)[:-7], **opts)
+    ax.text(
+        110,
+        y_offset + 20,
+        corr_formatter(labels[4], res.correlation, pad=max_label_length)[:-7],
+        **opts,
+    )
 
     if not save_to:
         return ax
@@ -72,10 +84,19 @@ def plot(df, save_to, **save_kwds):
     fig.savefig(save_to, **save_kwds)
     plt.close(fig)
 
-def stitch_gif_animation(output_dir, start_shape, target_shape, keep_frames=False, forward_only_animation=False):
+
+def stitch_gif_animation(
+    output_dir,
+    start_shape,
+    target_shape,
+    keep_frames=False,
+    forward_only_animation=False,
+):
     # find the frames and sort them
-    imgs = sorted(glob.glob(os.path.join(output_dir, f'{start_shape}-to-{target_shape}*.png')))
-    
+    imgs = sorted(
+        glob.glob(os.path.join(output_dir, f'{start_shape}-to-{target_shape}*.png'))
+    )
+
     # add the final frame for a bit
     start_image = Image.open(imgs[0])
     frames = [start_image for _ in range(100)]
@@ -83,11 +104,11 @@ def stitch_gif_animation(output_dir, start_shape, target_shape, keep_frames=Fals
     for img in imgs:
         new_frame = Image.open(img)
         frames.append(new_frame)
-    
+
     # add the final frame for a bit
     end_image = Image.open(imgs[-1])
     frames.extend([end_image for _ in range(50)])
-    
+
     if not forward_only_animation:
         # add the animation in reverse
         frames.extend(frames[::-1])
@@ -98,7 +119,7 @@ def stitch_gif_animation(output_dir, start_shape, target_shape, keep_frames=Fals
         append_images=frames[1:],
         save_all=True,
         duration=5,
-        loop=0
+        loop=0,
     )
 
     if not keep_frames:

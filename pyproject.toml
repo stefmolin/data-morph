@@ -46,7 +46,7 @@ source = "https://github.com/stefmolin/data-morph"
 where = ["src"]
 
 [tool.setuptools.package-data]
-"data_morph.data" = ["*"]
+"data_morph.data.datasets" = ["*"]
 "data_morph.config" = ["*"]
 
 [tool.setuptools.dynamic]

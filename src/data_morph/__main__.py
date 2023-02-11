@@ -3,8 +3,8 @@
 import argparse
 import os
 
+from .data.loader import DataLoader
 from .data_morph import run_pattern
-from .load_data import load_dataset
 from .shapes.factory import ShapeFactory
 
 if __name__ == '__main__':
@@ -100,7 +100,8 @@ if __name__ == '__main__':
     # TODO: these bounds need to be tied into the visualization logic
     # and passed into the annealing process, but both should have them wider
     # since we need flexibility to transform the data
-    start_shape_name, start_shape_data = load_dataset(args.start_shape, bounds=[10, 90])
+    loader = DataLoader(bounds=[10, 90])
+    start_shape_name, start_shape_data = loader.load_dataset(args.start_shape)
     shape_factory = ShapeFactory(start_shape_data)
 
     for target_shape in target_shapes:

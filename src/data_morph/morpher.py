@@ -23,7 +23,8 @@ import pytweening
 import tqdm
 
 from .data.stats import get_values
-from .plotting import plot, stitch_gif_animation
+from .plotting.animation import stitch_gif_animation
+from .plotting.static import plot
 from .shapes.bases.shape import Shape
 
 
@@ -296,6 +297,7 @@ class DataMorpher:
                     save_to=os.path.join(
                         self.output_dir, f'{base_name}-image-{frame_count:03d}.png'
                     ),
+                    decimals=self.decimals,
                     dpi=150,
                 )
                 if self.write_data:
@@ -314,4 +316,5 @@ class DataMorpher:
             keep_frames=self.keep_frames,
             forward_only_animation=self.forward_only_animation,
         )
+
         return morphed_data

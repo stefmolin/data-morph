@@ -4,7 +4,7 @@ import argparse
 import os
 
 from .data.loader import DataLoader
-from .data_morph import run_pattern
+from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
 
 if __name__ == '__main__':
@@ -46,6 +46,7 @@ if __name__ == '__main__':
         '--decimals',
         default=2,
         type=int,
+        choices=range(0, 6),
         help='The number of decimal places to preserve equality.',
     )
     parser.add_argument(
@@ -99,22 +100,26 @@ if __name__ == '__main__':
     # TODO: maybe the bounds should be configurable on the command line too?
     # TODO: these bounds need to be tied into the visualization logic
     # and passed into the annealing process, but both should have them wider
-    # since we need flexibility to transform the data
+    # than the data since we need flexibility to transform the data
     loader = DataLoader(bounds=[10, 90])
     start_shape_name, start_shape_data = loader.load_dataset(args.start_shape)
+
     shape_factory = ShapeFactory(start_shape_data)
+    morpher = DataMorpher(
+        decimals=args.decimals,
+        output_dir=args.output_dir,
+        write_data=args.write_data,
+        seed=args.seed,
+        keep_frames=args.keep_frames,
+        forward_only_animation=args.forward_only,
+        num_frames=100,
+        in_notebook=False,
+    )
 
     for target_shape in target_shapes:
-        run_pattern(
+        morpher.morph(
             start_shape_name,
             start_shape_data,
             shape_factory.generate_shape(target_shape),
-            iters=args.iterations,
-            decimals=args.decimals,
-            output_dir=args.output_dir,
-            keep_frames=args.keep_frames,
-            write_data=args.write_data,
-            seed=args.seed,
-            forward_only_animation=args.forward_only,
-            num_frames=100,  # TODO: should this be variable?
+            iterations=args.iterations,
         )

@@ -116,7 +116,10 @@ if __name__ == '__main__':
         in_notebook=False,
     )
 
-    for target_shape in target_shapes:
+    total_shapes = len(target_shapes)
+    for i, target_shape in enumerate(target_shapes, start=1):
+        if total_shapes > 1:
+            print(f'Morphing shape {i} of {total_shapes}')
         morpher.morph(
             start_shape_name,
             start_shape_data,

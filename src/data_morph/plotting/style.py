@@ -42,7 +42,7 @@ def plot_with_custom_style(plotting_function: Callable) -> Callable:
         any
             Output of calling the plotting function.
         """
-        style = files(MAIN_DIR).joinpath('viz/config/plot_style.mplstyle')
+        style = files(MAIN_DIR).joinpath('plotting/config/plot_style.mplstyle')
         with as_file(style) as style_path:
             with plt.style.context(style_path):
                 output = plotting_function(*args, **kwargs)

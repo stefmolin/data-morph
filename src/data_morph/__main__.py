@@ -3,8 +3,8 @@
 import argparse
 import os
 
+from .data.loader import DataLoader
 from .data_morph import run_pattern
-from .loader import DataLoader
 from .shapes.factory import ShapeFactory
 
 if __name__ == '__main__':

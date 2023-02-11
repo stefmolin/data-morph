@@ -47,7 +47,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "data_morph.data.datasets" = ["*"]
-"data_morph.config" = ["*"]
+"data_morph.plotting.config" = ["*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "data_morph.__version__"}

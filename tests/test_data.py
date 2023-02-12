@@ -30,6 +30,15 @@ def test_data_load(datasets_dir):
     assert dino_from_pkg[1].equals(dino_from_file[1])
 
 
+@pytest.mark.parametrize('dataset', ['does_not_exist', 'does_not_exist.csv'])
+def test_unknown_data_load(dataset):
+    """Confirm that trying to load non-existent datasets raises an error."""
+    loader = DataLoader([0, 100])
+
+    with pytest.raises(ValueError):
+        _ = loader.load_dataset(dataset)
+
+
 def test_data_normalization():
     """Confirm that data normalization is working by checking min and max."""
 

@@ -6,6 +6,7 @@ import pytest
 from numpy.testing import assert_equal
 
 from data_morph.data.loader import DataLoader
+from data_morph.data.stats import get_values
 
 
 @pytest.fixture
@@ -64,3 +65,18 @@ def test_data_columns():
 
     with pytest.raises(ValueError):
         loader._normalize_data(data.rename(columns={'x': 'a', 'y': 'b'}))
+
+
+def test_data_stats():
+    """Test that summary statistics tuple is correct."""
+
+    loader = DataLoader([0, 100])
+    _, data = loader.load_dataset('dino')
+
+    stats = get_values(data)
+
+    assert stats.x_mean == data.x.mean()
+    assert stats.y_mean == data.y.mean()
+    assert stats.x_stdev == data.x.std()
+    assert stats.y_stdev == data.y.std()
+    assert stats.correlation == data.corr().x.y

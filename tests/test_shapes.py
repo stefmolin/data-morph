@@ -59,3 +59,10 @@ def test_dots(shape_factory):
     """Test the Dots class."""
     dots = shape_factory.generate_shape('dots')
     assert dots.distance(20, 50) == 0.0
+
+
+def test_scatter(shape_factory):
+    """Test the Scatter class."""
+    scatter = shape_factory.generate_shape('scatter')
+    assert scatter.distance(20, 50) == 0.0
+    assert scatter.distance(20, 8) == 22.0

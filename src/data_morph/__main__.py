@@ -17,13 +17,16 @@ if __name__ == '__main__':
             'preserving the summary statistics to a given number of decimal '
             'points through simulated annealing.'
         ),
-        epilog='For example, TODO: python -m data_morph TODO',
+        epilog=(
+            'For example, morph the panda shape into a star: '
+            'python -m data_morph --target-shape star panda'
+        ),
     )
     parser.add_argument(
         'start_shape',
         help=(
             f'The starting shape. This could be one of {DataLoader.AVAILABLE_DATASETS} or '
-            'a path to a CSV file, in which case it should have two columns "x" and "y".'
+            "a path to a CSV file, in which case it should have two columns 'x' and 'y'."
         ),
     )
     parser.add_argument(
@@ -33,7 +36,7 @@ if __name__ == '__main__':
         help=(
             'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
             'will be converted to each target shape separately. Valid target shapes are '
-            f'{", ".join(ALL_TARGETS)}. Omit to convert to all target shapes in a single run.'
+            f"""'{"', '".join(ALL_TARGETS)}'. Omit to convert to all target shapes in a single run."""
         ),
     )
     parser.add_argument(
@@ -121,7 +124,7 @@ if __name__ == '__main__':
     if not target_shapes:
         raise ValueError(
             'No valid target shapes were provided. Valid options are '
-            f'{", ".join(ALL_TARGETS)}.'
+            f"""'{"', '".join(ALL_TARGETS)}'."""
         )
 
     # TODO: maybe the bounds should be configurable on the command line too?

@@ -1,6 +1,6 @@
 """Abstract base class for shapes."""
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Iterable, Union
 
 from scipy.spatial import distance
@@ -9,13 +9,11 @@ from scipy.spatial import distance
 class Shape(ABC):
     """Abstract base class for a shape."""
 
-    def __init__(self, *args, **kwargs) -> None:
-        raise NotImplementedError
-
     def __repr__(self) -> str:
         """Return string representation of the shape."""
         return self.__class__.__name__.lower()
 
+    @abstractmethod
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
         Calculate the distance between this shape and a point (x, y).

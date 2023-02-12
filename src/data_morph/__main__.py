@@ -124,7 +124,7 @@ if __name__ == '__main__':
     if not target_shapes:
         raise ValueError(
             'No valid target shapes were provided. Valid options are '
-            f'{", ".join(ALL_TARGETS)}.'
+            f"""'{"', '".join(ALL_TARGETS)}'."""
         )
 
     # TODO: maybe the bounds should be configurable on the command line too?

@@ -22,6 +22,7 @@ class DataLoader:
     _DATA_PATH: str = 'data/datasets/'
     _DATASETS: dict = {
         'dino': 'dino.csv',
+        'panda': 'panda.csv',
     }
     AVAILABLE_DATASETS = list(_DATASETS.keys())
 

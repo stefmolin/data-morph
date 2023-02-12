@@ -20,6 +20,7 @@ def test_shape_factory(sample_data):
     for shape_name, shape_type in shape_factory.AVAILABLE_SHAPES.items():
         shape = shape_factory.generate_shape(shape_name)
         assert isinstance(shape, shape_type)
+        assert shape_name == str(shape)
 
     with pytest.raises(ValueError, match='No such shape'):
         _ = shape_factory.generate_shape('does not exist')

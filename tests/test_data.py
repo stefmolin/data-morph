@@ -36,7 +36,7 @@ def test_unknown_data_load(dataset):
     """Confirm that trying to load non-existent datasets raises an error."""
     loader = DataLoader([0, 100])
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match='Unknown dataset'):
         _ = loader.load_dataset(dataset)
 
 
@@ -63,7 +63,7 @@ def test_data_columns():
 
     _, data = loader.load_dataset('dino')
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match='Columns "x" and "y" are required.'):
         loader._normalize_data(data.rename(columns={'x': 'a', 'y': 'b'}))
 
 

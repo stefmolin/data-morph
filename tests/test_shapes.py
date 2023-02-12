@@ -66,3 +66,17 @@ def test_scatter(shape_factory):
     scatter = shape_factory.generate_shape('scatter')
     assert scatter.distance(20, 50) == 0.0
     assert scatter.distance(20, 8) == 22.0
+
+
+def test_lines(shape_factory):
+    """Test the Lines class."""
+    x_lines = shape_factory.generate_shape('x')
+
+    # test a point on the line
+    assert x_lines.distance(30, 50) == 0.0
+
+    # test a point off the line
+    assert pytest.approx(x_lines.distance(0, 0)) == 80.622577
+
+    # test lines that are very small
+    assert x_lines._distance_point_to_line((30, 50), [(0, 0), (0, 0)]) == 9999

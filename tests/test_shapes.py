@@ -6,11 +6,16 @@ import pytest
 from data_morph.shapes.factory import ShapeFactory
 
 
-def test_shape_factory():
-    """Test the ShapeFactory class."""
-    data = pd.DataFrame({'x': [10, 20, 30], 'y': [50, 50, 80]})
+@pytest.fixture
+def sample_data():
+    """Fixture for the sample data."""
+    return pd.DataFrame({'x': [10, 20, 30], 'y': [50, 50, 80]})
 
-    shape_factory = ShapeFactory(data)
+
+def test_shape_factory(sample_data):
+    """Test the ShapeFactory class."""
+
+    shape_factory = ShapeFactory(sample_data)
 
     for shape_name, shape_type in shape_factory.AVAILABLE_SHAPES.items():
         shape = shape_factory.generate_shape(shape_name)

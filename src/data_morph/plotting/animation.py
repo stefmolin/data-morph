@@ -22,7 +22,8 @@ def stitch_gif_animation(
     Parameters
     ----------
     output_dir : str
-        The output directory to save the animation to.
+        The output directory to save the animation to. Note that the frames to
+        stitch together must be in here as well.
     start_shape : str
         The starting shape.
     target_shape : str or Shape

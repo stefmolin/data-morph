@@ -3,6 +3,7 @@
 import os
 
 import pytest
+from numpy.testing import assert_equal
 
 from data_morph.data.loader import DataLoader
 
@@ -27,3 +28,15 @@ def test_data_load(datasets_dir):
 
     assert dino_from_pkg[0] == dino_from_file[0]
     assert dino_from_pkg[1].equals(dino_from_file[1])
+
+
+def test_data_normalization():
+    """Confirm that data normalization is working by checking min and max."""
+
+    bounds = [0, 100]
+    loader = DataLoader(bounds)
+
+    _, data = loader.load_dataset('dino')
+
+    assert_equal(data.min().to_numpy(), [bounds[0]] * 2)
+    assert_equal(data.max().to_numpy(), [bounds[1]] * 2)

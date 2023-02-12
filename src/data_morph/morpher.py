@@ -78,13 +78,22 @@ class DataMorpher:
         ramp_out : bool
             Whether to slow down the transition at the end.
         freeze_for : int
-            The number of frames to freeze at the end.
+            The number of frames to freeze at the beginning and end. Must be in the
+            interval [0, 50].
 
         Returns
         -------
         list
             The list of frame numbers to include in the animation.
         """
+        if not isinstance(freeze_for, int) or freeze_for < 0 or freeze_for > 50:
+            raise ValueError(
+                'freeze_for must be a non-negative integer less than or equal to 50.'
+            )
+
+        # freeze initial frame
+        frames = [0] * freeze_for
+
         if ramp_in and not ramp_out:
             easing_function = pytweening.easeInSine
         elif ramp_out and not ramp_in:
@@ -94,15 +103,62 @@ class DataMorpher:
         else:
             easing_function = pytweening.linear
 
-        frames = [
-            int(round(easing_function(x) * iterations))
-            for x in np.arange(0, 1, 1 / (self.num_frames - freeze_for))
-        ]
+        # add transition frames
+        frames.extend(
+            [
+                int(round(easing_function(x) * iterations))
+                for x in np.arange(0, 1, 1 / (self.num_frames - freeze_for // 2))
+            ]
+        )
 
-        extras = [iterations] * freeze_for
-        frames.extend(extras)
+        # freeze final frame
+        frames.extend([iterations] * freeze_for)
 
         return frames
+
+    def _record_frames(
+        self, data: pd.DataFrame, base_file_name: str, count: int, frame_number: int
+    ) -> int:
+        """
+        Record frame data as a plot and, when :attr:`write_data` is ``True``, as a CSV file.
+
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            The dataset.
+        base_file_name : str
+            The prefix to the file names for both the PNG and GIF files.
+        count : int
+            The number of frames to record with the data.
+        frame_number : int
+            The starting frame number.
+
+        Returns
+        -------
+        int
+            The next frame number available for recording.
+        """
+        is_start = frame_number == 0
+        for _ in range(count):
+            plot(
+                data,
+                save_to=os.path.join(
+                    self.output_dir, f'{base_file_name}-image-{frame_number:03d}.png'
+                ),
+                decimals=self.decimals,
+                dpi=150,
+            )
+            if (
+                self.write_data and not is_start
+            ):  # don't write data for the initial frame (input data)
+                data.to_csv(
+                    os.path.join(
+                        self.output_dir, f'{base_file_name}-data-{frame_number:03d}.csv'
+                    )
+                )
+
+            frame_number += 1
+        return frame_number
 
     def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
         """
@@ -245,10 +301,14 @@ class DataMorpher:
             The farthest apart the perturbed points can be from the target shape.
         ramp_in : bool, default False
             Whether to more slowly transition in the beginning.
+            This only affects the frames, not the algorithm.
         ramp_out : bool, default False
             Whether to slow down the transition at the end.
+            This only affects the frames, not the algorithm.
         freeze_for : int, default 0
-            The number of frames to freeze at the end.
+            The number of frames to freeze at the beginning and end.
+            This only affects the frames, not the algorithm. Must be in the
+            interval [0, 50].
 
         Returns
         -------
@@ -268,7 +328,14 @@ class DataMorpher:
             freeze_for=freeze_for,
         )
 
-        frame_count = 1
+        base_file_name = f'{start_shape_name}-to-{target}'
+        frame_number = self._record_frames(
+            data=morphed_data,
+            base_file_name=base_file_name,
+            count=freeze_for,
+            frame_number=0,
+        )
+
         for i in self.looper(
             iterations, leave=True, ascii=True, desc=f'{target} pattern'
         ):
@@ -290,24 +357,12 @@ class DataMorpher:
             if self._is_close_enough(start_shape_data, perturbed_data):
                 morphed_data = perturbed_data
 
-            base_name = f'{start_shape_name}-to-{target}'
-            for _ in range(frame_numbers.count(i)):
-                plot(
-                    morphed_data,
-                    save_to=os.path.join(
-                        self.output_dir, f'{base_name}-image-{frame_count:03d}.png'
-                    ),
-                    decimals=self.decimals,
-                    dpi=150,
-                )
-                if self.write_data:
-                    morphed_data.to_csv(
-                        os.path.join(
-                            self.output_dir, f'{base_name}-data-{frame_count:03d}.csv'
-                        )
-                    )
-
-                frame_count += 1
+            frame_number = self._record_frames(
+                data=morphed_data,
+                base_file_name=base_file_name,
+                count=frame_numbers.count(i),
+                frame_number=frame_number,
+            )
 
         stitch_gif_animation(
             self.output_dir,

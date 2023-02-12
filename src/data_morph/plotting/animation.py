@@ -39,17 +39,7 @@ def stitch_gif_animation(
         glob.glob(os.path.join(output_dir, f'{start_shape}-to-{target_shape}*.png'))
     )
 
-    # add the final frame for a bit
-    start_image = Image.open(imgs[0])
-    frames = [start_image for _ in range(100)]
-
-    for img in imgs:
-        new_frame = Image.open(img)
-        frames.append(new_frame)
-
-    # add the final frame for a bit
-    end_image = Image.open(imgs[-1])
-    frames.extend([end_image for _ in range(50)])
+    frames = [Image.open(img) for img in imgs]
 
     if not forward_only_animation:
         # add the animation in reverse

@@ -50,9 +50,48 @@ if __name__ == '__main__':
         help='The number of decimal places to preserve equality.',
     )
     parser.add_argument(
+        '--seed',
+        default=None,
+        type=int,
+        help='Provide a seed for reproducible results.',
+    )
+    parser.add_argument(
         '--output-dir',
         default=os.path.join(os.getcwd(), 'morphed_data'),
         help='Path to a directory for writing output files.',
+    )
+    parser.add_argument(
+        '--write-data',
+        default=False,
+        action='store_true',
+        help='Whether to write CSV files to the output directory with the data for each frame.',
+    )
+    parser.add_argument(
+        '--ramp-in',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to slowly start the transition from input to target in '
+            'the animation. This only affects the frames, not the algorithm.'
+        ),
+    )
+    parser.add_argument(
+        '--ramp-out',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to slow down the transition from input to target towards '
+            'the end of the animation. This only affects the frames, not the algorithm.'
+        ),
+    )
+    parser.add_argument(
+        '--freeze',
+        default=0,
+        type=int,
+        help=(
+            'Number of frames to freeze at the first and final frame of the transition '
+            'in the animation. This only affects the frames, not the algorithm.'
+        ),
     )
     parser.add_argument(
         '--forward-only',
@@ -70,18 +109,6 @@ if __name__ == '__main__':
         default=False,
         action='store_true',
         help='Whether to keep individual frame images in the output directory.',
-    )
-    parser.add_argument(
-        '--write-data',
-        default=False,
-        action='store_true',
-        help='Whether to write CSV files to the output directory with the data for each frame.',
-    )
-    parser.add_argument(
-        '--seed',
-        default=None,
-        type=int,
-        help='Provide a seed for reproducible results.',
     )
 
     args = parser.parse_args()
@@ -125,4 +152,7 @@ if __name__ == '__main__':
             start_shape_data,
             shape_factory.generate_shape(target_shape),
             iterations=args.iterations,
+            ramp_in=args.ramp_in,
+            ramp_out=args.ramp_out,
+            freeze_for=args.freeze,
         )

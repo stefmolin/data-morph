@@ -67,6 +67,33 @@ if __name__ == '__main__':
         help='Whether to write CSV files to the output directory with the data for each frame.',
     )
     parser.add_argument(
+        '--ramp-in',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to slowly start the transition from input to target in '
+            'the animation. This only affects the frames, not the algorithm.'
+        ),
+    )
+    parser.add_argument(
+        '--ramp-out',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to slow down the transition from input to target towards '
+            'the end of the animation. This only affects the frames, not the algorithm.'
+        ),
+    )
+    parser.add_argument(
+        '--freeze',
+        default=0,
+        type=int,
+        help=(
+            'Number of frames to freeze at the first and final frame of the transition '
+            'in the animation. This only affects the frames, not the algorithm.'
+        ),
+    )
+    parser.add_argument(
         '--forward-only',
         default=False,
         action='store_true',
@@ -125,4 +152,7 @@ if __name__ == '__main__':
             start_shape_data,
             shape_factory.generate_shape(target_shape),
             iterations=args.iterations,
+            ramp_in=args.ramp_in,
+            ramp_out=args.ramp_out,
+            freeze_for=args.freeze,
         )

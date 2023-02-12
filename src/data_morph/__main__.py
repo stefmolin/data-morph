@@ -50,9 +50,21 @@ if __name__ == '__main__':
         help='The number of decimal places to preserve equality.',
     )
     parser.add_argument(
+        '--seed',
+        default=None,
+        type=int,
+        help='Provide a seed for reproducible results.',
+    )
+    parser.add_argument(
         '--output-dir',
         default=os.path.join(os.getcwd(), 'morphed_data'),
         help='Path to a directory for writing output files.',
+    )
+    parser.add_argument(
+        '--write-data',
+        default=False,
+        action='store_true',
+        help='Whether to write CSV files to the output directory with the data for each frame.',
     )
     parser.add_argument(
         '--forward-only',
@@ -70,18 +82,6 @@ if __name__ == '__main__':
         default=False,
         action='store_true',
         help='Whether to keep individual frame images in the output directory.',
-    )
-    parser.add_argument(
-        '--write-data',
-        default=False,
-        action='store_true',
-        help='Whether to write CSV files to the output directory with the data for each frame.',
-    )
-    parser.add_argument(
-        '--seed',
-        default=None,
-        type=int,
-        help='Provide a seed for reproducible results.',
     )
 
     args = parser.parse_args()

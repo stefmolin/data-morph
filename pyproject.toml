@@ -38,6 +38,7 @@ dynamic = ["version"]
 dev = [
     "pre-commit",
     "pytest",
+    "pytest-cov",
 ]
 
 [project.urls]

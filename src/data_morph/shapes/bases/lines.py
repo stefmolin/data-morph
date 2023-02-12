@@ -26,10 +26,10 @@ class Lines(Shape):
             The minimum distance from the lines of this shape to the point (x, y).
         """
         return min(
-            self.distance_point_to_line(point=(x, y), line=line) for line in self.lines
+            self._distance_point_to_line(point=(x, y), line=line) for line in self.lines
         )
 
-    def distance_point_to_line(
+    def _distance_point_to_line(
         self,
         point: Iterable[Union[int, float]],
         line: Iterable[Iterable[Union[int, float]]],

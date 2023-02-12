@@ -17,7 +17,10 @@ if __name__ == '__main__':
             'preserving the summary statistics to a given number of decimal '
             'points through simulated annealing.'
         ),
-        epilog='For example, TODO: python -m data_morph TODO',
+        epilog=(
+            'For example, morph the panda shape into a star: '
+            'python -m data_morph --target-shape star panda'
+        ),
     )
     parser.add_argument(
         'start_shape',

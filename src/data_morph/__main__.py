@@ -22,7 +22,7 @@ if __name__ == '__main__':
     parser.add_argument(
         'start_shape',
         help=(
-            'The starting shape. This could be something in the data folder or '
+            f'The starting shape. This could be one of {DataLoader.AVAILABLE_DATASETS} or '
             'a path to a CSV file, in which case it should have two columns "x" and "y".'
         ),
     )

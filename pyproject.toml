@@ -37,6 +37,8 @@ dynamic = ["version"]
 [project.optional-dependencies]
 dev = [
     "pre-commit",
+    "pytest",
+    "pytest-cov",
 ]
 
 [project.urls]
@@ -96,3 +98,9 @@ atomic = true
 profile = "black"
 line_length = 88
 skip_gitignore = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+testpaths = ["tests"]

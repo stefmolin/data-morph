@@ -2,7 +2,7 @@
 
 import os
 from importlib.resources import files
-from typing import Iterable, Tuple, Union
+from typing import Iterable, Union
 
 import pandas as pd
 
@@ -19,23 +19,24 @@ class DataLoader:
         An iterable of min/max bounds for normalization.
     """
 
-    DATASETS: dict = {
+    _DATA_PATH: str = 'data/datasets/'
+    _DATASETS: dict = {
         'dino': 'dino.csv',
     }
-
-    DATA_PATH: str = 'data/datasets/'
+    AVAILABLE_DATASETS = list(_DATASETS.keys())
 
     def __init__(self, bounds: Iterable[Union[int, float]]) -> None:
         self._bounds: Iterable[Union[int, float]] = bounds
 
-    def load_dataset(self, dataset: str) -> Tuple[str, pd.DataFrame]:
+    def load_dataset(self, dataset: str) -> tuple[str, pd.DataFrame]:
         """
         Load dataset and apply normalization.
 
         Parameters
         ----------
         name : str
-            Either one of TODO or a path to a CSV file containing two columns: x and y.
+            Either one of :attr:`AVAILABLE_DATASETS` or a path to a
+            CSV file containing two columns: x and y.
 
         Returns
         -------
@@ -44,7 +45,7 @@ class DataLoader:
         """
         try:
             filepath = files(MAIN_DIR).joinpath(
-                f'{self.DATA_PATH}/{self.DATASETS[dataset]}'
+                f'{self._DATA_PATH}/{self._DATASETS[dataset]}'
             )
             return (dataset, pd.read_csv(filepath).pipe(self._normalize_data))
         except KeyError:
@@ -60,7 +61,7 @@ class DataLoader:
                 raise ValueError(
                     f'Unknown dataset "{dataset}". '
                     'Provide a valid path to a CSV dataset or use one of '
-                    f'the included datasets: {", ".join(self.DATASETS.keys())}.'
+                    f'the included datasets: {", ".join(self.AVAILABLE_DATASETS)}.'
                 )
 
     def _normalize_data(self, data: pd.DataFrame) -> pd.DataFrame:

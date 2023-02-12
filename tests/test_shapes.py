@@ -1,16 +1,9 @@
 """Test shape classes."""
 
-import pandas as pd
 import pytest
 
 from data_morph.shapes.bases.shape import Shape
 from data_morph.shapes.factory import ShapeFactory
-
-
-@pytest.fixture
-def sample_data():
-    """Fixture for the sample data."""
-    return pd.DataFrame({'x': [10, 20, 30], 'y': [50, 50, 80]})
 
 
 @pytest.fixture

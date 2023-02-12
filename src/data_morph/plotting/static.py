@@ -26,10 +26,10 @@ def plot(df: pd.DataFrame, save_to: str, decimals: int, **save_kwds) -> None:
         Additional keyword arguments that will be passed down to
         :meth:`matplotlib.figure.Figure.savefig`.
     """
-    y_offset = 0
+    y_offset = -5
     fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')
     ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
-    ax.set(xlim=(0, 105), ylim=(y_offset, 105))
+    ax.set(xlim=(-5, 105), ylim=(y_offset, 105))
 
     res = get_values(df)
 

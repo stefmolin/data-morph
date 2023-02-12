@@ -3,6 +3,7 @@
 import pandas as pd
 import pytest
 
+from data_morph.shapes.bases.shape import Shape
 from data_morph.shapes.factory import ShapeFactory
 
 
@@ -24,3 +25,9 @@ def test_shape_factory(sample_data):
 
     with pytest.raises(ValueError, match='No such shape'):
         _ = shape_factory.generate_shape('does not exist')
+
+
+def test_shape_abc(sample_data):
+    """Test that Shape class can't be instantiated directly."""
+    with pytest.raises(NotImplementedError):
+        _ = Shape(sample_data)

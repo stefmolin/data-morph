@@ -6,7 +6,10 @@ from data_morph.data.loader import DataLoader
 
 DATASETS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-    'src/data_morph/data/datasets',
+    'src',
+    'data_morph',
+    'data',
+    'datasets',
 )
 
 

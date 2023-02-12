@@ -27,7 +27,25 @@ def test_shape_factory(sample_data):
         _ = shape_factory.generate_shape('does not exist')
 
 
-def test_shape_abc(sample_data):
+def test_shape_abc():
     """Test that Shape class can't be instantiated directly."""
+    with pytest.raises(TypeError):
+        _ = Shape()
+
+    class NewShape(Shape):
+        def distance(self):
+            return super().distance(0, 0)
+
     with pytest.raises(NotImplementedError):
-        _ = Shape(sample_data)
+        NewShape().distance()
+
+
+def test_circle(sample_data):
+    """Test the Circle."""
+
+    circle = ShapeFactory(sample_data).generate_shape('circle')
+
+    assert circle.cx == sample_data.x.mean()
+    assert circle.cy == sample_data.y.mean()
+
+    assert circle.distance(20, 50) == 20.0

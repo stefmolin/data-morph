@@ -116,6 +116,50 @@ class DataMorpher:
 
         return frames
 
+    def _record_frames(
+        self, data: pd.DataFrame, base_file_name: str, count: int, frame_number: int
+    ) -> int:
+        """
+        Record frame data as a plot and, when :attr:`write_data` is ``True``, as a CSV file.
+
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            The dataset.
+        base_file_name : str
+            The prefix to the file names for both the PNG and GIF files.
+        count : int
+            The number of frames to record with the data.
+        frame_number : int
+            The starting frame number.
+
+        Returns
+        -------
+        int
+            The next frame number available for recording.
+        """
+        is_start = frame_number == 0
+        for _ in range(count):
+            plot(
+                data,
+                save_to=os.path.join(
+                    self.output_dir, f'{base_file_name}-image-{frame_number:03d}.png'
+                ),
+                decimals=self.decimals,
+                dpi=150,
+            )
+            if (
+                self.write_data and not is_start
+            ):  # don't write data for the initial frame (input data)
+                data.to_csv(
+                    os.path.join(
+                        self.output_dir, f'{base_file_name}-data-{frame_number:03d}.csv'
+                    )
+                )
+
+            frame_number += 1
+        return frame_number
+
     def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
         """
         Check whether the statistics are within the acceptable bounds.
@@ -284,7 +328,14 @@ class DataMorpher:
             freeze_for=freeze_for,
         )
 
-        frame_count = 1
+        base_file_name = f'{start_shape_name}-to-{target}'
+        frame_number = self._record_frames(
+            data=morphed_data,
+            base_file_name=base_file_name,
+            count=freeze_for,
+            frame_number=0,
+        )
+
         for i in self.looper(
             iterations, leave=True, ascii=True, desc=f'{target} pattern'
         ):
@@ -306,24 +357,12 @@ class DataMorpher:
             if self._is_close_enough(start_shape_data, perturbed_data):
                 morphed_data = perturbed_data
 
-            base_name = f'{start_shape_name}-to-{target}'
-            for _ in range(frame_numbers.count(i)):
-                plot(
-                    morphed_data,
-                    save_to=os.path.join(
-                        self.output_dir, f'{base_name}-image-{frame_count:03d}.png'
-                    ),
-                    decimals=self.decimals,
-                    dpi=150,
-                )
-                if self.write_data:
-                    morphed_data.to_csv(
-                        os.path.join(
-                            self.output_dir, f'{base_name}-data-{frame_count:03d}.csv'
-                        )
-                    )
-
-                frame_count += 1
+            frame_number = self._record_frames(
+                data=morphed_data,
+                base_file_name=base_file_name,
+                count=frame_numbers.count(i),
+                frame_number=frame_number,
+            )
 
         stitch_gif_animation(
             self.output_dir,

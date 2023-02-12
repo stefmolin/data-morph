@@ -41,7 +41,7 @@ def test_shape_abc():
 
 
 def test_circle(sample_data):
-    """Test the Circle."""
+    """Test the Circle class."""
 
     circle = ShapeFactory(sample_data).generate_shape('circle')
 
@@ -49,3 +49,17 @@ def test_circle(sample_data):
     assert circle.cy == sample_data.y.mean()
 
     assert circle.distance(20, 50) == 20.0
+
+
+def test_bullseye(sample_data):
+    """Test the Bullseye class."""
+
+    bullseye = ShapeFactory(sample_data).generate_shape('bullseye')
+
+    x_mean, y_mean = sample_data.mean()[['x', 'y']]
+
+    for circle in bullseye.circles:
+        assert circle.cx == x_mean
+        assert circle.cy == y_mean
+
+    assert bullseye.distance(20, 50) == 8.0

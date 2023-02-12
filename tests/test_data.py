@@ -49,3 +49,18 @@ def test_data_normalization():
 
     assert_equal(data.min().to_numpy(), [bounds[0]] * 2)
     assert_equal(data.max().to_numpy(), [bounds[1]] * 2)
+
+
+def test_data_columns():
+    """
+    Confirm that loader checks for proper columns on normalization,
+    which is part of loading process.
+    """
+
+    bounds = [0, 100]
+    loader = DataLoader(bounds)
+
+    _, data = loader.load_dataset('dino')
+
+    with pytest.raises(ValueError):
+        loader._normalize_data(data.rename(columns={'x': 'a', 'y': 'b'}))

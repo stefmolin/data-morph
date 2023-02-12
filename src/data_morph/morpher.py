@@ -78,13 +78,22 @@ class DataMorpher:
         ramp_out : bool
             Whether to slow down the transition at the end.
         freeze_for : int
-            The number of frames to freeze at the end.
+            The number of frames to freeze at the beginning and end. Must be in the
+            interval [0, 50].
 
         Returns
         -------
         list
             The list of frame numbers to include in the animation.
         """
+        if not isinstance(freeze_for, int) or freeze_for < 0 or freeze_for > 50:
+            raise ValueError(
+                'freeze_for must be a non-negative integer less than or equal to 50.'
+            )
+
+        # freeze initial frame
+        frames = [0] * freeze_for
+
         if ramp_in and not ramp_out:
             easing_function = pytweening.easeInSine
         elif ramp_out and not ramp_in:
@@ -94,13 +103,16 @@ class DataMorpher:
         else:
             easing_function = pytweening.linear
 
-        frames = [
-            int(round(easing_function(x) * iterations))
-            for x in np.arange(0, 1, 1 / (self.num_frames - freeze_for))
-        ]
+        # add transition frames
+        frames.extend(
+            [
+                int(round(easing_function(x) * iterations))
+                for x in np.arange(0, 1, 1 / (self.num_frames - freeze_for // 2))
+            ]
+        )
 
-        extras = [iterations] * freeze_for
-        frames.extend(extras)
+        # freeze final frame
+        frames.extend([iterations] * freeze_for)
 
         return frames
 
@@ -245,10 +257,14 @@ class DataMorpher:
             The farthest apart the perturbed points can be from the target shape.
         ramp_in : bool, default False
             Whether to more slowly transition in the beginning.
+            This only affects the frames, not the algorithm.
         ramp_out : bool, default False
             Whether to slow down the transition at the end.
+            This only affects the frames, not the algorithm.
         freeze_for : int, default 0
-            The number of frames to freeze at the end.
+            The number of frames to freeze at the beginning and end.
+            This only affects the frames, not the algorithm. Must be in the
+            interval [0, 50].
 
         Returns
         -------

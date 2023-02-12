@@ -23,7 +23,7 @@ if __name__ == '__main__':
         'start_shape',
         help=(
             f'The starting shape. This could be one of {DataLoader.AVAILABLE_DATASETS} or '
-            'a path to a CSV file, in which case it should have two columns "x" and "y".'
+            "a path to a CSV file, in which case it should have two columns 'x' and 'y'."
         ),
     )
     parser.add_argument(
@@ -33,7 +33,7 @@ if __name__ == '__main__':
         help=(
             'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
             'will be converted to each target shape separately. Valid target shapes are '
-            f'{", ".join(ALL_TARGETS)}. Omit to convert to all target shapes in a single run.'
+            f"""'{"', '".join(ALL_TARGETS)}'. Omit to convert to all target shapes in a single run."""
         ),
     )
     parser.add_argument(

@@ -22,6 +22,16 @@ def test_morpher_input_validation_num_frames(num_frames):
         )
 
 
+@pytest.mark.parametrize('freeze_for', [-1, 0.5, 200])
+def test_morpher_input_validation_freeze_for(freeze_for):
+    """Test input validation on freeze_for."""
+    with pytest.raises(ValueError, match='freeze_for must be a non-negative integer'):
+        morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+        _ = morpher._select_frames(
+            iterations=100, ramp_in=True, ramp_out=True, freeze_for=freeze_for
+        )
+
+
 @pytest.mark.parametrize(
     ['ramp_in', 'ramp_out', 'expected_frames'],
     [

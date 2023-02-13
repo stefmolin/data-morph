@@ -13,6 +13,15 @@ def test_morpher_input_validation_decimals(decimals):
         _ = DataMorpher(decimals=decimals, in_notebook=False, output_dir='')
 
 
+@pytest.mark.parametrize('num_frames', [-1, 0, 0.5, 200])
+def test_morpher_input_validation_num_frames(num_frames):
+    """Test input validation on num_frames."""
+    with pytest.raises(ValueError, match='num_frames must be a positive integer'):
+        _ = DataMorpher(
+            decimals=2, in_notebook=False, output_dir='', num_frames=num_frames
+        )
+
+
 @pytest.mark.parametrize(
     ['ramp_in', 'ramp_out', 'expected_frames'],
     [

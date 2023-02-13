@@ -6,6 +6,21 @@ from numpy.testing import assert_equal
 from data_morph.morpher import DataMorpher
 
 
+@pytest.mark.parametrize(
+    ['write_data', 'write_images'], [[True, True], [True, False], [False, True]]
+)
+def test_morpher_input_validation_output_dir(write_data, write_images):
+    """Test input validation on output_dir."""
+    with pytest.raises(ValueError, match='output_dir cannot be None if'):
+        _ = DataMorpher(
+            decimals=2,
+            in_notebook=False,
+            write_data=write_data,
+            write_images=write_images,
+            output_dir=None,
+        )
+
+
 @pytest.mark.parametrize('decimals', [5.5, -1, 0.5, 6])
 def test_morpher_input_validation_decimals(decimals):
     """Test input validation on decimals."""

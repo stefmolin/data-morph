@@ -2,6 +2,7 @@
 
 import pytest
 from numpy.testing import assert_equal
+from pandas.testing import assert_frame_equal
 
 from data_morph.data.loader import DataLoader
 from data_morph.morpher import DataMorpher
@@ -99,5 +100,6 @@ def test_morpher_no_writing():
         freeze_for=0,
     )
 
-    assert not morphed_data.equals(start_shape_data)
+    with pytest.raises(AssertionError):
+        assert_frame_equal(morphed_data, start_shape_data)
     assert morpher._is_close_enough(start_shape_data, morphed_data)

@@ -4,6 +4,7 @@ import os
 
 import pytest
 from numpy.testing import assert_equal
+from pandas.testing import assert_frame_equal
 
 from data_morph.data.loader import DataLoader
 from data_morph.data.stats import get_values
@@ -28,7 +29,7 @@ def test_data_load(datasets_dir):
     dino_from_file = loader.load_dataset(os.path.join(datasets_dir, 'dino.csv'))
 
     assert dino_from_pkg[0] == dino_from_file[0]
-    assert dino_from_pkg[1].equals(dino_from_file[1])
+    assert_frame_equal(dino_from_pkg[1], dino_from_file[1])
 
 
 @pytest.mark.parametrize('dataset', ['does_not_exist', 'does_not_exist.csv'])

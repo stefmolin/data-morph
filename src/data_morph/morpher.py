@@ -35,17 +35,25 @@ class DataMorpher:
         self,
         *,
         decimals: int,
-        output_dir: str,
         in_notebook: bool,
+        output_dir: str = None,
+        write_images: bool = True,
         write_data: bool = False,
         seed: Optional[int] = None,
         num_frames: int = 100,
         keep_frames: bool = False,
         forward_only_animation: bool = False,
     ) -> None:
-        self.output_dir = output_dir
         self.keep_frames = keep_frames
+        self.write_images = write_images
         self.write_data = write_data
+        self.output_dir = output_dir
+
+        if (self.write_images or self.write_data) and self.output_dir is None:
+            raise ValueError(
+                'output_dir cannot be None if write_images or write_data is True.'
+            )
+
         self.seed = seed
         self.forward_only_animation = forward_only_animation
 
@@ -138,26 +146,31 @@ class DataMorpher:
         int
             The next frame number available for recording.
         """
-        is_start = frame_number == 0
-        for _ in range(count):
-            plot(
-                data,
-                save_to=os.path.join(
-                    self.output_dir, f'{base_file_name}-image-{frame_number:03d}.png'
-                ),
-                decimals=self.decimals,
-                dpi=150,
-            )
-            if (
-                self.write_data and not is_start
-            ):  # don't write data for the initial frame (input data)
-                data.to_csv(
-                    os.path.join(
-                        self.output_dir, f'{base_file_name}-data-{frame_number:03d}.csv'
+        if self.write_images or self.write_data:
+            is_start = frame_number == 0
+            for _ in range(count):
+                if self.write_images:
+                    plot(
+                        data,
+                        save_to=os.path.join(
+                            self.output_dir,
+                            f'{base_file_name}-image-{frame_number:03d}.png',
+                        ),
+                        decimals=self.decimals,
+                        dpi=150,
                     )
-                )
+                if (
+                    self.write_data and not is_start
+                ):  # don't write data for the initial frame (input data)
+                    data.to_csv(
+                        os.path.join(
+                            self.output_dir,
+                            f'{base_file_name}-data-{frame_number:03d}.csv',
+                        ),
+                        index=False,
+                    )
 
-            frame_number += 1
+                frame_number += 1
         return frame_number
 
     def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
@@ -364,12 +377,22 @@ class DataMorpher:
                 frame_number=frame_number,
             )
 
-        stitch_gif_animation(
-            self.output_dir,
-            start_shape_name,
-            target_shape=target,
-            keep_frames=self.keep_frames,
-            forward_only_animation=self.forward_only_animation,
-        )
+        if self.write_images:
+            stitch_gif_animation(
+                self.output_dir,
+                start_shape_name,
+                target_shape=target,
+                keep_frames=self.keep_frames,
+                forward_only_animation=self.forward_only_animation,
+            )
+
+        if self.write_data:
+            morphed_data.to_csv(
+                os.path.join(
+                    self.output_dir,
+                    f'{base_file_name}-data-{frame_number:03d}.csv',
+                ),
+                index=False,
+            )
 
         return morphed_data

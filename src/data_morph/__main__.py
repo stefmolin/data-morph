@@ -150,7 +150,7 @@ if __name__ == '__main__':
     for i, target_shape in enumerate(target_shapes, start=1):
         if total_shapes > 1:
             print(f'Morphing shape {i} of {total_shapes}')
-        morpher.morph(
+        _ = morpher.morph(
             start_shape_name,
             start_shape_data,
             shape_factory.generate_shape(target_shape),

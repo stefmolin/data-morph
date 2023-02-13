@@ -1,5 +1,9 @@
 """Tests for data_morph.morpher module."""
 
+import glob
+import os
+
+import pandas as pd
 import pytest
 from numpy.testing import assert_equal
 from pandas.testing import assert_frame_equal
@@ -103,3 +107,75 @@ def test_morpher_no_writing():
     with pytest.raises(AssertionError):
         assert_frame_equal(morphed_data, start_shape_data)
     assert morpher._is_close_enough(start_shape_data, morphed_data)
+
+
+def test_morpher_saving_data(tmpdir):
+    """Test DataMorpher by writing files to disk."""
+    num_frames = 20
+    iterations = 10
+    start_shape = 'dino'
+    target_shape = 'circle'
+    base_file_name = f'{start_shape}-to-{target_shape}'
+
+    loader = DataLoader(bounds=[10, 90])
+    start_shape_name, start_shape_data = loader.load_dataset(start_shape)
+
+    shape_factory = ShapeFactory(start_shape_data)
+    morpher = DataMorpher(
+        decimals=2,
+        write_images=True,
+        write_data=True,
+        output_dir=tmpdir,
+        seed=21,
+        keep_frames=True,
+        num_frames=num_frames,
+        in_notebook=False,
+    )
+
+    frame_config = dict(
+        iterations=iterations, ramp_in=False, ramp_out=False, freeze_for=0
+    )
+    frames = morpher._select_frames(**frame_config)
+
+    morphed_data = morpher.morph(
+        start_shape_name,
+        start_shape_data,
+        shape_factory.generate_shape(target_shape),
+        **frame_config,
+    )
+
+    # we don't save the data for the first frame since it is in the input data
+    assert not os.path.isfile(os.path.join(tmpdir, f'{base_file_name}-data-000.csv'))
+
+    # make sure we have the correct number of files
+    for kind, count in zip(
+        ['png', 'csv'], [num_frames - 1, num_frames - frames.count(0)]
+    ):
+        assert (
+            len(
+                glob.glob(
+                    os.path.join(tmpdir, f'{start_shape}-to-{target_shape}*.{kind}')
+                )
+            )
+            == count
+        )
+
+    # at the final frame, we have the output data
+    assert_frame_equal(
+        pd.read_csv(
+            os.path.join(tmpdir, f'{base_file_name}-data-{num_frames - 1:03d}.csv')
+        ),
+        morphed_data,
+    )
+
+    # other frames shouldn't have the same data
+    with pytest.raises(AssertionError):
+        assert_frame_equal(
+            pd.read_csv(
+                os.path.join(tmpdir, f'{base_file_name}-data-{num_frames//2:03d}.csv')
+            ),
+            morphed_data,
+        )
+
+    # confirm the animation was created
+    assert os.path.isfile(os.path.join(tmpdir, f'{start_shape}_to_{target_shape}.gif'))

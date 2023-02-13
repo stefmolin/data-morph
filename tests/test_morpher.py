@@ -6,6 +6,13 @@ from numpy.testing import assert_equal
 from data_morph.morpher import DataMorpher
 
 
+@pytest.mark.parametrize('decimals', [5.5, -1, 0.5, 6])
+def test_morpher_input_validation_decimals(decimals):
+    """Test input validation on decimals."""
+    with pytest.raises(ValueError, match='decimals must be a non-negative integer'):
+        _ = DataMorpher(decimals=decimals, in_notebook=False, output_dir='')
+
+
 @pytest.mark.parametrize(
     ['ramp_in', 'ramp_out', 'expected_frames'],
     [

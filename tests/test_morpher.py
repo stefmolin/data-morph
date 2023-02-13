@@ -3,7 +3,9 @@
 import pytest
 from numpy.testing import assert_equal
 
+from data_morph.data.loader import DataLoader
 from data_morph.morpher import DataMorpher
+from data_morph.shapes.factory import ShapeFactory
 
 
 @pytest.mark.parametrize(
@@ -69,3 +71,33 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
     assert_equal(frames[:freeze_for], [0] * freeze_for)
     assert_equal(frames[-freeze_for:], [iterations] * freeze_for)
     assert_equal(frames[freeze_for:-freeze_for], expected_frames)
+
+
+def test_morpher_no_writing():
+    """Test DataMorpher without writing any files to disk."""
+    loader = DataLoader(bounds=[10, 90])
+    start_shape_name, start_shape_data = loader.load_dataset('dino')
+
+    shape_factory = ShapeFactory(start_shape_data)
+    morpher = DataMorpher(
+        decimals=2,
+        write_images=False,
+        write_data=False,
+        seed=21,
+        keep_frames=False,
+        num_frames=100,
+        in_notebook=False,
+    )
+
+    morphed_data = morpher.morph(
+        start_shape_name,
+        start_shape_data,
+        shape_factory.generate_shape('circle'),
+        iterations=1000,
+        ramp_in=False,
+        ramp_out=False,
+        freeze_for=0,
+    )
+
+    assert not morphed_data.equals(start_shape_data)
+    assert morpher._is_close_enough(start_shape_data, morphed_data)

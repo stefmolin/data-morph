@@ -167,7 +167,7 @@ class DataMorpher:
                             self.output_dir,
                             f'{base_file_name}-data-{frame_number:03d}.csv',
                         ),
-                        index=False
+                        index=False,
                     )
 
                 frame_number += 1
@@ -384,6 +384,15 @@ class DataMorpher:
                 target_shape=target,
                 keep_frames=self.keep_frames,
                 forward_only_animation=self.forward_only_animation,
+            )
+
+        if self.write_data:
+            morphed_data.to_csv(
+                os.path.join(
+                    self.output_dir,
+                    f'{base_file_name}-data-{frame_number:03d}.csv',
+                ),
+                index=False,
             )
 
         return morphed_data

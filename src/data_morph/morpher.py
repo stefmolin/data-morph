@@ -166,7 +166,8 @@ class DataMorpher:
                         os.path.join(
                             self.output_dir,
                             f'{base_file_name}-data-{frame_number:03d}.csv',
-                        )
+                        ),
+                        index=False
                     )
 
                 frame_number += 1

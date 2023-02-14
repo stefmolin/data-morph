@@ -44,7 +44,7 @@ def plot_with_custom_style(plotting_function: Callable) -> Callable:
         """
         style = files(MAIN_DIR).joinpath('plotting/config/plot_style.mplstyle')
         with as_file(style) as style_path:
-            with plt.style.context(style_path):
+            with plt.style.context(['seaborn-v0_8-darkgrid', style_path]):
                 output = plotting_function(*args, **kwargs)
         return output
 

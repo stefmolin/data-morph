@@ -1,34 +1,3 @@
-# This is an extension of the MPL seaborn darkgrid style
-# https://github.com/matplotlib/matplotlib/blob/main/lib/matplotlib/mpl-data/stylelib/seaborn-v0_8-darkgrid.mplstyle
-
-# Seaborn common parameters
-# .15 = dark_gray
-# .8 = light_gray
-figure.facecolor: white
-axes.labelcolor: .15
-legend.frameon: False
-legend.numpoints: 1
-legend.scatterpoints: 1
-xtick.direction: out
-ytick.direction: out
-xtick.color: .15
-ytick.color: .15
-axes.axisbelow: True
-image.cmap: Greys
-grid.linestyle: -
-lines.solid_capstyle: round
-
-# Seaborn darkgrid parameters
-axes.grid: True
-axes.facecolor: EAEAF2
-axes.edgecolor: white
-axes.linewidth: 0
-grid.color: white
-xtick.major.size: 0
-ytick.major.size: 0
-xtick.minor.size: 0
-ytick.minor.size: 0
-
 # Tweaks for data_morph
 font.size: 12.0
 font.family: monospace

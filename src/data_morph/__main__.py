@@ -2,12 +2,16 @@
 
 import argparse
 import os
+from typing import Sequence, Union
 
 from .data.loader import DataLoader
 from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
 
-if __name__ == '__main__':
+
+def main(argv: Union[Sequence[str], None] = None) -> None:
+    """Run data morph as a module."""
+
     ALL_TARGETS = ShapeFactory.AVAILABLE_SHAPES.keys()
 
     parser = argparse.ArgumentParser(
@@ -114,7 +118,7 @@ if __name__ == '__main__':
         help='Whether to keep individual frame images in the output directory.',
     )
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     target_shapes = (
         ALL_TARGETS
@@ -159,3 +163,7 @@ if __name__ == '__main__':
             ramp_out=args.ramp_out,
             freeze_for=args.freeze,
         )
+
+
+if __name__ == '__main__':
+    main()  # pragma: no cover

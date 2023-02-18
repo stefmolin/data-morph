@@ -109,7 +109,7 @@ def test_morpher_no_writing():
     assert morpher._is_close_enough(start_shape_data, morphed_data)
 
 
-def test_morpher_saving_data(tmpdir):
+def test_morpher_saving_data(tmp_path):
     """Test DataMorpher by writing files to disk."""
     num_frames = 20
     iterations = 10
@@ -125,7 +125,7 @@ def test_morpher_saving_data(tmpdir):
         decimals=2,
         write_images=True,
         write_data=True,
-        output_dir=tmpdir,
+        output_dir=tmp_path,
         seed=21,
         keep_frames=True,
         num_frames=num_frames,
@@ -145,37 +145,29 @@ def test_morpher_saving_data(tmpdir):
     )
 
     # we don't save the data for the first frame since it is in the input data
-    assert not os.path.isfile(os.path.join(tmpdir, f'{base_file_name}-data-000.csv'))
+    assert not os.path.isfile(tmp_path / f'{base_file_name}-data-000.csv')
 
     # make sure we have the correct number of files
     for kind, count in zip(
         ['png', 'csv'], [num_frames - 1, num_frames - frames.count(0)]
     ):
         assert (
-            len(
-                glob.glob(
-                    os.path.join(tmpdir, f'{start_shape}-to-{target_shape}*.{kind}')
-                )
-            )
+            len(glob.glob(str(tmp_path / f'{start_shape}-to-{target_shape}*.{kind}')))
             == count
         )
 
     # at the final frame, we have the output data
     assert_frame_equal(
-        pd.read_csv(
-            os.path.join(tmpdir, f'{base_file_name}-data-{num_frames - 1:03d}.csv')
-        ),
+        pd.read_csv(tmp_path / f'{base_file_name}-data-{num_frames - 1:03d}.csv'),
         morphed_data,
     )
 
     # other frames shouldn't have the same data
     with pytest.raises(AssertionError):
         assert_frame_equal(
-            pd.read_csv(
-                os.path.join(tmpdir, f'{base_file_name}-data-{num_frames//2:03d}.csv')
-            ),
+            pd.read_csv(tmp_path / f'{base_file_name}-data-{num_frames//2:03d}.csv'),
             morphed_data,
         )
 
     # confirm the animation was created
-    assert os.path.isfile(os.path.join(tmpdir, f'{start_shape}_to_{target_shape}.gif'))
+    assert os.path.isfile(tmp_path / f'{start_shape}_to_{target_shape}.gif')

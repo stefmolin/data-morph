@@ -11,6 +11,19 @@ def test_main_bad_shape():
         __main__.main(['dino', '--target-shape=does-not-exist'])
 
 
+@pytest.mark.bad_input_to_argparse
+@pytest.mark.parametrize(
+    ['decimals', 'reason'],
+    [(-1, 'invalid choice'), (0.5, 'invalid int value'), 
+    (10, 'invalid choice'), ('s', 'invalid int value')]
+)
+def test_main_bad_input_decimals(decimals, reason, capsys):
+    """Test that invalid input for decimals is handled correctly."""
+    with pytest.raises(SystemExit):
+        __main__.main(['dino', f'--decimals={decimals}'])
+    assert f'error: argument --decimals: {reason}:' in capsys.readouterr().err
+
+
 def test_main_one_shape(tmp_path, capsys):
     """Check stdout and stderr when running one shape."""
     iterations = 2

@@ -34,6 +34,16 @@ def test_main_bad_input_integers(field, value, capsys):
     assert f'error: argument --{field}: invalid int value:' in capsys.readouterr().err
 
 
+@pytest.mark.bad_input_to_argparse
+@pytest.mark.parametrize('value', [1, 0, 's', -1, 0.5, True, False])
+@pytest.mark.parametrize('field', ['ramp-in', 'ramp-out', 'forward-only', 'keep-frames'])
+def test_main_bad_input_boolean(field, value, capsys):
+    """Test that invalid input for Boolean switches are handled correctly."""
+    with pytest.raises(SystemExit):
+        __main__.main(['dino', f'--{field}={value}'])
+    assert f'error: argument --{field}: ignored explicit argument' in capsys.readouterr().err
+
+
 def test_main_one_shape(tmp_path, capsys):
     """Check stdout and stderr when running one shape."""
     iterations = 2

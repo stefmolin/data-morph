@@ -6,7 +6,7 @@ from data_morph.shapes.bases.shape import Shape
 from data_morph.shapes.factory import ShapeFactory
 
 
-@pytest.fixture
+@pytest.fixture(scope='module')
 def shape_factory(sample_data):
     """Fixture for a ShapeFactory of sample data."""
     return ShapeFactory(sample_data)

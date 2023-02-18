@@ -24,6 +24,16 @@ def test_main_bad_input_decimals(decimals, reason, capsys):
     assert f'error: argument --decimals: {reason}:' in capsys.readouterr().err
 
 
+@pytest.mark.bad_input_to_argparse
+@pytest.mark.parametrize('value', [True, False, 0.1, 's'])
+@pytest.mark.parametrize('field', ['iterations', 'freeze', 'seed'])
+def test_main_bad_input_integers(field, value, capsys):
+    """Test that invalid input for integers is handled correctly."""
+    with pytest.raises(SystemExit):
+        __main__.main(['dino', f'--{field}={value}'])
+    assert f'error: argument --{field}: invalid int value:' in capsys.readouterr().err
+
+
 def test_main_one_shape(tmp_path, capsys):
     """Check stdout and stderr when running one shape."""
     iterations = 2

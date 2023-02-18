@@ -57,13 +57,13 @@ class DataMorpher:
         self.seed = seed
         self.forward_only_animation = forward_only_animation
 
-        if not isinstance(decimals, int) or decimals < 0 or decimals > 5:
+        if isinstance(decimals, bool) or not isinstance(decimals, int) or decimals < 0 or decimals > 5:
             raise ValueError(
                 'decimals must be a non-negative integer less than or equal to 5.'
             )
         self.decimals = decimals
 
-        if not isinstance(num_frames, int) or num_frames <= 0 or num_frames > 100:
+        if isinstance(num_frames, bool) or not isinstance(num_frames, int) or num_frames <= 0 or num_frames > 100:
             raise ValueError(
                 'num_frames must be a positive integer less than or equal to 100.'
             )
@@ -94,7 +94,10 @@ class DataMorpher:
         list
             The list of frame numbers to include in the animation.
         """
-        if not isinstance(freeze_for, int) or freeze_for < 0 or freeze_for > 50:
+        if isinstance(iterations, bool) or not isinstance(iterations, int) or iterations <= 0:
+            raise ValueError('iterations must be a positive integer.')
+
+        if isinstance(freeze_for, bool) or not isinstance(freeze_for, int) or freeze_for < 0 or freeze_for > 50:
             raise ValueError(
                 'freeze_for must be a non-negative integer less than or equal to 50.'
             )

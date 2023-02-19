@@ -57,13 +57,23 @@ class DataMorpher:
         self.seed = seed
         self.forward_only_animation = forward_only_animation
 
-        if not isinstance(decimals, int) or decimals < 0 or decimals > 5:
+        if (
+            isinstance(decimals, bool)
+            or not isinstance(decimals, int)
+            or decimals < 0
+            or decimals > 5
+        ):
             raise ValueError(
                 'decimals must be a non-negative integer less than or equal to 5.'
             )
         self.decimals = decimals
 
-        if not isinstance(num_frames, int) or num_frames <= 0 or num_frames > 100:
+        if (
+            isinstance(num_frames, bool)
+            or not isinstance(num_frames, int)
+            or num_frames <= 0
+            or num_frames > 100
+        ):
             raise ValueError(
                 'num_frames must be a positive integer less than or equal to 100.'
             )
@@ -94,7 +104,19 @@ class DataMorpher:
         list
             The list of frame numbers to include in the animation.
         """
-        if not isinstance(freeze_for, int) or freeze_for < 0 or freeze_for > 50:
+        if (
+            isinstance(iterations, bool)
+            or not isinstance(iterations, int)
+            or iterations <= 0
+        ):
+            raise ValueError('iterations must be a positive integer.')
+
+        if (
+            isinstance(freeze_for, bool)
+            or not isinstance(freeze_for, int)
+            or freeze_for < 0
+            or freeze_for > 50
+        ):
             raise ValueError(
                 'freeze_for must be a non-negative integer less than or equal to 50.'
             )
@@ -204,7 +226,7 @@ class DataMorpher:
     @staticmethod
     def _perturb(
         df: pd.DataFrame,
-        target: Shape,
+        target_shape: Shape,
         *,
         shake: float,
         allowed_dist: Union[int, float],
@@ -219,7 +241,7 @@ class DataMorpher:
         ----------
         df : pandas.DataFrame
             The data to perturb.
-        target : Shape
+        target_shape : Shape
             The shape to morph the data into.
         shake : float
             The maximum amount of movement in each direction.
@@ -252,8 +274,8 @@ class DataMorpher:
             new_x = initial_x + np.random.randn() * shake
             new_y = initial_y + np.random.randn() * shake
 
-            old_dist = target.distance(initial_x, initial_y)
-            new_dist = target.distance(new_x, new_y)
+            old_dist = target_shape.distance(initial_x, initial_y)
+            new_dist = target_shape.distance(new_x, new_y)
 
             close_enough = new_dist < old_dist or new_dist < allowed_dist or do_bad
             within_bounds = (
@@ -273,7 +295,7 @@ class DataMorpher:
         self,
         start_shape_name: str,
         start_shape_data: pd.DataFrame,
-        target: Shape,
+        target_shape: Shape,
         *,
         iterations: int = 100_000,
         max_temp: Union[int, float] = 0.4,
@@ -300,7 +322,7 @@ class DataMorpher:
             The name of the starting shape (for file naming).
         start_shape_data : pandas.DataFrame
             The data for the starting shape.
-        target : Shape
+        target_shape : Shape
             The shape we want to morph into.
         iterations : int
             The number of iterations to run simulated annealing for.
@@ -341,7 +363,7 @@ class DataMorpher:
             freeze_for=freeze_for,
         )
 
-        base_file_name = f'{start_shape_name}-to-{target}'
+        base_file_name = f'{start_shape_name}-to-{target_shape}'
         frame_number = self._record_frames(
             data=morphed_data,
             base_file_name=base_file_name,
@@ -350,7 +372,7 @@ class DataMorpher:
         )
 
         for i in self.looper(
-            iterations, leave=True, ascii=True, desc=f'{target} pattern'
+            iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
         ):
             current_temp = (max_temp - min_temp) * pytweening.easeInOutQuad(
                 ((iterations - i) / iterations)
@@ -359,7 +381,7 @@ class DataMorpher:
             # TODO: derive these bounds based on the data? or just normalize the data to be within these to start?
             perturbed_data = self._perturb(
                 morphed_data.copy(),
-                target=target,
+                target_shape=target_shape,
                 x_bounds=[0, 100],
                 y_bounds=[0, 100],
                 shake=shake,
@@ -381,7 +403,7 @@ class DataMorpher:
             stitch_gif_animation(
                 self.output_dir,
                 start_shape_name,
-                target_shape=target,
+                target_shape=target_shape,
                 keep_frames=self.keep_frames,
                 forward_only_animation=self.forward_only_animation,
             )

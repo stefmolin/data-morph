@@ -28,14 +28,14 @@ def test_morpher_input_validation_output_dir(write_data, write_images):
         )
 
 
-@pytest.mark.parametrize('decimals', [5.5, -1, 0.5, 6])
+@pytest.mark.parametrize('decimals', [5.5, -1, 0.5, 6, True, 's'])
 def test_morpher_input_validation_decimals(decimals):
     """Test input validation on decimals."""
     with pytest.raises(ValueError, match='decimals must be a non-negative integer'):
         _ = DataMorpher(decimals=decimals, in_notebook=False, output_dir='')
 
 
-@pytest.mark.parametrize('num_frames', [-1, 0, 0.5, 200])
+@pytest.mark.parametrize('num_frames', [-1, 0, 0.5, 200, True, 's'])
 def test_morpher_input_validation_num_frames(num_frames):
     """Test input validation on num_frames."""
     with pytest.raises(ValueError, match='num_frames must be a positive integer'):
@@ -44,13 +44,23 @@ def test_morpher_input_validation_num_frames(num_frames):
         )
 
 
-@pytest.mark.parametrize('freeze_for', [-1, 0.5, 200])
+@pytest.mark.parametrize('freeze_for', [-1, 0.5, 200, True, 's'])
 def test_morpher_input_validation_freeze_for(freeze_for):
     """Test input validation on freeze_for."""
     with pytest.raises(ValueError, match='freeze_for must be a non-negative integer'):
         morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
         _ = morpher._select_frames(
             iterations=100, ramp_in=True, ramp_out=True, freeze_for=freeze_for
+        )
+
+
+@pytest.mark.parametrize('iterations', [-1, 0.5, 's'])
+def test_morpher_input_validation_iterations(iterations):
+    """Test input validation on iterations."""
+    with pytest.raises(ValueError, match='iterations must be a positive integer'):
+        morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+        _ = morpher._select_frames(
+            iterations=iterations, ramp_in=True, ramp_out=True, freeze_for=0
         )
 
 
@@ -78,7 +88,7 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
     assert_equal(frames[freeze_for:-freeze_for], expected_frames)
 
 
-def test_morpher_no_writing():
+def test_morpher_no_writing(capsys):
     """Test DataMorpher without writing any files to disk."""
     loader = DataLoader(bounds=[10, 90])
     start_shape_name, start_shape_data = loader.load_dataset('dino')
@@ -94,11 +104,14 @@ def test_morpher_no_writing():
         in_notebook=False,
     )
 
+    target_shape = 'circle'
+    iterations = 1000
+
     morphed_data = morpher.morph(
-        start_shape_name,
-        start_shape_data,
-        shape_factory.generate_shape('circle'),
-        iterations=1000,
+        start_shape_name=start_shape_name,
+        start_shape_data=start_shape_data,
+        target_shape=shape_factory.generate_shape(target_shape),
+        iterations=iterations,
         ramp_in=False,
         ramp_out=False,
         freeze_for=0,
@@ -107,6 +120,10 @@ def test_morpher_no_writing():
     with pytest.raises(AssertionError):
         assert_frame_equal(morphed_data, start_shape_data)
     assert morpher._is_close_enough(start_shape_data, morphed_data)
+
+    _, err = capsys.readouterr()
+    assert f'{target_shape} pattern: 100%' in err
+    assert f' {iterations}/{iterations} ' in err
 
 
 def test_morpher_saving_data(tmp_path):
@@ -138,9 +155,9 @@ def test_morpher_saving_data(tmp_path):
     frames = morpher._select_frames(**frame_config)
 
     morphed_data = morpher.morph(
-        start_shape_name,
-        start_shape_data,
-        shape_factory.generate_shape(target_shape),
+        start_shape_name=start_shape_name,
+        start_shape_data=start_shape_data,
+        target_shape=shape_factory.generate_shape(target_shape),
         **frame_config,
     )
 

@@ -88,7 +88,7 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
     assert_equal(frames[freeze_for:-freeze_for], expected_frames)
 
 
-def test_morpher_no_writing():
+def test_morpher_no_writing(capsys):
     """Test DataMorpher without writing any files to disk."""
     loader = DataLoader(bounds=[10, 90])
     start_shape_name, start_shape_data = loader.load_dataset('dino')
@@ -120,6 +120,10 @@ def test_morpher_no_writing():
     with pytest.raises(AssertionError):
         assert_frame_equal(morphed_data, start_shape_data)
     assert morpher._is_close_enough(start_shape_data, morphed_data)
+
+    _, err = capsys.readouterr()
+    assert f'{target_shape} pattern: 100%' in err
+    assert f' {iterations}/{iterations} ' in err
 
 
 def test_morpher_saving_data(tmp_path):

@@ -35,7 +35,7 @@ def test_morpher_input_validation_decimals(decimals):
         _ = DataMorpher(decimals=decimals, in_notebook=False, output_dir='')
 
 
-@pytest.mark.parametrize('num_frames', [-1, 0, 0.5, 200, True,'s'])
+@pytest.mark.parametrize('num_frames', [-1, 0, 0.5, 200, True, 's'])
 def test_morpher_input_validation_num_frames(num_frames):
     """Test input validation on num_frames."""
     with pytest.raises(ValueError, match='num_frames must be a positive integer'):
@@ -51,6 +51,16 @@ def test_morpher_input_validation_freeze_for(freeze_for):
         morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
         _ = morpher._select_frames(
             iterations=100, ramp_in=True, ramp_out=True, freeze_for=freeze_for
+        )
+
+
+@pytest.mark.parametrize('iterations', [-1, 0.5, 's'])
+def test_morpher_input_validation_iterations(iterations):
+    """Test input validation on iterations."""
+    with pytest.raises(ValueError, match='iterations must be a positive integer'):
+        morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+        _ = morpher._select_frames(
+            iterations=iterations, ramp_in=True, ramp_out=True, freeze_for=0
         )
 
 

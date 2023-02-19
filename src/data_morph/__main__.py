@@ -135,6 +135,8 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     # TODO: these bounds need to be tied into the visualization logic
     # and passed into the annealing process, but both should have them wider
     # than the data since we need flexibility to transform the data
+    # TODO: when this is done, need to add a test for this in test_main.py with
+    # a mock patch to check the values passed in
     loader = DataLoader(bounds=[10, 90])
     start_shape_name, start_shape_data = loader.load_dataset(args.start_shape)
 
@@ -155,9 +157,9 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         if total_shapes > 1:
             print(f'Morphing shape {i} of {total_shapes}')
         _ = morpher.morph(
-            start_shape_name,
-            start_shape_data,
-            shape_factory.generate_shape(target_shape),
+            start_shape_name=start_shape_name,
+            start_shape_data=start_shape_data,
+            target_shape=shape_factory.generate_shape(target_shape),
             iterations=args.iterations,
             ramp_in=args.ramp_in,
             ramp_out=args.ramp_out,

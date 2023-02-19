@@ -48,6 +48,6 @@ repos:
           - black
 
   - repo: https://github.com/stefmolin/numpydoc
-    rev: c18c990
+    rev: f7df258
     hooks:
       - id: numpydoc-validation

@@ -29,14 +29,39 @@ from .shapes.bases.shape import Shape
 
 
 class DataMorpher:
-    """Class for morphing a dataset into a target shape, preserving summary statistics."""
+    """
+    Class for morphing a dataset into a target shape, preserving summary statistics.
+
+    Parameters
+    ----------
+    decimals : int
+        The number of decimals to which summary statistics should be the same.
+    in_notebook : bool
+        Whether this is running in a notebook.
+    output_dir : str, optional
+        The directory to write output files (CSV, PNG, GIF).
+    write_images : bool, default True
+        Whether to write image files to ``output_dir``.
+    write_data : bool, default False
+        Whether to write data files to ``output_dir``.
+    seed : int, optional
+        Provide an integer seed to the random number generator.
+    num_frames : int, default 100
+        The number of frames to record out of the morphing process.
+    keep_frames : bool, default False
+        Whether to keep image files written to ``output_dir`` after
+        stitching GIF animation.
+    forward_only_animation : bool, default False
+        Whether to generate the animation in the forward direction only.
+        By default, the animation will play forward and then reverse.
+    """
 
     def __init__(
         self,
         *,
         decimals: int,
         in_notebook: bool,
-        output_dir: str = None,
+        output_dir: Optional[str] = None,
         write_images: bool = True,
         write_data: bool = False,
         seed: Optional[int] = None,
@@ -310,12 +335,6 @@ class DataMorpher:
         Morph a dataset into a target shape by perturbing it
         with simulated annealing.
 
-        Notes
-        -----
-        This method saves data to disk to :attr:`output_dir`, which
-        includes frames and/or animation and, depending on :attr:`write_data`,
-        CSV files for each frame.
-
         Parameters
         ----------
         start_shape_name : str
@@ -349,6 +368,12 @@ class DataMorpher:
         -------
         pandas.DataFrame
             The morphed data.
+
+        Notes
+        -----
+        This method saves data to disk to :attr:`output_dir`, which
+        includes frames and/or animation and, depending on :attr:`write_data`,
+        CSV files for each frame.
         """
         morphed_data = start_shape_data.copy()
 

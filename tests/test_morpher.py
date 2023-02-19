@@ -104,11 +104,14 @@ def test_morpher_no_writing():
         in_notebook=False,
     )
 
+    target_shape = 'circle'
+    iterations = 1000
+
     morphed_data = morpher.morph(
-        start_shape_name,
-        start_shape_data,
-        shape_factory.generate_shape('circle'),
-        iterations=1000,
+        start_shape_name=start_shape_name,
+        start_shape_data=start_shape_data,
+        target_shape=shape_factory.generate_shape(target_shape),
+        iterations=iterations,
         ramp_in=False,
         ramp_out=False,
         freeze_for=0,
@@ -148,9 +151,9 @@ def test_morpher_saving_data(tmp_path):
     frames = morpher._select_frames(**frame_config)
 
     morphed_data = morpher.morph(
-        start_shape_name,
-        start_shape_data,
-        shape_factory.generate_shape(target_shape),
+        start_shape_name=start_shape_name,
+        start_shape_data=start_shape_data,
+        target_shape=shape_factory.generate_shape(target_shape),
         **frame_config,
     )
 

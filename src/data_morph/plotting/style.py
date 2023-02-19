@@ -34,7 +34,7 @@ def plot_with_custom_style(plotting_function: Callable) -> Callable:
         ----------
         *args
             Positional arguments to pass to the plotting function.
-        *kwargs
+        **kwargs
             Keyword arguments to pass to the plotting function.
 
         Returns

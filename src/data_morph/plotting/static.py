@@ -1,16 +1,20 @@
 """Utility functions for static plotting."""
 
 import os
+from typing import Union
 
 import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib.axes import Axes
 
 from ..data.stats import get_values
 from .style import plot_with_custom_style
 
 
 @plot_with_custom_style
-def plot(df: pd.DataFrame, save_to: str, decimals: int, **save_kwds) -> None:
+def plot(
+    df: pd.DataFrame, save_to: str, decimals: int, **save_kwds
+) -> Union[Axes, None]:
     """
     Plot the dataset and summary statistics.
 
@@ -25,6 +29,11 @@ def plot(df: pd.DataFrame, save_to: str, decimals: int, **save_kwds) -> None:
     **save_kwds
         Additional keyword arguments that will be passed down to
         :meth:`matplotlib.figure.Figure.savefig`.
+
+    Returns
+    -------
+    matplotlib.axes.Axes or None
+        When ``save_to`` is falsey, an Axes object is returned.
     """
     y_offset = -5
     fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')

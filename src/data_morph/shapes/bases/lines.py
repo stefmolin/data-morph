@@ -6,7 +6,15 @@ from .shape import Shape
 
 
 class Lines(Shape):
-    """Class representing a shape consisting of one or more lines."""
+    """
+    Class representing a shape consisting of one or more lines.
+
+    Parameters
+    ----------
+    *lines : Iterable[Iterable[Iterable[Union[int, float]]]]
+        An interable of two (x, y) pairs representing the endpoints
+        of a line.
+    """
 
     def __init__(self, *lines) -> None:
         self.lines = lines
@@ -37,12 +45,6 @@ class Lines(Shape):
         """
         Calculate the minimum distance between a point and a line.
 
-        Notes
-        -----
-        Implementation based on `this VBA code`_
-
-        .. this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
-
         Parameters
         ----------
         point : Iterable[Union[int, float]]
@@ -54,6 +56,12 @@ class Lines(Shape):
         -------
         float
             The minimum distance between the point and the line.
+
+        Notes
+        -----
+        Implementation based on `this VBA code`_
+
+        .. this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
         """
         start, end = line
         line_mag = self._euclidean_distance(start, end)

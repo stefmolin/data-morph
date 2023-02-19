@@ -49,6 +49,6 @@ class Shape(ABC):
 
         See Also
         --------
-        scipy.spatial.distance.euclidean
+        scipy.spatial.distance.euclidean : Euclidean distance calculation.
         """
         return distance.euclidean(a, b)

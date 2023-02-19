@@ -9,7 +9,14 @@ from .bases.shape import Shape
 
 
 class Circle(Shape):
-    """Class representing a hollow circle."""
+    """
+    Class representing a hollow circle.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame, r: Union[int, float] = 30) -> None:
         self.cx: float = data.x.mean()
@@ -34,7 +41,14 @@ class Circle(Shape):
 
 
 class Bullseye(Shape):
-    """Class representing a bullseye shape comprising two concentric circles."""
+    """
+    Class representing a bullseye shape comprising two concentric circles.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         self.circles: list[Circle] = [
@@ -60,13 +74,22 @@ class Bullseye(Shape):
 
         See Also
         --------
-        Circle.distance
+        Circle.distance :
+            A bullseye consists of two circles, so we use the minimum
+            distance to one of the circles.
         """
         return min(circle.distance(x, y) for circle in self.circles)
 
 
 class Dots(Shape):
-    """Class representing a 3x3 grid of dots."""
+    """
+    Class representing a 3x3 grid of dots.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         self.dots: list[Tuple[float, float]] = list(
@@ -96,7 +119,14 @@ class Dots(Shape):
 
 
 class Scatter(Circle):
-    """Class for the scatter shape: a circular cloud of scattered points."""
+    """
+    Class for the scatter shape: a circular cloud of scattered points.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         super().__init__(data)

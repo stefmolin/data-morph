@@ -107,7 +107,14 @@ class WideLines(Lines):
 
 
 class XLines(Lines):
-    """Class for the X shape consisting of two crossing, perpendicular lines."""
+    """
+    Class for the X shape consisting of two crossing, perpendicular lines.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         xmin, ymin = data.min()

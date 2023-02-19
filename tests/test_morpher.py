@@ -28,14 +28,14 @@ def test_morpher_input_validation_output_dir(write_data, write_images):
         )
 
 
-@pytest.mark.parametrize('decimals', [5.5, -1, 0.5, 6])
+@pytest.mark.parametrize('decimals', [5.5, -1, 0.5, 6, True, 's'])
 def test_morpher_input_validation_decimals(decimals):
     """Test input validation on decimals."""
     with pytest.raises(ValueError, match='decimals must be a non-negative integer'):
         _ = DataMorpher(decimals=decimals, in_notebook=False, output_dir='')
 
 
-@pytest.mark.parametrize('num_frames', [-1, 0, 0.5, 200])
+@pytest.mark.parametrize('num_frames', [-1, 0, 0.5, 200, True,'s'])
 def test_morpher_input_validation_num_frames(num_frames):
     """Test input validation on num_frames."""
     with pytest.raises(ValueError, match='num_frames must be a positive integer'):
@@ -44,7 +44,7 @@ def test_morpher_input_validation_num_frames(num_frames):
         )
 
 
-@pytest.mark.parametrize('freeze_for', [-1, 0.5, 200])
+@pytest.mark.parametrize('freeze_for', [-1, 0.5, 200, True, 's'])
 def test_morpher_input_validation_freeze_for(freeze_for):
     """Test input validation on freeze_for."""
     with pytest.raises(ValueError, match='freeze_for must be a non-negative integer'):

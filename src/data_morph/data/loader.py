@@ -35,7 +35,7 @@ class DataLoader:
 
         Parameters
         ----------
-        name : str
+        dataset : str
             Either one of :attr:`AVAILABLE_DATASETS` or a path to a
             CSV file containing two columns: x and y.
 

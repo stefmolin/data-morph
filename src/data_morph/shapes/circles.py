@@ -62,12 +62,7 @@ class Bullseye(Shape):
         ]
 
     def __repr__(self) -> str:
-        indented_line = '\n  '
-        return (
-            super().__repr__()
-            + indented_line
-            + indented_line.join(repr(circle) for circle in self.circles)
-        )
+        return self._recursive_repr('circles')
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
@@ -115,12 +110,7 @@ class Dots(Shape):
         )
 
     def __repr__(self) -> str:
-        indented_line = '\n  '
-        return (
-            super().__repr__()
-            + indented_line
-            + indented_line.join(repr(dot) for dot in self.dots)
-        )
+        return self._recursive_repr('dots')
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """

@@ -12,12 +12,15 @@ class Lines(Shape):
     Parameters
     ----------
     *lines : Iterable[Iterable[Iterable[Union[int, float]]]]
-        An interable of two (x, y) pairs representing the endpoints
+        An iterable of two (x, y) pairs representing the endpoints
         of a line.
     """
 
     def __init__(self, *lines) -> None:
         self.lines = lines
+
+    def __repr__(self) -> str:
+        return self._recursive_repr('lines')
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """

@@ -6,7 +6,14 @@ from .bases.lines import Lines
 
 
 class HighLines(Lines):
-    """Class for the high lines shape."""
+    """
+    Class for the high lines shape.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         q1, q3 = data.y.quantile([0.25, 0.75])
@@ -16,8 +23,7 @@ class HighLines(Lines):
         )  # TODO: figure out way to get 0, 100 min/max plus offset?
         # TODO q1, q3 works better on some datasets than others (might need to move it a little)
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'high_lines'
 
 
@@ -32,8 +38,7 @@ class HorizontalLines(Lines):
             *[[[0, y], [100, y]] for y in [10, 30, 50, 70, 90]]
         )  # TODO: figure out the values based on the data
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'h_lines'
 
 
@@ -51,8 +56,7 @@ class SlantDownLines(Lines):
             [[50, 100], [100, 50]],
         )  # TODO: figure out how to use the data to derive these
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'slant_down'
 
 
@@ -70,8 +74,7 @@ class SlantUpLines(Lines):
             [[0, 50], [50, 100]],
         )  # TODO: figure out how to use the data to derive these
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'slant_up'
 
 
@@ -86,13 +89,19 @@ class VerticalLines(Lines):
             *[[[x, 0], [x, 100]] for x in [10, 30, 50, 70, 90]]
         )  # TODO: figure out the values based on the data
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'v_lines'
 
 
 class WideLines(Lines):
-    """Class for the wide lines shape."""
+    """
+    Class for the wide lines shape.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         q1, q3 = data.x.quantile([0.25, 0.75])
@@ -101,8 +110,7 @@ class WideLines(Lines):
             [[q1, 0], [q1, 100]], [[q3, 0], [q3, 100]]
         )  # TODO: figure out way to get 0, 100 min/max plus offset?
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'wide_lines'
 
 
@@ -122,6 +130,5 @@ class XLines(Lines):
 
         super().__init__([[xmin, ymin], [xmax, ymax]], [[xmin, ymax], [xmax, ymin]])
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'x'

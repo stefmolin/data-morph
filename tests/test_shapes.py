@@ -73,3 +73,50 @@ def test_lines(shape_factory):
 
     # test lines that are very small
     assert x_lines._distance_point_to_line((30, 50), [(0, 0), (0, 0)]) == 9999
+
+
+@pytest.mark.parametrize(
+    ['shape', 'expected'],
+    [
+        ['new_shape', '<NewShape>'],
+        [
+            'dots',
+            (
+                '<Dots>\n  dots=\n       (11.0, 50.0)\n       '
+                '(11.0, 50.0)\n       (11.0, 77.0)'
+            ),
+        ],
+        [
+            'x',
+            (
+                '<XLines>\n  lines=\n        '
+                '[[10, 50], [30, 80]]\n        [[10, 80], [30, 50]]'
+            ),
+        ],
+        ['circle', '<Circle cx=20.0 cy=60.0 r=30>'],
+        [
+            'bullseye',
+            (
+                '<Bullseye>\n  circles=\n          '
+                '<Circle cx=20.0 cy=60.0 r=18>\n          '
+                '<Circle cx=20.0 cy=60.0 r=37>'
+            ),
+        ],
+    ],
+)
+def test_reprs(shape_factory, shape, expected):
+    """Test that the __repr__() method is working."""
+    if shape != 'new_shape':
+        value = repr(shape_factory.generate_shape(shape))
+        if shape == 'dots':
+            assert value.startswith(expected)
+        else:
+            assert value == expected
+    else:
+
+        class NewShape(Shape):
+            def distance(self, x, y):
+                return x, y
+
+        new_shape = NewShape()
+        assert repr(new_shape) == expected

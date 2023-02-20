@@ -17,8 +17,7 @@ class DownParab(Lines):
 
         super().__init__(*[curve[i : i + 2] for i in range(0, len(curve) - 1, 1)])
 
-    def __repr__(self) -> str:
-        """Return string representation of the shape."""
+    def __str__(self) -> str:
         return 'down_parab'
 
 
@@ -29,6 +28,5 @@ class DownParab(Lines):
 #         # TODO
 #         pass
 
-#     def __repr__(self) -> str:
-#         """Return string representation of the shape."""
+#     def __str__(self) -> str:
 #         return 'up_parab'

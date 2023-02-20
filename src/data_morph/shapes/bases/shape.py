@@ -1,7 +1,7 @@
 """Abstract base class for shapes."""
 
 from abc import ABC, abstractmethod
-from typing import Iterable, Union
+from typing import Iterable, Optional, Union
 
 from scipy.spatial import distance
 
@@ -10,7 +10,25 @@ class Shape(ABC):
     """Abstract base class for a shape."""
 
     def __repr__(self) -> str:
-        """Return string representation of the shape."""
+        """
+        Return string representation of the shape.
+
+        Returns
+        -------
+        str
+            The unambiguous string representation of the shape.
+        """
+        return self._recursive_repr()
+
+    def __str__(self) -> str:
+        """
+        Return string representation of the shape.
+
+        Returns
+        -------
+        str
+            The human-readable string representation of the shape.
+        """
         return self.__class__.__name__.lower()
 
     @abstractmethod
@@ -49,6 +67,35 @@ class Shape(ABC):
 
         See Also
         --------
-        scipy.spatial.distance.euclidean
+        scipy.spatial.distance.euclidean : Euclidean distance calculation.
         """
         return distance.euclidean(a, b)
+
+    def _recursive_repr(self, attr: Optional[str] = None) -> str:
+        """
+        Return string representation of the shape incorporating
+        any items inside a specific attribute.
+
+        Parameters
+        ----------
+        attr : str, optional
+            The attribute to incorporate into the result; must
+            be iterable.
+
+        Returns
+        -------
+        str
+            The unambiguous string representation of the shape.
+        """
+        value = f'<{self.__class__.__name__}>'
+        if not attr:
+            return value
+
+        indented_line = '\n  '
+        offset = len(attr) + 4
+        hanging_indent = f'{indented_line:<{offset}}'
+        return (
+            value
+            + f'{indented_line}{attr}={hanging_indent}'
+            + f'{hanging_indent}'.join(repr(item) for item in getattr(self, attr))
+        )

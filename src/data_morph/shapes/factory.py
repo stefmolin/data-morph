@@ -7,7 +7,14 @@ from .bases.shape import Shape
 
 
 class ShapeFactory:
-    """Factory for generating shapes."""
+    """
+    Factory for generating shapes.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     AVAILABLE_SHAPES: dict = {
         'circle': circles.Circle,

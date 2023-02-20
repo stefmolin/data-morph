@@ -9,12 +9,24 @@ from .bases.shape import Shape
 
 
 class Circle(Shape):
-    """Class representing a hollow circle."""
+    """
+    Class representing a hollow circle.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    r : int or float
+        The radius of the circle.
+    """
 
     def __init__(self, data: pd.DataFrame, r: Union[int, float] = 30) -> None:
         self.cx: float = data.x.mean()
         self.cy: float = data.y.mean()
         self.r: Union[int, float] = r  # TODO: think about how this could be calculated
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
@@ -34,13 +46,23 @@ class Circle(Shape):
 
 
 class Bullseye(Shape):
-    """Class representing a bullseye shape comprising two concentric circles."""
+    """
+    Class representing a bullseye shape comprising two concentric circles.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         self.circles: list[Circle] = [
             Circle(data, r)
             for r in [18, 37]  # TODO: think about how this could be calculated
         ]
+
+    def __repr__(self) -> str:
+        return self._recursive_repr('circles')
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
@@ -60,13 +82,22 @@ class Bullseye(Shape):
 
         See Also
         --------
-        Circle.distance
+        Circle.distance :
+            A bullseye consists of two circles, so we use the minimum
+            distance to one of the circles.
         """
         return min(circle.distance(x, y) for circle in self.circles)
 
 
 class Dots(Shape):
-    """Class representing a 3x3 grid of dots."""
+    """
+    Class representing a 3x3 grid of dots.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         self.dots: list[Tuple[float, float]] = list(
@@ -77,6 +108,9 @@ class Dots(Shape):
                 )
             )
         )
+
+    def __repr__(self) -> str:
+        return self._recursive_repr('dots')
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
@@ -96,7 +130,14 @@ class Dots(Shape):
 
 
 class Scatter(Circle):
-    """Class for the scatter shape: a circular cloud of scattered points."""
+    """
+    Class for the scatter shape: a circular cloud of scattered points.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, data: pd.DataFrame) -> None:
         super().__init__(data)

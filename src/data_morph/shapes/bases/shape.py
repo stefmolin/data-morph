@@ -10,7 +10,25 @@ class Shape(ABC):
     """Abstract base class for a shape."""
 
     def __repr__(self) -> str:
-        """Return string representation of the shape."""
+        """
+        Return string representation of the shape.
+
+        Returns
+        -------
+        str
+            The unambiguous string representation of the shape.
+        """
+        return f'<{self.__class__.__name__}>'
+
+    def __str__(self) -> str:
+        """
+        Return string representation of the shape.
+
+        Returns
+        -------
+        str
+            The human-readable string representation of the shape.
+        """
         return self.__class__.__name__.lower()
 
     @abstractmethod

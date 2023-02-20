@@ -16,12 +16,17 @@ class Circle(Shape):
     ----------
     data : pandas.DataFrame
         The starting dataset to morph into other shapes.
+    r : int or float
+        The radius of the circle.
     """
 
     def __init__(self, data: pd.DataFrame, r: Union[int, float] = 30) -> None:
         self.cx: float = data.x.mean()
         self.cy: float = data.y.mean()
         self.r: Union[int, float] = r  # TODO: think about how this could be calculated
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
@@ -55,6 +60,14 @@ class Bullseye(Shape):
             Circle(data, r)
             for r in [18, 37]  # TODO: think about how this could be calculated
         ]
+
+    def __repr__(self) -> str:
+        indented_line = '\n  '
+        return (
+            super().__repr__()
+            + indented_line
+            + indented_line.join(repr(circle) for circle in self.circles)
+        )
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """
@@ -99,6 +112,14 @@ class Dots(Shape):
                     for coord in ['x', 'y']
                 )
             )
+        )
+
+    def __repr__(self) -> str:
+        indented_line = '\n  '
+        return (
+            super().__repr__()
+            + indented_line
+            + indented_line.join(repr(dot) for dot in self.dots)
         )
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:

@@ -160,5 +160,5 @@ def test_main_multiple_shapes(
         ''.join(
             [f'Morphing shape {i + 1} of {len(shapes)}\n' for i in range(len(shapes))]
         )
-        == capsys.readouterr().out
+        == capsys.readouterr().err
     )

@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 from typing import Sequence, Union
 
 from .data.loader import DataLoader
@@ -155,7 +156,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     total_shapes = len(target_shapes)
     for i, target_shape in enumerate(target_shapes, start=1):
         if total_shapes > 1:
-            print(f'Morphing shape {i} of {total_shapes}')
+            print(f'Morphing shape {i} of {total_shapes}', file=sys.stderr)
         _ = morpher.morph(
             start_shape_name=start_shape_name,
             start_shape_data=start_shape_data,

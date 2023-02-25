@@ -30,16 +30,18 @@ class Dataset:
         if bounds is not None and not (
             isinstance(bounds, (tuple, list))
             and len(bounds) == 2
-            and all(isinstance(x, (float, int)) for x in bounds)
+            and all(
+                isinstance(x, (float, int)) and not isinstance(x, bool) for x in bounds
+            )
         ):
             raise ValueError('bounds must be an iterable of 2 numeric values or None')
 
         self._bounds: Iterable[Union[int, float]] = bounds
 
         if self._bounds:
-            self._normalize_data()
-        else:
-            self._bounds = [self.df.min(), self.df.max()]
+            self.df = self._normalize_data()
+        else:  # TODO: should this store bounds as xbounds and ybounds?
+            self._bounds = [self.df.min().min(), self.df.max().max()]
 
     def _normalize_data(self) -> pd.DataFrame:
         """
@@ -50,9 +52,6 @@ class Dataset:
         pandas.DataFrame
             The normalized data.
         """
-        if not self._bounds:
-            return self.df
-
         a, b = self._bounds
         return self.df[self.REQUIRED_COLUMNS].apply(
             lambda c: a + (c - c.min()).multiply(b - a).div(c.max() - c.min())

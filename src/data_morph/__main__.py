@@ -28,12 +28,15 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         description=(
             'Morph an input dataset of 2D points into select shapes, while '
             'preserving the summary statistics to a given number of decimal '
-            'points through simulated annealing.'
-        ),
-        epilog=(
-            'For example, morph the panda shape into a star: '
+            'points through simulated annealing.\n\n'
+            'For example, morph the panda shape into a star:\n\t'
             'python -m data_morph --target-shape star panda'
         ),
+        epilog=(
+            'Source code available at https://github.com/stefmolin/data-morph.'
+            ' Documentation is at TODO.'
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
         'start_shape',

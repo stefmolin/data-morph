@@ -28,21 +28,27 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         description=(
             'Morph an input dataset of 2D points into select shapes, while '
             'preserving the summary statistics to a given number of decimal '
-            'points through simulated annealing.'
+            'points through simulated annealing. '
+            'For example, morph the panda shape into a star:\n\t'
+            'python -m data_morph --target-shape star -- panda'
         ),
         epilog=(
-            'For example, morph the panda shape into a star: '
-            'python -m data_morph --target-shape star panda'
+            'Source code available at https://github.com/stefmolin/data-morph.'
+            ' Documentation is at TODO.'
         ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument(
+    morph_config_group = parser.add_argument_group(
+        'morph config', description='Configuration for the morphing process.'
+    )
+    morph_config_group.add_argument(
         'start_shape',
         help=(
             f'The starting shape. This could be one of {DataLoader.AVAILABLE_DATASETS} or '
             "a path to a CSV file, in which case it should have two columns 'x' and 'y'."
         ),
     )
-    parser.add_argument(
+    morph_config_group.add_argument(
         '--target-shape',
         nargs='*',
         default='all',
@@ -52,64 +58,81 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             f"""'{"', '".join(ALL_TARGETS)}'. Omit to convert to all target shapes in a single run."""
         ),
     )
-    parser.add_argument(
-        '--iterations',
-        default=100000,
-        type=int,
-        help='The number of iterations to run. Datasets with more observations will take more iterations.',
-    )
-    parser.add_argument(
+    morph_config_group.add_argument(
         '--decimals',
         default=2,
         type=int,
         choices=range(0, 6),
         help='The number of decimal places to preserve equality.',
     )
-    parser.add_argument(
+    morph_config_group.add_argument(
+        '--iterations',
+        default=100_000,
+        type=int,
+        help='The number of iterations to run. Datasets with more observations will take more iterations.',
+    )
+    morph_config_group.add_argument(
         '--seed',
         default=None,
         type=int,
         help='Provide a seed for reproducible results.',
     )
-    parser.add_argument(
+    file_group = parser.add_argument_group(
+        'file config',
+        description='Customize where files are written to and which types of files are kept.',
+    )
+    file_group.add_argument(
         '--output-dir',
         default=os.path.join(os.getcwd(), 'morphed_data'),
         help='Path to a directory for writing output files.',
     )
-    parser.add_argument(
+    file_group.add_argument(
         '--write-data',
         default=False,
         action='store_true',
         help='Whether to write CSV files to the output directory with the data for each frame.',
     )
-    parser.add_argument(
+    file_group.add_argument(
+        '--keep-frames',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to keep individual frame images in the output directory.'
+            " If you don't pass this, the frames will be deleted after the GIF file"
+            ' is created.'
+        ),
+    )
+    frame_group = parser.add_argument_group(
+        'animation config', description='Customize aspects of the animation.'
+    )
+    frame_group.add_argument(
         '--ramp-in',
         default=False,
         action='store_true',
         help=(
-            'Whether to slowly start the transition from input to target in '
-            'the animation. This only affects the frames, not the algorithm.'
+            'Whether to slowly start the transition from input to target in the '
+            'animation. This only affects the frames selected, not the algorithm.'
         ),
     )
-    parser.add_argument(
+    frame_group.add_argument(
         '--ramp-out',
         default=False,
         action='store_true',
         help=(
-            'Whether to slow down the transition from input to target towards '
-            'the end of the animation. This only affects the frames, not the algorithm.'
+            'Whether to slow down the transition from input to target towards the end '
+            'of the animation. This only affects the frames selected, not the algorithm.'
         ),
     )
-    parser.add_argument(
+    frame_group.add_argument(
         '--freeze',
         default=0,
         type=int,
         help=(
             'Number of frames to freeze at the first and final frame of the transition '
-            'in the animation. This only affects the frames, not the algorithm.'
+            'in the animation. This only affects the frames selected, not the algorithm.'
         ),
     )
-    parser.add_argument(
+    frame_group.add_argument(
         '--forward-only',
         default=False,
         action='store_true',
@@ -119,12 +142,6 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'playing backward to undo the transformation. Pass this argument '
             'to only play the animation in the forward direction before looping.'
         ),
-    )
-    parser.add_argument(
-        '--keep-frames',
-        default=False,
-        action='store_true',
-        help='Whether to keep individual frame images in the output directory.',
     )
 
     args = parser.parse_args(argv)

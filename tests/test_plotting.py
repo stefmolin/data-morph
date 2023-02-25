@@ -12,7 +12,7 @@ from data_morph.plotting.static import plot
 @pytest.mark.parametrize('file_path', ['test_plot.png', None])
 def test_plot(sample_data, file_path):
     """Test static plot creation."""
-    bounds = [-5, 105]
+    bounds = (-5.0, 105.0)
     if file_path:
         temp_dir = 'does-not-exist'
         save_to = os.path.join(temp_dir, file_path)
@@ -36,6 +36,10 @@ def test_plot(sample_data, file_path):
 
         # confirm that the stylesheet was used
         assert ax.texts[0].get_fontfamily() == ['monospace']
+
+        # confirm that bounds are correct
+        assert ax.get_xlim() == bounds
+        assert ax.get_ylim() == bounds
 
 
 def test_frame_stitching(sample_data, tmpdir):

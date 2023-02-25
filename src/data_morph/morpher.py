@@ -22,6 +22,7 @@ import pandas as pd
 import pytweening
 import tqdm
 
+from .data.dataset import Dataset
 from .data.stats import get_values
 from .plotting.animation import stitch_gif_animation
 from .plotting.static import plot
@@ -318,8 +319,7 @@ class DataMorpher:
 
     def morph(
         self,
-        start_shape_name: str,
-        start_shape_data: pd.DataFrame,
+        start_shape: Dataset,
         target_shape: Shape,
         *,
         iterations: int = 100_000,
@@ -337,10 +337,8 @@ class DataMorpher:
 
         Parameters
         ----------
-        start_shape_name : str
-            The name of the starting shape (for file naming).
-        start_shape_data : pandas.DataFrame
-            The data for the starting shape.
+        start_shape : Dataset
+            The dataset for the starting shape.
         target_shape : Shape
             The shape we want to morph into.
         iterations : int
@@ -375,7 +373,7 @@ class DataMorpher:
         includes frames and/or animation and, depending on :attr:`write_data`,
         CSV files for each frame.
         """
-        morphed_data = start_shape_data.copy()
+        morphed_data = start_shape.df.copy()
 
         if self.seed is not None:
             np.random.seed(self.seed)
@@ -388,7 +386,7 @@ class DataMorpher:
             freeze_for=freeze_for,
         )
 
-        base_file_name = f'{start_shape_name}-to-{target_shape}'
+        base_file_name = f'{start_shape.name}-to-{target_shape}'
         frame_number = self._record_frames(
             data=morphed_data,
             base_file_name=base_file_name,
@@ -407,14 +405,14 @@ class DataMorpher:
             perturbed_data = self._perturb(
                 morphed_data.copy(),
                 target_shape=target_shape,
-                x_bounds=[0, 100],
-                y_bounds=[0, 100],
+                x_bounds=start_shape._bounds,
+                y_bounds=start_shape._bounds,
                 shake=shake,
                 allowed_dist=allowed_dist,
                 temp=current_temp,
             )
 
-            if self._is_close_enough(start_shape_data, perturbed_data):
+            if self._is_close_enough(start_shape.df, perturbed_data):
                 morphed_data = perturbed_data
 
             frame_number = self._record_frames(
@@ -427,7 +425,7 @@ class DataMorpher:
         if self.write_images:
             stitch_gif_animation(
                 self.output_dir,
-                start_shape_name,
+                start_shape.name,
                 target_shape=target_shape,
                 keep_frames=self.keep_frames,
                 forward_only_animation=self.forward_only_animation,

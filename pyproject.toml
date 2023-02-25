@@ -49,7 +49,7 @@ source = "https://github.com/stefmolin/data-morph"
 where = ["src"]
 
 [tool.setuptools.package-data]
-"data_morph.data.datasets" = ["*"]
+"data_morph.data.starter_shapes" = ["*"]
 "data_morph.plotting.config" = ["*"]
 
 [tool.setuptools.dynamic]

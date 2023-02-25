@@ -48,7 +48,7 @@ repos:
           - black
 
   - repo: https://github.com/stefmolin/numpydoc
-    rev: afa2509
+    rev: cead4ae
     hooks:
       - id: numpydoc-validation
         exclude: tests/.*

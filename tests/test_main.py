@@ -2,10 +2,10 @@
 
 import unittest.mock as mock
 
-import pandas as pd
 import pytest
 
 from data_morph import __main__
+from data_morph.data.dataset import Dataset
 
 
 def test_main_bad_shape():
@@ -89,8 +89,8 @@ def test_main_one_shape(flag, mocker, tmp_path):
         for arg, value in morph_args.items():
             if arg == 'target_shape':
                 assert str(kwargs[arg]) == value
-            elif arg == 'start_shape_data':
-                assert isinstance(value, pd.DataFrame)
+            elif arg == 'start_shape':
+                assert isinstance(value, Dataset)
             else:
                 assert kwargs[arg] == value
 
@@ -147,7 +147,8 @@ def test_main_multiple_shapes(
     @mock.create_autospec
     def mock_morph(_, **kwargs):
         """Mock the DataMorpher.morph() method to check input and track progress."""
-        assert kwargs['start_shape_name'] == start_shape_name
+        assert isinstance(kwargs['start_shape'], Dataset)
+        assert kwargs['start_shape'].name == start_shape_name
         shapes_completed.append(str(kwargs['target_shape']))
 
     mocker.patch.object(__main__.DataMorpher, 'morph', mock_morph)

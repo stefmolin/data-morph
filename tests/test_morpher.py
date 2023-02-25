@@ -90,10 +90,9 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
 
 def test_morpher_no_writing(capsys):
     """Test DataMorpher without writing any files to disk."""
-    loader = DataLoader(bounds=[10, 90])
-    start_shape_name, start_shape_data = loader.load_dataset('dino')
+    dataset = DataLoader.load_dataset('dino')
 
-    shape_factory = ShapeFactory(start_shape_data)
+    shape_factory = ShapeFactory(dataset)
     morpher = DataMorpher(
         decimals=2,
         write_images=False,
@@ -108,8 +107,7 @@ def test_morpher_no_writing(capsys):
     iterations = 1000
 
     morphed_data = morpher.morph(
-        start_shape_name=start_shape_name,
-        start_shape_data=start_shape_data,
+        start_shape=dataset,
         target_shape=shape_factory.generate_shape(target_shape),
         iterations=iterations,
         ramp_in=False,
@@ -118,8 +116,8 @@ def test_morpher_no_writing(capsys):
     )
 
     with pytest.raises(AssertionError):
-        assert_frame_equal(morphed_data, start_shape_data)
-    assert morpher._is_close_enough(start_shape_data, morphed_data)
+        assert_frame_equal(morphed_data, dataset.df)
+    assert morpher._is_close_enough(dataset.df, morphed_data)
 
     _, err = capsys.readouterr()
     assert f'{target_shape} pattern: 100%' in err
@@ -132,12 +130,11 @@ def test_morpher_saving_data(tmp_path):
     iterations = 10
     start_shape = 'dino'
     target_shape = 'circle'
-    base_file_name = f'{start_shape}-to-{target_shape}'
 
-    loader = DataLoader(bounds=[10, 90])
-    start_shape_name, start_shape_data = loader.load_dataset(start_shape)
+    dataset = DataLoader.load_dataset(start_shape, bounds=[10, 90])
+    base_file_name = f'{dataset.name}-to-{target_shape}'
 
-    shape_factory = ShapeFactory(start_shape_data)
+    shape_factory = ShapeFactory(dataset)
     morpher = DataMorpher(
         decimals=2,
         write_images=True,
@@ -155,8 +152,7 @@ def test_morpher_saving_data(tmp_path):
     frames = morpher._select_frames(**frame_config)
 
     morphed_data = morpher.morph(
-        start_shape_name=start_shape_name,
-        start_shape_data=start_shape_data,
+        start_shape=dataset,
         target_shape=shape_factory.generate_shape(target_shape),
         **frame_config,
     )
@@ -168,10 +164,7 @@ def test_morpher_saving_data(tmp_path):
     for kind, count in zip(
         ['png', 'csv'], [num_frames - 1, num_frames - frames.count(0)]
     ):
-        assert (
-            len(glob.glob(str(tmp_path / f'{start_shape}-to-{target_shape}*.{kind}')))
-            == count
-        )
+        assert len(glob.glob(str(tmp_path / f'{base_file_name}*.{kind}'))) == count
 
     # at the final frame, we have the output data
     assert_frame_equal(
@@ -187,4 +180,4 @@ def test_morpher_saving_data(tmp_path):
         )
 
     # confirm the animation was created
-    assert os.path.isfile(tmp_path / f'{start_shape}_to_{target_shape}.gif')
+    assert os.path.isfile(tmp_path / f'{dataset.name}_to_{target_shape}.gif')

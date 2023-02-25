@@ -1,7 +1,6 @@
 """Factory class for generating shape objects."""
 
-import pandas as pd
-
+from ..data.dataset import Dataset
 from . import circles, curves, patterns, polygons
 from .bases.shape import Shape
 
@@ -12,7 +11,7 @@ class ShapeFactory:
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     """
 
@@ -32,8 +31,8 @@ class ShapeFactory:
         'down_parab': curves.DownParab,
     }
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        self.data: pd.DataFrame = data
+    def __init__(self, dataset: Dataset) -> None:
+        self.dataset: Dataset = dataset
 
     def generate_shape(self, shape: str) -> Shape:
         """
@@ -50,6 +49,6 @@ class ShapeFactory:
             An shape object of the requested type.
         """
         try:
-            return self.AVAILABLE_SHAPES[shape](self.data)
+            return self.AVAILABLE_SHAPES[shape](self.dataset)
         except KeyError:
             raise ValueError(f'No such shape as {shape}.')

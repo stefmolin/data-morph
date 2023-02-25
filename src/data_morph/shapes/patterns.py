@@ -1,7 +1,6 @@
 """Shapes that are patterns of lines."""
 
-import pandas as pd
-
+from ..data.dataset import Dataset
 from .bases.lines import Lines
 
 
@@ -11,12 +10,12 @@ class HighLines(Lines):
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        q1, q3 = data.y.quantile([0.25, 0.75])
+    def __init__(self, dataset: Dataset) -> None:
+        q1, q3 = dataset.df.y.quantile([0.25, 0.75])
 
         super().__init__(
             [[0, q1], [100, q1]], [[0, q3], [100, q3]]
@@ -30,9 +29,9 @@ class HighLines(Lines):
 class HorizontalLines(Lines):
     """Class for the horizontal lines shape."""
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        # xmin, ymin = data.min()[['x', 'y']]
-        # xmax, ymax = data.max()[['x', 'y']]
+    def __init__(self, dataset: Dataset) -> None:
+        # xmin, ymin = dataset.df.min()[['x', 'y']]
+        # xmax, ymax = dataset.df.max()[['x', 'y']]
 
         super().__init__(
             *[[[0, y], [100, y]] for y in [10, 30, 50, 70, 90]]
@@ -45,8 +44,8 @@ class HorizontalLines(Lines):
 class SlantDownLines(Lines):
     """Class for the slant down lines shape."""
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        # q1, q3 = data.y.quantile([0.25, 0.75])
+    def __init__(self, dataset: Dataset) -> None:
+        # q1, q3 = dataset.df.y.quantile([0.25, 0.75])
 
         super().__init__(
             [[0, 100], [100, 0]],
@@ -63,8 +62,8 @@ class SlantDownLines(Lines):
 class SlantUpLines(Lines):
     """Class for the slant up lines shape."""
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        # q1, q3 = data.y.quantile([0.25, 0.75])
+    def __init__(self, dataset: Dataset) -> None:
+        # q1, q3 = dataset.df.y.quantile([0.25, 0.75])
 
         super().__init__(
             [[0, 0], [100, 100]],
@@ -81,9 +80,9 @@ class SlantUpLines(Lines):
 class VerticalLines(Lines):
     """Class for the vertical lines shape."""
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        # xmin, ymin = data.min()[['x', 'y']]
-        # xmax, ymax = data.max()[['x', 'y']]
+    def __init__(self, dataset: Dataset) -> None:
+        # xmin, ymin = dataset.df.min()[['x', 'y']]
+        # xmax, ymax = dataset.df.max()[['x', 'y']]
 
         super().__init__(
             *[[[x, 0], [x, 100]] for x in [10, 30, 50, 70, 90]]
@@ -99,12 +98,12 @@ class WideLines(Lines):
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        q1, q3 = data.x.quantile([0.25, 0.75])
+    def __init__(self, dataset: Dataset) -> None:
+        q1, q3 = dataset.df.x.quantile([0.25, 0.75])
 
         super().__init__(
             [[q1, 0], [q1, 100]], [[q3, 0], [q3, 100]]
@@ -120,13 +119,13 @@ class XLines(Lines):
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        xmin, ymin = data.min()
-        xmax, ymax = data.max()
+    def __init__(self, dataset: Dataset) -> None:
+        xmin, ymin = dataset.df.min()
+        xmax, ymax = dataset.df.max()
 
         super().__init__([[xmin, ymin], [xmax, ymax]], [[xmin, ymax], [xmax, ymin]])
 

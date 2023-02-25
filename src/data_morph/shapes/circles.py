@@ -19,10 +19,10 @@ class Circle(Shape):
         The radius of the circle.
     """
 
-    def __init__(self, dataset: Dataset, r: Union[int, float] = 30) -> None:
+    def __init__(self, dataset: Dataset, r: Union[int, float] = None) -> None:
         self.cx: float = dataset.df.x.mean()
         self.cy: float = dataset.df.y.mean()
-        self.r: Union[int, float] = r  # TODO: think about how this could be calculated
+        self.r: Union[int, float] = r or dataset.df.std().mean() * 1.5
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
@@ -55,10 +55,8 @@ class Bullseye(Shape):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        self.circles: list[Circle] = [
-            Circle(dataset, r)
-            for r in [18, 37]  # TODO: think about how this could be calculated
-        ]
+        stdev = dataset.df.std().mean()
+        self.circles: list[Circle] = [Circle(dataset, r) for r in [stdev, stdev * 2]]
 
     def __repr__(self) -> str:
         return self._recursive_repr('circles')

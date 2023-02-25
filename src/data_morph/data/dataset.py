@@ -87,6 +87,6 @@ class Dataset:
                     'dataset is missing the following column(s): '
                     f"{', '.join(sorted(missing_columns))}."
                 )
-
             data = data.rename(columns={col.upper(): col for col in missing_columns})
+
         return data

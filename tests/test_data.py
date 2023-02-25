@@ -58,7 +58,7 @@ def test_dataset_normalization(bounds, datasets_dir):
         assert_equal(dataset.df.max().to_numpy(), [bounds[1]] * 2)
     else:
         df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv'))
-        assert dataset._bounds == [df.min().min(), df.max().max()]
+        assert dataset._bounds is None
         assert_frame_equal(dataset.df, df)
 
 
@@ -101,8 +101,11 @@ def test_dataset_validation_fix_column_casing(datasets_dir):
 def test_dataset_repr():
     """Check Dataset.__repr__()."""
 
-    dataset = DataLoader.load_dataset('dino')
-    assert repr(dataset) == '<Dataset name=dino>'
+    dataset = DataLoader.load_dataset('dino', bounds=[10, 90])
+    outer_bounds = [-6.0, 106.0]
+    assert repr(dataset) == (
+        f'<Dataset name=dino x_bounds={outer_bounds} y_bounds={outer_bounds}>'
+    )
 
 
 def test_data_stats():

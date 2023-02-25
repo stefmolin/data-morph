@@ -15,6 +15,7 @@ statistics to a given number of decimal points through simulated annealing.
 """
 
 import os
+from functools import partial
 from typing import Iterable, Optional, Union
 
 import numpy as np
@@ -173,7 +174,13 @@ class DataMorpher:
         return frames
 
     def _record_frames(
-        self, data: pd.DataFrame, base_file_name: str, count: int, frame_number: int
+        self,
+        data: pd.DataFrame,
+        x_bounds: Iterable[Union[int, float]],
+        y_bounds: Iterable[Union[int, float]],
+        base_file_name: str,
+        count: int,
+        frame_number: int,
     ) -> int:
         """
         Record frame data as a plot and, when :attr:`write_data` is ``True``, as a CSV file.
@@ -181,7 +188,9 @@ class DataMorpher:
         Parameters
         ----------
         data : pandas.DataFrame
-            The dataset.
+            The DataFrame of the data for morphing.
+        x_bounds, y_bounds : Iterable[Union[int, float]]
+            The plotting limits.
         base_file_name : str
             The prefix to the file names for both the PNG and GIF files.
         count : int
@@ -205,6 +214,8 @@ class DataMorpher:
                             f'{base_file_name}-image-{frame_number:03d}.png',
                         ),
                         decimals=self.decimals,
+                        x_bounds=x_bounds,
+                        y_bounds=y_bounds,
                         dpi=150,
                     )
                 if (
@@ -297,6 +308,10 @@ class DataMorpher:
 
         done = False
         while not done:
+            # TODO: datasets with a larger range take longer to converge,
+            # this should be adjusted (or at least the randn random normal
+            # sampling to be based on the dataset; also consider passing
+            # information via cli)
             new_x = initial_x + np.random.randn() * shake
             new_y = initial_y + np.random.randn() * shake
 
@@ -305,10 +320,7 @@ class DataMorpher:
 
             close_enough = new_dist < old_dist or new_dist < allowed_dist or do_bad
             within_bounds = (
-                new_y > y_bounds[0]
-                and new_y < y_bounds[1]
-                and new_x > x_bounds[0]
-                and new_x < x_bounds[1]
+                x_bounds[0] < new_x < x_bounds[1] and y_bounds[0] < new_y < y_bounds[1]
             )
             done = close_enough and within_bounds
 
@@ -387,9 +399,17 @@ class DataMorpher:
         )
 
         base_file_name = f'{start_shape.name}-to-{target_shape}'
-        frame_number = self._record_frames(
-            data=morphed_data,
+        bounds = {
+            'x_bounds': start_shape.x_bounds,
+            'y_bounds': start_shape.y_bounds,
+        }
+        record_frames = partial(
+            self._record_frames,
             base_file_name=base_file_name,
+            **bounds,
+        )
+        frame_number = record_frames(
+            data=morphed_data,
             count=freeze_for,
             frame_number=0,
         )
@@ -401,23 +421,20 @@ class DataMorpher:
                 ((iterations - i) / iterations)
             ) + min_temp
 
-            # TODO: derive these bounds based on the data? or just normalize the data to be within these to start?
             perturbed_data = self._perturb(
                 morphed_data.copy(),
                 target_shape=target_shape,
-                x_bounds=start_shape._bounds,
-                y_bounds=start_shape._bounds,
                 shake=shake,
                 allowed_dist=allowed_dist,
                 temp=current_temp,
+                **bounds,
             )
 
             if self._is_close_enough(start_shape.df, perturbed_data):
                 morphed_data = perturbed_data
 
-            frame_number = self._record_frames(
+            frame_number = record_frames(
                 data=morphed_data,
-                base_file_name=base_file_name,
                 count=frame_numbers.count(i),
                 frame_number=frame_number,
             )

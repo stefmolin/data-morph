@@ -92,7 +92,7 @@ def test_morpher_no_writing(capsys):
     """Test DataMorpher without writing any files to disk."""
     dataset = DataLoader.load_dataset('dino')
 
-    shape_factory = ShapeFactory(dataset.df)
+    shape_factory = ShapeFactory(dataset)
     morpher = DataMorpher(
         decimals=2,
         write_images=False,
@@ -107,8 +107,7 @@ def test_morpher_no_writing(capsys):
     iterations = 1000
 
     morphed_data = morpher.morph(
-        start_shape_name=dataset.name,
-        start_shape_data=dataset.df,
+        start_shape=dataset,
         target_shape=shape_factory.generate_shape(target_shape),
         iterations=iterations,
         ramp_in=False,
@@ -131,11 +130,11 @@ def test_morpher_saving_data(tmp_path):
     iterations = 10
     start_shape = 'dino'
     target_shape = 'circle'
-    base_file_name = f'{start_shape}-to-{target_shape}'
 
     dataset = DataLoader.load_dataset(start_shape, bounds=[10, 90])
+    base_file_name = f'{dataset.name}-to-{target_shape}'
 
-    shape_factory = ShapeFactory(dataset.df)
+    shape_factory = ShapeFactory(dataset)
     morpher = DataMorpher(
         decimals=2,
         write_images=True,
@@ -153,8 +152,7 @@ def test_morpher_saving_data(tmp_path):
     frames = morpher._select_frames(**frame_config)
 
     morphed_data = morpher.morph(
-        start_shape_name=dataset.name,
-        start_shape_data=dataset.df,
+        start_shape=dataset,
         target_shape=shape_factory.generate_shape(target_shape),
         **frame_config,
     )
@@ -166,10 +164,7 @@ def test_morpher_saving_data(tmp_path):
     for kind, count in zip(
         ['png', 'csv'], [num_frames - 1, num_frames - frames.count(0)]
     ):
-        assert (
-            len(glob.glob(str(tmp_path / f'{start_shape}-to-{target_shape}*.{kind}')))
-            == count
-        )
+        assert len(glob.glob(str(tmp_path / f'{base_file_name}*.{kind}'))) == count
 
     # at the final frame, we have the output data
     assert_frame_equal(
@@ -185,4 +180,4 @@ def test_morpher_saving_data(tmp_path):
         )
 
     # confirm the animation was created
-    assert os.path.isfile(tmp_path / f'{start_shape}_to_{target_shape}.gif')
+    assert os.path.isfile(tmp_path / f'{dataset.name}_to_{target_shape}.gif')

@@ -15,7 +15,7 @@ class Circle(Shape):
     ----------
     dataset : Dataset
         The starting dataset to morph into other shapes.
-    r : int or float
+    r : int or float, optional
         The radius of the circle.
     """
 

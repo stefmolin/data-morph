@@ -98,6 +98,13 @@ def test_dataset_validation_fix_column_casing(datasets_dir):
     assert not dataset.df[dataset.REQUIRED_COLUMNS].empty
 
 
+def test_dataset_repr():
+    """Check Dataset.__repr__()."""
+
+    dataset = DataLoader.load_dataset('dino')
+    assert repr(dataset) == '<Dataset name=dino>'
+
+
 def test_data_stats():
     """Test that summary statistics tuple is correct."""
 

@@ -43,6 +43,9 @@ class Dataset:
         else:  # TODO: should this store bounds as xbounds and ybounds?
             self._bounds = [self.df.min().min(), self.df.max().max()]
 
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__} name={self.name}>'  # TODO: add bounds here
+
     def _normalize_data(self) -> pd.DataFrame:
         """
         Apply normalization.

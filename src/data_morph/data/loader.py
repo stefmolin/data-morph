@@ -28,7 +28,7 @@ class DataLoader:
         cls, dataset: str, bounds: Iterable[Union[int, float]] = None
     ) -> Dataset:
         """
-        Load dataset and apply normalization.
+        Load dataset.
 
         Parameters
         ----------

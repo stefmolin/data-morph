@@ -90,10 +90,9 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
 
 def test_morpher_no_writing(capsys):
     """Test DataMorpher without writing any files to disk."""
-    loader = DataLoader(bounds=[10, 90])
-    start_shape_name, start_shape_data = loader.load_dataset('dino')
+    dataset = DataLoader.load_dataset('dino')
 
-    shape_factory = ShapeFactory(start_shape_data)
+    shape_factory = ShapeFactory(dataset.df)
     morpher = DataMorpher(
         decimals=2,
         write_images=False,
@@ -108,8 +107,8 @@ def test_morpher_no_writing(capsys):
     iterations = 1000
 
     morphed_data = morpher.morph(
-        start_shape_name=start_shape_name,
-        start_shape_data=start_shape_data,
+        start_shape_name=dataset.name,
+        start_shape_data=dataset.df,
         target_shape=shape_factory.generate_shape(target_shape),
         iterations=iterations,
         ramp_in=False,
@@ -118,8 +117,8 @@ def test_morpher_no_writing(capsys):
     )
 
     with pytest.raises(AssertionError):
-        assert_frame_equal(morphed_data, start_shape_data)
-    assert morpher._is_close_enough(start_shape_data, morphed_data)
+        assert_frame_equal(morphed_data, dataset.df)
+    assert morpher._is_close_enough(dataset.df, morphed_data)
 
     _, err = capsys.readouterr()
     assert f'{target_shape} pattern: 100%' in err
@@ -134,10 +133,9 @@ def test_morpher_saving_data(tmp_path):
     target_shape = 'circle'
     base_file_name = f'{start_shape}-to-{target_shape}'
 
-    loader = DataLoader(bounds=[10, 90])
-    start_shape_name, start_shape_data = loader.load_dataset(start_shape)
+    dataset = DataLoader.load_dataset(start_shape, bounds=[10, 90])
 
-    shape_factory = ShapeFactory(start_shape_data)
+    shape_factory = ShapeFactory(dataset.df)
     morpher = DataMorpher(
         decimals=2,
         write_images=True,
@@ -155,8 +153,8 @@ def test_morpher_saving_data(tmp_path):
     frames = morpher._select_frames(**frame_config)
 
     morphed_data = morpher.morph(
-        start_shape_name=start_shape_name,
-        start_shape_data=start_shape_data,
+        start_shape_name=dataset.name,
+        start_shape_data=dataset.df,
         target_shape=shape_factory.generate_shape(target_shape),
         **frame_config,
     )

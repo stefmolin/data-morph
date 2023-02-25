@@ -38,10 +38,21 @@ class Dataset:
 
         self._bounds: Iterable[Union[int, float]] = bounds
 
-        if self._bounds:
+        if self._bounds: # TODO: allow x_bounds and y_bounds for different aspect ratios?
             self.df = self._normalize_data()
-        else:  # TODO: should this store bounds as xbounds and ybounds?
-            self._bounds = [self.df.min().min(), self.df.max().max()]
+
+        # TODO: make a _derive_bounds() method here
+        # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
+        self.x_bounds, self.y_bounds = [
+            (self.df[dim].min(), self.df[dim].max())
+            for dim in self.REQUIRED_COLUMNS
+        ]
+        x_offset = (self.x_bounds[1] - self.x_bounds[0])/5
+        self.x_bounds = [self.x_bounds[0] - x_offset, self.x_bounds[1] + x_offset]
+        y_offset = (self.y_bounds[1] - self.y_bounds[0])/5
+        self.y_bounds = [self.y_bounds[0] - y_offset, self.y_bounds[1] + y_offset]
+        print(self.x_bounds, self.y_bounds)
+        print(x_offset, y_offset)
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} name={self.name}>'  # TODO: add bounds here

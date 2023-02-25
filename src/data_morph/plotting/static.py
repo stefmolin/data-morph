@@ -73,7 +73,7 @@ def plot(
 
     add_stat_text = partial(
         ax.text,
-        1.025,
+        1.03,
         fontsize=30,
         transform=ax.transAxes,
         va='center',

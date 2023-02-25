@@ -138,10 +138,9 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     # than the data since we need flexibility to transform the data
     # TODO: when this is done, need to add a test for this in test_main.py with
     # a mock patch to check the values passed in
-    loader = DataLoader(bounds=[10, 90])
-    start_shape_name, start_shape_data = loader.load_dataset(args.start_shape)
+    start_shape = DataLoader.load_dataset(args.start_shape, bounds=[10, 90])
 
-    shape_factory = ShapeFactory(start_shape_data)
+    shape_factory = ShapeFactory(start_shape.df)  # TODO: accept the Dataset class here
     morpher = DataMorpher(
         decimals=args.decimals,
         output_dir=args.output_dir,
@@ -158,8 +157,8 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         if total_shapes > 1:
             print(f'Morphing shape {i} of {total_shapes}', file=sys.stderr)
         _ = morpher.morph(
-            start_shape_name=start_shape_name,
-            start_shape_data=start_shape_data,
+            start_shape_name=start_shape.name,  # TODO: accept the Dataset class here
+            start_shape_data=start_shape.df,
             target_shape=shape_factory.generate_shape(target_shape),
             iterations=args.iterations,
             ramp_in=args.ramp_in,

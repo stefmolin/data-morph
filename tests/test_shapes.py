@@ -2,6 +2,7 @@
 
 import pytest
 
+from data_morph.data.dataset import Dataset
 from data_morph.shapes.bases.shape import Shape
 from data_morph.shapes.factory import ShapeFactory
 
@@ -9,7 +10,7 @@ from data_morph.shapes.factory import ShapeFactory
 @pytest.fixture(scope='module')
 def shape_factory(sample_data):
     """Fixture for a ShapeFactory of sample data."""
-    return ShapeFactory(sample_data)
+    return ShapeFactory(Dataset('sample', sample_data))
 
 
 def test_shape_factory(shape_factory):

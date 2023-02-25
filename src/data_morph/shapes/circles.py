@@ -3,8 +3,7 @@
 import itertools
 from typing import Tuple, Union
 
-import pandas as pd
-
+from ..data.dataset import Dataset
 from .bases.shape import Shape
 
 
@@ -14,15 +13,15 @@ class Circle(Shape):
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     r : int or float
         The radius of the circle.
     """
 
-    def __init__(self, data: pd.DataFrame, r: Union[int, float] = 30) -> None:
-        self.cx: float = data.x.mean()
-        self.cy: float = data.y.mean()
+    def __init__(self, dataset: Dataset, r: Union[int, float] = 30) -> None:
+        self.cx: float = dataset.df.x.mean()
+        self.cy: float = dataset.df.y.mean()
         self.r: Union[int, float] = r  # TODO: think about how this could be calculated
 
     def __repr__(self) -> str:
@@ -51,13 +50,13 @@ class Bullseye(Shape):
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, data: pd.DataFrame) -> None:
+    def __init__(self, dataset: Dataset) -> None:
         self.circles: list[Circle] = [
-            Circle(data, r)
+            Circle(dataset, r)
             for r in [18, 37]  # TODO: think about how this could be calculated
         ]
 
@@ -95,15 +94,15 @@ class Dots(Shape):
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, data: pd.DataFrame) -> None:
+    def __init__(self, dataset: Dataset) -> None:
         self.dots: list[Tuple[float, float]] = list(
             itertools.product(
                 *(
-                    data[coord].quantile([0.05, 0.5, 0.95]).tolist()
+                    dataset.df[coord].quantile([0.05, 0.5, 0.95]).tolist()
                     for coord in ['x', 'y']
                 )
             )
@@ -135,12 +134,12 @@ class Scatter(Circle):
 
     Parameters
     ----------
-    data : pandas.DataFrame
+    dataset : Dataset
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        super().__init__(data)
+    def __init__(self, dataset: Dataset) -> None:
+        super().__init__(dataset)
 
     def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
         """

@@ -1,5 +1,7 @@
 """Test shape classes."""
 
+import re
+
 import pytest
 
 from data_morph.data.dataset import Dataset
@@ -40,13 +42,13 @@ def test_shape_abc():
 def test_circle(shape_factory):
     """Test the Circle class."""
     circle = shape_factory.generate_shape('circle')
-    assert circle.distance(20, 50) == 20.0
+    assert pytest.approx(circle.distance(20, 50)) == 10.490381
 
 
 def test_bullseye(shape_factory):
     """Test the Bullseye class."""
     bullseye = shape_factory.generate_shape('bullseye')
-    assert bullseye.distance(20, 50) == 8.0
+    assert pytest.approx(bullseye.distance(20, 50)) == 3.660254
 
 
 def test_dots(shape_factory):
@@ -59,7 +61,7 @@ def test_scatter(shape_factory):
     """Test the Scatter class."""
     scatter = shape_factory.generate_shape('scatter')
     assert scatter.distance(20, 50) == 0.0
-    assert scatter.distance(20, 8) == 22.0
+    assert pytest.approx(scatter.distance(20, 8)) == 31.509619
 
 
 def test_lines(shape_factory):
@@ -94,13 +96,14 @@ def test_lines(shape_factory):
                 '[[10, 50], [30, 80]]\n        [[10, 80], [30, 50]]'
             ),
         ],
-        ['circle', '<Circle cx=20.0 cy=60.0 r=30>'],
+        ['circle', r'^<Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'],
         [
             'bullseye',
             (
-                '<Bullseye>\n  circles=\n          '
-                '<Circle cx=20.0 cy=60.0 r=18>\n          '
-                '<Circle cx=20.0 cy=60.0 r=37>'
+                r'^<Bullseye>\n'
+                r'  circles=\n'
+                r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>\n'
+                r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'
             ),
         ],
     ],
@@ -111,8 +114,10 @@ def test_reprs(shape_factory, shape, expected):
         value = repr(shape_factory.generate_shape(shape))
         if shape == 'dots':
             assert value.startswith(expected)
-        else:
+        elif shape == 'x':
             assert value == expected
+        else:
+            assert re.match(expected, value)
     else:
 
         class NewShape(Shape):

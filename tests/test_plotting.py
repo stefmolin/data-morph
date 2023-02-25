@@ -12,18 +12,27 @@ from data_morph.plotting.static import plot
 @pytest.mark.parametrize('file_path', ['test_plot.png', None])
 def test_plot(sample_data, file_path):
     """Test static plot creation."""
+    bounds = [-5, 105]
     if file_path:
         temp_dir = 'does-not-exist'
         save_to = os.path.join(temp_dir, file_path)
 
-        plot(df=sample_data, save_to=save_to, decimals=2)
+        plot(
+            df=sample_data,
+            x_bounds=bounds,
+            y_bounds=bounds,
+            save_to=save_to,
+            decimals=2,
+        )
         assert os.path.isfile(save_to)
 
         # clean up
         os.remove(save_to)
         os.rmdir(temp_dir)
     else:
-        ax = plot(df=sample_data, save_to=None, decimals=2)
+        ax = plot(
+            df=sample_data, x_bounds=bounds, y_bounds=bounds, save_to=None, decimals=2
+        )
 
         # confirm that the stylesheet was used
         assert ax.texts[0].get_fontfamily() == ['monospace']
@@ -33,10 +42,13 @@ def test_frame_stitching(sample_data, tmpdir):
     """Test stitching frames into a GIF animation."""
     start_shape = 'sample'
     target_shape = 'circle'
+    bounds = [-5, 105]
 
     for frame in range(10):
         plot(
             df=sample_data + np.random.randn(),
+            x_bounds=bounds,
+            y_bounds=bounds,
             save_to=os.path.join(
                 tmpdir, f'{start_shape}-to-{target_shape}-{frame}.png'
             ),

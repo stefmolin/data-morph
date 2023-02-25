@@ -55,7 +55,10 @@ class Dataset:
         print(x_offset, y_offset)
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} name={self.name}>'  # TODO: add bounds here
+        return (
+            f'<{self.__class__.__name__} name={self.name} '
+            f'x_bounds={self.x_bounds} y_bounds={self.y_bounds}>'
+        )
 
     def _normalize_data(self) -> pd.DataFrame:
         """

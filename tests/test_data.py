@@ -2,10 +2,12 @@
 
 import os
 
+import pandas as pd
 import pytest
 from numpy.testing import assert_equal
 from pandas.testing import assert_frame_equal
 
+from data_morph.data.dataset import Dataset
 from data_morph.data.loader import DataLoader
 from data_morph.data.stats import get_values
 
@@ -18,61 +20,82 @@ def datasets_dir(request):
         'src',
         'data_morph',
         'data',
-        'datasets',
+        'starter_shapes',
     )
 
 
-def test_data_load(datasets_dir):
+def test_data_loader_known_data(datasets_dir):
     """Confirm that loading the dataset by name and by path work."""
-    loader = DataLoader([0, 100])
-    dino_from_pkg = loader.load_dataset('dino')
-    dino_from_file = loader.load_dataset(os.path.join(datasets_dir, 'dino.csv'))
+    dino_from_pkg = DataLoader.load_dataset('dino')
+    dino_from_file = DataLoader.load_dataset(os.path.join(datasets_dir, 'dino.csv'))
 
-    assert dino_from_pkg[0] == dino_from_file[0]
-    assert_frame_equal(dino_from_pkg[1], dino_from_file[1])
+    assert dino_from_pkg.name == dino_from_file.name
+    assert_frame_equal(dino_from_pkg.df, dino_from_file.df)
 
 
 @pytest.mark.parametrize('dataset', ['does_not_exist', 'does_not_exist.csv'])
-def test_unknown_data_load(dataset):
+def test_data_loader_unknown_data(dataset):
     """Confirm that trying to load non-existent datasets raises an error."""
-    loader = DataLoader([0, 100])
-
     with pytest.raises(ValueError, match='Unknown dataset'):
-        _ = loader.load_dataset(dataset)
+        _ = DataLoader.load_dataset(dataset)
 
 
-def test_data_normalization():
+@pytest.mark.parametrize('bounds', [[0, 100], (0, 100), None])
+def test_dataset_normalization(bounds, datasets_dir):
     """Confirm that data normalization is working by checking min and max."""
 
-    bounds = [0, 100]
-    loader = DataLoader(bounds)
+    dataset = DataLoader.load_dataset('dino', bounds)
 
-    _, data = loader.load_dataset('dino')
+    if bounds:
+        assert dataset._bounds == bounds
+        assert_equal(dataset.df.min().to_numpy(), [bounds[0]] * 2)
+        assert_equal(dataset.df.max().to_numpy(), [bounds[1]] * 2)
+    else:
+        df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv'))
+        assert dataset._bounds == [df.min().min(), df.max().max()]
+        assert_frame_equal(dataset.df, df)
 
-    assert_equal(data.min().to_numpy(), [bounds[0]] * 2)
-    assert_equal(data.max().to_numpy(), [bounds[1]] * 2)
+
+@pytest.mark.parametrize(
+    'bounds',
+    [[], (), '', [3], [1, 2, 3], '12', [True, False]],
+    ids=[
+        'empty list',
+        'empty tuple',
+        'empty string',
+        'too few dimensions',
+        'too many dimensions',
+        'not list or tuple',
+        'booleans',
+    ],
+)
+def test_dataset_normalization_valid_bounds(bounds):
+    """Confirm that normalization doesn't happen unless bounds are valid."""
+    with pytest.raises(ValueError, match='bounds must be an iterable'):
+        _ = DataLoader.load_dataset('dino', bounds)
 
 
-def test_data_columns():
-    """
-    Confirm that loader checks for proper columns on normalization,
-    which is part of loading process.
-    """
+def test_dataset_validation_missing_columns(datasets_dir):
+    """Confirm that creation of a Dataset validates the DataFrame columns."""
 
-    bounds = [0, 100]
-    loader = DataLoader(bounds)
-
-    _, data = loader.load_dataset('dino')
+    df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv')).rename(columns={'x': 'a'})
 
     with pytest.raises(ValueError, match='Columns "x" and "y" are required.'):
-        loader._normalize_data(data.rename(columns={'x': 'a', 'y': 'b'}))
+        _ = Dataset('dino', df)
+
+
+def test_dataset_validation_fix_column_casing(datasets_dir):
+    """Confirm that creating a Dataset with correct names but in wrong casing works."""
+
+    df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv')).rename(columns={'x': 'X'})
+    dataset = Dataset('dino', df)
+    assert not dataset.df[dataset.REQUIRED_COLUMNS].empty
 
 
 def test_data_stats():
     """Test that summary statistics tuple is correct."""
 
-    loader = DataLoader([0, 100])
-    _, data = loader.load_dataset('dino')
+    data = DataLoader.load_dataset('dino').df
 
     stats = get_values(data)
 

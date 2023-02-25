@@ -24,6 +24,12 @@ def datasets_dir(request):
     )
 
 
+def test_data_loader_static_class():
+    """Make sure DataLoader can't be instantiated."""
+    with pytest.raises(NotImplementedError):
+        _ = DataLoader()
+
+
 def test_data_loader_known_data(datasets_dir):
     """Confirm that loading the dataset by name and by path work."""
     dino_from_pkg = DataLoader.load_dataset('dino')

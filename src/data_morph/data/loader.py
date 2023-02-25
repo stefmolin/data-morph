@@ -20,6 +20,9 @@ class DataLoader:
     }
     AVAILABLE_DATASETS = list(_DATASETS.keys())
 
+    def __init__(self) -> None:
+        raise NotImplementedError
+
     @classmethod
     def load_dataset(
         cls, dataset: str, bounds: Iterable[Union[int, float]] = None

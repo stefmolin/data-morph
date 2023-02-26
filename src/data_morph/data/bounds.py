@@ -1,6 +1,33 @@
 """Classes for working with bounds."""
 
+from numbers import Number
 from typing import Iterable, Union
+
+
+def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:
+    """
+    Validate the data is exactly 2D and contains numeric values.
+
+    Parameters
+    ----------
+    data : Iterable[Number]
+        Data in two dimensions (e.g., a point or bounds).
+    name : str
+        The name of the value being passed in as ``data`` (for error messages).
+
+    Returns
+    -------
+    Iterable[Number]
+        The validated data.
+    """
+    if not (
+        isinstance(data, (tuple, list))
+        and len(data) == 2
+        and all(isinstance(x, Number) and not isinstance(x, bool) for x in data)
+    ):
+        raise ValueError(f'{name} must be an iterable of 2 numeric values')
+
+    return data
 
 
 class Bounds:
@@ -8,107 +35,79 @@ class Bounds:
 
     def __init__(
         self,
-        bounds: Union[Iterable[Union[int, float]], None] = None,
+        bounds: Union[Iterable[Number], None] = None,
         inclusive: bool = False,
     ) -> None:
         self.bounds = self._validate_bounds(bounds)
         self.inclusive = inclusive
-    
+
     def __bool__(self) -> bool:
         return self.bounds is not None
 
-    def __contains__(self, value: Union[int, float]) -> bool:
+    def __contains__(self, value: Number) -> bool:
         if not self:
             return True
         if self.inclusive:
             return self.bounds[0] <= value <= self.bounds[1]
         return self.bounds[0] < value < self.bounds[1]
 
-    def __getitem__(self, index: int) -> Union[int, float]:
+    def __getitem__(self, index: int) -> Number:
         return self.bounds[index]
 
-    def __iter__(self) -> Union[int, float]:
+    def __iter__(self) -> Number:
         return iter(self.bounds)
-    
+
     def __repr__(self) -> str:
+        values = ", ".join(map(str, self.bounds))
         if self.inclusive:
-            sep = '[]'
+            interval = f'[{values}]'
             kind = 'inclusive'
         else:
-            sep = '()'
+            interval = f'({values})'
             kind = 'exclusive'
-        return f'<Bounds {kind} {sep[0]}{", ".join(map(str, self.bounds))}{sep[1]}>'
+        return f'<Bounds {kind} {interval}>'
 
-    @staticmethod
-    def _validate_2d(data: Iterable[Union[int, float]], name: str) -> Iterable[Union[int, float]]:
-        """
-        Validate the data is 2D.
-
-        Parameters
-        ----------
-        data : Iterable[Union[int, float]]
-            Data in two dimensions (e.g., a point or bounds).
-
-        Returns
-        -------
-        Iterable[Union[int, float]]
-            The validated data.
-        """
-        if not (
-            isinstance(data, (tuple, list))
-            and len(data) == 2
-            and all(
-                isinstance(x, (float, int)) and not isinstance(x, bool) for x in data
-            )
-        ):
-            raise ValueError(f'{name} must be an iterable of 2 numeric values')
-
-        return data
-
-    def _validate_bounds(self, bounds: Iterable[Union[int, float]]) -> Iterable[Union[int, float]]:
+    def _validate_bounds(self, bounds: Iterable[Number]) -> Iterable[Number]:
         """
         Validate the proposed bounds.
 
         Parameters
         ----------
-        bounds : Iterable[Union[int, float]]
+        bounds : Iterable[Number]
             An iterable of min/max bounds.
 
         Returns
         -------
-        Iterable[Union[int, float]]
+        Iterable[Number]
             An iterable of min/max bounds.
         """
         if bounds is None:
-            return bounds 
-        return list(self._validate_2d(bounds, 'bounds'))
+            return bounds
+        return list(_validate_2d(bounds, 'bounds'))
 
-    def adjust_bounds(self, value: Union[float, int]) -> None:
-        # TODO: look for a way to check if the value is a number but not boolean
-        # maybe numbers.number? but would need to allow numpy types too
-        if isinstance(value, bool) or not isinstance(value, (float, int)):
+    def adjust_bounds(self, value: Number) -> None:
+        if isinstance(value, bool) or not isinstance(value, Number):
             raise ValueError('value must be a numeric value')
         if not value:
             raise ValueError('value must be non-zero.')
-        
+
         offset = value / 2
-        self.bounds[0] -= offset 
+        self.bounds[0] -= offset
         self.bounds[1] += offset
-    
-    def clone(self) -> "Bounds":
+
+    def clone(self) -> 'Bounds':
         return Bounds(self.bounds[:], self.inclusive)
 
     @property
-    def range(self) -> Union[int, float]:
+    def range(self) -> Number:
         return self.bounds[1] - self.bounds[0]
 
 
 class BoundingBox:
-    
     def __init__(
         self,
-        x_bounds: Iterable[Union[int, float]],
-        y_bounds: Iterable[Union[int, float]],
+        x_bounds: Union[Bounds, Iterable[Number]],
+        y_bounds: Union[Bounds, Iterable[Number]],
         inclusive: Iterable[bool] = False,
     ):
         if inclusive is None:
@@ -124,9 +123,46 @@ class BoundingBox:
                 'inclusive must be an iterable of 2 Boolean values'
                 ' or a single Boolean value'
             )
-        self.x_bounds = Bounds(x_bounds, inclusive[0])
-        self.y_bounds = Bounds(y_bounds, inclusive[1])
-    
-    def __contains__(self, value: Iterable[Union[int, float]]) -> bool:
-        x, y = self._validate_2d(value, 'input')
+        self.x_bounds = (
+            x_bounds.clone()
+            if isinstance(x_bounds, Bounds)
+            else Bounds(x_bounds, inclusive[0])
+        )
+        self.y_bounds = (
+            y_bounds.clone()
+            if isinstance(y_bounds, Bounds)
+            else Bounds(y_bounds, inclusive[1])
+        )
+
+    def __contains__(self, value: Iterable[Number]) -> bool:
+        x, y = _validate_2d(value, 'input')
         return x in self.x_bounds and y in self.y_bounds
+
+    def __repr__(self) -> str:
+        return '<BoundingBox>\n' f'  x={self.x_bounds}' '\n' f'  y={self.y_bounds}'
+
+    def adjust_bounds(self, x: Number = None, y: Number = None) -> None:
+        if not x and not y:
+            raise ValueError('At least one of x or y must be non-zero.')
+        if x:
+            self.x_bounds.adjust_bounds(x)
+        if y:
+            self.y_bounds.adjust_bounds(y)
+
+    def align_aspect_ratio(self) -> None:
+        x_range, y_range = self.range
+        diff = x_range - y_range
+        if diff < 0:
+            self.adjust_bounds(x=-diff)
+        elif diff > 0:
+            self.adjust_bounds(y=diff)
+
+    def clone(self) -> 'BoundingBox':
+        return BoundingBox(
+            self.x_bounds.clone(),
+            self.y_bounds.clone(),
+        )
+
+    @property
+    def range(self) -> Iterable[Number]:
+        return self.x_bounds.range, self.y_bounds.range

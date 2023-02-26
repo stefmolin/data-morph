@@ -77,6 +77,13 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         type=int,
         help='Provide a seed for reproducible results.',
     )
+    morph_config_group.add_argument(
+        '--bounds',
+        default=None,
+        nargs=2,
+        type=float,
+        help='Normalize the data on both x and y to be in the desired range.',
+    )
     file_group = parser.add_argument_group(
         'file config',
         description='Customize where files are written to and which types of files are kept.',
@@ -157,13 +164,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             f"""'{"', '".join(ALL_TARGETS)}'."""
         )
 
-    # TODO: maybe the bounds should be configurable on the command line too?
-    # TODO: these bounds need to be tied into the visualization logic
-    # and passed into the annealing process, but both should have them wider
-    # than the data since we need flexibility to transform the data
-    # TODO: when this is done, need to add a test for this in test_main.py with
-    # a mock patch to check the values passed in
-    dataset = DataLoader.load_dataset(args.start_shape, bounds=[10, 90])
+    dataset = DataLoader.load_dataset(args.start_shape, bounds=args.bounds)
 
     shape_factory = ShapeFactory(dataset)
     morpher = DataMorpher(

@@ -56,6 +56,41 @@ def test_main_bad_input_boolean(field, value, capsys):
     )
 
 
+@pytest.mark.bad_input_to_argparse
+@pytest.mark.parametrize(
+    ['bounds', 'reason'],
+    [
+        (['-1'], 'expected 2 arguments'),
+        (['10', 's'], 'invalid float value'),
+    ],
+)
+def test_main_bad_input_bounds(bounds, reason, capsys):
+    """Test that invalid input for bounds is handled correctly."""
+    with pytest.raises(SystemExit):
+        __main__.main(['--bounds', *bounds, '--', 'dino'])
+    assert f'error: argument --bounds: {reason}' in capsys.readouterr().err
+
+
+@pytest.mark.parametrize(
+    ['start_shape', 'bounds'],
+    [['dino', [10, 100]], ['dino', None]],
+)
+def test_main_dataloader(start_shape, bounds, mocker):
+    """Check that the DataLoader is being used correctly."""
+
+    bound_args = ['--bounds', *[str(value) for value in bounds]] if bounds else []
+
+    load = mocker.patch.object(__main__.DataLoader, 'load_dataset', autospec=True)
+    _ = mocker.patch.object(__main__.DataMorpher, 'morph')
+    argv = [
+        start_shape,
+        '--target-shape=circle',
+        *bound_args,
+    ]
+    __main__.main([arg for arg in argv if arg])
+    load.assert_called_once_with(start_shape, bounds=bounds)
+
+
 @pytest.mark.parametrize('flag', [True, False])
 def test_main_one_shape(flag, mocker, tmp_path):
     """Check that the proper values are passed to morph a single shape."""

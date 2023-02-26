@@ -31,7 +31,17 @@ def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:
 
 
 class Bounds:
-    """Class representing a range of numeric values."""
+    """
+    Class representing a range of numeric values.
+
+    Parameters
+    ----------
+    bounds : Union[Iterable[Number], None]
+        A 2-dimensional numeric iterable or ``None`` for no bounds.
+    inclusive : bool, default ``False``
+        Whether the bounds include the endpoints. Default
+        is exclusive.
+    """
 
     def __init__(
         self,
@@ -104,12 +114,27 @@ class Bounds:
 
 
 class BoundingBox:
+    """
+    Class representing 2-dimensional range of numeric values.
+
+    Parameters
+    ----------
+    x_bounds, y_bounds : Union[Bounds, Iterable[Number]]
+        A 2-dimensional numeric iterable or a :class:`Bounds` object.
+    inclusive : bool, default ``False``
+        Whether the bounds include the endpoints. Default
+        is exclusive. If :class:`Bounds` objects are provided,
+        their settings are used.
+    """
+
     def __init__(
         self,
         x_bounds: Union[Bounds, Iterable[Number]],
         y_bounds: Union[Bounds, Iterable[Number]],
         inclusive: Iterable[bool] = False,
     ):
+        if x_bounds is None or y_bounds is None:
+            raise ValueError('BoundingBox requires bounds for both dimensions.')
         if inclusive is None:
             inclusive = [False] * 2
         if isinstance(inclusive, bool):

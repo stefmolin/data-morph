@@ -1,10 +1,11 @@
 """Class representing a dataset for morphing."""
 
-from typing import Iterable, Union
+from numbers import Number
+from typing import Iterable
 
 import pandas as pd
 
-from .bounds import Bounds
+from .bounds import BoundingBox, Bounds
 
 
 class Dataset:
@@ -17,52 +18,20 @@ class Dataset:
         The name to use for the dataset.
     df : pandas.DataFrame
         DataFrame containing columns x and y.
-    bounds : Iterable[Union[int, float]], optional
+    bounds : Iterable[Number], optional
         An iterable of min/max bounds for normalization.
     """
 
     REQUIRED_COLUMNS = ['x', 'y']
 
     def __init__(
-        self, name: str, df: pd.DataFrame, bounds: Iterable[Union[int, float]] = None
+        self, name: str, df: pd.DataFrame, bounds: Iterable[Number] = None
     ) -> None:
         self.name: str = name
-        self.df: pd.DataFrame = self._validate_data(df)
-
-        self._bounds: Bounds = Bounds(bounds, inclusive=True)
-
-        if self._bounds:
-            self.df = self._normalize_data()
-
-        # TODO: make a _derive_bounds() method here
-        # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
-        # TODO: allow x_bounds and y_bounds for different aspect ratios?
-        # this might not work with the shapes (circle could be a ellipse?)
-        # will need to test with a vertical/horizontal line of points as
-        # the starting shape
-        # TODO: to preserve the aspect ratio, pick the bounds with the largest range
-        # and use that value to extend the morph bounds into the plot bounds for 
-        # both dimensions
-        # TODO: add tests for this logic
-        self.x_morph_bounds, self.y_morph_bounds = [
-            Bounds((self.df[dim].min(), self.df[dim].max()), inclusive=False)
-            for dim in self.REQUIRED_COLUMNS
-        ]
-
-        # TODO: should create a class that handles all of this logic
-        x_offset = self.x_morph_bounds.range
-        self.x_morph_bounds.adjust_bounds(x_offset / 5)
-        self.x_plot_bounds = self.x_morph_bounds.clone()
-        self.x_plot_bounds.adjust_bounds(x_offset / 5)
-
-        y_offset = self.y_morph_bounds.range
-        self.y_morph_bounds.adjust_bounds(y_offset / 5)
-        self.y_plot_bounds = self.y_morph_bounds.clone()
-        self.y_plot_bounds.adjust_bounds(y_offset / 5)
-
-        print(self.x_morph_bounds, self.y_morph_bounds)
-        print(self.x_plot_bounds, self.y_plot_bounds)
-        print(x_offset, y_offset)
+        self.df: pd.DataFrame = self._validate_data(df).pipe(
+            self._normalize_data, Bounds(bounds, inclusive=True)
+        )
+        self._derive_bounds()
 
     def __repr__(self) -> str:
         return (
@@ -71,19 +40,51 @@ class Dataset:
             # TODO: here we would print the repr of the Bounds objects inside
         )
 
-    def _normalize_data(self) -> pd.DataFrame:
+    def _derive_bounds(self) -> None:
+        """Derive morphing and plotting bounds based on the data."""
+        # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
+        # TODO: add tests for this logic
+        self.morph_bounds = BoundingBox(
+            *[
+                Bounds([self.df[dim].min(), self.df[dim].max()], inclusive=False)
+                for dim in self.REQUIRED_COLUMNS
+            ]
+        )
+
+        x_offset, y_offset = [offset / 5 for offset in self.morph_bounds.range]
+
+        self.morph_bounds.adjust_bounds(x=x_offset, y=y_offset)
+
+        self.plot_bounds = self.morph_bounds.clone()
+        self.plot_bounds.adjust_bounds(x=x_offset, y=y_offset)
+        self.plot_bounds.align_aspect_ratio()
+
+    def _normalize_data(self, df, bounds: Bounds) -> pd.DataFrame:
         """
         Apply normalization.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            The data to normalize.
+        bounds : Bounds
+            The desired minimum/maximum values.
 
         Returns
         -------
         pandas.DataFrame
             The normalized data.
         """
-        a, b = self._bounds
-        return self.df[self.REQUIRED_COLUMNS].apply(
+        if not bounds:
+            self.normalized = False
+            return df
+
+        a, b = bounds
+        normalized_df = df[self.REQUIRED_COLUMNS].apply(
             lambda c: a + (c - c.min()).multiply(b - a).div(c.max() - c.min())
         )
+        self.normalized = False
+        return normalized_df
 
     def _validate_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """

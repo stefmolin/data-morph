@@ -36,8 +36,7 @@ class Dataset:
     def __repr__(self) -> str:
         return (
             f'<{self.__class__.__name__} name={self.name} '
-            # f'x_bounds={self.x_bounds} y_bounds={self.y_bounds}>'
-            # TODO: here we would print the repr of the Bounds objects inside
+            f'normalized={self.normalized}>'
         )
 
     def _derive_bounds(self) -> None:
@@ -83,7 +82,7 @@ class Dataset:
         normalized_df = df[self.REQUIRED_COLUMNS].apply(
             lambda c: a + (c - c.min()).multiply(b - a).div(c.max() - c.min())
         )
-        self.normalized = False
+        self.normalized = True
         return normalized_df
 
     def _validate_data(self, data: pd.DataFrame) -> pd.DataFrame:

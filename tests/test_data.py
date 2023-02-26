@@ -46,19 +46,17 @@ def test_data_loader_unknown_data(dataset):
         _ = DataLoader.load_dataset(dataset)
 
 
-@pytest.mark.parametrize('bounds', [[0, 100], (0, 100), None])
+@pytest.mark.parametrize('bounds', [[-20, 120], (-20, 120), None])
 def test_dataset_normalization(bounds, datasets_dir):
     """Confirm that data normalization is working by checking min and max."""
 
     dataset = DataLoader.load_dataset('dino', bounds)
 
     if bounds:
-        assert dataset._bounds == bounds
         assert_equal(dataset.df.min().to_numpy(), [bounds[0]] * 2)
         assert_equal(dataset.df.max().to_numpy(), [bounds[1]] * 2)
     else:
         df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv'))
-        assert dataset._bounds is None
         assert_frame_equal(dataset.df, df)
 
 
@@ -98,14 +96,12 @@ def test_dataset_validation_fix_column_casing(datasets_dir):
     assert not dataset.df[dataset.REQUIRED_COLUMNS].empty
 
 
-def test_dataset_repr():
+@pytest.mark.parametrize('bounds', [[10, 90], None])
+def test_dataset_repr(bounds):
     """Check Dataset.__repr__()."""
 
-    dataset = DataLoader.load_dataset('dino', bounds=[10, 90])
-    outer_bounds = [-6.0, 106.0]
-    assert repr(dataset) == (
-        f'<Dataset name=dino x_bounds={outer_bounds} y_bounds={outer_bounds}>'
-    )
+    dataset = DataLoader.load_dataset('dino', bounds=bounds)
+    assert repr(dataset) == (f'<Dataset name=dino normalized={bounds is not None}>')
 
 
 def test_data_stats():

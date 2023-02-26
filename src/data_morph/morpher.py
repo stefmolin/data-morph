@@ -16,13 +16,14 @@ statistics to a given number of decimal points through simulated annealing.
 
 import os
 from functools import partial
-from typing import Iterable, Optional, Union
+from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
 import pytweening
 import tqdm
 
+from .data.bounds import Bounds
 from .data.dataset import Dataset
 from .data.stats import get_values
 from .plotting.animation import stitch_gif_animation
@@ -176,8 +177,8 @@ class DataMorpher:
     def _record_frames(
         self,
         data: pd.DataFrame,
-        x_bounds: Iterable[Union[int, float]],
-        y_bounds: Iterable[Union[int, float]],
+        x_bounds: Bounds,
+        y_bounds: Bounds,
         base_file_name: str,
         count: int,
         frame_number: int,
@@ -189,7 +190,7 @@ class DataMorpher:
         ----------
         data : pandas.DataFrame
             The DataFrame of the data for morphing.
-        x_bounds, y_bounds : Iterable[Union[int, float]]
+        x_bounds, y_bounds : Bounds
             The plotting limits.
         base_file_name : str
             The prefix to the file names for both the PNG and GIF files.
@@ -214,8 +215,8 @@ class DataMorpher:
                             f'{base_file_name}-image-{frame_number:03d}.png',
                         ),
                         decimals=self.decimals,
-                        x_bounds=x_bounds,
-                        y_bounds=y_bounds,
+                        x_bounds=x_bounds.bounds,
+                        y_bounds=y_bounds.bounds,
                         dpi=150,
                     )
                 if (
@@ -268,8 +269,8 @@ class DataMorpher:
         shake: float,
         allowed_dist: Union[int, float],
         temp: Union[int, float],
-        x_bounds: Iterable[Union[int, float]],
-        y_bounds: Iterable[Union[int, float]],
+        x_bounds: Bounds,
+        y_bounds: Bounds,
     ) -> pd.DataFrame:
         """
         Perform one round of perturbation.
@@ -288,9 +289,9 @@ class DataMorpher:
             The temperature for simulated annealing. The higher the temperature
             the more we are willing to accept perturbations that might be worse than
             what we had before. The goal is to avoid local optima.
-        x_bounds : Iterable[Union[int, float]]
+        x_bounds : Bounds
             The minimum/maximum x values.
-        y_bounds : Iterable[Union[int, float]]
+        y_bounds : Bounds
             The minimum/maximum y values.
 
         Returns
@@ -320,7 +321,7 @@ class DataMorpher:
 
             close_enough = new_dist < old_dist or new_dist < allowed_dist or do_bad
             within_bounds = (
-                x_bounds[0] < new_x < x_bounds[1] and y_bounds[0] < new_y < y_bounds[1]
+                new_x in x_bounds and new_y in y_bounds
             )
             done = close_enough and within_bounds
 
@@ -399,14 +400,18 @@ class DataMorpher:
         )
 
         base_file_name = f'{start_shape.name}-to-{target_shape}'
-        bounds = {
-            'x_bounds': start_shape.x_bounds,
-            'y_bounds': start_shape.y_bounds,
+        plot_bounds = {
+            'x_bounds': start_shape.x_plot_bounds,
+            'y_bounds': start_shape.y_plot_bounds,
+        }
+        morph_bounds = {
+            'x_bounds': start_shape.x_morph_bounds,
+            'y_bounds': start_shape.y_morph_bounds,
         }
         record_frames = partial(
             self._record_frames,
             base_file_name=base_file_name,
-            **bounds,
+            **plot_bounds,
         )
         frame_number = record_frames(
             data=morphed_data,
@@ -427,7 +432,7 @@ class DataMorpher:
                 shake=shake,
                 allowed_dist=allowed_dist,
                 temp=current_temp,
-                **bounds,
+                **morph_bounds,
             )
 
             if self._is_close_enough(start_shape.df, perturbed_data):

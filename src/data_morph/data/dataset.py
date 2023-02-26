@@ -4,6 +4,8 @@ from typing import Iterable, Union
 
 import pandas as pd
 
+from .bounds import Bounds
+
 
 class Dataset:
     """
@@ -27,37 +29,46 @@ class Dataset:
         self.name: str = name
         self.df: pd.DataFrame = self._validate_data(df)
 
-        if bounds is not None and not (
-            isinstance(bounds, (tuple, list))
-            and len(bounds) == 2
-            and all(
-                isinstance(x, (float, int)) and not isinstance(x, bool) for x in bounds
-            )
-        ):
-            raise ValueError('bounds must be an iterable of 2 numeric values or None')
+        self._bounds: Bounds = Bounds(bounds, inclusive=True)
 
-        self._bounds: Iterable[Union[int, float]] = bounds
-
-        if self._bounds: # TODO: allow x_bounds and y_bounds for different aspect ratios?
+        if self._bounds:
             self.df = self._normalize_data()
 
         # TODO: make a _derive_bounds() method here
         # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
-        self.x_bounds, self.y_bounds = [
-            (self.df[dim].min(), self.df[dim].max())
+        # TODO: allow x_bounds and y_bounds for different aspect ratios?
+        # this might not work with the shapes (circle could be a ellipse?)
+        # will need to test with a vertical/horizontal line of points as
+        # the starting shape
+        # TODO: to preserve the aspect ratio, pick the bounds with the largest range
+        # and use that value to extend the morph bounds into the plot bounds for 
+        # both dimensions
+        # TODO: add tests for this logic
+        self.x_morph_bounds, self.y_morph_bounds = [
+            Bounds((self.df[dim].min(), self.df[dim].max()), inclusive=False)
             for dim in self.REQUIRED_COLUMNS
         ]
-        x_offset = (self.x_bounds[1] - self.x_bounds[0])/5
-        self.x_bounds = [self.x_bounds[0] - x_offset, self.x_bounds[1] + x_offset]
-        y_offset = (self.y_bounds[1] - self.y_bounds[0])/5
-        self.y_bounds = [self.y_bounds[0] - y_offset, self.y_bounds[1] + y_offset]
-        print(self.x_bounds, self.y_bounds)
+
+        # TODO: should create a class that handles all of this logic
+        x_offset = self.x_morph_bounds.range
+        self.x_morph_bounds.adjust_bounds(x_offset / 5)
+        self.x_plot_bounds = self.x_morph_bounds.clone()
+        self.x_plot_bounds.adjust_bounds(x_offset / 5)
+
+        y_offset = self.y_morph_bounds.range
+        self.y_morph_bounds.adjust_bounds(y_offset / 5)
+        self.y_plot_bounds = self.y_morph_bounds.clone()
+        self.y_plot_bounds.adjust_bounds(y_offset / 5)
+
+        print(self.x_morph_bounds, self.y_morph_bounds)
+        print(self.x_plot_bounds, self.y_plot_bounds)
         print(x_offset, y_offset)
 
     def __repr__(self) -> str:
         return (
             f'<{self.__class__.__name__} name={self.name} '
-            f'x_bounds={self.x_bounds} y_bounds={self.y_bounds}>'
+            # f'x_bounds={self.x_bounds} y_bounds={self.y_bounds}>'
+            # TODO: here we would print the repr of the Bounds objects inside
         )
 
     def _normalize_data(self) -> pd.DataFrame:

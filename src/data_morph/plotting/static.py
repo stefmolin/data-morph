@@ -2,6 +2,7 @@
 
 import os
 from functools import partial
+from numbers import Number
 from typing import Iterable, Union
 
 import matplotlib.pyplot as plt
@@ -16,8 +17,8 @@ from .style import plot_with_custom_style
 @plot_with_custom_style
 def plot(
     df: pd.DataFrame,
-    x_bounds: Iterable[Union[int, float]],
-    y_bounds: Iterable[Union[int, float]],
+    x_bounds: Iterable[Number],
+    y_bounds: Iterable[Number],
     save_to: str,
     decimals: int,
     **save_kwds,
@@ -29,7 +30,7 @@ def plot(
     ----------
     df : pandas.DataFrame
         The dataset to plot.
-    x_bounds, y_bounds : Iterable[Union[int, float]]
+    x_bounds, y_bounds : Iterable[Number]
         The plotting limits.
     save_to : str
         Path to save the plot frame to.

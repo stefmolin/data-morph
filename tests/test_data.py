@@ -158,3 +158,47 @@ def test_bounds_invalid(limits):
     """Test that Bounds requires a valid range."""
     with pytest.raises(ValueError, match='must be strictly greater than'):
         _ = Bounds(limits)
+
+
+@pytest.mark.parametrize(
+    ['limits', 'inclusive', 'value', 'expected'],
+    [
+        ([0, 10], True, 0, True),
+        ([0, 10], True, 10, True),
+        ([0, 10], True, 11, False),
+        ([0, 10], True, -0.5, False),
+        (None, False, 10, True),
+    ],
+)
+def test_bounds_contains(limits, inclusive, value, expected):
+    """Test that checking if a value is in the Bounds works."""
+    bounds = Bounds(limits, inclusive)
+    if expected:
+        assert value in bounds
+    else:
+        assert value not in bounds
+
+
+@pytest.mark.parametrize(
+    'value',
+    [[1, 1], True, (1, -1), {2}, 's'],
+)
+def test_bounds_contains_invalid(value):
+    """Test that Bounds.__contains__() requires a numeric value."""
+    with pytest.raises(TypeError, match='only supported for numeric values'):
+        _ = value in Bounds()
+
+
+def test_bounds_getitem():
+    """Test that Bounds.__getitem__() is working."""
+    limits = [0, 1]
+    bounds = Bounds(limits)
+    assert bounds[0] == limits[0]
+    assert bounds[1] == limits[1]
+
+
+def test_bounds_iter():
+    """Test that Bounds.__iter__() is working."""
+    limits = [0, 1]
+    for bound, limit in zip(Bounds(limits), limits):
+        assert bound == limit

@@ -63,16 +63,55 @@ class Bounds:
         return self.bounds is not None
 
     def __contains__(self, value: Number) -> bool:
+        """
+        Add support for using the ``in`` operator to check whether
+        ``value`` is in the bounds.
+
+        Parameters
+        ----------
+        value : Number
+            A numeric value.
+
+        Returns
+        -------
+        bool
+            Whether ``value`` is contained in the bounds.
+        """
+        if not isinstance(value, Number) or isinstance(value, bool):
+            raise TypeError('This operation is only supported for numeric values.')
+
         if not self:
             return True
+
         if self.inclusive:
             return self.bounds[0] <= value <= self.bounds[1]
         return self.bounds[0] < value < self.bounds[1]
 
     def __getitem__(self, index: int) -> Number:
+        """
+        Add support for indexing into the bounds.
+
+        Parameters
+        ----------
+        index : int
+            The index to access.
+
+        Returns
+        -------
+        Number
+            The value for the bounds at ``index``.
+        """
         return self.bounds[index]
 
     def __iter__(self) -> Number:
+        """
+        Iterate over the bounds.
+
+        Returns
+        -------
+        Number
+            The next value of the bounds.
+        """
         return iter(self.bounds)
 
     def __repr__(self) -> str:

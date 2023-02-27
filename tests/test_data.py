@@ -128,6 +128,7 @@ def test_data_stats():
         ([0, False], 'must be an iterable of 2 numeric values'),
         ([1, 2], False),
     ],
+    ids=['True', '{1, 2}', '12', '[0, False]', '[1, 2]'],
 )
 def test_validate_2d(data, msg):
     """Test that 2D numeric value check is working."""
@@ -138,7 +139,11 @@ def test_validate_2d(data, msg):
         assert data == _validate_2d(data, 'test')
 
 
-@pytest.mark.parametrize(['limits', 'inclusive'], [([0, 10], True), (None, False)])
+@pytest.mark.parametrize(
+    ['limits', 'inclusive'],
+    [([0, 10], True), (None, False)],
+    ids=['numeric + inclusive', 'empty'],
+)
 def test_bounds_init_and_bool(limits, inclusive):
     """Test that Bounds can be initialized and works as truthy/falsey value."""
     bounds = Bounds(limits, inclusive)
@@ -153,6 +158,7 @@ def test_bounds_init_and_bool(limits, inclusive):
 @pytest.mark.parametrize(
     'limits',
     [[1, 1], [1.0, 1], [1, -1]],
+    ids=['no range', 'no range, float vs. int', 'right <= left bound'],
 )
 def test_bounds_invalid(limits):
     """Test that Bounds requires a valid range."""
@@ -165,9 +171,20 @@ def test_bounds_invalid(limits):
     [
         ([0, 10], True, 0, True),
         ([0, 10], True, 10, True),
-        ([0, 10], True, 11, False),
-        ([0, 10], True, -0.5, False),
+        ([0, 10], True, 5, True),
+        ([0, 10], False, 5, True),
+        ([0, 10], False, 0, False),
+        ([0, 10], False, 10, False),
         (None, False, 10, True),
+    ],
+    ids=[
+        '0 in [0, 10]',
+        '10 in [0, 10]',
+        '5 in [0, 10]',
+        '5 in (0, 10)',
+        '0 not in (0, 10)',
+        '10 not in (0, 10)',
+        '10 in no limit',
     ],
 )
 def test_bounds_contains(limits, inclusive, value, expected):
@@ -181,7 +198,8 @@ def test_bounds_contains(limits, inclusive, value, expected):
 
 @pytest.mark.parametrize(
     'value',
-    [[1, 1], True, (1, -1), {2}, 's'],
+    [[1, 1], True, (1, -1), {2}, 's', dict()],
+    ids=['list', 'bool', 'tuple', 'set', 'str', 'dict'],
 )
 def test_bounds_contains_invalid(value):
     """Test that Bounds.__contains__() requires a numeric value."""
@@ -202,3 +220,16 @@ def test_bounds_iter():
     limits = [0, 1]
     for bound, limit in zip(Bounds(limits), limits):
         assert bound == limit
+
+
+@pytest.mark.parametrize(
+    ['inclusive', 'expected'],
+    [
+        (True, '<Bounds inclusive [0, 1]>'),
+        (False, '<Bounds exclusive (0, 1)>'),
+    ],
+)
+def test_bounds_repr(inclusive, expected):
+    """Test that Bounds.__repr__() is working."""
+    bounds = Bounds([0, 1], inclusive)
+    assert repr(bounds) == expected

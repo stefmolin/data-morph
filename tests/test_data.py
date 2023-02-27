@@ -126,16 +126,35 @@ def test_data_stats():
         ({1, 2}, 'must be an iterable of 2 numeric values'),
         ('12', 'must be an iterable of 2 numeric values'),
         ([0, False], 'must be an iterable of 2 numeric values'),
-        ([1, 1], 'must be strictly less than'),
-        ([1.0, 1], 'must be strictly less than'),
-        ([1, -1], 'must be strictly less than'),
         ([1, 2], False),
     ],
 )
-def test_bounds_validate_2d(data, msg):
+def test_validate_2d(data, msg):
     """Test that 2D numeric value check is working."""
     if msg:
         with pytest.raises(ValueError, match=msg):
-            _ = _validate_2d(data, 'test', validate_range=True)
+            _ = _validate_2d(data, 'test')
     else:
-        assert data == _validate_2d(data, 'test', validate_range=True)
+        assert data == _validate_2d(data, 'test')
+
+
+@pytest.mark.parametrize(['limits', 'inclusive'], [([0, 10], True), (None, False)])
+def test_bounds_init_and_bool(limits, inclusive):
+    """Test that Bounds can be initialized and works as truthy/falsey value."""
+    bounds = Bounds(limits, inclusive)
+    assert bounds.bounds == limits
+    assert bounds.inclusive == inclusive
+    if bounds:
+        assert limits is not None
+    else:
+        assert limits is None
+
+
+@pytest.mark.parametrize(
+    'limits',
+    [[1, 1], [1.0, 1], [1, -1]],
+)
+def test_bounds_invalid(limits):
+    """Test that Bounds requires a valid range."""
+    with pytest.raises(ValueError, match='must be strictly greater than'):
+        _ = Bounds(limits)

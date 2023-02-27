@@ -7,6 +7,7 @@ import pytest
 from numpy.testing import assert_equal
 from pandas.testing import assert_frame_equal
 
+from data_morph.data.bounds import BoundingBox, Bounds, _validate_2d
 from data_morph.data.dataset import Dataset
 from data_morph.data.loader import DataLoader
 from data_morph.data.stats import get_values
@@ -116,3 +117,25 @@ def test_data_stats():
     assert stats.x_stdev == data.x.std()
     assert stats.y_stdev == data.y.std()
     assert stats.correlation == data.corr().x.y
+
+
+@pytest.mark.parametrize(
+    ['data', 'msg'],
+    [
+        (True, 'must be an iterable of 2 numeric values'),
+        ({1, 2}, 'must be an iterable of 2 numeric values'),
+        ('12', 'must be an iterable of 2 numeric values'),
+        ([0, False], 'must be an iterable of 2 numeric values'),
+        ([1, 1], 'must be strictly less than'),
+        ([1.0, 1], 'must be strictly less than'),
+        ([1, -1], 'must be strictly less than'),
+        ([1, 2], False),
+    ],
+)
+def test_bounds_validate_2d(data, msg):
+    """Test that 2D numeric value check is working."""
+    if msg:
+        with pytest.raises(ValueError, match=msg):
+            _ = _validate_2d(data, 'test', validate_range=True)
+    else:
+        assert data == _validate_2d(data, 'test', validate_range=True)

@@ -4,9 +4,12 @@ from numbers import Number
 from typing import Iterable, Union
 
 
-def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:
+def _validate_2d(
+    data: Iterable[Number], name: str, validate_range: bool
+) -> Iterable[Number]:
     """
-    Validate the data is exactly 2D and contains numeric values.
+    Validate the data is exactly two-dimensional and contains strictly
+    increasing numeric values.
 
     Parameters
     ----------
@@ -14,6 +17,9 @@ def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:
         Data in two dimensions (e.g., a point or bounds).
     name : str
         The name of the value being passed in as ``data`` (for error messages).
+    validate_range : bool
+        Whether to also validate that ``data`` is a valid range
+        (end of range >= to start of range).
 
     Returns
     -------
@@ -27,6 +33,8 @@ def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:
     ):
         raise ValueError(f'{name} must be an iterable of 2 numeric values')
 
+    if validate_range and data[0] >= data[1]:
+        raise ValueError(f'{name}[0] must be strictly less than {name}[1]')
     return data
 
 
@@ -68,7 +76,7 @@ class Bounds:
         return iter(self.bounds)
 
     def __repr__(self) -> str:
-        values = ", ".join(map(str, self.bounds))
+        values = ', '.join(map(str, self.bounds))
         if self.inclusive:
             interval = f'[{values}]'
             kind = 'inclusive'
@@ -93,7 +101,7 @@ class Bounds:
         """
         if bounds is None:
             return bounds
-        return list(_validate_2d(bounds, 'bounds'))
+        return list(_validate_2d(bounds, 'bounds', validate_range=True))
 
     def adjust_bounds(self, value: Number) -> None:
         if isinstance(value, bool) or not isinstance(value, Number):
@@ -160,7 +168,7 @@ class BoundingBox:
         )
 
     def __contains__(self, value: Iterable[Number]) -> bool:
-        x, y = _validate_2d(value, 'input')
+        x, y = _validate_2d(value, 'input', validate_range=False)
         return x in self.x_bounds and y in self.y_bounds
 
     def __repr__(self) -> str:

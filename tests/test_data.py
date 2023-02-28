@@ -351,7 +351,7 @@ def test_bounding_box_input_validation_inclusive(inclusive):
     ],
 )
 def test_bounding_box_init(x_bounds, y_bounds, inclusive, expected):
-    """Tests that BoundingBox.__init__() is working."""
+    """Test that BoundingBox.__init__() is working."""
 
     bbox = BoundingBox(x_bounds, y_bounds, inclusive)
     assert bbox.x_bounds.inclusive == expected[0]
@@ -367,3 +367,41 @@ def test_bounding_box_init(x_bounds, y_bounds, inclusive, expected):
         assert bbox.y_bounds == y_bounds
         bbox.adjust_bounds(y=2)
         assert bbox.y_bounds != y_bounds
+
+
+@pytest.mark.parametrize(
+    ['value', 'inclusive', 'expected'],
+    [
+        [[1, 1], True, True],
+        [[1, 1], False, True],
+        [[0, 0], True, True],
+        [[0, 0], False, False],
+    ],
+    ids=[
+        'inside box - inclusive',
+        'inside box - exclusive',
+        'on corner - inclusive',
+        'on corner - exclusive',
+    ],
+)
+def test_bounding_box_contains(value, inclusive, expected):
+    """Test that [x, y] in BoundingBox is working."""
+    bbox = BoundingBox([0, 10], [0, 10], inclusive)
+    assert (value in bbox) == expected
+
+
+@pytest.mark.parametrize(
+    'value',
+    [
+        [True, False],
+        '12',
+        12,
+        False,
+    ],
+    ids=['list of Booleans', 'string of 2 numbers', 'two-digit integer', 'False'],
+)
+def test_bounding_box_contains_input_validation(value):
+    """Test that [x, y] in BoundingBox is working."""
+    bbox = BoundingBox([0, 10], [0, 10])
+    with pytest.raises(ValueError, match='must be an iterable of 2 numeric values'):
+        _ = value in bbox

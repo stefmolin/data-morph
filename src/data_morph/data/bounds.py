@@ -237,8 +237,40 @@ class BoundingBox:
         )
 
     def __contains__(self, value: Iterable[Number]) -> bool:
+        """
+        Add support for using the ``in`` operator to check whether
+        a two-dimensional point is in the bounding box.
+
+        Parameters
+        ----------
+        value : Iterable[Number]
+            A two-dimensional point.
+
+        Returns
+        -------
+        bool
+            Whether ``value`` is contained in the bounding box.
+        """
         x, y = _validate_2d(value, 'input')
         return x in self.x_bounds and y in self.y_bounds
+
+    def __eq__(self, other: 'BoundingBox') -> bool:
+        """
+        Check whether two :class:`BoundingBox` objects are equivalent.
+
+        Parameters
+        ----------
+        other : BoundingBox
+            A :class:`BoundingBox` object.
+
+        Returns
+        -------
+        bool
+            Whether the two :class:`BoundingBox` objects are equivalent.
+        """
+        if not isinstance(other, BoundingBox):
+            raise TypeError('Equality is only defined between BoundingBox objects.')
+        return self.x_bounds == other.x_bounds and self.y_bounds == other.y_bounds
 
     def __repr__(self) -> str:
         return '<BoundingBox>\n' f'  x={self.x_bounds}' '\n' f'  y={self.y_bounds}'

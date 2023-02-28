@@ -433,3 +433,33 @@ def test_bounding_box_repr():
         '<BoundingBox>\n. x=<Bounds .+>\n  y=<Bounds.+>',
         repr(BoundingBox([0, 10], [0, 10])),
     )
+
+
+@pytest.mark.parametrize(
+    ['x', 'y'],
+    [
+        [True, True],
+        [None, True],
+        ['s', None],
+        [None, 's'],
+        ['s', 's'],
+    ],
+)
+def test_bounding_box_adjust_bounds_input_validation(x, y):
+    """Test that input validation on BoundingBox.adjust_bounds() is working."""
+    bbox = BoundingBox([0, 10], [0, 10])
+    with pytest.raises(TypeError, match='value must be a numeric value'):
+        bbox.adjust_bounds(x, y)
+
+
+@pytest.mark.parametrize(['x', 'y'], [[10, 10], [0, 10], [10, 0]])
+def test_bounding_box_adjust_bounds(x, y):
+    """Test that BoundingBox.adjust_bounds() is working."""
+    start = [10, 90]
+    bbox = BoundingBox(start, start)
+    initial_range_x, initial_range_y = bbox.range
+
+    bbox.adjust_bounds(x, y)
+    new_range_x, new_range_y = bbox.range
+    assert new_range_x == initial_range_x + x
+    assert new_range_y == initial_range_y + y

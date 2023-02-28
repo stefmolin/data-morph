@@ -276,8 +276,18 @@ class BoundingBox:
         return '<BoundingBox>\n' f'  x={self.x_bounds}' '\n' f'  y={self.y_bounds}'
 
     def adjust_bounds(self, x: Number = None, y: Number = None) -> None:
-        if not x and not y:
-            raise ValueError('At least one of x or y must be non-zero.')
+        """
+        Adjust bounding box range.
+
+        Parameters
+        ----------
+        x, y : Number
+            The amount to change the x/y bound range by (half will be applied to each end).
+
+        See Also
+        --------
+        :meth:`Bounds.adjust_bounds` : Method that performs the adjustment.
+        """
         if x:
             self.x_bounds.adjust_bounds(x)
         if y:

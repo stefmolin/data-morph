@@ -148,10 +148,18 @@ class Bounds:
         return bounds
 
     def adjust_bounds(self, value: Number) -> None:
+        """
+        Adjust bound range.
+
+        Parameters
+        ----------
+        value : Number
+            The amount to change the range by (half will be applied to each end).
+        """
         if isinstance(value, bool) or not isinstance(value, Number):
             raise ValueError('value must be a numeric value')
         if not value:
-            raise ValueError('value must be non-zero.')
+            raise ValueError('value must be non-zero')
 
         offset = value / 2
         self.bounds[0] -= offset

@@ -233,3 +233,32 @@ def test_bounds_repr(inclusive, expected):
     """Test that Bounds.__repr__() is working."""
     bounds = Bounds([0, 1], inclusive)
     assert repr(bounds) == expected
+
+
+@pytest.mark.parametrize(
+    ['value', 'expected'],
+    [
+        (0, 'value must be non-zero'),
+        ('s', 'value must be a numeric value'),
+        (True, 'value must be a numeric value'),
+    ],
+)
+def test_bounds_adjust_bounds_input_validation(value, expected):
+    """Test that input validation on Bounds.adjust_bounds() is working."""
+    bounds = Bounds([10, 90])
+
+    with pytest.raises(ValueError, match=expected):
+        bounds.adjust_bounds(value)
+
+
+@pytest.mark.parametrize('value', [2, -8])
+def test_bounds_adjust_bounds(value):
+    """Test that Bounds.adjust_bounds() value update is working."""
+    start = [10, 90]
+    bounds = Bounds(start)
+    initial_range = bounds.range
+
+    bounds.adjust_bounds(value)
+    assert bounds.range == initial_range + value
+    assert bounds[0] == start[0] - value / 2
+    assert bounds[1] == start[1] + value / 2

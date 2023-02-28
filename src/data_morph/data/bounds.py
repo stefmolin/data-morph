@@ -212,8 +212,7 @@ class BoundingBox:
     ):
         if x_bounds is None or y_bounds is None:
             raise ValueError('BoundingBox requires bounds for both dimensions.')
-        if inclusive is None:
-            inclusive = [False] * 2
+
         if isinstance(inclusive, bool):
             inclusive = [inclusive] * 2
         if not (
@@ -225,6 +224,7 @@ class BoundingBox:
                 'inclusive must be an iterable of 2 Boolean values'
                 ' or a single Boolean value'
             )
+
         self.x_bounds = (
             x_bounds.clone()
             if isinstance(x_bounds, Bounds)

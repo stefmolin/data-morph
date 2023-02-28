@@ -305,3 +305,65 @@ def test_bounds_range(inclusive):
     """Test that Bounds.range is working."""
     bounds = Bounds([-1, 1], inclusive)
     assert bounds.range == 2
+
+
+@pytest.mark.parametrize(
+    ['x_bounds', 'y_bounds'],
+    [
+        [None, None],
+        [[0, 1], None],
+        [None, [0, 1]],
+        [Bounds([0, 1]), None],
+        [None, Bounds([0, 1])],
+    ],
+    ids=[
+        'neither',
+        'just x',
+        'just y',
+        'just x with Bounds',
+        'just y with Bounds',
+    ],
+)
+def test_bounding_box_input_validation_bounds(x_bounds, y_bounds):
+    """Test that BoundingBox.__init__() checks for valid bounds."""
+    with pytest.raises(ValueError, match='BoundingBox requires bounds'):
+        _ = BoundingBox(x_bounds, y_bounds)
+
+
+@pytest.mark.parametrize('inclusive', ['ss', [True, True, False], [1, 2]])
+def test_bounding_box_input_validation_inclusive(inclusive):
+    """Test that BoundingBox.__init__() checks for valid inclusive value work."""
+    with pytest.raises(ValueError, match='inclusive must be'):
+        _ = BoundingBox([0, 1], [0, 1], inclusive)
+
+
+@pytest.mark.parametrize(
+    ['x_bounds', 'y_bounds', 'inclusive', 'expected'],
+    [
+        [[0, 1], [0, 1], True, (True, True)],
+        [[0, 1], [0, 1], False, (False, False)],
+        [Bounds([0, 1], True), Bounds([0, 1], True), True, (True, True)],
+        [Bounds([0, 1], True), Bounds([0, 1], True), False, (True, True)],
+        [Bounds([0, 1], True), [0, 1], True, (True, True)],
+        [[0, 1], Bounds([0, 1], True), True, (True, True)],
+        [Bounds([0, 1], True), [0, 1], False, (True, False)],
+        [[0, 1], Bounds([0, 1], True), False, (False, True)],
+    ],
+)
+def test_bounding_box_init(x_bounds, y_bounds, inclusive, expected):
+    """Tests that BoundingBox.__init__() is working."""
+
+    bbox = BoundingBox(x_bounds, y_bounds, inclusive)
+    assert bbox.x_bounds.inclusive == expected[0]
+    assert bbox.y_bounds.inclusive == expected[1]
+
+    # make sure the bounds were cloned
+    if isinstance(x_bounds, Bounds):
+        assert bbox.x_bounds == x_bounds
+        bbox.adjust_bounds(x=2)
+        assert bbox.x_bounds != x_bounds
+
+    if isinstance(y_bounds, Bounds):
+        assert bbox.y_bounds == y_bounds
+        bbox.adjust_bounds(y=2)
+        assert bbox.y_bounds != y_bounds

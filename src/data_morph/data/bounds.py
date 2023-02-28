@@ -1,6 +1,5 @@
 """Classes for working with bounds."""
 
-import math
 from numbers import Number
 from typing import Iterable, Union
 
@@ -37,8 +36,8 @@ class Bounds:
 
     Parameters
     ----------
-    bounds : Union[Iterable[Number], None]
-        A 2-dimensional numeric iterable or ``None`` for no bounds.
+    bounds : Iterable[Number]
+        A 2-dimensional numeric iterable.
     inclusive : bool, default ``False``
         Whether the bounds include the endpoints. Default
         is exclusive.
@@ -46,22 +45,11 @@ class Bounds:
 
     def __init__(
         self,
-        bounds: Union[Iterable[Number], None] = None,
+        bounds: Iterable[Number],
         inclusive: bool = False,
     ) -> None:
         self.bounds = self._validate_bounds(bounds)
         self.inclusive = inclusive
-
-    def __bool__(self) -> bool:
-        """
-        Represent as a Boolean based on the value of :attr:`bounds`.
-
-        Returns
-        -------
-        bool
-            The truth of the object (whether there are bounds in place).
-        """
-        return self.bounds is not None
 
     def __contains__(self, value: Number) -> bool:
         """
@@ -78,15 +66,28 @@ class Bounds:
         bool
             Whether ``value`` is contained in the bounds.
         """
-        if not isinstance(value, Number) or isinstance(value, bool):
+        if not isinstance(value, Number) or isinstance(value, bool) or value is None:
             raise TypeError('This operation is only supported for numeric values.')
-
-        if not self:
-            return True
 
         if self.inclusive:
             return self.bounds[0] <= value <= self.bounds[1]
         return self.bounds[0] < value < self.bounds[1]
+
+    def __eq__(self, other: 'Bounds') -> bool:
+        """
+        Check whether two :class:`Bounds` objects are equivalent.
+
+        Parameters
+        ----------
+        other : Bounds
+            A :class:`Bounds` object.
+
+        Returns
+        -------
+        bool
+            Whether the two :class:`Bounds` objects are equivalent.
+        """
+        return self.bounds == other.bounds and self.inclusive == other.inclusive
 
     def __getitem__(self, index: int) -> Number:
         """
@@ -139,9 +140,6 @@ class Bounds:
         Iterable[Number]
             An iterable of min/max bounds.
         """
-        if bounds is None:
-            return bounds
-
         bounds = list(_validate_2d(bounds, 'bounds'))
 
         if bounds[0] >= bounds[1]:
@@ -150,17 +148,13 @@ class Bounds:
 
     def adjust_bounds(self, value: Number) -> None:
         """
-        Adjust bound range for non-empty bounds.
+        Adjust bound range.
 
         Parameters
         ----------
         value : Number
             The amount to change the range by (half will be applied to each end).
         """
-        if self.bounds is None:
-            raise NotImplementedError(
-                'bounds are empty and therefore cannot be adjusted.'
-            )
         if isinstance(value, bool) or not isinstance(value, Number) or value is None:
             raise TypeError('value must be a numeric value')
         if not value:
@@ -179,7 +173,7 @@ class Bounds:
         :class:`Bounds`
             A new :class:`Bounds` instance with the same bounds.
         """
-        return Bounds(self.bounds[:] if self.bounds else None, self.inclusive)
+        return Bounds(self.bounds[:], self.inclusive)
 
     @property
     def range(self) -> Number:
@@ -191,8 +185,6 @@ class Bounds:
         Number
             The range covered by the bounds.
         """
-        if not self.bounds:
-            return math.inf
         return self.bounds[1] - self.bounds[0]
 
 

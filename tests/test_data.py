@@ -1,6 +1,5 @@
 """Tests for data_morph.data subpackage."""
 
-import math
 import os
 
 import pandas as pd
@@ -140,20 +139,12 @@ def test_validate_2d(data, msg):
         assert data == _validate_2d(data, 'test')
 
 
-@pytest.mark.parametrize(
-    ['limits', 'inclusive'],
-    [([0, 10], True), (None, False)],
-    ids=['numeric + inclusive', 'empty'],
-)
-def test_bounds_init_and_bool(limits, inclusive):
-    """Test that Bounds can be initialized and works as truthy/falsey value."""
+def test_bounds_init():
+    """Test that Bounds can be initialized."""
+    limits, inclusive = [0, 10], True
     bounds = Bounds(limits, inclusive)
     assert bounds.bounds == limits
     assert bounds.inclusive == inclusive
-    if bounds:
-        assert limits is not None
-    else:
-        assert limits is None
 
 
 @pytest.mark.parametrize(
@@ -176,7 +167,6 @@ def test_bounds_invalid(limits):
         ([0, 10], False, 5, True),
         ([0, 10], False, 0, False),
         ([0, 10], False, 10, False),
-        (None, False, 10, True),
     ],
     ids=[
         '0 in [0, 10]',
@@ -185,27 +175,23 @@ def test_bounds_invalid(limits):
         '5 in (0, 10)',
         '0 not in (0, 10)',
         '10 not in (0, 10)',
-        '10 in no limit',
     ],
 )
 def test_bounds_contains(limits, inclusive, value, expected):
     """Test that checking if a value is in the Bounds works."""
     bounds = Bounds(limits, inclusive)
-    if expected:
-        assert value in bounds
-    else:
-        assert value not in bounds
+    assert (value in bounds) == expected
 
 
 @pytest.mark.parametrize(
     'value',
-    [[1, 1], True, (1, -1), {2}, 's', dict()],
-    ids=['list', 'bool', 'tuple', 'set', 'str', 'dict'],
+    [[1, 1], True, (1, -1), {2}, 's', dict(), None],
+    ids=['list', 'bool', 'tuple', 'set', 'str', 'dict', 'None'],
 )
 def test_bounds_contains_invalid(value):
     """Test that Bounds.__contains__() requires a numeric value."""
     with pytest.raises(TypeError, match='only supported for numeric values'):
-        _ = value in Bounds()
+        _ = value in Bounds([0, 10])
 
 
 def test_bounds_getitem():
@@ -266,41 +252,35 @@ def test_bounds_adjust_bounds(value):
     assert bounds[1] == start[1] + value / 2
 
 
-def test_bounds_adjust_empty_bounds():
-    """Test that Bounds.adjust_bounds() when bounds are empty raises an exception."""
-    with pytest.raises(NotImplementedError, match='bounds are empty'):
-        _ = Bounds().adjust_bounds(2)
-
-
 @pytest.mark.parametrize(
     ['limits', 'inclusive'],
     [
         ([10, 90], True),
         ([10, 90], False),
-        (None, False),
     ],
-    ids=['inclusive with bounds', 'exclusive with bounds', 'no bounds'],
+    ids=['inclusive', 'exclusive'],
 )
-def test_bounds_clone(limits, inclusive):
-    """Test that Bounds.clone() is working."""
+def test_bounds_clone_and_eq(limits, inclusive):
+    """Test that Bounds.clone() and equality check is working."""
     bounds = Bounds(limits, inclusive)
     bounds_clone = bounds.clone()
 
+    # confirm it is a new object
     assert bounds is not bounds_clone
+
+    # confirm equality of values
     assert bounds.bounds == bounds_clone.bounds
     assert bounds.inclusive == bounds_clone.inclusive
+    assert bounds == bounds_clone
 
-    if limits:
-        bounds_clone.adjust_bounds(2)
-        assert bounds.bounds != bounds_clone.bounds
+    # confirm deep copy of bounds
+    bounds_clone.adjust_bounds(2)
+    assert bounds.bounds != bounds_clone.bounds
+    assert bounds != bounds_clone
 
 
 @pytest.mark.parametrize('inclusive', [True, False])
-@pytest.mark.parametrize(
-    ['limits', 'expected'],
-    [[[-1, 1], 2], [None, math.inf]],
-)
-def test_bounds_range(limits, inclusive, expected):
+def test_bounds_range(inclusive):
     """Test that Bounds.range is working."""
-    bounds = Bounds(limits, inclusive)
-    assert bounds.range == expected
+    bounds = Bounds([-1, 1], inclusive)
+    assert bounds.range == 2

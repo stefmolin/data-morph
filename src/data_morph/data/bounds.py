@@ -1,5 +1,6 @@
 """Classes for working with bounds."""
 
+import math
 from numbers import Number
 from typing import Iterable, Union
 
@@ -149,15 +150,19 @@ class Bounds:
 
     def adjust_bounds(self, value: Number) -> None:
         """
-        Adjust bound range.
+        Adjust bound range for non-empty bounds.
 
         Parameters
         ----------
         value : Number
             The amount to change the range by (half will be applied to each end).
         """
-        if isinstance(value, bool) or not isinstance(value, Number):
-            raise ValueError('value must be a numeric value')
+        if self.bounds is None:
+            raise NotImplementedError(
+                'bounds are empty and therefore cannot be adjusted.'
+            )
+        if isinstance(value, bool) or not isinstance(value, Number) or value is None:
+            raise TypeError('value must be a numeric value')
         if not value:
             raise ValueError('value must be non-zero')
 
@@ -166,10 +171,28 @@ class Bounds:
         self.bounds[1] += offset
 
     def clone(self) -> 'Bounds':
-        return Bounds(self.bounds[:], self.inclusive)
+        """
+        Clone this instance.
+
+        Returns
+        -------
+        :class:`Bounds`
+            A new :class:`Bounds` instance with the same bounds.
+        """
+        return Bounds(self.bounds[:] if self.bounds else None, self.inclusive)
 
     @property
     def range(self) -> Number:
+        """
+        Calculate the range (width) of the bounds.
+
+        Returns
+        -------
+        Number
+            The range covered by the bounds.
+        """
+        if not self.bounds:
+            return math.inf
         return self.bounds[1] - self.bounds[0]
 
 

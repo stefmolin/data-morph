@@ -1,5 +1,6 @@
 """Tests for data_morph.data subpackage."""
 
+import math
 import os
 
 import pandas as pd
@@ -236,18 +237,19 @@ def test_bounds_repr(inclusive, expected):
 
 
 @pytest.mark.parametrize(
-    ['value', 'expected'],
+    ['value', 'expected_msg', 'exc_class'],
     [
-        (0, 'value must be non-zero'),
-        ('s', 'value must be a numeric value'),
-        (True, 'value must be a numeric value'),
+        (0, 'value must be non-zero', ValueError),
+        (None, 'value must be a numeric value', TypeError),
+        ('s', 'value must be a numeric value', TypeError),
+        (True, 'value must be a numeric value', TypeError),
     ],
 )
-def test_bounds_adjust_bounds_input_validation(value, expected):
+def test_bounds_adjust_bounds_input_validation(value, expected_msg, exc_class):
     """Test that input validation on Bounds.adjust_bounds() is working."""
     bounds = Bounds([10, 90])
 
-    with pytest.raises(ValueError, match=expected):
+    with pytest.raises(exc_class, match=expected_msg):
         bounds.adjust_bounds(value)
 
 
@@ -262,3 +264,43 @@ def test_bounds_adjust_bounds(value):
     assert bounds.range == initial_range + value
     assert bounds[0] == start[0] - value / 2
     assert bounds[1] == start[1] + value / 2
+
+
+def test_bounds_adjust_empty_bounds():
+    """Test that Bounds.adjust_bounds() when bounds are empty raises an exception."""
+    with pytest.raises(NotImplementedError, match='bounds are empty'):
+        _ = Bounds().adjust_bounds(2)
+
+
+@pytest.mark.parametrize(
+    ['limits', 'inclusive'],
+    [
+        ([10, 90], True),
+        ([10, 90], False),
+        (None, False),
+    ],
+    ids=['inclusive with bounds', 'exclusive with bounds', 'no bounds'],
+)
+def test_bounds_clone(limits, inclusive):
+    """Test that Bounds.clone() is working."""
+    bounds = Bounds(limits, inclusive)
+    bounds_clone = bounds.clone()
+
+    assert bounds is not bounds_clone
+    assert bounds.bounds == bounds_clone.bounds
+    assert bounds.inclusive == bounds_clone.inclusive
+
+    if limits:
+        bounds_clone.adjust_bounds(2)
+        assert bounds.bounds != bounds_clone.bounds
+
+
+@pytest.mark.parametrize('inclusive', [True, False])
+@pytest.mark.parametrize(
+    ['limits', 'expected'],
+    [[[-1, 1], 2], [None, math.inf]],
+)
+def test_bounds_range(limits, inclusive, expected):
+    """Test that Bounds.range is working."""
+    bounds = Bounds(limits, inclusive)
+    assert bounds.range == expected

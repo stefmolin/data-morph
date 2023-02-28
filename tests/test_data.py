@@ -194,6 +194,27 @@ def test_bounds_contains_invalid(value):
         _ = value in Bounds([0, 10])
 
 
+@pytest.mark.parametrize(
+    ['limits', 'inclusive', 'expected'],
+    [
+        ([0, 1], True, True),
+        ([0, 1], False, False),
+        ([-1, 1], True, False),
+        ([-1, 1], False, False),
+    ],
+)
+def test_bounds_eq(limits, inclusive, expected):
+    """Test that Bounds equality check is working."""
+    assert (Bounds([0, 1], True) == Bounds(limits, inclusive)) == expected
+
+
+@pytest.mark.parametrize('other', ['s', [], {}, 7])
+def test_bounds_eq_type(other):
+    """Test that Bounds equality check only works for Bounds objects."""
+    with pytest.raises(TypeError, match='only defined between Bounds objects'):
+        _ = Bounds([0, 1], True) == other
+
+
 def test_bounds_getitem():
     """Test that Bounds.__getitem__() is working."""
     limits = [0, 1]
@@ -260,7 +281,7 @@ def test_bounds_adjust_bounds(value):
     ],
     ids=['inclusive', 'exclusive'],
 )
-def test_bounds_clone_and_eq(limits, inclusive):
+def test_bounds_clone(limits, inclusive):
     """Test that Bounds.clone() and equality check is working."""
     bounds = Bounds(limits, inclusive)
     bounds_clone = bounds.clone()

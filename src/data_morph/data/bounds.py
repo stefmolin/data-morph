@@ -87,6 +87,8 @@ class Bounds:
         bool
             Whether the two :class:`Bounds` objects are equivalent.
         """
+        if not isinstance(other, Bounds):
+            raise TypeError('Equality is only defined between Bounds objects.')
         return self.bounds == other.bounds and self.inclusive == other.inclusive
 
     def __getitem__(self, index: int) -> Number:

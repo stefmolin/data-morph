@@ -294,6 +294,7 @@ class BoundingBox:
             self.y_bounds.adjust_bounds(y)
 
     def align_aspect_ratio(self) -> None:
+        """Align the aspect ratio to 1:1."""
         x_range, y_range = self.range
         diff = x_range - y_range
         if diff < 0:
@@ -306,6 +307,10 @@ class BoundingBox:
             self.x_bounds.clone(),
             self.y_bounds.clone(),
         )
+
+    def get_aspect_ratio(self) -> Number:
+        x_range, y_range = self.range
+        return x_range / y_range
 
     @property
     def range(self) -> Iterable[Number]:

@@ -463,3 +463,18 @@ def test_bounding_box_adjust_bounds(x, y):
     new_range_x, new_range_y = bbox.range
     assert new_range_x == initial_range_x + x
     assert new_range_y == initial_range_y + y
+
+
+@pytest.mark.parametrize(
+    ['x', 'y'],
+    [
+        ([10, 90], [500, 600]),
+        ([500, 600], [10, 90]),
+        ([10, 90], [10, 90]),
+    ],
+)
+def test_bounding_box_align_aspect_ratio(x, y):
+    """Test that BoundingBox.align_aspect_ratio() is working."""
+    bbox = BoundingBox(x, y)
+    bbox.align_aspect_ratio()
+    assert pytest.approx(bbox.get_aspect_ratio()) == 1

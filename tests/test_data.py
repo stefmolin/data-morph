@@ -1,6 +1,7 @@
 """Tests for data_morph.data subpackage."""
 
 import os
+import re
 
 import pandas as pd
 import pytest
@@ -405,3 +406,30 @@ def test_bounding_box_contains_input_validation(value):
     bbox = BoundingBox([0, 10], [0, 10])
     with pytest.raises(ValueError, match='must be an iterable of 2 numeric values'):
         _ = value in bbox
+
+
+@pytest.mark.parametrize('other', [1, True, Bounds([0, 1])])
+def test_bounding_box_eq_input_validation(other):
+    """Test that input validation for BoundingBox.__eq__() is working."""
+    bbox = BoundingBox([0, 10], [0, 10])
+    with pytest.raises(TypeError, match='only defined between BoundingBox objects'):
+        _ = bbox == other
+
+
+def test_bounding_box_eq():
+    """Test that BoundingBox.__eq__() is working."""
+    limits = ([0, 10], [0, 10])
+    bbox1 = BoundingBox(*limits)
+    bbox2 = BoundingBox(*limits)
+    assert bbox1 == bbox2
+
+    bbox1.adjust_bounds(x=1)
+    assert bbox1 != bbox2
+
+
+def test_bounding_box_repr():
+    """Test that BoundingBox.__repr__() is working."""
+    assert re.match(
+        '<BoundingBox>\n. x=<Bounds .+>\n  y=<Bounds.+>',
+        repr(BoundingBox([0, 10], [0, 10])),
+    )

@@ -505,10 +505,19 @@ def test_bounding_box_clone():
     assert bbox1 != bbox2
 
 
-def test_bounding_box_aspect_ratio():
+@pytest.mark.parametrize(
+    ['x', 'y', 'expected'],
+    [
+        ([10, 90], [500, 600], 0.8),
+        ([500, 600], [10, 90], 1.25),
+        ([0, 10], [5, 10], 2),
+        ([10, 90], [10, 90], 1),
+    ],
+)
+def test_bounding_box_aspect_ratio(x, y, expected):
     """Test that BoundingBox.aspect_ratio is working."""
-    bbox = BoundingBox([0, 10], [5, 10])
-    assert bbox.aspect_ratio == 2
+    bbox = BoundingBox(x, y)
+    assert bbox.aspect_ratio == expected
 
 
 def test_bounding_box_range():

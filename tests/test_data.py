@@ -98,6 +98,21 @@ def test_dataset_validation_fix_column_casing(datasets_dir):
     assert not dataset.df[dataset.REQUIRED_COLUMNS].empty
 
 
+@pytest.mark.parametrize(
+    ['limits', 'morph_bounds', 'plot_bounds'],
+    [
+        ([10, 90], [2, 98], [-6, 106]),
+        ([0, 100], [-10, 110], [-20, 120]),
+    ],
+)
+def test_dataset_derive_bounds(limits, morph_bounds, plot_bounds):
+    """Test that Dataset._derive_bounds() is working."""
+    dataset = DataLoader.load_dataset('dino', limits)
+
+    assert dataset.morph_bounds == BoundingBox(morph_bounds, morph_bounds)
+    assert dataset.plot_bounds == BoundingBox(plot_bounds, plot_bounds)
+
+
 @pytest.mark.parametrize('bounds', [[10, 90], None])
 def test_dataset_repr(bounds):
     """Check Dataset.__repr__()."""

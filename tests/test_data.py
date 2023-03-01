@@ -477,4 +477,26 @@ def test_bounding_box_align_aspect_ratio(x, y):
     """Test that BoundingBox.align_aspect_ratio() is working."""
     bbox = BoundingBox(x, y)
     bbox.align_aspect_ratio()
-    assert pytest.approx(bbox.get_aspect_ratio()) == 1
+    assert pytest.approx(bbox.aspect_ratio) == 1
+
+
+def test_bounding_box_clone():
+    """Test that BoundingBox.clone() is working."""
+    bbox1 = BoundingBox([0, 10], [5, 10])
+    bbox2 = bbox1.clone()
+    assert bbox1 == bbox2
+
+    bbox2.adjust_bounds(x=2, y=2)
+    assert bbox1 != bbox2
+
+
+def test_bounding_box_aspect_ratio():
+    """Test that BoundingBox.aspect_ratio is working."""
+    bbox = BoundingBox([0, 10], [5, 10])
+    assert bbox.aspect_ratio == 2
+
+
+def test_bounding_box_range():
+    """Test that BoundingBox.range is working."""
+    bbox = BoundingBox([0, 10], [5, 10])
+    assert bbox.range == (10, 5)

@@ -303,15 +303,40 @@ class BoundingBox:
             self.adjust_bounds(y=diff)
 
     def clone(self) -> 'BoundingBox':
+        """
+        Clone this instance.
+
+        Returns
+        -------
+        :class:`BoundingBox`
+            A new :class:`BoundingBox` instance with the same bounds.
+        """
         return BoundingBox(
             self.x_bounds.clone(),
             self.y_bounds.clone(),
         )
 
-    def get_aspect_ratio(self) -> Number:
+    @property
+    def aspect_ratio(self) -> Number:
+        """
+        Calculate the aspect ratio of the bounding box.
+
+        Returns
+        -------
+        Number
+            The range in the x direction divided by the range in the y direction.
+        """
         x_range, y_range = self.range
         return x_range / y_range
 
     @property
     def range(self) -> Iterable[Number]:
+        """
+        Calculate the range (width) of the bounding box in each direction.
+
+        Returns
+        -------
+        Iterable[Number]
+            The range covered by the x and y bounds, respectively.
+        """
         return self.x_bounds.range, self.y_bounds.range

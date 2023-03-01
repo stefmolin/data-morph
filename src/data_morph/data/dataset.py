@@ -29,7 +29,7 @@ class Dataset:
     ) -> None:
         self.name: str = name
         self.df: pd.DataFrame = self._validate_data(df).pipe(
-            self._normalize_data, Bounds(bounds, inclusive=True)
+            self._normalize_data, bounds
         )
         self._derive_bounds()
 
@@ -58,7 +58,7 @@ class Dataset:
         self.plot_bounds.adjust_bounds(x=x_offset, y=y_offset)
         self.plot_bounds.align_aspect_ratio()
 
-    def _normalize_data(self, df, bounds: Bounds) -> pd.DataFrame:
+    def _normalize_data(self, df, bounds: Iterable[Number]) -> pd.DataFrame:
         """
         Apply normalization.
 
@@ -66,7 +66,7 @@ class Dataset:
         ----------
         df : pandas.DataFrame
             The data to normalize.
-        bounds : Bounds
+        bounds : Iterable[Number]
             The desired minimum/maximum values.
 
         Returns
@@ -74,11 +74,11 @@ class Dataset:
         pandas.DataFrame
             The normalized data.
         """
-        if not bounds:
+        if bounds is None:
             self.normalized = False
             return df
 
-        a, b = bounds
+        a, b = Bounds(bounds, inclusive=True)
         normalized_df = df[self.REQUIRED_COLUMNS].apply(
             lambda c: a + (c - c.min()).multiply(b - a).div(c.max() - c.min())
         )

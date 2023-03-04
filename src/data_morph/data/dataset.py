@@ -81,23 +81,27 @@ class Dataset:
         pandas.DataFrame
             The normalized data.
         """
+        if x_bounds is None and y_bounds is None:
+            self.normalized = False
+            return df
+
         if (x_bounds is None and y_bounds is not None) or (
             x_bounds is not None and y_bounds is None
         ):
             raise ValueError(
                 "Either don't supply bounds or supply both x and y bounds."
             )
-        if x_bounds is None and y_bounds is None:
-            self.normalized = False
-            return df
 
         for col, bounds in [('x', x_bounds), ('y', y_bounds)]:
             a, b = Interval(bounds, inclusive=True)
             df = df.assign(
                 **{
-                    col: lambda c: (a + (c[col] - c[col].min()))
-                    .multiply(b - a)
-                    .div(c[col].max() - c[col].min())
+                    col: lambda c: (
+                        a
+                        + (c[col] - c[col].min())
+                        .multiply(b - a)
+                        .div(c[col].max() - c[col].min())
+                    )
                 }
             )
 

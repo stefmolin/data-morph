@@ -62,8 +62,10 @@ def plot(
     # can pull the `.format` method for that string to reduce typing it
     # repeatedly
     visible_decimals = 7
-    formatter = '{{:<{pad}}}: {{:+0.{decimals}f}}'.format(
-        pad=max_label_length, decimals=visible_decimals
+    formatter = '{{:<{pad}}}: {{:+{stat_pad}.{decimals}f}}'.format(
+        pad=max_label_length,
+        stat_pad=max_stat + visible_decimals + 2,
+        decimals=visible_decimals,
     ).format
     corr_formatter = '{{:<{pad}}}: {{:+{corr_pad}.{decimals}f}}'.format(
         pad=max_label_length,

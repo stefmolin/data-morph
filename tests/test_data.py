@@ -51,7 +51,7 @@ def test_data_loader_unknown_data(dataset):
 def test_dataset_normalization(bounds, datasets_dir):
     """Confirm that data normalization is working by checking min and max."""
 
-    dataset = DataLoader.load_dataset('dino', bounds)
+    dataset = DataLoader.load_dataset('dino', x_bounds=bounds, y_bounds=bounds)
 
     if bounds:
         assert_equal(dataset.df.min().to_numpy(), [bounds[0]] * 2)
@@ -77,7 +77,21 @@ def test_dataset_normalization(bounds, datasets_dir):
 def test_dataset_normalization_valid_bounds(bounds):
     """Confirm that normalization doesn't happen unless bounds are valid."""
     with pytest.raises(ValueError, match='bounds must be an iterable'):
-        _ = DataLoader.load_dataset('dino', bounds)
+        _ = DataLoader.load_dataset('dino', x_bounds=bounds, y_bounds=bounds)
+
+
+@pytest.mark.parametrize(
+    ['x_bounds', 'y_bounds'],
+    [
+        ([10, 90], None),
+        (None, [10, 90]),
+    ],
+    ids=['missing y', 'missing x'],
+)
+def test_dataset_normalization_both_bounds_required(x_bounds, y_bounds):
+    """Confirm that normalization doesn't happen unless both bounds are provided."""
+    with pytest.raises(ValueError, match='supply both x and y'):
+        _ = DataLoader.load_dataset('dino', x_bounds=x_bounds, y_bounds=y_bounds)
 
 
 def test_dataset_validation_missing_columns(datasets_dir):
@@ -106,7 +120,7 @@ def test_dataset_validation_fix_column_casing(datasets_dir):
 )
 def test_dataset_derive_bounds(limits, morph_bounds, plot_bounds):
     """Test that Dataset._derive_bounds() is working."""
-    dataset = DataLoader.load_dataset('dino', limits)
+    dataset = DataLoader.load_dataset('dino', x_bounds=limits, y_bounds=limits)
 
     assert dataset.morph_bounds == BoundingBox(morph_bounds, morph_bounds)
     assert dataset.plot_bounds == BoundingBox(plot_bounds, plot_bounds)
@@ -116,7 +130,7 @@ def test_dataset_derive_bounds(limits, morph_bounds, plot_bounds):
 def test_dataset_repr(bounds):
     """Check Dataset.__repr__()."""
 
-    dataset = DataLoader.load_dataset('dino', bounds=bounds)
+    dataset = DataLoader.load_dataset('dino', x_bounds=bounds, y_bounds=bounds)
     assert repr(dataset) == (f'<Dataset name=dino normalized={bounds is not None}>')
 
 

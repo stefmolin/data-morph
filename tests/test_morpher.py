@@ -131,7 +131,7 @@ def test_morpher_saving_data(tmp_path):
     start_shape = 'dino'
     target_shape = 'circle'
 
-    dataset = DataLoader.load_dataset(start_shape, bounds=[10, 90])
+    dataset = DataLoader.load_dataset(start_shape)
     base_file_name = f'{dataset.name}-to-{target_shape}'
 
     shape_factory = ShapeFactory(dataset)

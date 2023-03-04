@@ -19,18 +19,22 @@ class Dataset:
         The name to use for the dataset.
     df : pandas.DataFrame
         DataFrame containing columns x and y.
-    bounds : Iterable[Number], optional
+    x_bounds, y_bounds : Iterable[Number], optional
         An iterable of min/max bounds for normalization.
     """
 
     REQUIRED_COLUMNS = ['x', 'y']
 
     def __init__(
-        self, name: str, df: pd.DataFrame, bounds: Iterable[Number] = None
+        self,
+        name: str,
+        df: pd.DataFrame,
+        x_bounds: Iterable[Number] = None,
+        y_bounds: Iterable[Number] = None,
     ) -> None:
         self.name: str = name
         self.df: pd.DataFrame = self._validate_data(df).pipe(
-            self._normalize_data, bounds
+            self._normalize_data, x_bounds, y_bounds
         )
         self._derive_bounds()
 
@@ -59,7 +63,9 @@ class Dataset:
         self.plot_bounds.adjust_bounds(x=x_offset, y=y_offset)
         self.plot_bounds.align_aspect_ratio()
 
-    def _normalize_data(self, df, bounds: Iterable[Number]) -> pd.DataFrame:
+    def _normalize_data(
+        self, df, x_bounds: Iterable[Number], y_bounds: Iterable[Number]
+    ) -> pd.DataFrame:
         """
         Apply normalization.
 
@@ -67,24 +73,36 @@ class Dataset:
         ----------
         df : pandas.DataFrame
             The data to normalize.
-        bounds : Iterable[Number]
-            The desired minimum/maximum values.
+        x_bounds, y_bounds : Iterable[Number], optional
+            The desired minimum/maximum values. Either pass both or none.
 
         Returns
         -------
         pandas.DataFrame
             The normalized data.
         """
-        if bounds is None:
+        if (x_bounds is None and y_bounds is not None) or (
+            x_bounds is not None and y_bounds is None
+        ):
+            raise ValueError(
+                "Either don't supply bounds or supply both x and y bounds."
+            )
+        if x_bounds is None and y_bounds is None:
             self.normalized = False
             return df
 
-        a, b = Interval(bounds, inclusive=True)
-        normalized_df = df[self.REQUIRED_COLUMNS].apply(
-            lambda c: a + (c - c.min()).multiply(b - a).div(c.max() - c.min())
-        )
+        for col, bounds in [('x', x_bounds), ('y', y_bounds)]:
+            a, b = Interval(bounds, inclusive=True)
+            df = df.assign(
+                **{
+                    col: lambda c: (a + (c[col] - c[col].min()))
+                    .multiply(b - a)
+                    .div(c[col].max() - c[col].min())
+                }
+            )
+
         self.normalized = True
-        return normalized_df
+        return df
 
     def _validate_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """

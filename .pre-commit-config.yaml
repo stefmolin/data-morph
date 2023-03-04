@@ -19,9 +19,9 @@ repos:
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.2
     hooks:
-    - id: codespell
-      additional_dependencies:
-        - tomli
+      - id: codespell
+        additional_dependencies:
+          - tomli
 
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
@@ -48,7 +48,7 @@ repos:
           - black
 
   - repo: https://github.com/stefmolin/numpydoc
-    rev: 629c65c
+    rev: f4663d3
     hooks:
       - id: numpydoc-validation
         exclude: tests/.*

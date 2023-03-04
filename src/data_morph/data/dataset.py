@@ -5,7 +5,8 @@ from typing import Iterable
 
 import pandas as pd
 
-from .bounds import BoundingBox, Bounds
+from ..bounds.bounding_box import BoundingBox
+from ..bounds.interval import Interval
 
 
 class Dataset:
@@ -42,10 +43,10 @@ class Dataset:
     def _derive_bounds(self) -> None:
         """Derive morphing and plotting bounds based on the data."""
         # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
-        # TODO: add tests for this logic
+        # could also make this a parameter to __init__()
         self.morph_bounds = BoundingBox(
             *[
-                Bounds([self.df[dim].min(), self.df[dim].max()], inclusive=False)
+                Interval([self.df[dim].min(), self.df[dim].max()], inclusive=False)
                 for dim in self.REQUIRED_COLUMNS
             ]
         )
@@ -78,7 +79,7 @@ class Dataset:
             self.normalized = False
             return df
 
-        a, b = Bounds(bounds, inclusive=True)
+        a, b = Interval(bounds, inclusive=True)
         normalized_df = df[self.REQUIRED_COLUMNS].apply(
             lambda c: a + (c - c.min()).multiply(b - a).div(c.max() - c.min())
         )

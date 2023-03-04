@@ -23,7 +23,7 @@ import pandas as pd
 import pytweening
 import tqdm
 
-from .data.bounds import BoundingBox
+from .bounds.bounding_box import BoundingBox
 from .data.dataset import Dataset
 from .data.stats import get_values
 from .plotting.animation import stitch_gif_animation

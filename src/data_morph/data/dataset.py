@@ -48,12 +48,13 @@ class Dataset:
         """Derive morphing and plotting bounds based on the data."""
         # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
         # could also make this a parameter to __init__()
-        self.morph_bounds = BoundingBox(
+        self.data_bounds = BoundingBox(
             *[
                 Interval([self.df[dim].min(), self.df[dim].max()], inclusive=False)
                 for dim in self.REQUIRED_COLUMNS
             ]
         )
+        self.morph_bounds = self.data_bounds.clone()
 
         x_offset, y_offset = [offset / 5 for offset in self.morph_bounds.range]
 

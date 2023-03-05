@@ -163,4 +163,4 @@ class Interval:
         Number
             The range covered by the interval.
         """
-        return self.bounds[1] - self.bounds[0]
+        return abs(self.bounds[1] - self.bounds[0])

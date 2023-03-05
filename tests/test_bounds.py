@@ -76,7 +76,7 @@ def test_bounds_contains(limits, inclusive, value, expected):
 @pytest.mark.parametrize(
     'value',
     [[1, 1], True, (1, -1), {2}, 's', dict(), None],
-    ids=['list', 'bool', 'tuple', 'set', 'str', 'dict', 'None'],
+    ids=str,
 )
 def test_bounds_contains_invalid(value):
     """Test that Interval.__contains__() requires a numeric value."""
@@ -191,10 +191,19 @@ def test_bounds_clone(limits, inclusive):
 
 
 @pytest.mark.parametrize('inclusive', [True, False])
-def test_bounds_range(inclusive):
+@pytest.mark.parametrize(
+    ['limits', 'expected'],
+    [
+        ([-10, -5], 5),
+        ([-1, 1], 2),
+        ([2, 100], 98),
+    ],
+    ids=str,
+)
+def test_bounds_range(limits, inclusive, expected):
     """Test that Interval.range is working."""
-    bounds = Interval([-1, 1], inclusive)
-    assert bounds.range == 2
+    bounds = Interval(limits, inclusive)
+    assert bounds.range == expected
 
 
 @pytest.mark.parametrize(

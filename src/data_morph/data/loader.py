@@ -1,8 +1,8 @@
 """Load data for morphing."""
 
-import os
 from importlib.resources import files
 from numbers import Number
+from pathlib import Path
 from typing import Iterable
 
 import pandas as pd
@@ -49,13 +49,13 @@ class DataLoader:
         """
         try:
             filepath = files(MAIN_DIR).joinpath(
-                f'{cls._DATA_PATH}/{cls._DATASETS[dataset]}'
+                Path(cls._DATA_PATH) / cls._DATASETS[dataset]
             )
             name = dataset
             df = pd.read_csv(filepath)
         except KeyError:
             try:
-                name = os.path.splitext(os.path.basename(dataset))[0]
+                name = Path(dataset).stem
                 df = pd.read_csv(dataset)
             except FileNotFoundError:
                 raise ValueError(

@@ -1,6 +1,6 @@
 """Tests for data_morph.data subpackage."""
 
-import os
+from pathlib import Path
 
 import pandas as pd
 import pytest
@@ -16,12 +16,8 @@ from data_morph.data.stats import get_values
 @pytest.fixture
 def datasets_dir(request):
     """Fixture for the datasets directory."""
-    return os.path.join(
-        request.config.rootdir,
-        'src',
-        'data_morph',
-        'data',
-        'starter_shapes',
+    return (
+        Path(request.config.rootdir) / 'src' / 'data_morph' / 'data' / 'starter_shapes'
     )
 
 
@@ -34,7 +30,7 @@ def test_data_loader_static_class():
 def test_data_loader_known_data(datasets_dir):
     """Confirm that loading the dataset by name and by path work."""
     dino_from_pkg = DataLoader.load_dataset('dino')
-    dino_from_file = DataLoader.load_dataset(os.path.join(datasets_dir, 'dino.csv'))
+    dino_from_file = DataLoader.load_dataset(datasets_dir / 'dino.csv')
 
     assert dino_from_pkg.name == dino_from_file.name
     assert_frame_equal(dino_from_pkg.df, dino_from_file.df)
@@ -57,22 +53,14 @@ def test_dataset_normalization(bounds, datasets_dir):
         assert_equal(dataset.df.min().to_numpy(), [bounds[0]] * 2)
         assert_equal(dataset.df.max().to_numpy(), [bounds[1]] * 2)
     else:
-        df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv'))
+        df = pd.read_csv(datasets_dir / 'dino.csv')
         assert_frame_equal(dataset.df, df)
 
 
 @pytest.mark.parametrize(
     'bounds',
     [[], (), '', [3], [1, 2, 3], '12', [True, False]],
-    ids=[
-        'empty list',
-        'empty tuple',
-        'empty string',
-        'too few dimensions',
-        'too many dimensions',
-        'not list or tuple',
-        'booleans',
-    ],
+    ids=str,
 )
 def test_dataset_normalization_valid_bounds(bounds):
     """Confirm that normalization doesn't happen unless bounds are valid."""
@@ -97,7 +85,7 @@ def test_dataset_normalization_both_bounds_required(x_bounds, y_bounds):
 def test_dataset_validation_missing_columns(datasets_dir):
     """Confirm that creation of a Dataset validates the DataFrame columns."""
 
-    df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv')).rename(columns={'x': 'a'})
+    df = pd.read_csv(datasets_dir / 'dino.csv').rename(columns={'x': 'a'})
 
     with pytest.raises(ValueError, match='Columns "x" and "y" are required.'):
         _ = Dataset('dino', df)
@@ -106,7 +94,7 @@ def test_dataset_validation_missing_columns(datasets_dir):
 def test_dataset_validation_fix_column_casing(datasets_dir):
     """Confirm that creating a Dataset with correct names but in wrong casing works."""
 
-    df = pd.read_csv(os.path.join(datasets_dir, 'dino.csv')).rename(columns={'x': 'X'})
+    df = pd.read_csv(datasets_dir / 'dino.csv').rename(columns={'x': 'X'})
     dataset = Dataset('dino', df)
     assert not dataset.df[dataset.REQUIRED_COLUMNS].empty
 

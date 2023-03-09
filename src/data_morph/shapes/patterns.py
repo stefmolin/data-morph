@@ -183,8 +183,8 @@ class XLines(Lines):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        xmin, ymin = dataset.df.min()
-        xmax, ymax = dataset.df.max()
+        xmin, xmax = dataset.morph_bounds.x_bounds
+        ymin, ymax = dataset.morph_bounds.y_bounds
 
         super().__init__([[xmin, ymin], [xmax, ymax]], [[xmin, ymax], [xmax, ymin]])
 

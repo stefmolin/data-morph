@@ -59,18 +59,34 @@ class HorizontalLines(Lines):
 
 
 class SlantDownLines(Lines):
-    """Class for the slant down lines shape."""
+    """
+    Class for the slant down lines shape.
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, dataset: Dataset) -> None:
-        # q1, q3 = dataset.df.y.quantile([0.25, 0.75])
+        x_bounds = dataset.morph_bounds.x_bounds
+        y_bounds = dataset.morph_bounds.y_bounds
+
+        xmin, xmax = x_bounds
+        xmid = xmin + x_bounds.range / 2
+        x_offset = (xmid - xmin) / 2
+
+        ymin, ymax = y_bounds
+        ymid = ymin + y_bounds.range / 2
+        y_offset = (ymid - ymin) / 2
 
         super().__init__(
-            [[0, 100], [100, 0]],
-            [[0, 70], [70, 0]],
-            [[30, 100], [100, 30]],
-            [[0, 50], [50, 0]],
-            [[50, 100], [100, 50]],
-        )  # TODO: figure out how to use the data to derive these
+            [[xmin, ymid], [xmid, ymin]],
+            [[xmin, ymid + y_offset], [xmid + x_offset, ymin]],
+            [[xmin, ymax], [xmax, ymin]],
+            [[xmin + x_offset, ymax], [xmax, ymin + y_offset]],
+            [[xmid, ymax], [xmax, ymid]],
+        )
 
     def __str__(self) -> str:
         return 'slant_down'

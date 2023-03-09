@@ -1,6 +1,7 @@
 """Base class for shapes that are composed of lines."""
 
-from typing import Iterable, Union
+from numbers import Number
+from typing import Iterable
 
 from .shape import Shape
 
@@ -11,7 +12,7 @@ class Lines(Shape):
 
     Parameters
     ----------
-    *lines : Iterable[Iterable[Iterable[Union[int, float]]]]
+    *lines : Iterable[Iterable[Iterable[Number]]]
         An iterable of two (x, y) pairs representing the endpoints
         of a line.
     """
@@ -22,9 +23,10 @@ class Lines(Shape):
     def __repr__(self) -> str:
         return self._recursive_repr('lines')
 
-    def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
+    def distance(self, x: Number, y: Number) -> float:
         """
-        Calculate the minimum distance from the lines of this shape to a point (x, y).
+        Calculate the minimum distance from the lines of this shape
+        to a point (x, y).
 
         Parameters
         ----------
@@ -34,7 +36,8 @@ class Lines(Shape):
         Returns
         -------
         float
-            The minimum distance from the lines of this shape to the point (x, y).
+            The minimum distance from the lines of this shape to the
+            point (x, y).
         """
         return min(
             self._distance_point_to_line(point=(x, y), line=line) for line in self.lines
@@ -42,17 +45,17 @@ class Lines(Shape):
 
     def _distance_point_to_line(
         self,
-        point: Iterable[Union[int, float]],
-        line: Iterable[Iterable[Union[int, float]]],
+        point: Iterable[Number],
+        line: Iterable[Iterable[Number]],
     ) -> float:
         """
         Calculate the minimum distance between a point and a line.
 
         Parameters
         ----------
-        point : Iterable[Union[int, float]]
+        point : Iterable[Number]
             Coordinates of a point in 2D space.
-        line : Iterable[Iterable[Union[int, float]]]
+        line : Iterable[Iterable[Number]]
             Coordinates of the endpoints of a line in 2D space.
 
         Returns

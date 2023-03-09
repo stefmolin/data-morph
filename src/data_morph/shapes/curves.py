@@ -24,7 +24,7 @@ class DownParab(PointCollection):
         ymax = dataset.data_bounds.y_bounds[1]
 
         pts = [
-            [x, - (((x - (xmax - x_range / 2)) / 4) ** 2) + ymax]
+            [x, -(((x - (xmax - x_range / 2)) / 4) ** 2) + ymax]
             for x in np.linspace(xmin, xmax, int(x_range / 3))
         ]
         super().__init__(*pts)
@@ -33,12 +33,28 @@ class DownParab(PointCollection):
         return 'down_parab'
 
 
-# class UpParab(Lines): # TODO
-#     """Class for the up parabola shape."""
+class UpParab(PointCollection):
+    """
+    Class for the up parabola shape.
 
-#     def __init__(self, dataset) -> None:
-#         # TODO
-#         pass
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
 
-#     def __str__(self) -> str:
-#         return 'up_parab'
+    def __init__(self, dataset) -> None:
+        x_bounds = dataset.morph_bounds.x_bounds
+        x_range = x_bounds.range
+
+        xmin, xmax = x_bounds
+        ymin = dataset.data_bounds.y_bounds[0]
+
+        pts = [
+            [x, (((x - (xmax - x_range / 2)) / 4) ** 2) + ymin]
+            for x in np.linspace(xmin, xmax, int(x_range / 3))
+        ]
+        super().__init__(*pts)
+
+    def __str__(self) -> str:
+        return 'up_parab'

@@ -162,11 +162,17 @@ class WideLines(Lines):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        q1, q3 = dataset.df.x.quantile([0.25, 0.75])
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.morph_bounds.y_bounds
+
+        offset = x_bounds.range / 5
+        lower = x_bounds[0] + offset
+        upper = x_bounds[1] - offset
 
         super().__init__(
-            [[q1, 0], [q1, 100]], [[q3, 0], [q3, 100]]
-        )  # TODO: figure out way to get 0, 100 min/max plus offset?
+            [[lower, y_bounds[0]], [lower, y_bounds[1]]],
+            [[upper, y_bounds[0]], [upper, y_bounds[1]]],
+        )
 
     def __str__(self) -> str:
         return 'wide_lines'

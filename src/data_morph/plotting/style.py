@@ -2,6 +2,7 @@
 
 from functools import wraps
 from importlib.resources import as_file, files
+from pathlib import Path
 from typing import Any, Callable
 
 import matplotlib.pyplot as plt
@@ -42,7 +43,9 @@ def plot_with_custom_style(plotting_function: Callable) -> Callable:
         any
             Output of calling the plotting function.
         """
-        style = files(MAIN_DIR).joinpath('plotting/config/plot_style.mplstyle')
+        style = files(MAIN_DIR).joinpath(
+            Path('plotting') / 'config' / 'plot_style.mplstyle'
+        )
         with as_file(style) as style_path:
             with plt.style.context(['seaborn-v0_8-darkgrid', style_path]):
                 output = plotting_function(*args, **kwargs)

@@ -1,8 +1,8 @@
 """Utility functions for static plotting."""
 
-import os
 from functools import partial
 from numbers import Number
+from pathlib import Path
 from typing import Iterable, Union
 
 import matplotlib.pyplot as plt
@@ -19,7 +19,7 @@ def plot(
     df: pd.DataFrame,
     x_bounds: Iterable[Number],
     y_bounds: Iterable[Number],
-    save_to: str,
+    save_to: Union[str, Path],
     decimals: int,
     **save_kwds,
 ) -> Union[Axes, None]:
@@ -32,7 +32,7 @@ def plot(
         The dataset to plot.
     x_bounds, y_bounds : Iterable[Number]
         The plotting limits.
-    save_to : str
+    save_to : str or Path
         Path to save the plot frame to.
     decimals : int
         The number of integers to highlight as preserved.
@@ -96,9 +96,10 @@ def plot(
     if not save_to:
         return ax
 
-    dirname = os.path.dirname(save_to)
-    if not os.path.isdir(dirname):
-        os.makedirs(dirname)
+    save_to = Path(save_to)
+    dirname = save_to.parent
+    if not dirname.is_dir():
+        dirname.mkdir()
 
     fig.savefig(save_to, **save_kwds)
     plt.close(fig)

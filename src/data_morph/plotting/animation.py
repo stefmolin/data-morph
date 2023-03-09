@@ -1,7 +1,7 @@
 """Utility functions for animations."""
 
 import glob
-import os
+from pathlib import Path
 from typing import Union
 
 from PIL import Image
@@ -10,7 +10,7 @@ from ..shapes.bases.shape import Shape
 
 
 def stitch_gif_animation(
-    output_dir: str,
+    output_dir: Union[str, Path],
     start_shape: str,
     target_shape: Union[str, Shape],
     keep_frames: bool = False,
@@ -21,7 +21,7 @@ def stitch_gif_animation(
 
     Parameters
     ----------
-    output_dir : str
+    output_dir : str or Path
         The output directory to save the animation to. Note that the frames to
         stitch together must be in here as well.
     start_shape : str
@@ -34,10 +34,10 @@ def stitch_gif_animation(
         Whether to play the animation in the forward direction rather than
         animating in both forward and reverse.
     """
+    output_dir = Path(output_dir)
+
     # find the frames and sort them
-    imgs = sorted(
-        glob.glob(os.path.join(output_dir, f'{start_shape}-to-{target_shape}*.png'))
-    )
+    imgs = sorted(glob.glob(str(output_dir / f'{start_shape}-to-{target_shape}*.png')))
 
     frames = [Image.open(img) for img in imgs]
 
@@ -46,7 +46,7 @@ def stitch_gif_animation(
         frames.extend(frames[::-1])
 
     frames[0].save(
-        os.path.join(output_dir, f'{start_shape}_to_{target_shape}.gif'),
+        output_dir / f'{start_shape}_to_{target_shape}.gif',
         format='GIF',
         append_images=frames[1:],
         save_all=True,
@@ -57,4 +57,4 @@ def stitch_gif_animation(
     if not keep_frames:
         # remove the image files
         for img in imgs:
-            os.remove(img)
+            Path(img).unlink()

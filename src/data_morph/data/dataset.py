@@ -1,8 +1,12 @@
 """Class representing a dataset for morphing."""
 
-from typing import Iterable, Union
+from numbers import Number
+from typing import Iterable
 
 import pandas as pd
+
+from ..bounds.bounding_box import BoundingBox
+from ..bounds.interval import Interval
 
 
 class Dataset:
@@ -15,50 +19,95 @@ class Dataset:
         The name to use for the dataset.
     df : pandas.DataFrame
         DataFrame containing columns x and y.
-    bounds : Iterable[Union[int, float]], optional
+    x_bounds, y_bounds : Iterable[Number], optional
         An iterable of min/max bounds for normalization.
     """
 
     REQUIRED_COLUMNS = ['x', 'y']
 
     def __init__(
-        self, name: str, df: pd.DataFrame, bounds: Iterable[Union[int, float]] = None
+        self,
+        name: str,
+        df: pd.DataFrame,
+        x_bounds: Iterable[Number] = None,
+        y_bounds: Iterable[Number] = None,
     ) -> None:
         self.name: str = name
-        self.df: pd.DataFrame = self._validate_data(df)
-
-        if bounds is not None and not (
-            isinstance(bounds, (tuple, list))
-            and len(bounds) == 2
-            and all(
-                isinstance(x, (float, int)) and not isinstance(x, bool) for x in bounds
-            )
-        ):
-            raise ValueError('bounds must be an iterable of 2 numeric values or None')
-
-        self._bounds: Iterable[Union[int, float]] = bounds
-
-        if self._bounds:
-            self.df = self._normalize_data()
-        else:  # TODO: should this store bounds as xbounds and ybounds?
-            self._bounds = [self.df.min().min(), self.df.max().max()]
+        self.df: pd.DataFrame = self._validate_data(df).pipe(
+            self._normalize_data, x_bounds, y_bounds
+        )
+        self._derive_bounds()
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} name={self.name}>'  # TODO: add bounds here
+        return (
+            f'<{self.__class__.__name__} name={self.name} '
+            f'normalized={self.normalized}>'
+        )
 
-    def _normalize_data(self) -> pd.DataFrame:
+    def _derive_bounds(self) -> None:
+        """Derive morphing and plotting bounds based on the data."""
+        # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
+        # could also make this a parameter to __init__()
+        self.data_bounds = BoundingBox(
+            *[
+                Interval([self.df[dim].min(), self.df[dim].max()], inclusive=False)
+                for dim in self.REQUIRED_COLUMNS
+            ]
+        )
+        self.morph_bounds = self.data_bounds.clone()
+
+        x_offset, y_offset = [offset / 5 for offset in self.morph_bounds.range]
+
+        self.morph_bounds.adjust_bounds(x=x_offset, y=y_offset)
+
+        self.plot_bounds = self.morph_bounds.clone()
+        self.plot_bounds.adjust_bounds(x=x_offset, y=y_offset)
+        self.plot_bounds.align_aspect_ratio()
+
+    def _normalize_data(
+        self, df, x_bounds: Iterable[Number], y_bounds: Iterable[Number]
+    ) -> pd.DataFrame:
         """
         Apply normalization.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            The data to normalize.
+        x_bounds, y_bounds : Iterable[Number], optional
+            The desired minimum/maximum values. Either pass both or none.
 
         Returns
         -------
         pandas.DataFrame
             The normalized data.
         """
-        a, b = self._bounds
-        return self.df[self.REQUIRED_COLUMNS].apply(
-            lambda c: a + (c - c.min()).multiply(b - a).div(c.max() - c.min())
-        )
+        if x_bounds is None and y_bounds is None:
+            self.normalized = False
+            return df
+
+        if (x_bounds is None and y_bounds is not None) or (
+            x_bounds is not None and y_bounds is None
+        ):
+            raise ValueError(
+                "Either don't supply bounds or supply both x and y bounds."
+            )
+
+        for col, bounds in [('x', x_bounds), ('y', y_bounds)]:
+            a, b = Interval(bounds, inclusive=True)
+            df = df.assign(
+                **{
+                    col: lambda c: (
+                        a
+                        + (c[col] - c[col].min())
+                        .multiply(b - a)
+                        .div(c[col].max() - c[col].min())
+                    )
+                }
+            )
+
+        self.normalized = True
+        return df
 
     def _validate_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """

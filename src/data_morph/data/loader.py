@@ -2,7 +2,8 @@
 
 import os
 from importlib.resources import files
-from typing import Iterable, Union
+from numbers import Number
+from typing import Iterable
 
 import pandas as pd
 
@@ -25,7 +26,10 @@ class DataLoader:
 
     @classmethod
     def load_dataset(
-        cls, dataset: str, bounds: Iterable[Union[int, float]] = None
+        cls,
+        dataset: str,
+        x_bounds: Iterable[Number] = None,
+        y_bounds: Iterable[Number] = None,
     ) -> Dataset:
         """
         Load dataset.
@@ -35,7 +39,7 @@ class DataLoader:
         dataset : str
             Either one of :attr:`AVAILABLE_DATASETS` or a path to a
             CSV file containing two columns: x and y.
-        bounds : Iterable[Union[int, float]], optional
+        x_bounds, y_bounds : Iterable[Number], optional
             An iterable of min/max bounds for normalization.
 
         Returns
@@ -59,4 +63,4 @@ class DataLoader:
                     'Provide a valid path to a CSV dataset or use one of '
                     f'the included datasets: {", ".join(cls.AVAILABLE_DATASETS)}.'
                 )
-        return Dataset(name=name, df=df, bounds=bounds)
+        return Dataset(name=name, df=df, x_bounds=x_bounds, y_bounds=y_bounds)

@@ -56,6 +56,70 @@ def test_main_bad_input_boolean(field, value, capsys):
     )
 
 
+@pytest.mark.bad_input_to_argparse
+@pytest.mark.parametrize(
+    ['bounds', 'reason'],
+    [
+        (['-1'], 'expected 2 arguments'),
+        (['10', 's'], 'invalid float value'),
+    ],
+)
+def test_main_bad_input_bounds(bounds, reason, capsys):
+    """Test that invalid input for bounds is handled correctly."""
+    with pytest.raises(SystemExit):
+        __main__.main(['--bounds', *bounds, '--', 'dino'])
+    assert f'error: argument --bounds: {reason}' in capsys.readouterr().err
+
+
+@pytest.mark.bad_input_to_argparse
+@pytest.mark.parametrize(
+    ['bounds', 'reason'],
+    [
+        (['-1'], 'expected 4 arguments'),
+        (['10', '90', '300', 's'], 'invalid float value'),
+    ],
+)
+def test_main_bad_input_xy_bounds(bounds, reason, capsys):
+    """Test that invalid input for xy_bounds is handled correctly."""
+    with pytest.raises(SystemExit):
+        __main__.main(['--xy-bounds', *bounds, '--', 'dino'])
+    assert f'error: argument --xy-bounds: {reason}' in capsys.readouterr().err
+
+
+def test_main_mutually_exclusive_bounds(capsys):
+    """Test that bounds options are mutually exclusive."""
+    with pytest.raises(SystemExit):
+        __main__.main(['--bounds', '10', '90', '--xy-bounds', '10', '90', '300', '380', '--', 'dino'])
+    assert 'error: argument --xy-bounds: not allowed with argument --bounds' in capsys.readouterr().err
+
+
+@pytest.mark.parametrize(
+    ['start_shape', 'bounds'],
+    [['dino', [10, 100]], ['dino', [10, 100, 200, 290]], ['dino', None]],
+)
+def test_main_dataloader(start_shape, bounds, mocker):
+    """Check that the DataLoader is being used correctly."""
+
+    if bounds is None or len(bounds) == 2:
+        arg = '--bounds'
+        x_bounds = y_bounds = bounds
+    else:
+        arg = '--xy-bounds'
+        x_bounds = bounds[:2]
+        y_bounds = bounds[2:]
+    bound_args = [arg, *[str(value) for value in bounds]] if bounds else []
+
+    load = mocker.patch.object(__main__.DataLoader, 'load_dataset', autospec=True)
+    _ = mocker.patch.object(__main__.DataMorpher, 'morph')
+    argv = [
+        start_shape,
+        '--target-shape=circle',
+        *bound_args,
+    ]
+    __main__.main([arg for arg in argv if arg])
+    load.assert_called_once_with(start_shape, x_bounds=x_bounds, y_bounds=y_bounds)
+
+
 @pytest.mark.parametrize('flag', [True, False])
 def test_main_one_shape(flag, mocker, tmp_path):
     """Check that the proper values are passed to morph a single shape."""

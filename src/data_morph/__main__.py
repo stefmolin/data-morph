@@ -77,6 +77,30 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         type=int,
         help='Provide a seed for reproducible results.',
     )
+    bounds_config_group = morph_config_group.add_mutually_exclusive_group()
+    bounds_config_group.add_argument(
+        '--bounds',
+        default=None,
+        nargs=2,
+        type=float,
+        help=(
+            'Normalize the data on both x and y to be in the same desired range. '
+            'For example, `--bounds 10 90` sets both the x and y bounds to [10, 90]. '
+            'See --xy-bounds to set different ranges for x and y.'
+        ),
+    )
+    bounds_config_group.add_argument(
+        '--xy-bounds',
+        default=None,
+        nargs=4,
+        type=float,
+        help=(
+            'Normalize the data on x and y to be in different desired ranges. '
+            'For example, `--xy-bounds 10 90 200 700` sets the x bounds to [10, 90] '
+            'and the y bounds to [200, 700]. To set the same range for both, use '
+            'the shorthand --bounds option.'
+        ),
+    )
     file_group = parser.add_argument_group(
         'file config',
         description='Customize where files are written to and which types of files are kept.',
@@ -157,13 +181,15 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             f"""'{"', '".join(ALL_TARGETS)}'."""
         )
 
-    # TODO: maybe the bounds should be configurable on the command line too?
-    # TODO: these bounds need to be tied into the visualization logic
-    # and passed into the annealing process, but both should have them wider
-    # than the data since we need flexibility to transform the data
-    # TODO: when this is done, need to add a test for this in test_main.py with
-    # a mock patch to check the values passed in
-    dataset = DataLoader.load_dataset(args.start_shape, bounds=[10, 90])
+    if args.xy_bounds:
+        x_bounds = args.xy_bounds[:2]
+        y_bounds = args.xy_bounds[2:]
+    else:
+        x_bounds = y_bounds = args.bounds
+
+    dataset = DataLoader.load_dataset(
+        args.start_shape, x_bounds=x_bounds, y_bounds=y_bounds
+    )
 
     shape_factory = ShapeFactory(dataset)
     morpher = DataMorpher(
@@ -191,5 +217,5 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         )
 
 
-if __name__ == '__main__':
-    main()  # pragma: no cover
+if __name__ == '__main__':  # pragma: no cover
+    main()

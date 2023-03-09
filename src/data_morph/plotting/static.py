@@ -1,9 +1,12 @@
 """Utility functions for static plotting."""
 
 import os
-from typing import Union
+from functools import partial
+from numbers import Number
+from typing import Iterable, Union
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from matplotlib.axes import Axes
 
@@ -13,7 +16,12 @@ from .style import plot_with_custom_style
 
 @plot_with_custom_style
 def plot(
-    df: pd.DataFrame, save_to: str, decimals: int, **save_kwds
+    df: pd.DataFrame,
+    x_bounds: Iterable[Number],
+    y_bounds: Iterable[Number],
+    save_to: str,
+    decimals: int,
+    **save_kwds,
 ) -> Union[Axes, None]:
     """
     Plot the dataset and summary statistics.
@@ -22,6 +30,8 @@ def plot(
     ----------
     df : pandas.DataFrame
         The dataset to plot.
+    x_bounds, y_bounds : Iterable[Number]
+        The plotting limits.
     save_to : str
         Path to save the plot frame to.
     decimals : int
@@ -35,40 +45,51 @@ def plot(
     matplotlib.axes.Axes or None
         When ``save_to`` is falsey, an Axes object is returned.
     """
-    y_offset = -5
     fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')
+    fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
+
     ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
-    ax.set(xlim=(-5, 105), ylim=(y_offset, 105))
+    ax.set(xlim=x_bounds, ylim=y_bounds)
 
     res = get_values(df)
 
-    locs = [80, 65, 50, 35, 20]
     labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
+    locs = np.linspace(0.8, 0.2, num=len(labels))
     max_label_length = max([len(label) for label in labels])
+    max_stat = int(np.log10(np.max(np.abs(res)))) + 1
 
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.7f}", then we
     # can pull the `.format` method for that string to reduce typing it
     # repeatedly
     visible_decimals = 7
-    formatter = '{{:<{pad}}}: {{:0.{decimals}f}}'.format(
-        pad=max_label_length, decimals=visible_decimals
+    formatter = '{{:<{pad}}}: {{:+{stat_pad}.{decimals}f}}'.format(
+        pad=max_label_length,
+        stat_pad=max_stat + visible_decimals + 2,
+        decimals=visible_decimals,
     ).format
-    corr_formatter = '{{:<{pad}}}: {{:+.{decimals}f}}'.format(
-        pad=max_label_length, decimals=visible_decimals
+    corr_formatter = '{{:<{pad}}}: {{:+{corr_pad}.{decimals}f}}'.format(
+        pad=max_label_length,
+        corr_pad=max_stat + visible_decimals + 2,
+        decimals=visible_decimals,
     ).format
     stat_clip = visible_decimals - decimals
 
+    add_stat_text = partial(
+        ax.text,
+        1.03,
+        fontsize=30,
+        transform=ax.transAxes,
+        va='center',
+    )
     for label, loc, stat in zip(labels[:-1], locs, res):
-        ax.text(110, y_offset + loc, formatter(label, stat), fontsize=30, alpha=0.3)
-        ax.text(110, y_offset + loc, formatter(label, stat)[:-stat_clip], fontsize=30)
+        add_stat_text(loc, formatter(label, stat), alpha=0.3)
+        add_stat_text(loc, formatter(label, stat)[:-stat_clip])
 
-    correlation_str = corr_formatter(labels[-1], res.correlation, pad=max_label_length)
+    correlation_str = corr_formatter(labels[-1], res.correlation)
     for alpha, text in zip([0.3, 1], [correlation_str, correlation_str[:-stat_clip]]):
-        ax.text(
-            110,
-            y_offset + locs[-1],
+        add_stat_text(
+            locs[-1],
             text,
-            fontsize=30,
             alpha=alpha,
         )
 

@@ -1,5 +1,7 @@
 """Shapes that are patterns of lines."""
 
+import numpy as np
+
 from ..data.dataset import Dataset
 from .bases.lines import Lines
 
@@ -32,15 +34,25 @@ class HighLines(Lines):
 
 
 class HorizontalLines(Lines):
-    """Class for the horizontal lines shape."""
+    """
+    Class for the horizontal lines shape.
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, dataset: Dataset) -> None:
-        # xmin, ymin = dataset.df.min()[['x', 'y']]
-        # xmax, ymax = dataset.df.max()[['x', 'y']]
+        x_bounds = dataset.morph_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
 
         super().__init__(
-            *[[[0, y], [100, y]] for y in [10, 30, 50, 70, 90]]
-        )  # TODO: figure out the values based on the data
+            *[
+                [[x_bounds[0], y], [x_bounds[1], y]]
+                for y in np.linspace(y_bounds[0], y_bounds[1], 5)
+            ]
+        )
 
     def __str__(self) -> str:
         return 'h_lines'

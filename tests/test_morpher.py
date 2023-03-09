@@ -1,7 +1,6 @@
 """Tests for data_morph.morpher module."""
 
 import glob
-import os
 
 import pandas as pd
 import pytest
@@ -158,7 +157,7 @@ def test_morpher_saving_data(tmp_path):
     )
 
     # we don't save the data for the first frame since it is in the input data
-    assert not os.path.isfile(tmp_path / f'{base_file_name}-data-000.csv')
+    assert not (tmp_path / f'{base_file_name}-data-000.csv').is_file()
 
     # make sure we have the correct number of files
     for kind, count in zip(
@@ -180,4 +179,4 @@ def test_morpher_saving_data(tmp_path):
         )
 
     # confirm the animation was created
-    assert os.path.isfile(tmp_path / f'{dataset.name}_to_{target_shape}.gif')
+    assert (tmp_path / f'{dataset.name}_to_{target_shape}.gif').is_file()

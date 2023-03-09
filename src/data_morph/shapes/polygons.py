@@ -5,36 +5,40 @@ from .bases.lines import Lines
 
 
 class Star(Lines):
-    """Class for the star shape."""
+    """
+    Class for the star shape.
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, dataset: Dataset) -> None:
-        # q1, q3 = dataset.df.y.quantile([0.25, 0.75])
+        bounds = dataset.data_bounds.clone()
+        bounds.align_aspect_ratio()
 
-        # TODO: figure out how to use the data to derive these
-        star_pts = [
-            10,
-            40,
-            40,
-            40,
-            50,
-            10,
-            60,
-            40,
-            90,
-            40,
-            65,
-            60,
-            75,
-            90,
-            50,
-            70,
-            25,
-            90,
-            35,
-            60,
+        x_bounds = bounds.x_bounds
+        y_bounds = bounds.y_bounds
+
+        xmin, xmax = x_bounds
+        ymin, ymax = y_bounds
+
+        x_range = x_bounds.range
+        y_range = y_bounds.range
+
+        pts = [
+            [xmin, ymin + y_range * 0.625],
+            [xmin + x_range * 0.375, ymin + y_range * 0.625],
+            [xmin + x_range * 0.5, ymax],
+            [xmin + x_range * 0.625, ymin + y_range * 0.625],
+            [xmax, ymin + y_range * 0.625],
+            [xmin + x_range * 0.6875, ymin + y_range * 0.375],
+            [xmin + x_range * 0.8125, ymin],
+            [xmin + x_range * 0.5, ymin + y_range * 0.25],
+            [xmin + x_range * 0.1875, ymin],
+            [xmin + x_range * 0.3125, ymin + y_range * 0.375],
+            [xmin, ymin + y_range * 0.625],
         ]
-        pts = [star_pts[i : i + 2] for i in range(0, len(star_pts), 2)]
-        pts = [[p[0] * 0.8 + 20, 100 - p[1]] for p in pts]
-        pts.append(pts[0])
 
-        super().__init__(*[pts[i : i + 2] for i in range(0, len(pts) - 1, 1)])
+        super().__init__(*[line for line in zip(pts[:-1], pts[1:])])

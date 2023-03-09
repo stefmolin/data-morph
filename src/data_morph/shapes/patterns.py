@@ -15,12 +15,17 @@ class HighLines(Lines):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        q1, q3 = dataset.df.y.quantile([0.25, 0.75])
+        x_bounds = dataset.morph_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        offset = y_bounds.range / 5
+        lower = y_bounds[0] + offset
+        upper = y_bounds[1] - offset
 
         super().__init__(
-            [[0, q1], [100, q1]], [[0, q3], [100, q3]]
-        )  # TODO: figure out way to get 0, 100 min/max plus offset?
-        # TODO q1, q3 works better on some datasets than others (might need to move it a little)
+            [[x_bounds[0], lower], [x_bounds[1], lower]],
+            [[x_bounds[0], upper], [x_bounds[1], upper]],
+        )
 
     def __str__(self) -> str:
         return 'high_lines'

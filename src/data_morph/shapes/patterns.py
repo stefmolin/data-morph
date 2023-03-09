@@ -127,15 +127,25 @@ class SlantUpLines(Lines):
 
 
 class VerticalLines(Lines):
-    """Class for the vertical lines shape."""
+    """
+    Class for the vertical lines shape.
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, dataset: Dataset) -> None:
-        # xmin, ymin = dataset.df.min()[['x', 'y']]
-        # xmax, ymax = dataset.df.max()[['x', 'y']]
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.morph_bounds.y_bounds
 
         super().__init__(
-            *[[[x, 0], [x, 100]] for x in [10, 30, 50, 70, 90]]
-        )  # TODO: figure out the values based on the data
+            *[
+                [[x, y_bounds[0]], [x, y_bounds[1]]]
+                for x in np.linspace(x_bounds[0], x_bounds[1], 5)
+            ]
+        )
 
     def __str__(self) -> str:
         return 'v_lines'

@@ -41,6 +41,11 @@ dev = [
     "pytest-cov",
     "pytest-mock",
 ]
+docs = [
+    "sphinx>=6.1.3",
+    "pydata-sphinx-theme>=0.13.1",
+    "sphinx_copybutton>=0.5.1",
+]
 
 [project.urls]
 source = "https://github.com/stefmolin/data-morph"

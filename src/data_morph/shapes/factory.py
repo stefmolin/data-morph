@@ -28,7 +28,8 @@ class ShapeFactory:
         'slant_up': patterns.SlantUpLines,
         'slant_down': patterns.SlantDownLines,
         'star': polygons.Star,
-        'down_parab': curves.DownParab,
+        'down_parab': curves.DownParabola,
+        'up_parab': curves.UpParabola,
     }
 
     def __init__(self, dataset: Dataset) -> None:

@@ -1,7 +1,8 @@
 """Shapes that are circular in nature."""
 
 import itertools
-from typing import Tuple, Union
+from numbers import Number
+from typing import Tuple
 
 from ..data.dataset import Dataset
 from .bases.shape import Shape
@@ -15,25 +16,25 @@ class Circle(Shape):
     ----------
     dataset : Dataset
         The starting dataset to morph into other shapes.
-    r : int or float, optional
+    r : Number, optional
         The radius of the circle.
     """
 
-    def __init__(self, dataset: Dataset, r: Union[int, float] = None) -> None:
+    def __init__(self, dataset: Dataset, r: Number = None) -> None:
         self.cx: float = dataset.df.x.mean()
         self.cy: float = dataset.df.y.mean()
-        self.r: Union[int, float] = r or dataset.df.std().mean() * 1.5
+        self.r: Number = r or dataset.df.std().mean() * 1.5
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
 
-    def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
+    def distance(self, x: Number, y: Number) -> float:
         """
         Calculate the absolute distance between this circle's edge and a point (x, y).
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -61,14 +62,14 @@ class Bullseye(Shape):
     def __repr__(self) -> str:
         return self._recursive_repr('circles')
 
-    def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
+    def distance(self, x: Number, y: Number) -> float:
         """
         Calculate the minimum absolute distance between this bullseye's inner and outer
         circles' edges and a point (x, y).
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -109,13 +110,13 @@ class Dots(Shape):
     def __repr__(self) -> str:
         return self._recursive_repr('dots')
 
-    def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
+    def distance(self, x: Number, y: Number) -> float:
         """
         Calculate the minimum Euclidean distance any of the dots in this grid a point (x, y).
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -139,13 +140,13 @@ class Scatter(Circle):
     def __init__(self, dataset: Dataset) -> None:
         super().__init__(dataset)
 
-    def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
+    def distance(self, x: Number, y: Number) -> float:
         """
         Calculate the distance between this circular cloud of scattered points and a point (x, y).
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : Number
             Coordinates of a point in 2D space.
 
         Returns

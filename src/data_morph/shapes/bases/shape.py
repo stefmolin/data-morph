@@ -1,7 +1,8 @@
 """Abstract base class for shapes."""
 
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Union
+from numbers import Number
+from typing import Iterable, Optional
 
 from scipy.spatial import distance
 
@@ -32,13 +33,13 @@ class Shape(ABC):
         return self.__class__.__name__.lower()
 
     @abstractmethod
-    def distance(self, x: Union[int, float], y: Union[int, float]) -> float:
+    def distance(self, x: Number, y: Number) -> float:
         """
         Calculate the distance between this shape and a point (x, y).
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : Number
             Coordinates a of point in 2D space.
 
         Returns
@@ -49,16 +50,14 @@ class Shape(ABC):
         raise NotImplementedError
 
     @staticmethod
-    def _euclidean_distance(
-        a: Iterable[Union[int, float]], b: Iterable[Union[int, float]]
-    ) -> float:
+    def _euclidean_distance(a: Iterable[Number], b: Iterable[Number]) -> float:
         """
         Calculate the Euclidean distance between points a and b.
 
         Parameters
         ----------
-        a, b : Iterable[Union[int, float]]
-            Coordinates of points in space.
+        a, b : Iterable[Number]
+            Coordinates of points in two-dimensional space.
 
         Returns
         -------

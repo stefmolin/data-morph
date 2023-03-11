@@ -69,13 +69,24 @@ def test_lines(shape_factory):
     x_lines = shape_factory.generate_shape('x')
 
     # test a point on the line
-    assert x_lines.distance(30, 50) == 0.0
+    assert pytest.approx(x_lines.distance(*x_lines.lines[0][1])) == 0.0
 
     # test a point off the line
-    assert pytest.approx(x_lines.distance(0, 0)) == 80.622577
+    assert pytest.approx(x_lines.distance(0, 0)) == 83.384650
 
     # test lines that are very small
     assert x_lines._distance_point_to_line((30, 50), [(0, 0), (0, 0)]) == 9999
+
+
+def test_point_collection(shape_factory):
+    """Test the PointCollection class."""
+    parabola = shape_factory.generate_shape('up_parab')
+
+    # test a point on the curve
+    assert pytest.approx(parabola.distance(*parabola.points[0])) == 0.0
+
+    # test a point off the curve
+    assert pytest.approx(parabola.distance(0, 0)) == 53.411313
 
 
 @pytest.mark.parametrize(
@@ -93,7 +104,7 @@ def test_lines(shape_factory):
             'x',
             (
                 '<XLines>\n  lines=\n        '
-                '[[10, 50], [30, 80]]\n        [[10, 80], [30, 50]]'
+                '[[8.0, 47.0], [32.0, 83.0]]\n        [[8.0, 83.0], [32.0, 47.0]]'
             ),
         ],
         ['circle', r'^<Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'],
@@ -106,7 +117,9 @@ def test_lines(shape_factory):
                 r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'
             ),
         ],
+        ['down_parab', '<DownParabola of 8 points>'],
     ],
+    ids=['new shape', 'dots', 'x', 'circle', 'bullseye', 'down parabola'],
 )
 def test_reprs(shape_factory, shape, expected):
     """Test that the __repr__() method is working."""
@@ -121,7 +134,7 @@ def test_reprs(shape_factory, shape, expected):
     else:
 
         class NewShape(Shape):
-            def distance(self, x, y):
+            def distance(self, x, y):  # pragma: no cover
                 return x, y
 
         new_shape = NewShape()

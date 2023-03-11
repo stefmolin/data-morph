@@ -3,30 +3,58 @@
 import numpy as np
 
 from ..data.dataset import Dataset
-from .bases.lines import Lines
+from .bases.point_collection import PointCollection
 
 
-class DownParab(Lines):
-    """Class for the down parabola shape."""
+class DownParabola(PointCollection):
+    """
+    Class for the down parabola shape.
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
 
     def __init__(self, dataset: Dataset) -> None:
-        q1, q3 = dataset.df.y.quantile([0.25, 0.75])
+        x_bounds = dataset.morph_bounds.x_bounds
+        x_range = x_bounds.range
 
-        # TODO: figure out how to use the data to derive these
-        curve = [[x, -(((x - 50) / 4) ** 2) + 90] for x in np.arange(0, 100, 3)]
+        xmin, xmax = x_bounds
+        ymax = dataset.data_bounds.y_bounds[1]
 
-        super().__init__(*[curve[i : i + 2] for i in range(0, len(curve) - 1, 1)])
+        pts = [
+            [x, -(((x - (xmax - x_range / 2)) / 4) ** 2) + ymax]
+            for x in np.linspace(xmin, xmax, int(x_range / 3))
+        ]
+        super().__init__(*pts)
 
     def __str__(self) -> str:
         return 'down_parab'
 
 
-# class UpParab(Lines): # TODO
-#     """Class for the up parabola shape."""
+class UpParabola(PointCollection):
+    """
+    Class for the up parabola shape.
 
-#     def __init__(self, dataset) -> None:
-#         # TODO
-#         pass
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
 
-#     def __str__(self) -> str:
-#         return 'up_parab'
+    def __init__(self, dataset) -> None:
+        x_bounds = dataset.morph_bounds.x_bounds
+        x_range = x_bounds.range
+
+        xmin, xmax = x_bounds
+        ymin = dataset.data_bounds.y_bounds[0]
+
+        pts = [
+            [x, (((x - (xmax - x_range / 2)) / 4) ** 2) + ymin]
+            for x in np.linspace(xmin, xmax, int(x_range / 3))
+        ]
+        super().__init__(*pts)
+
+    def __str__(self) -> str:
+        return 'up_parab'

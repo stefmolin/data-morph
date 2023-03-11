@@ -377,34 +377,27 @@ class DataMorpher:
         includes frames and/or animation and, depending on :attr:`write_data`,
         CSV files for each frame.
         """
-        # TODO: input validation and tests
-        # max_temp: Number = 0.4, (require > 0 and greater than min_temp)
-        # min_temp: Number = 0, (require >= 0 and less than max_temp)
-        # shake: float = 0.3, (require shake > 0)
-        # allowed_dist: Number = 2, (require > 0)
-
-        if isinstance(max_temp, bool) or not isinstance(max_temp, Number):
-            raise ValueError('max_temp must be a number >= 0.')
-
-        if isinstance(min_temp, bool) or not isinstance(min_temp, Number):
-            raise ValueError('min_temp must be a number >= 0.')
+        for name, value in [
+            ('max_temp', max_temp),
+            ('min_temp', min_temp),
+            ('shake', shake),
+        ]:
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, Number)
+                or not 0 <= value <= 1
+            ):
+                raise ValueError(f'{name} must be a number >= 0 and <= 1.')
 
         if min_temp >= max_temp:
             raise ValueError('max_temp must be greater than min_temp.')
 
         if (
-            isinstance(shake, bool)
-            or not isinstance(shake, Number)
-            or not 0 <= shake <= 1
-        ):
-            raise ValueError('shake must be a number >= 0 and <= 1.')
-
-        if (
             isinstance(allowed_dist, bool)
-            or not isinstance(allowed_dist, int)
+            or not isinstance(allowed_dist, Number)
             or allowed_dist < 0
         ):
-            raise ValueError('allowed_dist must be a non-negative integer.')
+            raise ValueError('allowed_dist must be a non-negative numeric value.')
 
         morphed_data = start_shape.df.copy()
 

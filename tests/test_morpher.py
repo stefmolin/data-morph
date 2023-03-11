@@ -87,6 +87,55 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
     assert_equal(frames[freeze_for:-freeze_for], expected_frames)
 
 
+@pytest.mark.parametrize('name', ['shake', 'min_temp', 'max_temp'])
+@pytest.mark.parametrize('value', [-1, 1.5, 's', False])
+def test_morpher_morph_input_validation(name, value):
+    """Test input validation for the morph() method."""
+    morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+    dataset = DataLoader.load_dataset('dino')
+
+    with pytest.raises(ValueError, match=f'{name} must be a number >= 0 and <= 1'):
+        _ = morpher.morph(
+            start_shape=dataset,
+            target_shape=ShapeFactory(dataset).generate_shape('circle'),
+            **{name: value},
+        )
+
+
+@pytest.mark.parametrize(
+    ['min_temp', 'max_temp'],
+    [(0, 0), (1, 1), (0.5, 0.5), (0.5, 0.25)],
+)
+def test_morpher_morph_input_validation_temp_range(min_temp, max_temp):
+    """Test input validation of the temp range for the morph() method."""
+    morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+    dataset = DataLoader.load_dataset('dino')
+
+    with pytest.raises(ValueError, match='max_temp must be greater than min_temp.'):
+        _ = morpher.morph(
+            start_shape=dataset,
+            target_shape=ShapeFactory(dataset).generate_shape('circle'),
+            min_temp=min_temp,
+            max_temp=max_temp,
+        )
+
+
+@pytest.mark.parametrize('value', [-1, 's', False])
+def test_morpher_morph_input_validation_allowed_dist(value):
+    """Test input validation for allowed_dist in the morph() method."""
+    morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+    dataset = DataLoader.load_dataset('dino')
+
+    with pytest.raises(
+        ValueError, match='allowed_dist must be a non-negative numeric value'
+    ):
+        _ = morpher.morph(
+            start_shape=dataset,
+            target_shape=ShapeFactory(dataset).generate_shape('circle'),
+            allowed_dist=value,
+        )
+
+
 def test_morpher_no_writing(capsys):
     """Test DataMorpher without writing any files to disk."""
     dataset = DataLoader.load_dataset('dino')

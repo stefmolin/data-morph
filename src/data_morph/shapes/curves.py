@@ -6,7 +6,7 @@ from ..data.dataset import Dataset
 from .bases.point_collection import PointCollection
 
 
-class DownParab(PointCollection):
+class DownParabola(PointCollection):
     """
     Class for the down parabola shape.
 
@@ -33,7 +33,7 @@ class DownParab(PointCollection):
         return 'down_parab'
 
 
-class UpParab(PointCollection):
+class UpParabola(PointCollection):
     """
     Class for the up parabola shape.
 

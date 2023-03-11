@@ -9,7 +9,6 @@ from .data.loader import DataLoader
 from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
 
-
 ARG_DEFAULTS = {
     'output_dir': Path.cwd() / 'morphed_data',
     'target_shape': 'all',
@@ -19,9 +18,10 @@ ARG_DEFAULTS = {
     'freeze': 0,
 }
 
+
 def main(argv: Union[Sequence[str], None] = None) -> None:
     """
-    Run data morph as a module.
+    Run data morph as a script.
 
     Parameters
     ----------
@@ -76,6 +76,19 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         help=(
             'The number of decimal places to preserve equality. '
             f'Defaults to {ARG_DEFAULTS["decimals"]}.'
+        ),
+    )
+    morph_config_group.add_argument(
+        '--shake',
+        default=ARG_DEFAULTS['shake'],
+        type=float,
+        help=(
+            'The standard deviation for the random movement applied in each '
+            'direction, which will be sampled from a normal distribution with '
+            f'a mean of zero. Defaults to {ARG_DEFAULTS["shake"]}. Datasets '
+            'with wider ranges of values may benefit from normalizing '
+            '(see --bounds and --xy-bounds) or increasing this towards 1, '
+            'along with increasing the number of iterations (see --iterations).'
         ),
     )
     morph_config_group.add_argument(
@@ -232,6 +245,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             start_shape=dataset,
             target_shape=shape_factory.generate_shape(target_shape),
             iterations=args.iterations,
+            shake=args.shake,
             ramp_in=args.ramp_in,
             ramp_out=args.ramp_out,
             freeze_for=args.freeze,

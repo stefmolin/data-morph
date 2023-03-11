@@ -1,14 +1,23 @@
 """Run data morph from start shape to end shape preserving summary statistics."""
 
 import argparse
-import os
 import sys
+from pathlib import Path
 from typing import Sequence, Union
 
 from .data.loader import DataLoader
 from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
 
+
+ARG_DEFAULTS = {
+    'output_dir': Path.cwd() / 'morphed_data',
+    'target_shape': 'all',
+    'decimals': 2,
+    'shake': 0.3,
+    'iterations': 100_000,
+    'freeze': 0,
+}
 
 def main(argv: Union[Sequence[str], None] = None) -> None:
     """
@@ -38,6 +47,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
+
     morph_config_group = parser.add_argument_group(
         'morph config', description='Configuration for the morphing process.'
     )
@@ -51,7 +61,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     morph_config_group.add_argument(
         '--target-shape',
         nargs='*',
-        default='all',
+        default=ARG_DEFAULTS['target_shape'],
         help=(
             'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
             'will be converted to each target shape separately. Valid target shapes are '
@@ -60,16 +70,23 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
     morph_config_group.add_argument(
         '--decimals',
-        default=2,
+        default=ARG_DEFAULTS['decimals'],
         type=int,
         choices=range(0, 6),
-        help='The number of decimal places to preserve equality.',
+        help=(
+            'The number of decimal places to preserve equality. '
+            f'Defaults to {ARG_DEFAULTS["decimals"]}.'
+        ),
     )
     morph_config_group.add_argument(
         '--iterations',
-        default=100_000,
+        default=ARG_DEFAULTS['iterations'],
         type=int,
-        help='The number of iterations to run. Datasets with more observations will take more iterations.',
+        help=(
+            'The number of iterations to run. '
+            f'Defaults to {ARG_DEFAULTS["iterations"]:,d}. '
+            'Datasets with more observations may require more iterations.'
+        ),
     )
     morph_config_group.add_argument(
         '--seed',
@@ -77,6 +94,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         type=int,
         help='Provide a seed for reproducible results.',
     )
+
     bounds_config_group = morph_config_group.add_mutually_exclusive_group()
     bounds_config_group.add_argument(
         '--bounds',
@@ -101,14 +119,15 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'the shorthand --bounds option.'
         ),
     )
+
     file_group = parser.add_argument_group(
         'file config',
         description='Customize where files are written to and which types of files are kept.',
     )
     file_group.add_argument(
         '--output-dir',
-        default=os.path.join(os.getcwd(), 'morphed_data'),
-        help='Path to a directory for writing output files.',
+        default=ARG_DEFAULTS['output_dir'],
+        help=f'Path to a directory for writing output files. Defaults to {ARG_DEFAULTS["output_dir"]}.',
     )
     file_group.add_argument(
         '--write-data',
@@ -126,6 +145,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             ' is created.'
         ),
     )
+
     frame_group = parser.add_argument_group(
         'animation config', description='Customize aspects of the animation.'
     )
@@ -149,11 +169,12 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
     frame_group.add_argument(
         '--freeze',
-        default=0,
+        default=ARG_DEFAULTS['freeze'],
         type=int,
         help=(
             'Number of frames to freeze at the first and final frame of the transition '
-            'in the animation. This only affects the frames selected, not the algorithm.'
+            'in the animation. This only affects the frames selected, not the algorithm. '
+            f'Defaults to {ARG_DEFAULTS["freeze"]}.'
         ),
     )
     frame_group.add_argument(

@@ -14,8 +14,9 @@ statistics to a given number of decimal points through simulated annealing.
     Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.
 """
 
-import os
 from functools import partial
+from numbers import Number
+from pathlib import Path
 from typing import Optional, Union
 
 import numpy as np
@@ -41,7 +42,7 @@ class DataMorpher:
         The number of decimals to which summary statistics should be the same.
     in_notebook : bool
         Whether this is running in a notebook.
-    output_dir : str, optional
+    output_dir : str or Path, optional
         The directory to write output files (CSV, PNG, GIF).
     write_images : bool, default True
         Whether to write image files to ``output_dir``.
@@ -64,7 +65,7 @@ class DataMorpher:
         *,
         decimals: int,
         in_notebook: bool,
-        output_dir: Optional[str] = None,
+        output_dir: Optional[Union[str, Path]] = None,
         write_images: bool = True,
         write_data: bool = False,
         seed: Optional[int] = None,
@@ -75,7 +76,7 @@ class DataMorpher:
         self.keep_frames = keep_frames
         self.write_images = write_images
         self.write_data = write_data
-        self.output_dir = output_dir
+        self.output_dir = output_dir if output_dir is None else Path(output_dir)
 
         if (self.write_images or self.write_data) and self.output_dir is None:
             raise ValueError(
@@ -209,9 +210,9 @@ class DataMorpher:
                 if self.write_images:
                     plot(
                         data,
-                        save_to=os.path.join(
-                            self.output_dir,
-                            f'{base_file_name}-image-{frame_number:03d}.png',
+                        save_to=(
+                            self.output_dir
+                            / f'{base_file_name}-image-{frame_number:03d}.png'
                         ),
                         decimals=self.decimals,
                         x_bounds=bounds.x_bounds,
@@ -222,10 +223,8 @@ class DataMorpher:
                     self.write_data and not is_start
                 ):  # don't write data for the initial frame (input data)
                     data.to_csv(
-                        os.path.join(
-                            self.output_dir,
-                            f'{base_file_name}-data-{frame_number:03d}.csv',
-                        ),
+                        self.output_dir
+                        / f'{base_file_name}-data-{frame_number:03d}.csv',
                         index=False,
                     )
 
@@ -266,8 +265,8 @@ class DataMorpher:
         target_shape: Shape,
         *,
         shake: float,
-        allowed_dist: Union[int, float],
-        temp: Union[int, float],
+        allowed_dist: Number,
+        temp: Number,
         bounds: BoundingBox,
     ) -> pd.DataFrame:
         """
@@ -280,10 +279,11 @@ class DataMorpher:
         target_shape : Shape
             The shape to morph the data into.
         shake : float
-            The maximum amount of movement in each direction.
-        allowed_dist : int or float
+            The standard deviation of random movement applied in each direction,
+            sampled from a normal distribution with a mean of zero.
+        allowed_dist : Number
             The farthest apart the perturbed points can be from the target shape.
-        temp : int or float
+        temp : Number
             The temperature for simulated annealing. The higher the temperature
             the more we are willing to accept perturbations that might be worse than
             what we had before. The goal is to avoid local optima.
@@ -305,10 +305,6 @@ class DataMorpher:
 
         done = False
         while not done:
-            # TODO: datasets with a larger range take longer to converge,
-            # this should be adjusted (or at least the randn random normal
-            # sampling to be based on the dataset; also consider passing
-            # information via cli)
             new_x = initial_x + np.random.randn() * shake
             new_y = initial_y + np.random.randn() * shake
 
@@ -330,10 +326,10 @@ class DataMorpher:
         target_shape: Shape,
         *,
         iterations: int = 100_000,
-        max_temp: Union[int, float] = 0.4,
-        min_temp: Union[int, float] = 0,
+        max_temp: Number = 0.4,
+        min_temp: Number = 0,
         shake: float = 0.3,
-        allowed_dist: Union[int, float] = 2,
+        allowed_dist: Number = 2,
         ramp_in: bool = False,
         ramp_out: bool = False,
         freeze_for: int = 0,
@@ -350,13 +346,14 @@ class DataMorpher:
             The shape we want to morph into.
         iterations : int
             The number of iterations to run simulated annealing for.
-        max_temp : int or float
+        max_temp : Number
             The maximum temperature for simulated annealing (starting temperature).
-        min_temp : int or float
+        min_temp : Number
             The minimum temperature for simulated annealing (ending temperature).
         shake : float
-            The maximum amount of movement in each direction.
-        allowed_dist : int or float
+            The standard deviation of random movement applied in each direction,
+            sampled from a normal distribution with a mean of zero.
+        allowed_dist : Number
             The farthest apart the perturbed points can be from the target shape.
         ramp_in : bool, default False
             Whether to more slowly transition in the beginning.
@@ -380,6 +377,35 @@ class DataMorpher:
         includes frames and/or animation and, depending on :attr:`write_data`,
         CSV files for each frame.
         """
+        # TODO: input validation and tests
+        # max_temp: Number = 0.4, (require > 0 and greater than min_temp)
+        # min_temp: Number = 0, (require >= 0 and less than max_temp)
+        # shake: float = 0.3, (require shake > 0)
+        # allowed_dist: Number = 2, (require > 0)
+
+        if isinstance(max_temp, bool) or not isinstance(max_temp, Number):
+            raise ValueError('max_temp must be a number >= 0.')
+
+        if isinstance(min_temp, bool) or not isinstance(min_temp, Number):
+            raise ValueError('min_temp must be a number >= 0.')
+
+        if min_temp >= max_temp:
+            raise ValueError('max_temp must be greater than min_temp.')
+
+        if (
+            isinstance(shake, bool)
+            or not isinstance(shake, Number)
+            or not 0 <= shake <= 1
+        ):
+            raise ValueError('shake must be a number >= 0 and <= 1.')
+
+        if (
+            isinstance(allowed_dist, bool)
+            or not isinstance(allowed_dist, int)
+            or allowed_dist < 0
+        ):
+            raise ValueError('allowed_dist must be a non-negative integer.')
+
         morphed_data = start_shape.df.copy()
 
         if self.seed is not None:
@@ -409,7 +435,7 @@ class DataMorpher:
             iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
         ):
             current_temp = (max_temp - min_temp) * pytweening.easeInOutQuad(
-                ((iterations - i) / iterations)
+                (iterations - i) / iterations
             ) + min_temp
 
             perturbed_data = self._perturb(
@@ -441,10 +467,7 @@ class DataMorpher:
 
         if self.write_data:
             morphed_data.to_csv(
-                os.path.join(
-                    self.output_dir,
-                    f'{base_file_name}-data-{frame_number:03d}.csv',
-                ),
+                self.output_dir / f'{base_file_name}-data-{frame_number:03d}.csv',
                 index=False,
             )
 

@@ -40,7 +40,7 @@ class Shape(ABC):
         Parameters
         ----------
         x, y : Number
-            Coordinates a of point in 2D space.
+            Coordinates of a point in 2D space.
 
         Returns
         -------

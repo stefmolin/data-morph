@@ -165,7 +165,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
     morph_args = {
         'start_shape_name': 'dino',
         'target_shape': 'circle',
-        'shake': 0.5 if flag else None,
+        'min_shake': 0.5 if flag else None,
         'iterations': 1000,
         'freeze': 3 if flag else None,
         'ramp_in': flag,
@@ -186,7 +186,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
         '--write-data' if init_args['write_data'] else '',
         '--keep-frames' if init_args['keep_frames'] else '',
         '--forward-only' if init_args['forward_only_animation'] else '',
-        f'--shake={morph_args["shake"]}' if morph_args['shake'] else '',
+        f'--shake={morph_args["min_shake"]}' if morph_args['min_shake'] else '',
         f'--freeze={morph_args["freeze"]}' if morph_args['freeze'] else '',
         '--ramp-in' if morph_args['ramp_in'] else '',
         '--ramp-out' if morph_args['ramp_out'] else '',
@@ -206,7 +206,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
         elif arg == 'start_shape':
             assert isinstance(value, Dataset)
             assert value.name == morph_args['start_shape_name']
-        elif arg in ['freeze_for', 'shake']:
+        elif arg in ['freeze_for', 'min_shake']:
             arg = 'freeze' if arg == 'freeze_for' else arg
             assert value == (morph_args[arg] or __main__.ARG_DEFAULTS[arg])
         else:

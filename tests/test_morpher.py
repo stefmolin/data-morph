@@ -100,7 +100,7 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
     assert_equal(frames[freeze_for:-freeze_for], expected_frames)
 
 
-@pytest.mark.parametrize('name', ['shake', 'min_temp', 'max_temp'])
+@pytest.mark.parametrize('name', ['min_shake', 'max_shake', 'min_temp', 'max_temp'])
 @pytest.mark.parametrize('value', [-1, 1.5, 's', False])
 def test_morpher_morph_input_validation(morph_partial, name, value):
     """Test input validation for the morph() method."""
@@ -108,17 +108,17 @@ def test_morpher_morph_input_validation(morph_partial, name, value):
         _ = morph_partial(**{name: value})
 
 
+@pytest.mark.parametrize('name', ['shake', 'temp'])
 @pytest.mark.parametrize(
-    ['min_temp', 'max_temp'],
+    ['min_value', 'max_value'],
     [(0, 0), (1, 1), (0.5, 0.5), (0.5, 0.25)],
 )
-def test_morpher_morph_input_validation_temp_range(morph_partial, min_temp, max_temp):
-    """Test input validation of the temp range for the morph() method."""
-    with pytest.raises(ValueError, match='max_temp must be greater than min_temp.'):
-        _ = morph_partial(
-            min_temp=min_temp,
-            max_temp=max_temp,
-        )
+def test_morpher_morph_input_validation_shake_and_temp_range(
+    morph_partial, name, min_value, max_value
+):
+    """Test input validation of the temp and shake ranges for the morph() method."""
+    with pytest.raises(ValueError, match=f'max_{name} must be greater than min_{name}'):
+        _ = morph_partial(**{f'min_{name}': min_value, f'max_{name}': max_value})
 
 
 @pytest.mark.parametrize('value', [-1, 's', False])

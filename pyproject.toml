@@ -42,6 +42,9 @@ dev = [
     "pytest-mock",
 ]
 
+[project.scripts]
+data-morph = "data_morph.__main__:main"
+
 [project.urls]
 source = "https://github.com/stefmolin/data-morph"
 

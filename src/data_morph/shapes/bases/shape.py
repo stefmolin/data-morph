@@ -39,7 +39,7 @@ class Shape(ABC):
 
         Parameters
         ----------
-        x, y : Number
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -56,7 +56,7 @@ class Shape(ABC):
 
         Parameters
         ----------
-        a, b : Iterable[Number]
+        a, b : Iterable[numbers.Number]
             Coordinates of points in two-dimensional space.
 
         Returns

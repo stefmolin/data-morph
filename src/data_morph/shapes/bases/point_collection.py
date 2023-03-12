@@ -11,12 +11,14 @@ class PointCollection(Shape):
 
     Parameters
     ----------
-    *points : Iterable[Iterable[Number]]
+    *points : Iterable[Iterable[numbers.Number]]
         An iterable of (x, y) values representing an arrangement of points.
     """
 
     def __init__(self, *points) -> None:
         self.points = points
+        """Iterable[Iterable[numbers.Number]]: An iterable of (x, y) values
+        representing an arrangement of points."""
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} of {len(self.points)} points>'
@@ -28,7 +30,7 @@ class PointCollection(Shape):
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns

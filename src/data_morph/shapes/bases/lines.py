@@ -12,13 +12,15 @@ class Lines(Shape):
 
     Parameters
     ----------
-    *lines : Iterable[Iterable[Iterable[Number]]]
+    *lines : Iterable[Iterable[Iterable[numbers.Number]]]
         An iterable of two (x, y) pairs representing the endpoints
         of a line.
     """
 
     def __init__(self, *lines) -> None:
         self.lines = lines
+        """Iterable[Iterable[Iterable[numbers.Number]]]: An iterable
+        of two (x, y) pairs representing the endpoints of a line."""
 
     def __repr__(self) -> str:
         return self._recursive_repr('lines')
@@ -30,7 +32,7 @@ class Lines(Shape):
 
         Parameters
         ----------
-        x, y : Number
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -53,9 +55,9 @@ class Lines(Shape):
 
         Parameters
         ----------
-        point : Iterable[Number]
+        point : Iterable[numbers.Number]
             Coordinates of a point in 2D space.
-        line : Iterable[Iterable[Number]]
+        line : Iterable[Iterable[numbers.Number]]
             Coordinates of the endpoints of a line in 2D space.
 
         Returns

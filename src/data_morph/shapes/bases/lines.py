@@ -30,7 +30,7 @@ class Lines(Shape):
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : Number
             Coordinates of a point in 2D space.
 
         Returns

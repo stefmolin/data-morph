@@ -65,9 +65,9 @@ class Lines(Shape):
 
         Notes
         -----
-        Implementation based on `this VBA code`_
+        Implementation based on `this VBA code`_.
 
-        .. this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
+        .. _this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
         """
         start, end = line
         line_mag = self._euclidean_distance(start, end)

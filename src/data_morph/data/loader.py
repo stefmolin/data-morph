@@ -20,6 +20,7 @@ class DataLoader:
         'panda': 'panda.csv',
     }
     AVAILABLE_DATASETS = list(_DATASETS.keys())
+    """list[str]: List of available built-in starter datasets."""
 
     def __init__(self) -> None:
         raise NotImplementedError

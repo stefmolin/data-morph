@@ -4,27 +4,30 @@ from collections import namedtuple
 
 import pandas as pd
 
-SummmaryStatistics = namedtuple(
-    'SummmaryStatistics', ['x_mean', 'y_mean', 'x_stdev', 'y_stdev', 'correlation']
+SummaryStatistics = namedtuple(
+    'SummaryStatistics', ['x_mean', 'y_mean', 'x_stdev', 'y_stdev', 'correlation']
+)
+SummaryStatistics.__doc__ = (
+    'Named tuple containing the summary statistics for plotting/analysis.'
 )
 
 
-def get_values(df: pd.DataFrame) -> SummmaryStatistics:
+def get_values(df: pd.DataFrame) -> SummaryStatistics:
     """
     Calculate the summary statistics for the given set of points.
 
     Parameters
     ----------
-    df : pd.DataFrame
+    df : pandas.DataFrame
         A dataset with columns x and y.
 
     Returns
     -------
-    SummmaryStatistics
+    SummaryStatistics
         Named tuple consisting of mean and standard deviations of x and y,
         along with the Pearson correlation coefficient between the two.
     """
-    return SummmaryStatistics(
+    return SummaryStatistics(
         df.x.mean(),
         df.y.mean(),
         df.x.std(),

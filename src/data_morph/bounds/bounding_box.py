@@ -14,7 +14,7 @@ class BoundingBox:
     Parameters
     ----------
     x_bounds, y_bounds : Union[Interval, Iterable[Number]]
-        A 2-dimensional numeric iterable or a :class:`Interval` object.
+        A 2-dimensional numeric iterable or an :class:`Interval` object.
     inclusive : bool, default ``False``
         Whether the bounds include the endpoints. Default
         is exclusive. If :class:`Interval` objects are provided,

@@ -12,7 +12,7 @@ class Interval:
 
     Parameters
     ----------
-    bounds : Iterable[Number]
+    bounds : Iterable[numbers.Number]
         A 2-dimensional numeric iterable.
     inclusive : bool, default ``False``
         Whether the bounds include the endpoints. Default
@@ -34,7 +34,7 @@ class Interval:
 
         Parameters
         ----------
-        value : Number
+        value : numbers.Number
             A numeric value.
 
         Returns
@@ -78,7 +78,7 @@ class Interval:
 
         Returns
         -------
-        Number
+        numbers.Number
             The value for the bounds at ``index``.
         """
         return self._bounds[index]
@@ -89,7 +89,7 @@ class Interval:
 
         Returns
         -------
-        Number
+        numbers.Number
             The next value of the bounds.
         """
         return iter(self._bounds)
@@ -110,12 +110,12 @@ class Interval:
 
         Parameters
         ----------
-        bounds : Iterable[Number]
+        bounds : Iterable[numbers.Number]
             An iterable of min/max bounds.
 
         Returns
         -------
-        Iterable[Number]
+        Iterable[numbers.Number]
             An iterable of min/max bounds.
         """
         bounds = list(_validate_2d(bounds, 'bounds'))
@@ -130,7 +130,7 @@ class Interval:
 
         Parameters
         ----------
-        value : Number
+        value : numbers.Number
             The amount to change the range by (half will be applied to each end).
         """
         if isinstance(value, bool) or not isinstance(value, Number) or value is None:
@@ -148,7 +148,7 @@ class Interval:
 
         Returns
         -------
-        :class:`.Interval`
+        Interval
             A new :class:`.Interval` instance with the same bounds.
         """
         return Interval(self._bounds[:], self._inclusive)
@@ -160,7 +160,7 @@ class Interval:
 
         Returns
         -------
-        Number
+        numbers.Number
             The range covered by the interval.
         """
         return abs(self._bounds[1] - self._bounds[0])

@@ -13,7 +13,7 @@ class BoundingBox:
 
     Parameters
     ----------
-    x_bounds, y_bounds : Union[Interval, Iterable[Number]]
+    x_bounds, y_bounds : Union[Interval, Iterable[numbers.Number]]
         A 2-dimensional numeric iterable or an :class:`.Interval` object.
     inclusive : bool, default ``False``
         Whether the bounds include the endpoints. Default
@@ -63,7 +63,7 @@ class BoundingBox:
 
         Parameters
         ----------
-        value : Iterable[Number]
+        value : Iterable[numbers.Number]
             A two-dimensional point.
 
         Returns
@@ -101,9 +101,9 @@ class BoundingBox:
 
         Parameters
         ----------
-        x : Number, optional
+        x : numbers.Number, optional
             The amount to change the x bound range by (half will be applied to each end).
-        y : Number, optional
+        y : numbers.Number, optional
             The amount to change the y bound range by (half will be applied to each end).
 
         See Also
@@ -131,7 +131,7 @@ class BoundingBox:
 
         Returns
         -------
-        Number
+        numbers.Number
             The range in the x direction divided by the range in the y direction.
         """
         x_range, y_range = self.range
@@ -158,7 +158,7 @@ class BoundingBox:
 
         Returns
         -------
-        Iterable[Number]
+        Iterable[numbers.Number]
             The range covered by the x and y bounds, respectively.
         """
         return self.x_bounds.range, self.y_bounds.range

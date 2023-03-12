@@ -10,14 +10,14 @@ def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:
 
     Parameters
     ----------
-    data : Iterable[Number]
+    data : Iterable[numbers.Number]
         Data in two dimensions (e.g., a point or bounds).
     name : str
         The name of the value being passed in as ``data`` (for error messages).
 
     Returns
     -------
-    Iterable[Number]
+    Iterable[numbers.Number]
         The validated data.
     """
     if not (

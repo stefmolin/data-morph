@@ -8,6 +8,25 @@ class Star(Lines):
     """
     Class for the star shape.
 
+    .. plot::
+       :scale: 75
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.plotting.style import plot_with_custom_style
+        from data_morph.shapes.polygons import Star
+
+        @plot_with_custom_style
+        def _plot_star():
+            dataset = DataLoader.load_dataset('dino')
+            star = Star(dataset)
+
+            fig, ax = plt.subplots()
+            for start, end in star.lines:
+                ax.plot(*list(zip(start, end)), 'k-')
+
+        _plot_star()
+
     Parameters
     ----------
     dataset : Dataset

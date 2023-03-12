@@ -16,14 +16,19 @@ class Circle(Shape):
     ----------
     dataset : Dataset
         The starting dataset to morph into other shapes.
-    r : Number, optional
+    r : numbers.Number, optional
         The radius of the circle.
     """
 
     def __init__(self, dataset: Dataset, r: Number = None) -> None:
-        self.cx: float = dataset.df.x.mean()
-        self.cy: float = dataset.df.y.mean()
+        self.cx: Number = dataset.df.x.mean()
+        """numbers.Number: The x coordinate of the circle's center."""
+
+        self.cy: Number = dataset.df.y.mean()
+        """numbers.Number: The y coordinate of the circle's center."""
+
         self.r: Number = r or dataset.df.std().mean() * 1.5
+        """numbers.Number: The radius of the circle."""
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
@@ -34,7 +39,7 @@ class Circle(Shape):
 
         Parameters
         ----------
-        x, y : Number
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -58,6 +63,7 @@ class Bullseye(Shape):
     def __init__(self, dataset: Dataset) -> None:
         stdev = dataset.df.std().mean()
         self.circles: list[Circle] = [Circle(dataset, r) for r in [stdev, stdev * 2]]
+        """list[Circle]: The inner and outer :class:`Circle` objects."""
 
     def __repr__(self) -> str:
         return self._recursive_repr('circles')
@@ -69,7 +75,7 @@ class Bullseye(Shape):
 
         Parameters
         ----------
-        x, y : Number
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -98,7 +104,7 @@ class Dots(Shape):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        self.dots: list[Tuple[float, float]] = list(
+        self.dots: list[Tuple[Number, Number]] = list(
             itertools.product(
                 *(
                     dataset.df[coord].quantile([0.05, 0.5, 0.95]).tolist()
@@ -106,6 +112,7 @@ class Dots(Shape):
                 )
             )
         )
+        """list[Tuple[numbers.Number, numbers.Number]]: List of (x, y) coordinates."""
 
     def __repr__(self) -> str:
         return self._recursive_repr('dots')
@@ -116,7 +123,7 @@ class Dots(Shape):
 
         Parameters
         ----------
-        x, y : Number
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -127,7 +134,7 @@ class Dots(Shape):
         return min(self._euclidean_distance(dot, (x, y)) for dot in self.dots)
 
 
-class Scatter(Circle):
+class Scatter(Circle):  # numpydoc ignore: PR02
     """
     Class for the scatter shape: a circular cloud of scattered points.
 
@@ -137,16 +144,13 @@ class Scatter(Circle):
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, dataset: Dataset) -> None:
-        super().__init__(dataset)
-
     def distance(self, x: Number, y: Number) -> float:
         """
         Calculate the distance between this circular cloud of scattered points and a point (x, y).
 
         Parameters
         ----------
-        x, y : Number
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns

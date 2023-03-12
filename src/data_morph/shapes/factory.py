@@ -31,9 +31,10 @@ class ShapeFactory:
         'down_parab': curves.DownParabola,
         'up_parab': curves.UpParabola,
     }
+    """dict[str, Shape]: A mapping of shape names to classes."""
 
     def __init__(self, dataset: Dataset) -> None:
-        self.dataset: Dataset = dataset
+        self._dataset: Dataset = dataset
 
     def generate_shape(self, shape: str) -> Shape:
         """
@@ -42,7 +43,7 @@ class ShapeFactory:
         Parameters
         ----------
         shape : str
-            The desired shape. See :attr:`AVAILABLE_SHAPES`.
+            The desired shape. See :attr:`.AVAILABLE_SHAPES`.
 
         Returns
         -------
@@ -50,6 +51,6 @@ class ShapeFactory:
             An shape object of the requested type.
         """
         try:
-            return self.AVAILABLE_SHAPES[shape](self.dataset)
+            return self.AVAILABLE_SHAPES[shape](self._dataset)
         except KeyError:
             raise ValueError(f'No such shape as {shape}.')

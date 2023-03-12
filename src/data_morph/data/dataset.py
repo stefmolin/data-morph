@@ -23,7 +23,7 @@ class Dataset:
         An iterable of min/max bounds for normalization.
     """
 
-    REQUIRED_COLUMNS = ['x', 'y']
+    _REQUIRED_COLUMNS = ['x', 'y']
 
     def __init__(
         self,
@@ -32,11 +32,22 @@ class Dataset:
         x_bounds: Iterable[Number] = None,
         y_bounds: Iterable[Number] = None,
     ) -> None:
-        self.name: str = name
         self.df: pd.DataFrame = self._validate_data(df).pipe(
             self._normalize_data, x_bounds, y_bounds
         )
-        self._derive_bounds()
+        """pandas.DataFrame: DataFrame containing columns x and y."""
+
+        self.name: str = name
+        """str: The name to use for the dataset."""
+
+        self.data_bounds: BoundingBox = self._derive_data_bounds()
+        """BoundingBox: The bounds of the data."""
+
+        self.morph_bounds: BoundingBox = self._derive_morphing_bounds()
+        """BoundingBox: The limits for the morphing process."""
+
+        self.plot_bounds: BoundingBox = self._derive_plotting_bounds()
+        """BoundingBox: The bounds of the to use to plot the morphed data."""
 
     def __repr__(self) -> str:
         return (
@@ -44,25 +55,57 @@ class Dataset:
             f'normalized={self.normalized}>'
         )
 
-    def _derive_bounds(self) -> None:
-        """Derive morphing and plotting bounds based on the data."""
-        # TODO: range/5 is still a bit arbitrary (need to take into account density at the edges)
-        # could also make this a parameter to __init__()
-        self.data_bounds = BoundingBox(
+    def _derive_data_bounds(self) -> None:
+        """
+        Derive bounds based on the data.
+
+        Returns
+        -------
+        BoundingBox
+            The bounds of the data.
+        """
+        return BoundingBox(
             *[
                 Interval([self.df[dim].min(), self.df[dim].max()], inclusive=False)
-                for dim in self.REQUIRED_COLUMNS
+                for dim in self._REQUIRED_COLUMNS
             ]
         )
-        self.morph_bounds = self.data_bounds.clone()
 
-        x_offset, y_offset = [offset / 5 for offset in self.morph_bounds.range]
+    def _derive_morphing_bounds(self) -> None:
+        """
+        Derive morphing bounds based on the data.
 
-        self.morph_bounds.adjust_bounds(x=x_offset, y=y_offset)
+        Returns
+        -------
+        BoundingBox
+            The bounds of the morphing process.
+        """
+        # TODO: range * 0.2 is still a bit arbitrary (need to take into account density at the edges)
+        # could also make this a parameter to __init__()
+        morph_bounds = self.data_bounds.clone()
 
-        self.plot_bounds = self.morph_bounds.clone()
-        self.plot_bounds.adjust_bounds(x=x_offset, y=y_offset)
-        self.plot_bounds.align_aspect_ratio()
+        x_offset, y_offset = [offset * 0.2 for offset in self.data_bounds.range]
+
+        morph_bounds.adjust_bounds(x=x_offset, y=y_offset)
+        return morph_bounds
+
+    def _derive_plotting_bounds(self) -> None:
+        """
+        Derive plotting bounds based on the morphing bounds.
+
+        Returns
+        -------
+        BoundingBox
+            The bounds of the plot.
+        """
+        # TODO: range * 0.2 is still a bit arbitrary (need to take into account density at the edges)
+        # could also make this a parameter to __init__()
+        x_offset, y_offset = [offset * 0.2 for offset in self.data_bounds.range]
+
+        plot_bounds = self.morph_bounds.clone()
+        plot_bounds.adjust_bounds(x=x_offset, y=y_offset)
+        plot_bounds.align_aspect_ratio()
+        return plot_bounds
 
     def _normalize_data(
         self, df, x_bounds: Iterable[Number], y_bounds: Iterable[Number]
@@ -123,7 +166,7 @@ class Dataset:
         pandas.DataFrame
             DataFrame provided it contains columns x and y.
         """
-        required = set(self.REQUIRED_COLUMNS)
+        required = set(self._REQUIRED_COLUMNS)
         missing_columns = required.difference(data.columns)
 
         if missing_columns:

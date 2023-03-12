@@ -96,7 +96,7 @@ def test_dataset_validation_fix_column_casing(datasets_dir):
 
     df = pd.read_csv(datasets_dir / 'dino.csv').rename(columns={'x': 'X'})
     dataset = Dataset('dino', df)
-    assert not dataset.df[dataset.REQUIRED_COLUMNS].empty
+    assert not dataset.df[dataset._REQUIRED_COLUMNS].empty
 
 
 @pytest.mark.parametrize(

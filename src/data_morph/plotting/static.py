@@ -30,9 +30,9 @@ def plot(
     ----------
     df : pandas.DataFrame
         The dataset to plot.
-    x_bounds, y_bounds : Iterable[Number]
+    x_bounds, y_bounds : Iterable[numbers.Number]
         The plotting limits.
-    save_to : str or Path
+    save_to : str or pathlib.Path
         Path to save the plot frame to.
     decimals : int
         The number of integers to highlight as preserved.

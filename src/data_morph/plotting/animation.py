@@ -21,18 +21,23 @@ def stitch_gif_animation(
 
     Parameters
     ----------
-    output_dir : str or Path
+    output_dir : str or pathlib.Path
         The output directory to save the animation to. Note that the frames to
         stitch together must be in here as well.
     start_shape : str
         The starting shape.
     target_shape : str or Shape
         The target shape for the morphing.
-    keep_frames : bool, default False
+    keep_frames : bool, default ``False``
         Whether to keep the individual frames after creating the animation.
-    forward_only_animation : bool, default False
-        Whether to play the animation in the forward direction rather than
+    forward_only_animation : bool, default ``False``
+        Whether to only play the animation in the forward direction rather than
         animating in both forward and reverse.
+
+    See Also
+    --------
+    PIL.Image
+        Frames are stitched together with Pillow.
     """
     output_dir = Path(output_dir)
 

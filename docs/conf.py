@@ -54,7 +54,8 @@ autodoc_default_options = {
     'undoc-members': False,
     'private-members': False,
     'special-members': False,
-    'show-inheritance': False,
+    'show-inheritance': True,
+    'inherited-members': True,
 }
 
 
@@ -79,7 +80,7 @@ html_theme_options = {
     "github_url": "https://github.com/stefmolin/data-morph",
     "twitter_url": "https://twitter.com/StefanieMolin",
     # "header_links_before_dropdown": 4,
-    "use_edit_page_button": True,
+    # "use_edit_page_button": True,
     "show_toc_level": 1,
     "navbar_align": "left",  # [left, content, right] For testing that the navbar items align properly
     # "navbar_center": ["version-switcher", "navbar-nav"],

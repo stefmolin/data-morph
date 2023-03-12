@@ -40,7 +40,7 @@ class DataLoader:
         dataset : str
             Either one of :attr:`AVAILABLE_DATASETS` or a path to a
             CSV file containing two columns: x and y.
-        x_bounds, y_bounds : Iterable[Number], optional
+        x_bounds, y_bounds : Iterable[numbers.Number], optional
             An iterable of min/max bounds for normalization.
 
         Returns

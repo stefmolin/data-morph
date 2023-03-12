@@ -19,7 +19,7 @@ class Dataset:
         The name to use for the dataset.
     df : pandas.DataFrame
         DataFrame containing columns x and y.
-    x_bounds, y_bounds : Iterable[Number], optional
+    x_bounds, y_bounds : Iterable[numbers.Number], optional
         An iterable of min/max bounds for normalization.
     """
 
@@ -117,7 +117,7 @@ class Dataset:
         ----------
         df : pandas.DataFrame
             The data to normalize.
-        x_bounds, y_bounds : Iterable[Number], optional
+        x_bounds, y_bounds : Iterable[numbers.Number], optional
             The desired minimum/maximum values. Either pass both or none.
 
         Returns

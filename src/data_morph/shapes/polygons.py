@@ -1,6 +1,10 @@
 """Polygon shapes made from lines."""
 
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+
 from ..data.dataset import Dataset
+from ..plotting.style import plot_with_custom_style
 from .bases.lines import Lines
 
 
@@ -13,19 +17,8 @@ class Star(Lines):
 
         import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
-        from data_morph.plotting.style import plot_with_custom_style
         from data_morph.shapes.polygons import Star
-
-        @plot_with_custom_style
-        def _plot_star():
-            dataset = DataLoader.load_dataset('dino')
-            star = Star(dataset)
-
-            fig, ax = plt.subplots()
-            for start, end in star.lines:
-                ax.plot(*list(zip(start, end)), 'k-')
-
-        _plot_star()
+        _ = Star(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------
@@ -61,3 +54,18 @@ class Star(Lines):
         ]
 
         super().__init__(*[line for line in zip(pts[:-1], pts[1:])])
+
+    @plot_with_custom_style
+    def plot(self) -> Axes:
+        """
+        Plot the shape.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+        """
+        _, ax = plt.subplots()
+        for start, end in self.lines:
+            ax.plot(*list(zip(start, end)), 'k-')
+        return ax

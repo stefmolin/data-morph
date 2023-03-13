@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from numbers import Number
 from typing import Iterable, Optional
 
+from matplotlib.axes import Axes
 from scipy.spatial import distance
 
 
@@ -98,3 +99,25 @@ class Shape(ABC):
             + f'{indented_line}{attr}={hanging_indent}'
             + f'{hanging_indent}'.join(repr(item) for item in getattr(self, attr))
         )
+
+    @abstractmethod
+    def plot(self, ax: Axes = None) -> Axes:
+        """
+        Plot the shape.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+            An optional :class:`~matplotlib.axes.Axes` object to plot on.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+
+        Notes
+        -----
+        When implementing this method for subclasses, make sure to apply the
+        :func:`.plotting.style.plot_with_custom_style` decorator.
+        """
+        raise NotImplementedError

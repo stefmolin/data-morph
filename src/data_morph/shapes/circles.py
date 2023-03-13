@@ -1,8 +1,6 @@
 """Shapes that are circular in nature."""
 
-import itertools
 from numbers import Number
-from typing import Tuple
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
@@ -144,51 +142,43 @@ class Bullseye(Shape):
         """
         return min(circle.distance(x, y) for circle in self.circles)
 
-
-class Dots(Shape):
-    """
-    Class representing a 3x3 grid of dots.
-
-    Parameters
-    ----------
-    dataset : Dataset
-        The starting dataset to morph into other shapes.
-    """
-
-    def __init__(self, dataset: Dataset) -> None:
-        self.dots: list[Tuple[Number, Number]] = list(
-            itertools.product(
-                *(
-                    dataset.df[coord].quantile([0.05, 0.5, 0.95]).tolist()
-                    for coord in ['x', 'y']
-                )
-            )
-        )
-        """list[Tuple[numbers.Number, numbers.Number]]: List of (x, y) coordinates."""
-
-    def __repr__(self) -> str:
-        return self._recursive_repr('dots')
-
-    def distance(self, x: Number, y: Number) -> float:
+    @plot_with_custom_style
+    def plot(self, ax: Axes = None) -> Axes:
         """
-        Calculate the minimum Euclidean distance any of the dots in this grid a point (x, y).
+        Plot the shape.
 
         Parameters
         ----------
-        x, y : numbers.Number
-            Coordinates of a point in 2D space.
+        ax : matplotlib.axes.Axes, optional
+            An optional :class:`~matplotlib.axes.Axes` object to plot on.
 
         Returns
         -------
-        float
-            The minimum Euclidean distance any of the dots in this grid the point (x, y).
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
         """
-        return min(self._euclidean_distance(dot, (x, y)) for dot in self.dots)
+        if not ax:
+            _, ax = plt.subplots()
+        for circle in self.circles:
+            ax = circle.plot(ax)
+        return ax
 
 
 class Scatter(Circle):  # numpydoc ignore: PR02
     """
     Class for the scatter shape: a circular cloud of scattered points.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.circles import Scatter
+
+        _ = Scatter(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------
@@ -211,3 +201,36 @@ class Scatter(Circle):  # numpydoc ignore: PR02
             The distance between this circular cloud of scattered points and the point (x, y).
         """
         return max(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r, 0)
+
+    @plot_with_custom_style
+    def plot(self, ax: Axes = None) -> Axes:
+        """
+        Plot the shape.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+            An optional :class:`~matplotlib.axes.Axes` object to plot on.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+        """
+        if not ax:
+            _, ax = plt.subplots()
+        _ = ax.add_patch(
+            plt.Circle(
+                (self.cx, self.cy),
+                self.r,
+                ec='k',
+                fill=False,
+                hatch='.',
+                linestyle=':',
+            )
+        )
+        _ = ax.set(
+            xlim=(self.cx - self.r * 1.2, self.cx + self.r * 1.2),
+            ylim=(self.cy - self.r * 1.2, self.cy + self.r * 1.2),
+        )
+        return ax

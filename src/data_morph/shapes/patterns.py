@@ -10,6 +10,18 @@ class HighLines(Lines):
     """
     Class for the high lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import HighLines
+
+        _ = HighLines(DataLoader.load_dataset('dino')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -37,6 +49,18 @@ class HorizontalLines(Lines):
     """
     Class for the horizontal lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import HorizontalLines
+
+        _ = HorizontalLines(DataLoader.load_dataset('dino')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -61,6 +85,18 @@ class HorizontalLines(Lines):
 class SlantDownLines(Lines):
     """
     Class for the slant down lines shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import SlantDownLines
+
+        _ = SlantDownLines(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------
@@ -96,6 +132,18 @@ class SlantUpLines(Lines):
     """
     Class for the slant up lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import SlantUpLines
+
+        _ = SlantUpLines(DataLoader.load_dataset('dino')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -130,6 +178,18 @@ class VerticalLines(Lines):
     """
     Class for the vertical lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import VerticalLines
+
+        _ = VerticalLines(DataLoader.load_dataset('dino')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -154,6 +214,18 @@ class VerticalLines(Lines):
 class WideLines(Lines):
     """
     Class for the wide lines shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import WideLines
+
+        _ = WideLines(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------
@@ -181,6 +253,18 @@ class WideLines(Lines):
 class XLines(Lines):
     """
     Class for the X shape consisting of two crossing, perpendicular lines.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import XLines
+
+        _ = XLines(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------

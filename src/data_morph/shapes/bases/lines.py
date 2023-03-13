@@ -3,6 +3,10 @@
 from numbers import Number
 from typing import Iterable
 
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+
+from ...plotting.style import plot_with_custom_style
 from .shape import Shape
 
 
@@ -99,3 +103,24 @@ class Lines(Shape):
             distance = self._euclidean_distance(point, (ix, iy))
 
         return distance
+
+    @plot_with_custom_style
+    def plot(self, ax: Axes = None) -> Axes:
+        """
+        Plot the shape.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+            An optional :class:`~matplotlib.axes.Axes` object to plot on.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+        """
+        if not ax:
+            _, ax = plt.subplots()
+        for start, end in self.lines:
+            ax.plot(*list(zip(start, end)), 'k-')
+        return ax

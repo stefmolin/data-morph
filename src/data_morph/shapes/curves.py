@@ -10,6 +10,18 @@ class DownParabola(PointCollection):
     """
     Class for the down parabola shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.curves import DownParabola
+
+        _ = DownParabola(DataLoader.load_dataset('dino')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -36,6 +48,18 @@ class DownParabola(PointCollection):
 class UpParabola(PointCollection):
     """
     Class for the up parabola shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.curves import UpParabola
+
+        _ = UpParabola(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------

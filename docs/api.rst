@@ -10,4 +10,8 @@ CLI option
    :toctree: generated
    :recursive:
 
-   data_morph
+   data_morph.bounds
+   data_morph.data
+   data_morph.morpher
+   data_morph.plotting
+   data_morph.shapes

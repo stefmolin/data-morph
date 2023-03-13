@@ -9,19 +9,14 @@ Data Morph
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :hidden:
 
    quickstart
    api
+   release_notes
 
 Put some description of the project here.
 
 Show one of the animations here
 
 Link to the original paper, etc.
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

@@ -2,6 +2,10 @@
 
 from numbers import Number
 
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+
+from ...plotting.style import plot_with_custom_style
 from .shape import Shape
 
 
@@ -40,3 +44,24 @@ class PointCollection(Shape):
             to the point (x, y).
         """
         return min(self._euclidean_distance((x, y), point) for point in self.points)
+
+    @plot_with_custom_style
+    def plot(self, ax: Axes = None) -> Axes:
+        """
+        Plot the shape.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+            An optional :class:`~matplotlib.axes.Axes` object to plot on.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+        """
+        if not ax:
+            _, ax = plt.subplots()
+        for point in self.points:
+            ax.scatter(*point, s=20, color='k')
+        return ax

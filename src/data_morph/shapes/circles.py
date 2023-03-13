@@ -4,13 +4,29 @@ import itertools
 from numbers import Number
 from typing import Tuple
 
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+
 from ..data.dataset import Dataset
+from ..plotting.style import plot_with_custom_style
 from .bases.shape import Shape
 
 
 class Circle(Shape):
     """
     Class representing a hollow circle.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.circles import Circle
+
+        _ = Circle(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------
@@ -49,10 +65,46 @@ class Circle(Shape):
         """
         return abs(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r)
 
+    @plot_with_custom_style
+    def plot(self, ax: Axes = None) -> Axes:
+        """
+        Plot the shape.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+            An optional :class:`~matplotlib.axes.Axes` object to plot on.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+        """
+        if not ax:
+            _, ax = plt.subplots()
+        _ = ax.add_patch(plt.Circle((self.cx, self.cy), self.r, ec='k', fill=False))
+        _ = ax.set(
+            xlim=(self.cx - self.r * 1.2, self.cx + self.r * 1.2),
+            ylim=(self.cy - self.r * 1.2, self.cy + self.r * 1.2),
+        )
+        return ax
+
 
 class Bullseye(Shape):
     """
     Class representing a bullseye shape comprising two concentric circles.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.circles import Bullseye
+
+        _ = Bullseye(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------

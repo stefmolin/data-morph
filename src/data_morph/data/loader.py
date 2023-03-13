@@ -5,22 +5,36 @@ from numbers import Number
 from pathlib import Path
 from typing import Iterable
 
+import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib.axes import Axes
 
 from .. import MAIN_DIR
+from ..plotting.style import plot_with_custom_style
 from .dataset import Dataset
 
 
 class DataLoader:
-    """Class for loading datasets for morphing."""
+    """
+    Class for loading datasets for morphing.
+
+    .. plot::
+       :caption:
+            Datasets currently included in ``data_morph``.
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        DataLoader.plot_available_datasets()
+    """
 
     _DATA_PATH: str = 'data/starter_shapes/'
     _DATASETS: dict = {
         'dino': 'dino.csv',
         'panda': 'panda.csv',
     }
-    AVAILABLE_DATASETS = list(_DATASETS.keys())
-    """list[str]: List of available built-in starter datasets."""
+    AVAILABLE_DATASETS = sorted(list(_DATASETS.keys()))
+    """list[str]: List of available built-in starter datasets,
+    which can be visualized with :meth:`plot_available_datasets`."""
 
     def __init__(self) -> None:
         raise NotImplementedError
@@ -65,3 +79,37 @@ class DataLoader:
                     f'the included datasets: {", ".join(cls.AVAILABLE_DATASETS)}.'
                 )
         return Dataset(name=name, df=df, x_bounds=x_bounds, y_bounds=y_bounds)
+
+    @classmethod
+    @plot_with_custom_style
+    def plot_available_datasets(cls) -> Axes:
+        """
+        Plot the built-in datasets.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+
+        See Also
+        --------
+        AVAILABLE_DATASETS
+            The list of available datasets built into ``data_morph``.
+        """
+        fig, axs = plt.subplots(1, 2, layout='constrained', figsize=(8, 4))
+        fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
+        for dataset, ax in zip(cls.AVAILABLE_DATASETS, axs):
+            ax.tick_params(
+                axis='both',
+                which='both',
+                bottom=False,
+                left=False,
+                right=False,
+                labelbottom=False,
+                labelleft=False,
+            )
+            cls.load_dataset(dataset).df.plot(
+                x='x', y='y', color='k', kind='scatter', title=dataset, ax=ax
+            )
+            ax.set(xlabel='', ylabel='')
+        return axs

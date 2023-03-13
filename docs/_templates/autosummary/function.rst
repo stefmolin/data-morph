@@ -3,4 +3,3 @@
 .. currentmodule:: {{ module }}
 
 .. autofunction:: {{ objname }}
-   :noindex:

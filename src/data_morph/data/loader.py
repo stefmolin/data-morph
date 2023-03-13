@@ -1,11 +1,13 @@
 """Load data for morphing."""
 
 from importlib.resources import files
+from itertools import zip_longest
 from numbers import Number
 from pathlib import Path
 from typing import Iterable
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from matplotlib.axes import Axes
 
@@ -96,20 +98,29 @@ class DataLoader:
         AVAILABLE_DATASETS
             The list of available datasets built into ``data_morph``.
         """
-        fig, axs = plt.subplots(1, 2, layout='constrained', figsize=(8, 4))
+        num_plots = len(cls.AVAILABLE_DATASETS)
+        num_rows = int(np.ceil(num_plots / 2))
+
+        fig, axs = plt.subplots(
+            num_rows, 2, layout='constrained', figsize=(8, 4 * num_rows)
+        )
         fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
-        for dataset, ax in zip(cls.AVAILABLE_DATASETS, axs):
-            ax.tick_params(
-                axis='both',
-                which='both',
-                bottom=False,
-                left=False,
-                right=False,
-                labelbottom=False,
-                labelleft=False,
-            )
-            cls.load_dataset(dataset).df.plot(
-                x='x', y='y', color='k', kind='scatter', title=dataset, ax=ax
-            )
-            ax.set(xlabel='', ylabel='')
+
+        for dataset, ax in zip_longest(cls.AVAILABLE_DATASETS, axs.flatten()):
+            if dataset:
+                ax.tick_params(
+                    axis='both',
+                    which='both',
+                    bottom=False,
+                    left=False,
+                    right=False,
+                    labelbottom=False,
+                    labelleft=False,
+                )
+                cls.load_dataset(dataset).df.plot(
+                    x='x', y='y', color='k', kind='scatter', title=dataset, ax=ax
+                )
+                ax.set(xlabel='', ylabel='')
+            else:
+                ax.remove()
         return axs

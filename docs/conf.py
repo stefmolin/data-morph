@@ -29,6 +29,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx_copybutton',
+    'matplotlib.sphinxext.plot_directive',
 ]
 
 templates_path = ['_templates']
@@ -41,8 +42,10 @@ intersphinx_mapping = {
     'matplotlib': ('https://matplotlib.org/stable/', None),
     'numpy': ('https://numpy.org/doc/stable/', None),
     'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
+    'Pillow': ('https://pillow.readthedocs.io/en/stable/', None),
     'pytest': ('https://pytest.org/en/stable/', None),
     'python': ('https://docs.python.org/3/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
 }
 
 
@@ -68,6 +71,11 @@ language = 'en'
 # -- copybutton config -------------------------------------------------------
 copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
 copybutton_prompt_is_regexp = True
+
+
+# -- matplotlib plot directive config ----------------------------------------
+plot_html_show_source_link = False
+plot_html_show_formats = False
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -126,3 +134,14 @@ html_context = {
     "github_version": "main",
     "doc_path": "docs",
 }
+
+
+# -- sphinx adjustments --------------------------------------------------
+def skip(app, what, name, obj, would_skip, options):
+    if name.startswith('_'):
+        return True
+    return would_skip
+
+
+def setup(app):
+    app.connect('autodoc-skip-member', skip)

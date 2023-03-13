@@ -1,9 +1,50 @@
-"""Shapes that are patterns of lines."""
+"""Shapes that are patterns of lines or points."""
+
+import itertools
 
 import numpy as np
 
 from ..data.dataset import Dataset
 from .bases.lines import Lines
+from .bases.point_collection import PointCollection
+
+
+class DotsGrid(PointCollection):
+    """
+    Class representing a 3x3 grid of dots.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        import matplotlib.pyplot as plt
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.patterns import DotsGrid
+
+        _ = DotsGrid(DataLoader.load_dataset('dino')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        super().__init__(
+            *list(
+                itertools.product(
+                    *(
+                        dataset.df[coord].quantile([0.05, 0.5, 0.95]).tolist()
+                        for coord in ['x', 'y']
+                    )
+                )
+            )
+        )
+
+    def __str__(self) -> str:
+        return 'dots'
 
 
 class HighLines(Lines):

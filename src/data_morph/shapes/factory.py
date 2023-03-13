@@ -18,8 +18,8 @@ class ShapeFactory:
     AVAILABLE_SHAPES: dict = {
         'circle': circles.Circle,
         'bullseye': circles.Bullseye,
-        'dots': circles.Dots,
         'scatter': circles.Scatter,
+        'dots': patterns.DotsGrid,
         'x': patterns.XLines,
         'h_lines': patterns.HorizontalLines,
         'v_lines': patterns.VerticalLines,

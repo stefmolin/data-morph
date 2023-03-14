@@ -24,7 +24,6 @@ class DataLoader:
        :caption:
             Datasets currently included in ``data_morph``.
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         DataLoader.plot_available_datasets()
     """

@@ -120,7 +120,8 @@ class Lines(Shape):
             The :class:`~matplotlib.axes.Axes` object containing the plot.
         """
         if not ax:
-            _, ax = plt.subplots()
+            fig, ax = plt.subplots(layout='constrained')
+            fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         for start, end in self.lines:
             ax.plot(*list(zip(start, end)), 'k-')
         return ax

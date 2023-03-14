@@ -61,7 +61,8 @@ class PointCollection(Shape):
             The :class:`~matplotlib.axes.Axes` object containing the plot.
         """
         if not ax:
-            _, ax = plt.subplots()
+            fig, ax = plt.subplots(layout='constrained')
+            fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         for point in self.points:
             ax.scatter(*point, s=20, color='k')
         return ax

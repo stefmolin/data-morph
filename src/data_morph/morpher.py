@@ -357,10 +357,10 @@ class DataMorpher:
             sampled from a normal distribution with a mean of zero.
         allowed_dist : numbers.Number
             The farthest apart the perturbed points can be from the target shape.
-        ramp_in : bool, default False
+        ramp_in : bool, default ``False``
             Whether to more slowly transition in the beginning.
             This only affects the frames, not the algorithm.
-        ramp_out : bool, default False
+        ramp_out : bool, default ``False``
             Whether to slow down the transition at the end.
             This only affects the frames, not the algorithm.
         freeze_for : int, default 0
@@ -372,6 +372,15 @@ class DataMorpher:
         -------
         pandas.DataFrame
             The morphed data.
+
+        See Also
+        --------
+        :class:`.DataLoader`
+            The initial state for the morphing process is a :class:`.Dataset`.
+            Available built-in options can be found here.
+        :class:`.ShapeFactory`
+            The target state for the morphing process is a :class:`.Shape`.
+            Options for the target can be found here.
 
         Notes
         -----

@@ -20,7 +20,6 @@ class Circle(Shape):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.circles import Circle
 
@@ -98,7 +97,6 @@ class Bullseye(Shape):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.circles import Bullseye
 
@@ -174,7 +172,6 @@ class Scatter(Circle):  # numpydoc ignore: PR02
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.circles import Scatter
 

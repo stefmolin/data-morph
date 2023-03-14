@@ -19,7 +19,6 @@ class DotsGrid(PointCollection):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import DotsGrid
 
@@ -56,7 +55,6 @@ class HighLines(Lines):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import HighLines
 
@@ -95,7 +93,6 @@ class HorizontalLines(Lines):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import HorizontalLines
 
@@ -132,7 +129,6 @@ class SlantDownLines(Lines):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import SlantDownLines
 
@@ -178,7 +174,6 @@ class SlantUpLines(Lines):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import SlantUpLines
 
@@ -224,7 +219,6 @@ class VerticalLines(Lines):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import VerticalLines
 
@@ -261,7 +255,6 @@ class WideLines(Lines):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import WideLines
 
@@ -300,7 +293,6 @@ class XLines(Lines):
             This shape is generated using the dino dataset
             (without normalization).
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.patterns import XLines
 

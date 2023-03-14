@@ -32,6 +32,11 @@ class Dataset:
         DataFrame containing columns x and y.
     x_bounds, y_bounds : Iterable[numbers.Number], optional
         An iterable of min/max bounds for normalization.
+
+    See Also
+    --------
+    DataLoader
+        Utility for creating :class:`Dataset` objects from CSV files.
     """
 
     _REQUIRED_COLUMNS = ['x', 'y']
@@ -58,7 +63,7 @@ class Dataset:
         """BoundingBox: The limits for the morphing process."""
 
         self.plot_bounds: BoundingBox = self._derive_plotting_bounds()
-        """BoundingBox: The bounds of the to use to plot the morphed data."""
+        """BoundingBox: The bounds to use when plotting the morphed data."""
 
     def __repr__(self) -> str:
         return (

@@ -20,3 +20,6 @@ Put some description of the project here.
 Show one of the animations here
 
 Link to the original paper, etc.
+
+.. automodule:: data_morph
+   :noindex:

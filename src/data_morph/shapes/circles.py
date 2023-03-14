@@ -80,10 +80,7 @@ class Circle(Shape):
         if not ax:
             _, ax = plt.subplots()
         _ = ax.add_patch(plt.Circle((self.cx, self.cy), self.r, ec='k', fill=False))
-        _ = ax.set(
-            xlim=(self.cx - self.r * 1.2, self.cx + self.r * 1.2),
-            ylim=(self.cy - self.r * 1.2, self.cy + self.r * 1.2),
-        )
+        _ = ax.autoscale()
         return ax
 
 
@@ -224,8 +221,5 @@ class Scatter(Circle):  # numpydoc ignore: PR02
                 linestyle=':',
             )
         )
-        _ = ax.set(
-            xlim=(self.cx - self.r * 1.2, self.cx + self.r * 1.2),
-            ylim=(self.cy - self.r * 1.2, self.cy + self.r * 1.2),
-        )
+        _ = ax.autoscale()
         return ax

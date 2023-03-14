@@ -141,5 +141,16 @@ def skip(app, what, name, obj, would_skip, options):
     return would_skip
 
 
+def docstring_strip(app, what, name, obj, options, lines):
+    if what == 'module' and name == 'data_morph' and lines[0] == 'Data Morph.':
+        # Tweak the package docstring for the docs
+        _ = lines.pop(0)
+        _ = lines.pop(0)
+        extended_summary = lines[0].split()
+        extended_summary[0] = 'Data Morph allows you to morph'
+        lines[0] = ' '.join(extended_summary)
+
+
 def setup(app):
     app.connect('autodoc-skip-member', skip)
+    app.connect('autodoc-process-docstring', docstring_strip)

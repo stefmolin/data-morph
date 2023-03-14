@@ -17,7 +17,7 @@ def shape_factory(sample_data):
 
 def test_shape_factory(shape_factory):
     """Test the ShapeFactory class."""
-    for shape_name, shape_type in shape_factory.AVAILABLE_SHAPES.items():
+    for shape_name, shape_type in shape_factory._SHAPE_MAPPING.items():
         shape = shape_factory.generate_shape(shape_name)
         assert isinstance(shape, shape_type)
         assert shape_name == str(shape)

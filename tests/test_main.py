@@ -191,9 +191,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
             assert value.name == morph_args['start_shape_name']
         elif arg in ['freeze_for']:
             arg = 'freeze' if arg == 'freeze_for' else arg
-            assert value == (
-                morph_args[arg] or __main__.ARG_DEFAULTS[arg]
-            )
+            assert value == (morph_args[arg] or __main__.ARG_DEFAULTS[arg])
         else:
             assert value == morph_args[arg]
 
@@ -216,16 +214,10 @@ def test_main_multiple_shapes(
         monkeypatch.setattr(
             __main__.ShapeFactory,
             'AVAILABLE_SHAPES',
-            {
-                shape: cls
-                for shape, cls in __main__.ShapeFactory.AVAILABLE_SHAPES.items()
-                if shape in patched_options
-            },
+            patched_options,
         )
 
-    shapes = (
-        target_shape if target_shape else __main__.ShapeFactory.AVAILABLE_SHAPES.keys()
-    )
+    shapes = target_shape or patched_options
 
     morph_noop = mocker.patch.object(__main__.DataMorpher, 'morph', autospec=True)
     __main__.main(
@@ -239,7 +231,6 @@ def test_main_multiple_shapes(
         == capsys.readouterr().err
     )
     patterns_run = [
-        str(kwargs['target_shape'])
-        for (_, kwargs) in morph_noop.call_args_list
+        str(kwargs['target_shape']) for (_, kwargs) in morph_noop.call_args_list
     ]
     assert set(shapes).difference(patterns_run) == set()

@@ -15,23 +15,26 @@ class ShapeFactory:
         The starting dataset to morph into other shapes.
     """
 
-    AVAILABLE_SHAPES: dict = {
-        'circle': circles.Circle,
+    _SHAPE_MAPPING: dict = {
         'bullseye': circles.Bullseye,
+        'circle': circles.Circle,
         'scatter': circles.Scatter,
-        'dots': patterns.DotsGrid,
-        'x': patterns.XLines,
-        'h_lines': patterns.HorizontalLines,
-        'v_lines': patterns.VerticalLines,
-        'wide_lines': patterns.WideLines,
-        'high_lines': patterns.HighLines,
-        'slant_up': patterns.SlantUpLines,
-        'slant_down': patterns.SlantDownLines,
-        'star': polygons.Star,
         'down_parab': curves.DownParabola,
         'up_parab': curves.UpParabola,
+        'dots': patterns.DotsGrid,
+        'high_lines': patterns.HighLines,
+        'h_lines': patterns.HorizontalLines,
+        'slant_down': patterns.SlantDownLines,
+        'slant_up': patterns.SlantUpLines,
+        'v_lines': patterns.VerticalLines,
+        'wide_lines': patterns.WideLines,
+        'x': patterns.XLines,
+        'star': polygons.Star,
     }
-    """dict[str, Shape]: A mapping of shape names to classes."""
+
+    AVAILABLE_SHAPES: list[str] = sorted(list(_SHAPE_MAPPING.keys()))
+    """list[str]: The list of available shapes, which can be visualized with
+    :meth:`.plot_available_shapes`."""
 
     def __init__(self, dataset: Dataset) -> None:
         self._dataset: Dataset = dataset
@@ -51,6 +54,6 @@ class ShapeFactory:
             An shape object of the requested type.
         """
         try:
-            return self.AVAILABLE_SHAPES[shape](self._dataset)
+            return self._SHAPE_MAPPING[shape](self._dataset)
         except KeyError:
             raise ValueError(f'No such shape as {shape}.')

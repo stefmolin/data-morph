@@ -9,7 +9,6 @@ from .data.loader import DataLoader
 from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
 
-
 ARG_DEFAULTS = {
     'output_dir': Path.cwd() / 'morphed_data',
     'target_shape': 'all',
@@ -18,6 +17,7 @@ ARG_DEFAULTS = {
     'iterations': 100_000,
     'freeze': 0,
 }
+
 
 def main(argv: Union[Sequence[str], None] = None) -> None:
     """
@@ -29,8 +29,6 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         Makes it possible to pass in options without running on
         the command line.
     """
-
-    ALL_TARGETS = ShapeFactory.AVAILABLE_SHAPES.keys()
 
     parser = argparse.ArgumentParser(
         prog='Data Morph',
@@ -65,7 +63,8 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         help=(
             'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
             'will be converted to each target shape separately. Valid target shapes are '
-            f"""'{"', '".join(ALL_TARGETS)}'. Omit to convert to all target shapes in a single run."""
+            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'. Omit to convert to all """
+            'target shapes in a single run.'
         ),
     )
     morph_config_group.add_argument(
@@ -192,14 +191,14 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     args = parser.parse_args(argv)
 
     target_shapes = (
-        ALL_TARGETS
+        ShapeFactory.AVAILABLE_SHAPES
         if args.target_shape == 'all'
-        else set(args.target_shape).intersection(ALL_TARGETS)
+        else set(args.target_shape).intersection(ShapeFactory.AVAILABLE_SHAPES)
     )
     if not target_shapes:
         raise ValueError(
             'No valid target shapes were provided. Valid options are '
-            f"""'{"', '".join(ALL_TARGETS)}'."""
+            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'."""
         )
 
     if args.xy_bounds:

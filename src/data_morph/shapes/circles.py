@@ -78,7 +78,8 @@ class Circle(Shape):
             The :class:`~matplotlib.axes.Axes` object containing the plot.
         """
         if not ax:
-            _, ax = plt.subplots()
+            fig, ax = plt.subplots(layout='constrained')
+            fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         _ = ax.add_patch(plt.Circle((self.cx, self.cy), self.r, ec='k', fill=False))
         _ = ax.autoscale()
         return ax
@@ -210,7 +211,8 @@ class Scatter(Circle):  # numpydoc ignore: PR02
             The :class:`~matplotlib.axes.Axes` object containing the plot.
         """
         if not ax:
-            _, ax = plt.subplots()
+            fig, ax = plt.subplots(layout='constrained')
+            fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         _ = ax.add_patch(
             plt.Circle(
                 (self.cx, self.cy),

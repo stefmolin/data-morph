@@ -1,13 +1,30 @@
 """Factory class for generating shape objects."""
 
+from itertools import zip_longest
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.axes import Axes
+
 from ..data.dataset import Dataset
+from ..plotting.style import plot_with_custom_style
 from . import circles, curves, patterns, polygons
 from .bases.shape import Shape
 
 
 class ShapeFactory:
     """
-    Factory for generating shapes.
+    Factory for generating shape objects based on data.
+
+    .. plot::
+       :caption:
+            Target shapes currently available in ``data_morph``.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.factory import ShapeFactory
+
+        dataset = DataLoader.load_dataset('dino')
+        _ = ShapeFactory(dataset).plot_available_shapes()
 
     Parameters
     ----------
@@ -57,3 +74,46 @@ class ShapeFactory:
             return self._SHAPE_MAPPING[shape](self._dataset)
         except KeyError:
             raise ValueError(f'No such shape as {shape}.')
+
+    @plot_with_custom_style
+    def plot_available_shapes(self) -> Axes:
+        """
+        Plot the available target shapes.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+
+        See Also
+        --------
+        AVAILABLE_SHAPES
+            The list of available shapes.
+        """
+        num_cols = 5
+        num_plots = len(self.AVAILABLE_SHAPES)
+        num_rows = int(np.ceil(num_plots / num_cols))
+
+        fig, axs = plt.subplots(
+            num_rows, num_cols, layout='constrained', figsize=(10, 2 * num_rows)
+        )
+        fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
+
+        for shape, ax in zip_longest(self.AVAILABLE_SHAPES, axs.flatten()):
+            if shape:
+                ax.tick_params(
+                    axis='both',
+                    which='both',
+                    bottom=False,
+                    left=False,
+                    right=False,
+                    labelbottom=False,
+                    labelleft=False,
+                )
+                shape_obj = self.generate_shape(shape)
+                _ = shape_obj.plot(ax=ax).set(
+                    xlabel='', ylabel='', title=str(shape_obj)
+                )
+            else:
+                ax.remove()
+        return axs

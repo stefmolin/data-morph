@@ -155,8 +155,6 @@ class Bullseye(Shape):
         matplotlib.axes.Axes
             The :class:`~matplotlib.axes.Axes` object containing the plot.
         """
-        if not ax:
-            _, ax = plt.subplots()
         for circle in self.circles:
             ax = circle.plot(ax)
         return ax

@@ -24,7 +24,6 @@ release = data_morph.__version__
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.inheritance_diagram',
     'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
@@ -104,7 +103,6 @@ html_theme_options = {
     #     "json_url": json_url,
     #     "version_match": version_match,
     # },
-    # "search_bar_position": "navbar",  # TODO: Deprecated - remove in future version
 }
 
 # html_sidebars = {

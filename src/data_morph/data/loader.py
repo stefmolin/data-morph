@@ -22,7 +22,8 @@ class DataLoader:
 
     .. plot::
        :caption:
-            Datasets currently included in ``data_morph``.
+            Datasets currently included in ``data_morph``. Note that CSV
+            files are also supported by :meth:`.load_dataset`.
 
         from data_morph.data.loader import DataLoader
         DataLoader.plot_available_datasets()

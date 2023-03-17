@@ -43,7 +43,7 @@ def plot(
     Returns
     -------
     matplotlib.axes.Axes or None
-        When ``save_to`` is falsey, an Axes object is returned.
+        When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.
     """
     fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')
     fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)

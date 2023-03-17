@@ -81,6 +81,7 @@ class Circle(Shape):
             fig, ax = plt.subplots(layout='constrained')
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         _ = ax.add_patch(plt.Circle((self.cx, self.cy), self.r, ec='k', fill=False))
+        _ = ax.axis('equal')
         _ = ax.autoscale()
         return ax
 

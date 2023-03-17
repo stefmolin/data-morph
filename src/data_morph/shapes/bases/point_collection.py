@@ -65,4 +65,5 @@ class PointCollection(Shape):
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         for point in self.points:
             ax.scatter(*point, s=20, color='k')
+            ax.axis('equal')
         return ax

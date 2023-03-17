@@ -124,4 +124,5 @@ class Lines(Shape):
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         for start, end in self.lines:
             ax.plot(*list(zip(start, end)), 'k-')
+            ax.axis('equal')
         return ax

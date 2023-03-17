@@ -218,6 +218,7 @@ class Dataset:
             fig, ax = plt.subplots(layout='constrained')
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
+        ax.axis('equal')
         ax = self.df.plot(kind='scatter', x='x', y='y', color='k', ax=ax, title=self)
         ax.set(xlabel='', ylabel='')
 

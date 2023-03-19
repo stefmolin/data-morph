@@ -3,10 +3,10 @@
 import numpy as np
 
 from ..data.dataset import Dataset
-from .bases.lines import Lines
+from .bases.line_collection import LineCollection
 
 
-class HighLines(Lines):
+class HighLines(LineCollection):
     """
     Class for the high lines shape.
 
@@ -33,7 +33,7 @@ class HighLines(Lines):
         return 'high_lines'
 
 
-class HorizontalLines(Lines):
+class HorizontalLines(LineCollection):
     """
     Class for the horizontal lines shape.
 
@@ -58,7 +58,7 @@ class HorizontalLines(Lines):
         return 'h_lines'
 
 
-class SlantDownLines(Lines):
+class SlantDownLines(LineCollection):
     """
     Class for the slant down lines shape.
 
@@ -92,7 +92,7 @@ class SlantDownLines(Lines):
         return 'slant_down'
 
 
-class SlantUpLines(Lines):
+class SlantUpLines(LineCollection):
     """
     Class for the slant up lines shape.
 
@@ -126,7 +126,7 @@ class SlantUpLines(Lines):
         return 'slant_up'
 
 
-class VerticalLines(Lines):
+class VerticalLines(LineCollection):
     """
     Class for the vertical lines shape.
 
@@ -151,7 +151,7 @@ class VerticalLines(Lines):
         return 'v_lines'
 
 
-class WideLines(Lines):
+class WideLines(LineCollection):
     """
     Class for the wide lines shape.
 
@@ -178,7 +178,7 @@ class WideLines(Lines):
         return 'wide_lines'
 
 
-class XLines(Lines):
+class XLines(LineCollection):
     """
     Class for the X shape consisting of two crossing, perpendicular lines.
 

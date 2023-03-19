@@ -45,8 +45,8 @@ def plot(
     matplotlib.axes.Axes or None
         When ``save_to`` is falsey, an Axes object is returned.
     """
-    fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')
-    fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
+    fig, ax = plt.subplots(figsize=(12.5, 6), layout='constrained', subplot_kw={'aspect': 'equal'})
+    fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
     ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
@@ -101,5 +101,5 @@ def plot(
     if not dirname.is_dir():
         dirname.mkdir()
 
-    fig.savefig(save_to, **save_kwds)
+    fig.savefig(save_to, bbox_inches='tight', **save_kwds)
     plt.close(fig)

@@ -16,6 +16,7 @@ class ShapeFactory:
     """
 
     AVAILABLE_SHAPES: dict = {
+        'bullseye': circles.Bullseye,
         'circle': circles.Circle,
         'high_lines': lines.HighLines,
         'h_lines': lines.HorizontalLines,

@@ -1,7 +1,7 @@
 """Factory class for generating shape objects."""
 
 from ..data.dataset import Dataset
-from . import circles, curves, patterns, polygons
+from . import circles, lines, points, polygons
 from .bases.shape import Shape
 
 
@@ -17,19 +17,17 @@ class ShapeFactory:
 
     AVAILABLE_SHAPES: dict = {
         'circle': circles.Circle,
-        'bullseye': circles.Bullseye,
-        'dots': circles.Dots,
-        'scatter': circles.Scatter,
-        'x': patterns.XLines,
-        'h_lines': patterns.HorizontalLines,
-        'v_lines': patterns.VerticalLines,
-        'wide_lines': patterns.WideLines,
-        'high_lines': patterns.HighLines,
-        'slant_up': patterns.SlantUpLines,
-        'slant_down': patterns.SlantDownLines,
+        'high_lines': lines.HighLines,
+        'h_lines': lines.HorizontalLines,
+        'slant_down': lines.SlantDownLines,
+        'slant_up': lines.SlantUpLines,
+        'v_lines': lines.VerticalLines,
+        'wide_lines': lines.WideLines,
+        'x': lines.XLines,
+        'dots': points.DotsGrid,
+        'down_parab': points.DownParabola,
+        'up_parab': points.UpParabola,
         'star': polygons.Star,
-        'down_parab': curves.DownParabola,
-        'up_parab': curves.UpParabola,
     }
 
     def __init__(self, dataset: Dataset) -> None:

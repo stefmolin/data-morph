@@ -26,6 +26,7 @@ class ShapeFactory:
         'x': lines.XLines,
         'dots': points.DotsGrid,
         'down_parab': points.DownParabola,
+        'scatter': points.Scatter,
         'up_parab': points.UpParabola,
         'star': polygons.Star,
     }

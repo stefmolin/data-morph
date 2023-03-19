@@ -99,10 +99,15 @@ class DataLoader:
             The list of available datasets built into ``data_morph``.
         """
         num_plots = len(cls.AVAILABLE_DATASETS)
-        num_rows = int(np.ceil(num_plots / 2))
+        num_cols = 3
+        num_rows = int(np.ceil(num_plots / num_cols))
 
         fig, axs = plt.subplots(
-            num_rows, 2, layout='constrained', figsize=(8, 4 * num_rows)
+            num_rows,
+            num_cols,
+            layout='constrained',
+            figsize=(12, 4 * num_rows),
+            subplot_kw={'aspect': 'equal'},
         )
         fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
@@ -117,8 +122,16 @@ class DataLoader:
                     labelbottom=False,
                     labelleft=False,
                 )
-                cls.load_dataset(dataset).df.plot(
-                    x='x', y='y', color='k', kind='scatter', title=dataset, ax=ax
+                points = cls.load_dataset(dataset)
+                points.df.plot(
+                    x='x',
+                    y='y',
+                    color='k',
+                    kind='scatter',
+                    title=f'{dataset} ({points.df.shape[0]:,d} points)',
+                    ax=ax,
+                    xlim=points.plot_bounds.x_bounds,
+                    ylim=points.plot_bounds.y_bounds,
                 )
                 ax.set(xlabel='', ylabel='')
             else:

@@ -1,6 +1,7 @@
 """Base class for shapes that are composed of points."""
 
 from numbers import Number
+from typing import Iterable
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
@@ -19,7 +20,7 @@ class PointCollection(Shape):
         An iterable of (x, y) values representing an arrangement of points.
     """
 
-    def __init__(self, *points) -> None:
+    def __init__(self, *points: Iterable[Iterable[Number]]) -> None:
         self.points = points
         """Iterable[Iterable[numbers.Number]]: An iterable of (x, y) values
         representing an arrangement of points."""

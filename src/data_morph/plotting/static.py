@@ -95,6 +95,7 @@ def plot(
         )
 
     if not save_to:
+        fig.tight_layout()
         return ax
 
     save_to = Path(save_to)

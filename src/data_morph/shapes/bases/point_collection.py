@@ -2,6 +2,8 @@
 
 from numbers import Number
 
+import numpy as np
+
 from .shape import Shape
 
 
@@ -37,4 +39,6 @@ class PointCollection(Shape):
             The minimum distance from the points of this shape
             to the point (x, y).
         """
-        return min(self._euclidean_distance((x, y), point) for point in self.points)
+        return np.min(
+            np.linalg.norm(np.array(self.points) - np.array((x, y)), ord=2, axis=1)
+        )

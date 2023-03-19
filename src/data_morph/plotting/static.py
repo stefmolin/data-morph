@@ -62,14 +62,15 @@ def plot(
     # can pull the `.format` method for that string to reduce typing it
     # repeatedly
     visible_decimals = 7
+    offset = 2 if res.x_mean < 0 or res.y_mean < 0 else 1
     formatter = '{{:<{pad}}}: {{:{stat_pad}.{decimals}f}}'.format(
         pad=max_label_length,
-        stat_pad=max_stat + visible_decimals + 2,
+        stat_pad=max_stat + visible_decimals + offset,
         decimals=visible_decimals,
     ).format
     corr_formatter = '{{:<{pad}}}: {{:+{corr_pad}.{decimals}f}}'.format(
         pad=max_label_length,
-        corr_pad=max_stat + visible_decimals + 2,
+        corr_pad=max_stat + visible_decimals + offset,
         decimals=visible_decimals,
     ).format
     stat_clip = visible_decimals - decimals

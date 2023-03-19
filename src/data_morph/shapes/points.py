@@ -1,4 +1,4 @@
-"""Shapes that are composed of curves."""
+"""Shapes that are composed of points."""
 
 import numpy as np
 
@@ -9,6 +9,17 @@ from .bases.point_collection import PointCollection
 class DownParabola(PointCollection):
     """
     Class for the down parabola shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import DownParabola
+
+        _ = DownParabola(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------
@@ -36,6 +47,17 @@ class DownParabola(PointCollection):
 class UpParabola(PointCollection):
     """
     Class for the up parabola shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the dino dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import UpParabola
+
+        _ = UpParabola(DataLoader.load_dataset('dino')).plot()
 
     Parameters
     ----------

@@ -10,7 +10,7 @@ from ...plotting.style import plot_with_custom_style
 from .shape import Shape
 
 
-class Lines(Shape):
+class LineCollection(Shape):
     """
     Class representing a shape consisting of one or more lines.
 
@@ -21,7 +21,7 @@ class Lines(Shape):
         of a line.
     """
 
-    def __init__(self, *lines) -> None:
+    def __init__(self, *lines: Iterable[Iterable[Iterable[Number]]]) -> None:
         self.lines = lines
         """Iterable[Iterable[Iterable[numbers.Number]]]: An iterable
         of two (x, y) pairs representing the endpoints of a line."""
@@ -122,7 +122,7 @@ class Lines(Shape):
         if not ax:
             fig, ax = plt.subplots(layout='constrained')
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
+        _ = ax.axis('equal')
         for start, end in self.lines:
             ax.plot(*list(zip(start, end)), 'k-')
-            ax.axis('equal')
         return ax

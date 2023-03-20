@@ -4,6 +4,7 @@ from numbers import Number
 from typing import Iterable
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.axes import Axes
 
 from ...plotting.style import plot_with_custom_style
@@ -21,9 +22,11 @@ class PointCollection(Shape):
     """
 
     def __init__(self, *points: Iterable[Iterable[Number]]) -> None:
-        self.points = points
-        """Iterable[Iterable[numbers.Number]]: An iterable of (x, y) values
+        self.points = np.array(points)
+        """numpy.array: An array of (x, y) values
         representing an arrangement of points."""
+
+        self._alpha = 1
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} of {len(self.points)} points>'
@@ -44,7 +47,7 @@ class PointCollection(Shape):
             The minimum distance from the points of this shape
             to the point (x, y).
         """
-        return min(self._euclidean_distance((x, y), point) for point in self.points)
+        return np.min(np.linalg.norm(self.points - np.array((x, y)), ord=2, axis=1))
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:
@@ -64,7 +67,6 @@ class PointCollection(Shape):
         if not ax:
             fig, ax = plt.subplots(layout='constrained')
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
-        for point in self.points:
-            ax.scatter(*point, s=20, color='k')
-            ax.axis('equal')
+        _ = ax.axis('equal')
+        _ = ax.scatter(*self.points.T, s=20, color='k', alpha=self._alpha)
         return ax

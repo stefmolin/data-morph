@@ -1,24 +1,24 @@
 """Polygon shapes made from lines."""
 
 from ..data.dataset import Dataset
-from .bases.lines import Lines
+from .bases.line_collection import LineCollection
 
 
-class Star(Lines):
+class Star(LineCollection):
     """
     Class for the star shape.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.polygons import Star
 
-        _ = Star(DataLoader.load_dataset('dino')).plot()
+        _ = Star(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------

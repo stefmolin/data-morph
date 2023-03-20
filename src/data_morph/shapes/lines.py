@@ -1,64 +1,25 @@
-"""Shapes that are patterns of lines or points."""
-
-import itertools
+"""Shapes that are lines of lines."""
 
 import numpy as np
 
 from ..data.dataset import Dataset
-from .bases.lines import Lines
-from .bases.point_collection import PointCollection
+from .bases.line_collection import LineCollection
 
 
-class DotsGrid(PointCollection):
-    """
-    Class representing a 3x3 grid of dots.
-
-    .. plot::
-       :scale: 75
-       :caption:
-            This shape is generated using the dino dataset
-            (without normalization).
-
-        from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import DotsGrid
-
-        _ = DotsGrid(DataLoader.load_dataset('dino')).plot()
-
-    Parameters
-    ----------
-    dataset : Dataset
-        The starting dataset to morph into other shapes.
-    """
-
-    def __init__(self, dataset: Dataset) -> None:
-        xlow, xhigh = dataset.df.x.quantile([0.05, 0.95]).tolist()
-        ylow, yhigh = dataset.df.y.quantile([0.05, 0.95]).tolist()
-
-        xmid = (xhigh + xlow) / 2
-        ymid = (yhigh + ylow) / 2
-
-        super().__init__(
-            *list(itertools.product([xlow, xmid, xhigh], [ylow, ymid, yhigh]))
-        )
-
-    def __str__(self) -> str:
-        return 'dots'
-
-
-class HighLines(Lines):
+class HighLines(LineCollection):
     """
     Class for the high lines shape.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import HighLines
+        from data_morph.shapes.lines import HighLines
 
-        _ = HighLines(DataLoader.load_dataset('dino')).plot()
+        _ = HighLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -83,20 +44,20 @@ class HighLines(Lines):
         return 'high_lines'
 
 
-class HorizontalLines(Lines):
+class HorizontalLines(LineCollection):
     """
     Class for the horizontal lines shape.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import HorizontalLines
+        from data_morph.shapes.lines import HorizontalLines
 
-        _ = HorizontalLines(DataLoader.load_dataset('dino')).plot()
+        _ = HorizontalLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -119,20 +80,20 @@ class HorizontalLines(Lines):
         return 'h_lines'
 
 
-class SlantDownLines(Lines):
+class SlantDownLines(LineCollection):
     """
     Class for the slant down lines shape.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import SlantDownLines
+        from data_morph.shapes.lines import SlantDownLines
 
-        _ = SlantDownLines(DataLoader.load_dataset('dino')).plot()
+        _ = SlantDownLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -164,20 +125,20 @@ class SlantDownLines(Lines):
         return 'slant_down'
 
 
-class SlantUpLines(Lines):
+class SlantUpLines(LineCollection):
     """
     Class for the slant up lines shape.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import SlantUpLines
+        from data_morph.shapes.lines import SlantUpLines
 
-        _ = SlantUpLines(DataLoader.load_dataset('dino')).plot()
+        _ = SlantUpLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -209,20 +170,20 @@ class SlantUpLines(Lines):
         return 'slant_up'
 
 
-class VerticalLines(Lines):
+class VerticalLines(LineCollection):
     """
     Class for the vertical lines shape.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import VerticalLines
+        from data_morph.shapes.lines import VerticalLines
 
-        _ = VerticalLines(DataLoader.load_dataset('dino')).plot()
+        _ = VerticalLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -232,7 +193,7 @@ class VerticalLines(Lines):
 
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.morph_bounds.y_bounds
+        y_bounds = dataset.data_bounds.y_bounds
 
         super().__init__(
             *[
@@ -245,20 +206,20 @@ class VerticalLines(Lines):
         return 'v_lines'
 
 
-class WideLines(Lines):
+class WideLines(LineCollection):
     """
     Class for the wide lines shape.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import WideLines
+        from data_morph.shapes.lines import WideLines
 
-        _ = WideLines(DataLoader.load_dataset('dino')).plot()
+        _ = WideLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -268,7 +229,7 @@ class WideLines(Lines):
 
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.morph_bounds.y_bounds
+        y_bounds = dataset.data_bounds.y_bounds
 
         offset = x_bounds.range / 5
         lower = x_bounds[0] + offset
@@ -283,20 +244,20 @@ class WideLines(Lines):
         return 'wide_lines'
 
 
-class XLines(Lines):
+class XLines(LineCollection):
     """
     Class for the X shape consisting of two crossing, perpendicular lines.
 
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import XLines
+        from data_morph.shapes.lines import XLines
 
-        _ = XLines(DataLoader.load_dataset('dino')).plot()
+        _ = XLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------

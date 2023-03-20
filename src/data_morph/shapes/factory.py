@@ -8,7 +8,7 @@ from matplotlib.axes import Axes
 
 from ..data.dataset import Dataset
 from ..plotting.style import plot_with_custom_style
-from . import circles, curves, patterns, polygons
+from . import circles, lines, points, polygons
 from .bases.shape import Shape
 
 
@@ -23,7 +23,7 @@ class ShapeFactory:
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.factory import ShapeFactory
 
-        dataset = DataLoader.load_dataset('dino')
+        dataset = DataLoader.load_dataset('panda')
         _ = ShapeFactory(dataset).plot_available_shapes()
 
     Parameters
@@ -35,17 +35,17 @@ class ShapeFactory:
     _SHAPE_MAPPING: dict = {
         'bullseye': circles.Bullseye,
         'circle': circles.Circle,
-        'scatter': circles.Scatter,
-        'down_parab': curves.DownParabola,
-        'up_parab': curves.UpParabola,
-        'dots': patterns.DotsGrid,
-        'high_lines': patterns.HighLines,
-        'h_lines': patterns.HorizontalLines,
-        'slant_down': patterns.SlantDownLines,
-        'slant_up': patterns.SlantUpLines,
-        'v_lines': patterns.VerticalLines,
-        'wide_lines': patterns.WideLines,
-        'x': patterns.XLines,
+        'high_lines': lines.HighLines,
+        'h_lines': lines.HorizontalLines,
+        'slant_down': lines.SlantDownLines,
+        'slant_up': lines.SlantUpLines,
+        'v_lines': lines.VerticalLines,
+        'wide_lines': lines.WideLines,
+        'x': lines.XLines,
+        'dots': points.DotsGrid,
+        'down_parab': points.DownParabola,
+        'scatter': points.Scatter,
+        'up_parab': points.UpParabola,
         'star': polygons.Star,
     }
 
@@ -95,7 +95,10 @@ class ShapeFactory:
         num_rows = int(np.ceil(num_plots / num_cols))
 
         fig, axs = plt.subplots(
-            num_rows, num_cols, layout='constrained', figsize=(10, 2 * num_rows)
+            num_rows,
+            num_cols,
+            layout='constrained',
+            figsize=(10, 2 * num_rows),
         )
         fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
@@ -111,7 +114,7 @@ class ShapeFactory:
                     labelleft=False,
                 )
                 shape_obj = self.generate_shape(shape)
-                _ = shape_obj.plot(ax=ax).set(
+                ax = shape_obj.plot(ax=ax).set(
                     xlabel='', ylabel='', title=str(shape_obj)
                 )
             else:

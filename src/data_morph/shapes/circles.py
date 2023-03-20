@@ -17,13 +17,13 @@ class Circle(Shape):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.circles import Circle
 
-        _ = Circle(DataLoader.load_dataset('dino')).plot()
+        _ = Circle(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -80,8 +80,8 @@ class Circle(Shape):
         if not ax:
             fig, ax = plt.subplots(layout='constrained')
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
-        _ = ax.add_patch(plt.Circle((self.cx, self.cy), self.r, ec='k', fill=False))
         _ = ax.axis('equal')
+        _ = ax.add_patch(plt.Circle((self.cx, self.cy), self.r, ec='k', fill=False))
         _ = ax.autoscale()
         return ax
 
@@ -93,13 +93,13 @@ class Bullseye(Shape):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.circles import Bullseye
 
-        _ = Bullseye(DataLoader.load_dataset('dino')).plot()
+        _ = Bullseye(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -156,73 +156,4 @@ class Bullseye(Shape):
         """
         for circle in self.circles:
             ax = circle.plot(ax)
-        return ax
-
-
-class Scatter(Circle):  # numpydoc ignore: PR02
-    """
-    Class for the scatter shape: a circular cloud of scattered points.
-
-    .. plot::
-       :scale: 75
-       :caption:
-            This shape is generated using the dino dataset
-            (without normalization).
-
-        from data_morph.data.loader import DataLoader
-        from data_morph.shapes.circles import Scatter
-
-        _ = Scatter(DataLoader.load_dataset('dino')).plot()
-
-    Parameters
-    ----------
-    dataset : Dataset
-        The starting dataset to morph into other shapes.
-    """
-
-    def distance(self, x: Number, y: Number) -> float:
-        """
-        Calculate the distance between this circular cloud of scattered points and a point (x, y).
-
-        Parameters
-        ----------
-        x, y : numbers.Number
-            Coordinates of a point in 2D space.
-
-        Returns
-        -------
-        float
-            The distance between this circular cloud of scattered points and the point (x, y).
-        """
-        return max(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r, 0)
-
-    @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
-        """
-        Plot the shape.
-
-        Parameters
-        ----------
-        ax : matplotlib.axes.Axes, optional
-            An optional :class:`~matplotlib.axes.Axes` object to plot on.
-
-        Returns
-        -------
-        matplotlib.axes.Axes
-            The :class:`~matplotlib.axes.Axes` object containing the plot.
-        """
-        if not ax:
-            fig, ax = plt.subplots(layout='constrained')
-            fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
-        _ = ax.add_patch(
-            plt.Circle(
-                (self.cx, self.cy),
-                self.r,
-                ec='k',
-                fill=False,
-                hatch='.',
-                linestyle=':',
-            )
-        )
-        _ = ax.autoscale()
         return ax

@@ -307,8 +307,9 @@ class DataMorpher:
 
         done = False
         while not done:
-            new_x = initial_x + self._rng.standard_normal() * shake
-            new_y = initial_y + self._rng.standard_normal() * shake
+            jitter_x, jitter_y = self._rng.normal(loc=0, scale=shake, size=2)
+            new_x = initial_x + jitter_x
+            new_y = initial_y + jitter_y
 
             old_dist = target_shape.distance(initial_x, initial_y)
             new_dist = target_shape.distance(new_x, new_y)

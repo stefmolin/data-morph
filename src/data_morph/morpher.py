@@ -85,7 +85,6 @@ class DataMorpher:
                 'output_dir cannot be None if write_images or write_data is True.'
             )
 
-        self.seed = seed
         self.forward_only_animation = forward_only_animation
 
         if (

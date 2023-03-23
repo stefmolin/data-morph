@@ -73,6 +73,8 @@ class DataMorpher:
         keep_frames: bool = False,
         forward_only_animation: bool = False,
     ) -> None:
+        self._rng = np.random.default_rng(seed)
+
         self.keep_frames = keep_frames
         self.write_images = write_images
         self.write_data = write_data
@@ -83,7 +85,6 @@ class DataMorpher:
                 'output_dir cannot be None if write_images or write_data is True.'
             )
 
-        self.seed = seed
         self.forward_only_animation = forward_only_animation
 
         if (
@@ -259,8 +260,8 @@ class DataMorpher:
             == 0
         )
 
-    @staticmethod
     def _perturb(
+        self,
         df: pd.DataFrame,
         target_shape: Shape,
         *,
@@ -295,18 +296,19 @@ class DataMorpher:
         pandas.DataFrame
             The input dataset with one point perturbed.
         """
-        row = np.random.randint(0, len(df))
+        row = self._rng.integers(0, len(df))
         initial_x = df.at[row, 'x']
         initial_y = df.at[row, 'y']
 
         # this is the simulated annealing step, if "do_bad", then we are willing to
         # accept a new state which is worse than the current one
-        do_bad = np.random.random_sample() < temp
+        do_bad = self._rng.random() < temp
 
         done = False
         while not done:
-            new_x = initial_x + np.random.randn() * shake
-            new_y = initial_y + np.random.randn() * shake
+            jitter_x, jitter_y = self._rng.normal(loc=0, scale=shake, size=2)
+            new_x = initial_x + jitter_x
+            new_y = initial_y + jitter_y
 
             old_dist = target_shape.distance(initial_x, initial_y)
             new_dist = target_shape.distance(new_x, new_y)
@@ -407,9 +409,6 @@ class DataMorpher:
             raise ValueError('allowed_dist must be a non-negative integer.')
 
         morphed_data = start_shape.df.copy()
-
-        if self.seed is not None:
-            np.random.seed(self.seed)
 
         # iteration numbers that we will end up writing to file as frames
         frame_numbers = self._select_frames(

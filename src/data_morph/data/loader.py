@@ -31,8 +31,12 @@ class DataLoader:
 
     _DATA_PATH: str = 'data/starter_shapes/'
     _DATASETS: dict = {
+        'cat': 'cat.csv',
         'dino': 'dino.csv',
+        'dog': 'dog.csv',
+        'music': 'music.csv',
         'panda': 'panda.csv',
+        'sheep': 'sheep.csv',
     }
     AVAILABLE_DATASETS = sorted(list(_DATASETS.keys()))
     """list[str]: List of available built-in starter datasets,

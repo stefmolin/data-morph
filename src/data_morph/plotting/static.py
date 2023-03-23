@@ -45,8 +45,10 @@ def plot(
     matplotlib.axes.Axes or None
         When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.
     """
-    fig, ax = plt.subplots(figsize=(12, 5), layout='constrained')
-    fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
+    fig, ax = plt.subplots(
+        figsize=(12.5, 6), layout='constrained', subplot_kw={'aspect': 'equal'}
+    )
+    fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
     ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
@@ -62,14 +64,15 @@ def plot(
     # can pull the `.format` method for that string to reduce typing it
     # repeatedly
     visible_decimals = 7
+    offset = 2 if res.x_mean < 0 or res.y_mean < 0 else 1
     formatter = '{{:<{pad}}}: {{:{stat_pad}.{decimals}f}}'.format(
         pad=max_label_length,
-        stat_pad=max_stat + visible_decimals + 2,
+        stat_pad=max_stat + visible_decimals + offset,
         decimals=visible_decimals,
     ).format
     corr_formatter = '{{:<{pad}}}: {{:+{corr_pad}.{decimals}f}}'.format(
         pad=max_label_length,
-        corr_pad=max_stat + visible_decimals + 2,
+        corr_pad=max_stat + visible_decimals + offset,
         decimals=visible_decimals,
     ).format
     stat_clip = visible_decimals - decimals
@@ -94,6 +97,7 @@ def plot(
         )
 
     if not save_to:
+        fig.tight_layout()
         return ax
 
     save_to = Path(save_to)
@@ -101,5 +105,5 @@ def plot(
     if not dirname.is_dir():
         dirname.mkdir()
 
-    fig.savefig(save_to, **save_kwds)
+    fig.savefig(save_to, bbox_inches='tight', **save_kwds)
     plt.close(fig)

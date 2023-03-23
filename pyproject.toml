@@ -15,13 +15,15 @@ keywords = ["data visualization", "summary statistics", "data animation"]
 license = {file = "LICENSE"}
 classifiers = [
     "Framework :: Matplotlib",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "License :: OSI Approved :: BSD License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Scientific/Engineering :: Visualization",
-    "Operating System :: OS Independent",
 ]
 requires-python = ">=3.9"
 dependencies = [
@@ -46,6 +48,9 @@ docs = [
     "pydata-sphinx-theme>=0.13.1",
     "sphinx_copybutton>=0.5.1",
 ]
+
+[project.scripts]
+data-morph = "data_morph.__main__:main"
 
 [project.urls]
 source = "https://github.com/stefmolin/data-morph"

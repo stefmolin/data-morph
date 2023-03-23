@@ -18,6 +18,7 @@ class DataLoader:
     _DATASETS: dict = {
         'dino': 'dino.csv',
         'panda': 'panda.csv',
+        'sheep': 'sheep.csv',
     }
     AVAILABLE_DATASETS = list(_DATASETS.keys())
 

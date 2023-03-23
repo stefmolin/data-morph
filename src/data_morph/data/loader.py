@@ -16,6 +16,7 @@ class DataLoader:
 
     _DATA_PATH: str = 'data/starter_shapes/'
     _DATASETS: dict = {
+        'cat': 'cat.csv',
         'dino': 'dino.csv',
         'panda': 'panda.csv',
         'sheep': 'sheep.csv',

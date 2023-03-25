@@ -49,4 +49,6 @@ jobs:
 
       - name: Diagnostics
         run: |
+          which python
+          python -m pip --version
           data-morph --version

@@ -49,4 +49,4 @@ jobs:
 
       - name: Diagnostics
         run: |
-          data-morph -v
+          data-morph --version

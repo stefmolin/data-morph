@@ -23,7 +23,16 @@ Run ``data-morph`` on the command line:
 
 .. code:: console
 
-    TBD: example call on the command line.
+   $ data-morph --target-shape star -- panda
+
+This produces the following animation in a the newly-created ``morphed_data`` directory
+within your current working directory:
+
+.. image:: _static/panda_to_star.gif
+   :alt: Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
+   :align: center
+
+----
 
 See all available CLI options by passing in ``--help``:
 

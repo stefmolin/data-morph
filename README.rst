@@ -4,8 +4,14 @@ Data Morph
 Morph an input dataset of 2D points into select shapes, while preserving the summary
 statistics to a given number of decimal points through simulated annealing.
 
-.. include:: ./docs/quickstart.rst
+.. include:: docs/quickstart.rst
    :start-after: .. INSTALLATION
+
+.. figure:: docs/_static/panda_to_star.gif
+   :alt: Morphing the panda dataset into the star shape.
+   :align: center
+
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
 
 Notes
 -----

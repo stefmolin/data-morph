@@ -165,7 +165,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
     ['target_shape', 'patched_options'],
     [
         (['star', 'bullseye'], None),
-        (None, ['dots', 'x']),
+        (['all'], ['dots', 'x']),
     ],
     ids=['two shapes', 'all shapes'],
 )
@@ -182,12 +182,10 @@ def test_main_multiple_shapes(
             patched_options,
         )
 
-    shapes = target_shape or patched_options
+    shapes = patched_options or target_shape
 
     morph_noop = mocker.patch.object(__main__.DataMorpher, 'morph', autospec=True)
-    __main__.main(
-        [start_shape_name, *(['--target-shape', *target_shape] if target_shape else [])]
-    )
+    __main__.main([start_shape_name, *(['--target-shape', *target_shape])])
     assert morph_noop.call_count == len(shapes)
     assert (
         ''.join(

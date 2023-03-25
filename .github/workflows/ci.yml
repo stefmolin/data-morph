@@ -51,6 +51,11 @@ jobs:
           python -m pip install setuptools --upgrade
           python -m pip install .
 
-      - name: Diagnostics
-        run: |
-          data-morph --version
+      - name: Check entry point
+        run: data-morph --version
+
+      - name: Install testing dependencies
+        run: python -m pip install '.[dev]'
+
+      - name: Run tests
+        run: pytest

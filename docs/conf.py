@@ -88,7 +88,7 @@ html_favicon = '_static/favicon.ico'
 html_theme_options = {
     "github_url": "https://github.com/stefmolin/data-morph",
     "twitter_url": "https://twitter.com/StefanieMolin",
-    "show_toc_level": 2,
+    "show_toc_level": 1,
     "navbar_align": "left",
     # "navbar_center": ["version-switcher", "navbar-nav"],
     # "switcher": {

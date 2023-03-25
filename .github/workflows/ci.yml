@@ -27,6 +27,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
 
+    defaults:
+      run:
+        shell: bash -e {0}
+
     strategy:
         fail-fast: false
         matrix:

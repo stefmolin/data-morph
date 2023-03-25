@@ -3,8 +3,8 @@
 from numbers import Number
 from typing import Iterable, Union
 
+from ._utils import _validate_2d
 from .interval import Interval
-from .utils import _validate_2d
 
 
 class BoundingBox:
@@ -13,11 +13,11 @@ class BoundingBox:
 
     Parameters
     ----------
-    x_bounds, y_bounds : Union[Interval, Iterable[Number]]
-        A 2-dimensional numeric iterable or a :class:`Interval` object.
+    x_bounds, y_bounds : Union[Interval, Iterable[numbers.Number]]
+        A 2-dimensional numeric iterable or an :class:`.Interval` object.
     inclusive : bool, default ``False``
         Whether the bounds include the endpoints. Default
-        is exclusive. If :class:`Interval` objects are provided,
+        is exclusive. If :class:`.Interval` objects are provided,
         their settings are used.
     """
 
@@ -47,11 +47,14 @@ class BoundingBox:
             if isinstance(x_bounds, Interval)
             else Interval(x_bounds, inclusive[0])
         )
+        """Interval: The bounds for the x direction."""
+
         self.y_bounds = (
             y_bounds.clone()
             if isinstance(y_bounds, Interval)
             else Interval(y_bounds, inclusive[1])
         )
+        """Interval: The bounds for the y direction."""
 
     def __contains__(self, value: Iterable[Number]) -> bool:
         """
@@ -60,7 +63,7 @@ class BoundingBox:
 
         Parameters
         ----------
-        value : Iterable[Number]
+        value : Iterable[numbers.Number]
             A two-dimensional point.
 
         Returns
@@ -73,17 +76,17 @@ class BoundingBox:
 
     def __eq__(self, other: 'BoundingBox') -> bool:
         """
-        Check whether two :class:`BoundingBox` objects are equivalent.
+        Check whether two :class:`.BoundingBox` objects are equivalent.
 
         Parameters
         ----------
         other : BoundingBox
-            A :class:`BoundingBox` object.
+            A :class:`.BoundingBox` object.
 
         Returns
         -------
         bool
-            Whether the two :class:`BoundingBox` objects are equivalent.
+            Whether the two :class:`.BoundingBox` objects are equivalent.
         """
         if not isinstance(other, BoundingBox):
             raise TypeError('Equality is only defined between BoundingBox objects.')
@@ -98,12 +101,14 @@ class BoundingBox:
 
         Parameters
         ----------
-        x, y : Number
-            The amount to change the x/y bound range by (half will be applied to each end).
+        x : numbers.Number, optional
+            The amount to change the x bound range by (half will be applied to each end).
+        y : numbers.Number, optional
+            The amount to change the y bound range by (half will be applied to each end).
 
         See Also
         --------
-        :meth:`Interval.adjust_bounds` : Method that performs the adjustment.
+        :meth:`.Interval.adjust_bounds` : Method that performs the adjustment.
         """
         if x:
             self.x_bounds.adjust_bounds(x)
@@ -119,20 +124,6 @@ class BoundingBox:
         elif diff > 0:
             self.adjust_bounds(y=diff)
 
-    def clone(self) -> 'BoundingBox':
-        """
-        Clone this instance.
-
-        Returns
-        -------
-        :class:`BoundingBox`
-            A new :class:`BoundingBox` instance with the same bounds.
-        """
-        return BoundingBox(
-            self.x_bounds.clone(),
-            self.y_bounds.clone(),
-        )
-
     @property
     def aspect_ratio(self) -> Number:
         """
@@ -140,11 +131,25 @@ class BoundingBox:
 
         Returns
         -------
-        Number
+        numbers.Number
             The range in the x direction divided by the range in the y direction.
         """
         x_range, y_range = self.range
         return x_range / y_range
+
+    def clone(self) -> 'BoundingBox':
+        """
+        Clone this instance.
+
+        Returns
+        -------
+        BoundingBox
+            A new :class:`.BoundingBox` instance with the same bounds.
+        """
+        return BoundingBox(
+            self.x_bounds.clone(),
+            self.y_bounds.clone(),
+        )
 
     @property
     def range(self) -> Iterable[Number]:
@@ -153,7 +158,7 @@ class BoundingBox:
 
         Returns
         -------
-        Iterable[Number]
+        Iterable[numbers.Number]
             The range covered by the x and y bounds, respectively.
         """
         return self.x_bounds.range, self.y_bounds.range

@@ -3,7 +3,7 @@
 from numbers import Number
 from typing import Iterable
 
-from .utils import _validate_2d
+from ._utils import _validate_2d
 
 
 class Interval:
@@ -12,7 +12,7 @@ class Interval:
 
     Parameters
     ----------
-    bounds : Iterable[Number]
+    bounds : Iterable[numbers.Number]
         A 2-dimensional numeric iterable.
     inclusive : bool, default ``False``
         Whether the bounds include the endpoints. Default
@@ -24,8 +24,8 @@ class Interval:
         bounds: Iterable[Number],
         inclusive: bool = False,
     ) -> None:
-        self.bounds = self._validate_bounds(bounds)
-        self.inclusive = inclusive
+        self._bounds = self._validate_bounds(bounds)
+        self._inclusive = inclusive
 
     def __contains__(self, value: Number) -> bool:
         """
@@ -34,7 +34,7 @@ class Interval:
 
         Parameters
         ----------
-        value : Number
+        value : numbers.Number
             A numeric value.
 
         Returns
@@ -45,27 +45,27 @@ class Interval:
         if not isinstance(value, Number) or isinstance(value, bool) or value is None:
             raise TypeError('This operation is only supported for numeric values.')
 
-        if self.inclusive:
-            return self.bounds[0] <= value <= self.bounds[1]
-        return self.bounds[0] < value < self.bounds[1]
+        if self._inclusive:
+            return self._bounds[0] <= value <= self._bounds[1]
+        return self._bounds[0] < value < self._bounds[1]
 
     def __eq__(self, other: 'Interval') -> bool:
         """
-        Check whether two :class:`Interval` objects are equivalent.
+        Check whether two :class:`.Interval` objects are equivalent.
 
         Parameters
         ----------
         other : Interval
-            A :class:`Interval` object.
+            A :class:`.Interval` object.
 
         Returns
         -------
         bool
-            Whether the two :class:`Interval` objects are equivalent.
+            Whether the two :class:`.Interval` objects are equivalent.
         """
         if not isinstance(other, Interval):
             raise TypeError('Equality is only defined between Interval objects.')
-        return self.bounds == other.bounds and self.inclusive == other.inclusive
+        return self._bounds == other._bounds and self._inclusive == other._inclusive
 
     def __getitem__(self, index: int) -> Number:
         """
@@ -78,10 +78,10 @@ class Interval:
 
         Returns
         -------
-        Number
+        numbers.Number
             The value for the bounds at ``index``.
         """
-        return self.bounds[index]
+        return self._bounds[index]
 
     def __iter__(self) -> Number:
         """
@@ -89,14 +89,14 @@ class Interval:
 
         Returns
         -------
-        Number
+        numbers.Number
             The next value of the bounds.
         """
-        return iter(self.bounds)
+        return iter(self._bounds)
 
     def __repr__(self) -> str:
-        values = ', '.join(map(str, self.bounds))
-        if self.inclusive:
+        values = ', '.join(map(str, self._bounds))
+        if self._inclusive:
             interval = f'[{values}]'
             kind = 'inclusive'
         else:
@@ -110,12 +110,12 @@ class Interval:
 
         Parameters
         ----------
-        bounds : Iterable[Number]
+        bounds : Iterable[numbers.Number]
             An iterable of min/max bounds.
 
         Returns
         -------
-        Iterable[Number]
+        Iterable[numbers.Number]
             An iterable of min/max bounds.
         """
         bounds = list(_validate_2d(bounds, 'bounds'))
@@ -130,7 +130,7 @@ class Interval:
 
         Parameters
         ----------
-        value : Number
+        value : numbers.Number
             The amount to change the range by (half will be applied to each end).
         """
         if isinstance(value, bool) or not isinstance(value, Number) or value is None:
@@ -139,8 +139,8 @@ class Interval:
             raise ValueError('value must be non-zero')
 
         offset = value / 2
-        self.bounds[0] -= offset
-        self.bounds[1] += offset
+        self._bounds[0] -= offset
+        self._bounds[1] += offset
 
     def clone(self) -> 'Interval':
         """
@@ -148,10 +148,10 @@ class Interval:
 
         Returns
         -------
-        :class:`Interval`
-            A new :class:`Interval` instance with the same bounds.
+        Interval
+            A new :class:`.Interval` instance with the same bounds.
         """
-        return Interval(self.bounds[:], self.inclusive)
+        return Interval(self._bounds[:], self._inclusive)
 
     @property
     def range(self) -> Number:
@@ -160,7 +160,7 @@ class Interval:
 
         Returns
         -------
-        Number
+        numbers.Number
             The range covered by the interval.
         """
-        return abs(self.bounds[1] - self.bounds[0])
+        return abs(self._bounds[1] - self._bounds[0])

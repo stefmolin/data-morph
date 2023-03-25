@@ -1,18 +1,4 @@
-"""
-Morph an input dataset of 2D points into select shapes, while preserving the summary
-statistics to a given number of decimal points through simulated annealing.
-
-.. note::
-    This code has been altered by Stefanie Molin to work for other input datasets
-    by parameterizing the target shapes with information from the input shape.
-    The original code works for a specific dataset called the "dinosaurus" and was created
-    for the paper "Same Stats, Different Graphs: Generating Datasets with Varied Appearance and
-    Identical Statistics through Simulated Annealing" by Justin Matejka and George Fitzmaurice
-    (ACM CHI 2017).
-
-    The paper, video, and associated code and datasets can be found on the
-    Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.
-"""
+"""Module containing data morphing logic."""
 
 from functools import partial
 from numbers import Number
@@ -39,23 +25,24 @@ class DataMorpher:
     Parameters
     ----------
     decimals : int
-        The number of decimals to which summary statistics should be the same.
+        The number of decimals to which summary statistics should be the preserved.
     in_notebook : bool
         Whether this is running in a notebook.
-    output_dir : str or Path, optional
+    output_dir : str or pathlib.Path, optional
         The directory to write output files (CSV, PNG, GIF).
-    write_images : bool, default True
-        Whether to write image files to ``output_dir``.
-    write_data : bool, default False
-        Whether to write data files to ``output_dir``.
+    write_images : bool, default ``True``
+        Whether to write image files to :attr:`output_dir`.
+        This must be ``True`` for animation.
+    write_data : bool, default ``False``
+        Whether to write data files to :attr:`output_dir`.
     seed : int, optional
         Provide an integer seed to the random number generator.
     num_frames : int, default 100
         The number of frames to record out of the morphing process.
-    keep_frames : bool, default False
-        Whether to keep image files written to ``output_dir`` after
-        stitching GIF animation.
-    forward_only_animation : bool, default False
+    keep_frames : bool, default ``False``
+        Whether to keep image files written to :attr:`output_dir` after
+        stitching the GIF animation.
+    forward_only_animation : bool, default ``False``
         Whether to generate the animation in the forward direction only.
         By default, the animation will play forward and then reverse.
     """
@@ -75,17 +62,29 @@ class DataMorpher:
     ) -> None:
         self._rng = np.random.default_rng(seed)
 
+        self.forward_only_animation = forward_only_animation
+        """bool: Whether to generate the animation in the forward direction only.
+        By default, the animation will play forward and then reverse. This has no
+        effect unless :attr:`write_images` is ``True``."""
+
         self.keep_frames = keep_frames
+        """bool: Whether to keep image files written to :attr:`output_dir` after
+        stitching the GIF animation. This has no effect unless :attr:`write_images`
+        is ``True``."""
+
         self.write_images = write_images
+        """bool: Whether to write image files to :attr:`output_dir`."""
+
         self.write_data = write_data
+        """bool: Whether to write data files to :attr:`output_dir`."""
+
         self.output_dir = output_dir if output_dir is None else Path(output_dir)
+        """pathlib.Path: The directory to write output files (CSV, PNG, GIF)."""
 
         if (self.write_images or self.write_data) and self.output_dir is None:
             raise ValueError(
                 'output_dir cannot be None if write_images or write_data is True.'
             )
-
-        self.forward_only_animation = forward_only_animation
 
         if (
             isinstance(decimals, bool)
@@ -97,6 +96,7 @@ class DataMorpher:
                 'decimals must be a non-negative integer less than or equal to 5.'
             )
         self.decimals = decimals
+        """int: The number of decimals to which summary statistics should be the preserved."""
 
         if (
             isinstance(num_frames, bool)
@@ -108,8 +108,9 @@ class DataMorpher:
                 'num_frames must be a positive integer less than or equal to 100.'
             )
         self.num_frames = num_frames
+        """int: The number of frames to capture. Must be > 0 and <= 100."""
 
-        self.looper = tqdm.tnrange if in_notebook else tqdm.trange
+        self._looper = tqdm.tnrange if in_notebook else tqdm.trange
 
     def _select_frames(
         self, iterations: int, ramp_in: bool, ramp_out: bool, freeze_for: int
@@ -238,9 +239,9 @@ class DataMorpher:
 
         Parameters
         ----------
-        df1 : pd.DataFrame
+        df1 : pandas.DataFrame
             The original DataFrame.
-        df2 : pd.DataFrame
+        df2 : pandas.DataFrame
             The DataFrame after the latest perturbation.
 
         Returns
@@ -279,12 +280,12 @@ class DataMorpher:
             The data to perturb.
         target_shape : Shape
             The shape to morph the data into.
-        shake : Number
+        shake : numbers.Number
             The standard deviation of random movement applied in each direction,
             sampled from a normal distribution with a mean of zero.
-        allowed_dist : Number
+        allowed_dist : numbers.Number
             The farthest apart the perturbed points can be from the target shape.
-        temp : Number
+        temp : numbers.Number
             The temperature for simulated annealing. The higher the temperature
             the more we are willing to accept perturbations that might be worse than
             what we had before. The goal is to avoid local optima.
@@ -349,9 +350,9 @@ class DataMorpher:
             The shape we want to morph into.
         iterations : int
             The number of iterations to run simulated annealing for.
-        max_temp : Number
+        max_temp : numbers.Number
             The maximum temperature for simulated annealing (starting temperature).
-        min_temp : Number
+        min_temp : numbers.Number
             The minimum temperature for simulated annealing (ending temperature).
         min_shake : Number
             The standard deviation of random movement applied in each direction,
@@ -363,10 +364,10 @@ class DataMorpher:
             at ``max_shake`` and move toward ``min_shake``.
         allowed_dist : Number
             The farthest apart the perturbed points can be from the target shape.
-        ramp_in : bool, default False
+        ramp_in : bool, default ``False``
             Whether to more slowly transition in the beginning.
             This only affects the frames, not the algorithm.
-        ramp_out : bool, default False
+        ramp_out : bool, default ``False``
             Whether to slow down the transition at the end.
             This only affects the frames, not the algorithm.
         freeze_for : int, default 0
@@ -379,10 +380,20 @@ class DataMorpher:
         pandas.DataFrame
             The morphed data.
 
+        See Also
+        --------
+        :class:`.DataLoader`
+            The initial state for the morphing process is a :class:`.Dataset`.
+            Available built-in options can be found here.
+        :class:`.ShapeFactory`
+            The target state for the morphing process is a :class:`.Shape`.
+            Options for the target can be found here.
+
         Notes
         -----
-        This method saves data to disk to :attr:`output_dir`, which
-        includes frames and/or animation and, depending on :attr:`write_data`,
+        This method saves data to disk at :attr:`output_dir`, which
+        includes frames and/or animation (see :attr:`write_images`
+        and :attr:`keep_frames`) and, depending on :attr:`write_data`,
         CSV files for each frame.
         """
         for name, value in [
@@ -451,7 +462,7 @@ class DataMorpher:
             max_value=max_shake,
         )
 
-        for i in self.looper(
+        for i in self._looper(
             iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
         ):
             perturbed_data = self._perturb(

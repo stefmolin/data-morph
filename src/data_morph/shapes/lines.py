@@ -1,4 +1,4 @@
-"""Shapes that are patterns of lines."""
+"""Shapes that are lines of lines."""
 
 import numpy as np
 
@@ -10,6 +10,17 @@ class HighLines(LineCollection):
     """
     Class for the high lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.lines import HighLines
+
+        _ = HighLines(DataLoader.load_dataset('panda')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -17,7 +28,7 @@ class HighLines(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.morph_bounds.x_bounds
+        x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
 
         offset = y_bounds.range / 5
@@ -37,6 +48,17 @@ class HorizontalLines(LineCollection):
     """
     Class for the horizontal lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.lines import HorizontalLines
+
+        _ = HorizontalLines(DataLoader.load_dataset('panda')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -44,7 +66,7 @@ class HorizontalLines(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.morph_bounds.x_bounds
+        x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
 
         super().__init__(
@@ -61,6 +83,17 @@ class HorizontalLines(LineCollection):
 class SlantDownLines(LineCollection):
     """
     Class for the slant down lines shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.lines import SlantDownLines
+
+        _ = SlantDownLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -96,6 +129,17 @@ class SlantUpLines(LineCollection):
     """
     Class for the slant up lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.lines import SlantUpLines
+
+        _ = SlantUpLines(DataLoader.load_dataset('panda')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -130,6 +174,17 @@ class VerticalLines(LineCollection):
     """
     Class for the vertical lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.lines import VerticalLines
+
+        _ = VerticalLines(DataLoader.load_dataset('panda')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -138,7 +193,7 @@ class VerticalLines(LineCollection):
 
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.morph_bounds.y_bounds
+        y_bounds = dataset.data_bounds.y_bounds
 
         super().__init__(
             *[
@@ -155,6 +210,17 @@ class WideLines(LineCollection):
     """
     Class for the wide lines shape.
 
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.lines import WideLines
+
+        _ = WideLines(DataLoader.load_dataset('panda')).plot()
+
     Parameters
     ----------
     dataset : Dataset
@@ -163,7 +229,7 @@ class WideLines(LineCollection):
 
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.morph_bounds.y_bounds
+        y_bounds = dataset.data_bounds.y_bounds
 
         offset = x_bounds.range / 5
         lower = x_bounds[0] + offset
@@ -181,6 +247,17 @@ class WideLines(LineCollection):
 class XLines(LineCollection):
     """
     Class for the X shape consisting of two crossing, perpendicular lines.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset
+            (without normalization).
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.lines import XLines
+
+        _ = XLines(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------

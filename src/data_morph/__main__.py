@@ -30,8 +30,6 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         the command line.
     """
 
-    ALL_TARGETS = ShapeFactory.AVAILABLE_SHAPES.keys()
-
     parser = argparse.ArgumentParser(
         prog='Data Morph',
         description=(
@@ -55,7 +53,8 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         'start_shape',
         help=(
             f'The starting shape. This could be one of {DataLoader.AVAILABLE_DATASETS} or '
-            "a path to a CSV file, in which case it should have two columns 'x' and 'y'."
+            "a path to a CSV file, in which case it should have two columns 'x' and 'y'. "
+            'See the documentation for visualizations of the built-in datasets.'
         ),
     )
     morph_config_group.add_argument(
@@ -65,7 +64,9 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         help=(
             'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
             'will be converted to each target shape separately. Valid target shapes are '
-            f"""'{"', '".join(ALL_TARGETS)}'. Omit to convert to all target shapes in a single run."""
+            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'. Omit to convert to all """
+            'target shapes in a single run.'
+            ' See the documentation for visualizations of the available target shapes.'
         ),
     )
     morph_config_group.add_argument(
@@ -207,14 +208,14 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     args = parser.parse_args(argv)
 
     target_shapes = (
-        ALL_TARGETS
+        ShapeFactory.AVAILABLE_SHAPES
         if args.target_shape == 'all'
-        else set(args.target_shape).intersection(ALL_TARGETS)
+        else set(args.target_shape).intersection(ShapeFactory.AVAILABLE_SHAPES)
     )
     if not target_shapes:
         raise ValueError(
             'No valid target shapes were provided. Valid options are '
-            f"""'{"', '".join(ALL_TARGETS)}'."""
+            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'."""
         )
 
     if args.xy_bounds:

@@ -3,6 +3,10 @@
 from numbers import Number
 from typing import Iterable
 
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+
+from ...plotting.style import plot_with_custom_style
 from .shape import Shape
 
 
@@ -12,13 +16,15 @@ class LineCollection(Shape):
 
     Parameters
     ----------
-    *lines : Iterable[Iterable[Iterable[Number]]]
+    *lines : Iterable[Iterable[Iterable[numbers.Number]]]
         An iterable of two (x, y) pairs representing the endpoints
         of a line.
     """
 
-    def __init__(self, *lines) -> None:
+    def __init__(self, *lines: Iterable[Iterable[Iterable[Number]]]) -> None:
         self.lines = lines
+        """Iterable[Iterable[Iterable[numbers.Number]]]: An iterable
+        of two (x, y) pairs representing the endpoints of a line."""
 
     def __repr__(self) -> str:
         return self._recursive_repr('lines')
@@ -30,7 +36,7 @@ class LineCollection(Shape):
 
         Parameters
         ----------
-        x, y : int or float
+        x, y : numbers.Number
             Coordinates of a point in 2D space.
 
         Returns
@@ -53,9 +59,9 @@ class LineCollection(Shape):
 
         Parameters
         ----------
-        point : Iterable[Number]
+        point : Iterable[numbers.Number]
             Coordinates of a point in 2D space.
-        line : Iterable[Iterable[Number]]
+        line : Iterable[Iterable[numbers.Number]]
             Coordinates of the endpoints of a line in 2D space.
 
         Returns
@@ -97,3 +103,26 @@ class LineCollection(Shape):
             distance = self._euclidean_distance(point, (ix, iy))
 
         return distance
+
+    @plot_with_custom_style
+    def plot(self, ax: Axes = None) -> Axes:
+        """
+        Plot the shape.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+            An optional :class:`~matplotlib.axes.Axes` object to plot on.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The :class:`~matplotlib.axes.Axes` object containing the plot.
+        """
+        if not ax:
+            fig, ax = plt.subplots(layout='constrained')
+            fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
+        _ = ax.axis('equal')
+        for start, end in self.lines:
+            ax.plot(*list(zip(start, end)), 'k-')
+        return ax

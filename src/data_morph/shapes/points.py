@@ -16,13 +16,13 @@ class DotsGrid(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import DotsGrid
 
-        _ = DotsGrid(DataLoader.load_dataset('dino')).plot()
+        _ = DotsGrid(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -52,13 +52,13 @@ class DownParabola(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import DownParabola
 
-        _ = DownParabola(DataLoader.load_dataset('dino')).plot()
+        _ = DownParabola(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -90,13 +90,13 @@ class UpParabola(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import UpParabola
 
-        _ = UpParabola(DataLoader.load_dataset('dino')).plot()
+        _ = UpParabola(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -104,7 +104,7 @@ class UpParabola(PointCollection):
         The starting dataset to morph into other shapes.
     """
 
-    def __init__(self, dataset) -> None:
+    def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.morph_bounds.x_bounds
         x_range = x_bounds.range
 
@@ -128,13 +128,13 @@ class Scatter(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the dino dataset
+            This shape is generated using the panda dataset
             (without normalization).
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import Scatter
 
-        _ = Scatter(DataLoader.load_dataset('dino')).plot()
+        _ = Scatter(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
@@ -160,6 +160,8 @@ class Scatter(PointCollection):
                     )
                 )
         super().__init__(*points)
+
+        self._alpha = 0.4
 
     def distance(self, x: Number, y: Number) -> int:
         """

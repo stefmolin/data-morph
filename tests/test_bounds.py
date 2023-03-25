@@ -4,9 +4,9 @@ import re
 
 import pytest
 
+from data_morph.bounds._utils import _validate_2d
 from data_morph.bounds.bounding_box import BoundingBox
 from data_morph.bounds.interval import Interval
-from data_morph.bounds.utils import _validate_2d
 
 
 @pytest.mark.parametrize(
@@ -33,8 +33,8 @@ def test_bounds_init():
     """Test that Interval can be initialized."""
     limits, inclusive = [0, 10], True
     bounds = Interval(limits, inclusive)
-    assert bounds.bounds == limits
-    assert bounds.inclusive == inclusive
+    assert bounds._bounds == limits
+    assert bounds._inclusive == inclusive
 
 
 @pytest.mark.parametrize(
@@ -180,13 +180,10 @@ def test_bounds_clone(limits, inclusive):
     assert bounds is not bounds_clone
 
     # confirm equality of values
-    assert bounds.bounds == bounds_clone.bounds
-    assert bounds.inclusive == bounds_clone.inclusive
     assert bounds == bounds_clone
 
     # confirm deep copy of bounds
     bounds_clone.adjust_bounds(2)
-    assert bounds.bounds != bounds_clone.bounds
     assert bounds != bounds_clone
 
 
@@ -253,8 +250,8 @@ def test_bounding_box_init(x_bounds, y_bounds, inclusive, expected):
     """Test that BoundingBox.__init__() is working."""
 
     bbox = BoundingBox(x_bounds, y_bounds, inclusive)
-    assert bbox.x_bounds.inclusive == expected[0]
-    assert bbox.y_bounds.inclusive == expected[1]
+    assert bbox.x_bounds._inclusive == expected[0]
+    assert bbox.y_bounds._inclusive == expected[1]
 
     # make sure the bounds were cloned
     if isinstance(x_bounds, Interval):

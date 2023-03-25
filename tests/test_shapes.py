@@ -17,7 +17,7 @@ def shape_factory(sample_data):
 
 def test_shape_factory(shape_factory):
     """Test the ShapeFactory class."""
-    for shape_name, shape_type in shape_factory.AVAILABLE_SHAPES.items():
+    for shape_name, shape_type in shape_factory._SHAPE_MAPPING.items():
         shape = shape_factory.generate_shape(shape_name)
         assert isinstance(shape, shape_type)
         assert shape_name == str(shape)
@@ -32,11 +32,17 @@ def test_shape_abc():
         _ = Shape()
 
     class NewShape(Shape):
-        def distance(self):
-            return super().distance(0, 0)
+        def distance(self, x, y):
+            return super().distance(x, y)
+
+        def plot(self, ax=None):
+            return super().plot(ax)
 
     with pytest.raises(NotImplementedError):
-        NewShape().distance()
+        NewShape().distance(0, 0)
+
+    with pytest.raises(NotImplementedError):
+        NewShape().plot()
 
 
 def test_circle(shape_factory):
@@ -93,7 +99,7 @@ def test_point_collection(shape_factory):
     ['shape', 'expected'],
     [
         ['new_shape', '<NewShape>'],
-        ['dots', '<DotsGrid of 9 points'],
+        ['dots', '<DotsGrid of 9 points>'],
         [
             'x',
             (
@@ -119,9 +125,7 @@ def test_reprs(shape_factory, shape, expected):
     """Test that the __repr__() method is working."""
     if shape != 'new_shape':
         value = repr(shape_factory.generate_shape(shape))
-        if shape == 'dots':
-            assert value.startswith(expected)
-        elif shape == 'x':
+        if shape == 'x':
             assert value == expected
         else:
             assert re.match(expected, value)
@@ -130,6 +134,9 @@ def test_reprs(shape_factory, shape, expected):
         class NewShape(Shape):
             def distance(self, x, y):  # pragma: no cover
                 return x, y
+
+            def plot(self, ax):  # pragma: no cover
+                return ax
 
         new_shape = NewShape()
         assert repr(new_shape) == expected

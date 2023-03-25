@@ -31,9 +31,9 @@ def plot(
     ----------
     df : pandas.DataFrame
         The dataset to plot.
-    x_bounds, y_bounds : Iterable[Number]
+    x_bounds, y_bounds : Iterable[numbers.Number]
         The plotting limits.
-    save_to : str or Path
+    save_to : str or pathlib.Path
         Path to save the plot frame to.
     decimals : int
         The number of integers to highlight as preserved.
@@ -44,14 +44,14 @@ def plot(
     Returns
     -------
     matplotlib.axes.Axes or None
-        When ``save_to`` is falsey, an Axes object is returned.
+        When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.
     """
     fig, ax = plt.subplots(
         figsize=(12.5, 6), layout='constrained', subplot_kw={'aspect': 'equal'}
     )
     fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
-    ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
+    ax.scatter(df.x, df.y, s=20, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
 
     tick_formatter = EngFormatter()
@@ -108,7 +108,7 @@ def plot(
     save_to = Path(save_to)
     dirname = save_to.parent
     if not dirname.is_dir():
-        dirname.mkdir()
+        dirname.mkdir(parents=True, exist_ok=True)
 
     fig.savefig(save_to, bbox_inches='tight', **save_kwds)
     plt.close(fig)

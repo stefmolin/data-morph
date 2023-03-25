@@ -4,7 +4,7 @@ Data Morph
 Morph an input dataset of 2D points into select shapes, while preserving the summary
 statistics to a given number of decimal points through simulated annealing.
 
-.. include:: docs/quickstart.rst
+.. include:: ./docs/quickstart.rst
    :start-after: .. INSTALLATION
 
 Notes

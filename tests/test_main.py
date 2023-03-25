@@ -30,6 +30,21 @@ def test_main_bad_input_decimals(decimals, reason, capsys):
 
 
 @pytest.mark.bad_input_to_argparse
+@pytest.mark.parametrize(
+    ['shake', 'reason'],
+    [
+        ('--', 'expected one argument'),
+        ('s', 'invalid float value'),
+    ],
+)
+def test_main_bad_input_shake(shake, reason, capsys):
+    """Test that invalid input for shake is handled correctly."""
+    with pytest.raises(SystemExit):
+        __main__.main(['--shake', shake, 'dino'])
+    assert f'error: argument --shake: {reason}' in capsys.readouterr().err
+
+
+@pytest.mark.bad_input_to_argparse
 @pytest.mark.parametrize('value', [True, False, 0.1, 's'])
 @pytest.mark.parametrize('field', ['iterations', 'freeze', 'seed'])
 def test_main_bad_input_integers(field, value, capsys):
@@ -150,6 +165,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
     morph_args = {
         'start_shape_name': 'dino',
         'target_shape': 'circle',
+        'min_shake': 0.5 if flag else None,
         'iterations': 1000,
         'freeze': 3 if flag else None,
         'ramp_in': flag,
@@ -170,6 +186,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
         '--write-data' if init_args['write_data'] else '',
         '--keep-frames' if init_args['keep_frames'] else '',
         '--forward-only' if init_args['forward_only_animation'] else '',
+        f'--shake={morph_args["min_shake"]}' if morph_args['min_shake'] else '',
         f'--freeze={morph_args["freeze"]}' if morph_args['freeze'] else '',
         '--ramp-in' if morph_args['ramp_in'] else '',
         '--ramp-out' if morph_args['ramp_out'] else '',
@@ -189,11 +206,9 @@ def test_main_one_shape(flag, mocker, tmp_path):
         elif arg == 'start_shape':
             assert isinstance(value, Dataset)
             assert value.name == morph_args['start_shape_name']
-        elif arg in ['freeze_for']:
+        elif arg in ['freeze_for', 'min_shake']:
             arg = 'freeze' if arg == 'freeze_for' else arg
-            assert value == (
-                morph_args[arg] or __main__.ARG_DEFAULTS[arg]
-            )
+            assert value == (morph_args[arg] or __main__.ARG_DEFAULTS[arg])
         else:
             assert value == morph_args[arg]
 
@@ -239,7 +254,6 @@ def test_main_multiple_shapes(
         == capsys.readouterr().err
     )
     patterns_run = [
-        str(kwargs['target_shape'])
-        for (_, kwargs) in morph_noop.call_args_list
+        str(kwargs['target_shape']) for _, kwargs in morph_noop.call_args_list
     ]
     assert set(shapes).difference(patterns_run) == set()

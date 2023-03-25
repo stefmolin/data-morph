@@ -331,7 +331,8 @@ class DataMorpher:
         iterations: int = 100_000,
         max_temp: Number = 0.4,
         min_temp: Number = 0,
-        shake: Number = 0.3,
+        min_shake: Number = 0.3,
+        max_shake: Number = 1,
         allowed_dist: Number = 2,
         ramp_in: bool = False,
         ramp_out: bool = False,
@@ -353,10 +354,15 @@ class DataMorpher:
             The maximum temperature for simulated annealing (starting temperature).
         min_temp : numbers.Number
             The minimum temperature for simulated annealing (ending temperature).
-        shake : numbers.Number
+        min_shake : Number
             The standard deviation of random movement applied in each direction,
-            sampled from a normal distribution with a mean of zero.
-        allowed_dist : numbers.Number
+            sampled from a normal distribution with a mean of zero. Value will start
+            at ``max_shake`` and move toward ``min_shake``.
+        max_shake : Number
+            The standard deviation of random movement applied in each direction,
+            sampled from a normal distribution with a mean of zero. Value will start
+            at ``max_shake`` and move toward ``min_shake``.
+        allowed_dist : Number
             The farthest apart the perturbed points can be from the target shape.
         ramp_in : bool, default ``False``
             Whether to more slowly transition in the beginning.
@@ -390,34 +396,32 @@ class DataMorpher:
         and :attr:`keep_frames`) and, depending on :attr:`write_data`,
         CSV files for each frame.
         """
-        # TODO: input validation and tests
-        # max_temp: Number = 0.4, (require > 0 and greater than min_temp)
-        # min_temp: Number = 0, (require >= 0 and less than max_temp)
-        # shake: float = 0.3, (require shake > 0)
-        # allowed_dist: Number = 2, (require > 0)
+        for name, value in [
+            ('max_temp', max_temp),
+            ('min_temp', min_temp),
+            ('min_shake', min_shake),
+            ('max_shake', max_shake),
+        ]:
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, Number)
+                or not 0 <= value <= 1
+            ):
+                raise ValueError(f'{name} must be a number >= 0 and <= 1.')
 
-        if isinstance(max_temp, bool) or not isinstance(max_temp, Number):
-            raise ValueError('max_temp must be a number >= 0.')
-
-        if isinstance(min_temp, bool) or not isinstance(min_temp, Number):
-            raise ValueError('min_temp must be a number >= 0.')
-
-        if min_temp >= max_temp:
-            raise ValueError('max_temp must be greater than min_temp.')
-
-        if (
-            isinstance(shake, bool)
-            or not isinstance(shake, Number)
-            or not 0 <= shake <= 1
-        ):
-            raise ValueError('shake must be a number >= 0 and <= 1.')
+        for name, min_value, max_value in [
+            ('temp', min_temp, max_temp),
+            ('shake', min_shake, max_shake),
+        ]:
+            if min_value >= max_value:
+                raise ValueError(f'max_{name} must be greater than min_{name}.')
 
         if (
             isinstance(allowed_dist, bool)
-            or not isinstance(allowed_dist, int)
+            or not isinstance(allowed_dist, Number)
             or allowed_dist < 0
         ):
-            raise ValueError('allowed_dist must be a non-negative integer.')
+            raise ValueError('allowed_dist must be a non-negative numeric value.')
 
         morphed_data = start_shape.df.copy()
 
@@ -441,19 +445,32 @@ class DataMorpher:
             frame_number=0,
         )
 
+        def _tweening(frame, *, min_value, max_value):  # numpydoc ignore=PR01,RT01
+            """Determine the next value with tweening."""
+            return (max_value - min_value) * pytweening.easeInOutQuad(
+                (iterations - frame) / iterations
+            ) + min_value
+
+        get_current_temp = partial(
+            _tweening,
+            min_value=min_temp,
+            max_value=min_temp,
+        )
+        get_current_shake = partial(
+            _tweening,
+            min_value=min_shake,
+            max_value=max_shake,
+        )
+
         for i in self._looper(
             iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
         ):
-            current_temp = (max_temp - min_temp) * pytweening.easeInOutQuad(
-                (iterations - i) / iterations
-            ) + min_temp
-
             perturbed_data = self._perturb(
                 morphed_data.copy(),
                 target_shape=target_shape,
-                shake=shake,
+                shake=get_current_shake(i),
                 allowed_dist=allowed_dist,
-                temp=current_temp,
+                temp=get_current_temp(i),
                 bounds=start_shape.morph_bounds,
             )
 

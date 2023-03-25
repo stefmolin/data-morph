@@ -1,6 +1,7 @@
 """Tests for data_morph.morpher module."""
 
 import glob
+from functools import partial
 
 import pandas as pd
 import pytest
@@ -10,6 +11,18 @@ from pandas.testing import assert_frame_equal
 from data_morph.data.loader import DataLoader
 from data_morph.morpher import DataMorpher
 from data_morph.shapes.factory import ShapeFactory
+
+
+@pytest.fixture
+def morph_partial():
+    """Fixture providing a partial morph() method with start and target specified."""
+    morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+    dataset = DataLoader.load_dataset('dino')
+    return partial(
+        morpher.morph,
+        start_shape=dataset,
+        target_shape=ShapeFactory(dataset).generate_shape('circle'),
+    )
 
 
 @pytest.mark.parametrize(
@@ -85,6 +98,36 @@ def test_morpher_frames(ramp_in, ramp_out, expected_frames):
     assert_equal(frames[:freeze_for], [0] * freeze_for)
     assert_equal(frames[-freeze_for:], [iterations] * freeze_for)
     assert_equal(frames[freeze_for:-freeze_for], expected_frames)
+
+
+@pytest.mark.parametrize('name', ['min_shake', 'max_shake', 'min_temp', 'max_temp'])
+@pytest.mark.parametrize('value', [-1, 1.5, 's', False])
+def test_morpher_morph_input_validation(morph_partial, name, value):
+    """Test input validation for the morph() method."""
+    with pytest.raises(ValueError, match=f'{name} must be a number >= 0 and <= 1'):
+        _ = morph_partial(**{name: value})
+
+
+@pytest.mark.parametrize('name', ['shake', 'temp'])
+@pytest.mark.parametrize(
+    ['min_value', 'max_value'],
+    [(0, 0), (1, 1), (0.5, 0.5), (0.5, 0.25)],
+)
+def test_morpher_morph_input_validation_shake_and_temp_range(
+    morph_partial, name, min_value, max_value
+):
+    """Test input validation of the temp and shake ranges for the morph() method."""
+    with pytest.raises(ValueError, match=f'max_{name} must be greater than min_{name}'):
+        _ = morph_partial(**{f'min_{name}': min_value, f'max_{name}': max_value})
+
+
+@pytest.mark.parametrize('value', [-1, 's', False])
+def test_morpher_morph_input_validation_allowed_dist(morph_partial, value):
+    """Test input validation for allowed_dist in the morph() method."""
+    with pytest.raises(
+        ValueError, match='allowed_dist must be a non-negative numeric value'
+    ):
+        _ = morph_partial(allowed_dist=value)
 
 
 def test_morpher_no_writing(capsys):

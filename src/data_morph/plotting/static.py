@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.axes import Axes
+from matplotlib.ticker import EngFormatter
 
 from ..data.stats import get_values
 from .style import plot_with_custom_style
@@ -52,6 +53,10 @@ def plot(
 
     ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
+
+    tick_formatter = EngFormatter()
+    ax.xaxis.set_major_formatter(tick_formatter)
+    ax.yaxis.set_major_formatter(tick_formatter)
 
     res = get_values(df)
 

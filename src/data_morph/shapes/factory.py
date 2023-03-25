@@ -46,6 +46,7 @@ class ShapeFactory:
         'down_parab': points.DownParabola,
         'scatter': points.Scatter,
         'up_parab': points.UpParabola,
+        'rectangle': polygons.Rectangle,
         'star': polygons.Star,
     }
 

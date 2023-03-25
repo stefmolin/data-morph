@@ -13,7 +13,7 @@ ARG_DEFAULTS = {
     'output_dir': Path.cwd() / 'morphed_data',
     'target_shape': 'all',
     'decimals': 2,
-    'shake': 0.3,
+    'min_shake': 0.3,
     'iterations': 100_000,
     'freeze': 0,
 }
@@ -21,7 +21,7 @@ ARG_DEFAULTS = {
 
 def main(argv: Union[Sequence[str], None] = None) -> None:
     """
-    Run data morph as a module.
+    Run data morph as a script.
 
     Parameters
     ----------
@@ -75,6 +75,21 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         help=(
             'The number of decimal places to preserve equality. '
             f'Defaults to {ARG_DEFAULTS["decimals"]}.'
+        ),
+    )
+    morph_config_group.add_argument(
+        '--shake',
+        default=ARG_DEFAULTS['min_shake'],
+        type=float,
+        help=(
+            'The standard deviation for the random movement applied in each '
+            'direction, which will be sampled from a normal distribution with '
+            'a mean of zero. Note that morphing initially sets the shake to 1, '
+            'and then decreases the shake value over time toward the minimum value '
+            f'defined here, which defaults to {ARG_DEFAULTS["min_shake"]}. Datasets '
+            'with wider ranges of values may benefit from normalizing '
+            '(see --bounds and --xy-bounds) or increasing this towards 1, '
+            'along with increasing the number of iterations (see --iterations).'
         ),
     )
     morph_config_group.add_argument(
@@ -231,6 +246,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             start_shape=dataset,
             target_shape=shape_factory.generate_shape(target_shape),
             iterations=args.iterations,
+            min_shake=args.shake,
             ramp_in=args.ramp_in,
             ramp_out=args.ramp_out,
             freeze_for=args.freeze,

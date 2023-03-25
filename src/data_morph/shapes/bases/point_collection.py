@@ -47,7 +47,9 @@ class PointCollection(Shape):
             The minimum distance from the points of this shape
             to the point (x, y).
         """
-        return np.min(np.linalg.norm(self.points - np.array((x, y)), ord=2, axis=1))
+        return np.min(
+            np.linalg.norm(np.array(self.points) - np.array((x, y)), ord=2, axis=1)
+        )
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:

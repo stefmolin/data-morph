@@ -108,7 +108,7 @@ def plot(
     save_to = Path(save_to)
     dirname = save_to.parent
     if not dirname.is_dir():
-        dirname.mkdir()
+        dirname.mkdir(parents=True, exist_ok=True)
 
     fig.savefig(save_to, bbox_inches='tight', **save_kwds)
     plt.close(fig)

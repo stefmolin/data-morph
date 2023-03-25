@@ -99,12 +99,11 @@ out the other built-in options:
 
 Acknowledgements
 ----------------
-This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/stefmolin/data-morph/edit/main/README.rst)) to work for other input datasets
-by parameterizing the target shapes with information from the input shape.
+This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/stefmolin/data-morph/edit/main/README.rst))
+to work for other input datasets by parameterizing the target shapes with information from the input shape.
 The original code works for a specific dataset called the "dinosaurus" and was created
 for the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and
-Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice
-(ACM CHI 2017).
+Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice (ACM CHI 2017).
 
 The paper, video, and associated code and datasets can be found on the
 Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.

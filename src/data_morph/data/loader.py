@@ -67,6 +67,12 @@ class DataLoader:
         -------
         Dataset
             The starting dataset for morphing.
+
+        Notes
+        -----
+        If you are looking to create a :class:`.Dataset` from a
+        :class:`~pandas.DataFrame` object, use the :class:`.Dataset`
+        class directly.
         """
         try:
             filepath = files(MAIN_DIR).joinpath(

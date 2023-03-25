@@ -94,9 +94,9 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'a mean of zero. Note that morphing initially sets the shake to 1, '
             'and then decreases the shake value over time toward the minimum value '
             f'defined here, which defaults to {ARG_DEFAULTS["min_shake"]}. Datasets '
-            'with wider ranges of values may benefit from normalizing '
-            '(see --bounds and --xy-bounds) or increasing this towards 1, '
-            'along with increasing the number of iterations (see --iterations).'
+            'with large values may benefit from scaling (see --scale) '
+            'or increasing this towards 1, along with increasing the number of '
+            'iterations (see --iterations).'
         ),
     )
     morph_config_group.add_argument(
@@ -115,29 +115,14 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         type=int,
         help='Provide a seed for reproducible results.',
     )
-
-    bounds_config_group = morph_config_group.add_mutually_exclusive_group()
-    bounds_config_group.add_argument(
-        '--bounds',
+    morph_config_group.add_argument(
+        '--scale',
         default=None,
-        nargs=2,
         type=float,
         help=(
-            'Normalize the data on both x and y to be in the same desired range. '
-            'For example, `--bounds 10 90` sets both the x and y bounds to [10, 90]. '
-            'See --xy-bounds to set different ranges for x and y.'
-        ),
-    )
-    bounds_config_group.add_argument(
-        '--xy-bounds',
-        default=None,
-        nargs=4,
-        type=float,
-        help=(
-            'Normalize the data on x and y to be in different desired ranges. '
-            'For example, `--xy-bounds 10 90 200 700` sets the x bounds to [10, 90] '
-            'and the y bounds to [200, 700]. To set the same range for both, use '
-            'the shorthand --bounds option.'
+            'Scale the data on both x and y by dividing by a scale factor. '
+            'For example, `--scale 10` divides all x and y values by 10. '
+            'Datasets with large values will morph faster after scaling down.'
         ),
     )
 
@@ -223,15 +208,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'."""
         )
 
-    if args.xy_bounds:
-        x_bounds = args.xy_bounds[:2]
-        y_bounds = args.xy_bounds[2:]
-    else:
-        x_bounds = y_bounds = args.bounds
-
-    dataset = DataLoader.load_dataset(
-        args.start_shape, x_bounds=x_bounds, y_bounds=y_bounds
-    )
+    dataset = DataLoader.load_dataset(args.start_shape, scale=args.scale)
 
     shape_factory = ShapeFactory(dataset)
     morpher = DataMorpher(

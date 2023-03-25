@@ -4,7 +4,6 @@ from importlib.resources import files
 from itertools import zip_longest
 from numbers import Number
 from pathlib import Path
-from typing import Iterable
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -49,8 +48,7 @@ class DataLoader:
     def load_dataset(
         cls,
         dataset: str,
-        x_bounds: Iterable[Number] = None,
-        y_bounds: Iterable[Number] = None,
+        scale: Number = None,
     ) -> Dataset:
         """
         Load dataset.
@@ -60,8 +58,9 @@ class DataLoader:
         dataset : str
             Either one of :attr:`AVAILABLE_DATASETS` or a path to a
             CSV file containing two columns: x and y.
-        x_bounds, y_bounds : Iterable[numbers.Number], optional
-            An iterable of min/max bounds for normalization.
+        scale : numbers.Number, optional
+            The factor to scale the data by (can be used to speed up morphing).
+            Values in the data's x and y columns will be divided by this value.
 
         Returns
         -------
@@ -90,7 +89,7 @@ class DataLoader:
                     'Provide a valid path to a CSV dataset or use one of '
                     f'the included datasets: {", ".join(cls.AVAILABLE_DATASETS)}.'
                 )
-        return Dataset(name=name, df=df, x_bounds=x_bounds, y_bounds=y_bounds)
+        return Dataset(name=name, df=df, scale=scale)
 
     @classmethod
     @plot_with_custom_style

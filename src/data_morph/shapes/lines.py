@@ -13,8 +13,7 @@ class HighLines(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.lines import HighLines
@@ -51,8 +50,7 @@ class HorizontalLines(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.lines import HorizontalLines
@@ -87,8 +85,7 @@ class SlantDownLines(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.lines import SlantDownLines
@@ -132,8 +129,7 @@ class SlantUpLines(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.lines import SlantUpLines
@@ -177,8 +173,7 @@ class VerticalLines(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.lines import VerticalLines
@@ -213,8 +208,7 @@ class WideLines(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.lines import WideLines
@@ -251,8 +245,7 @@ class XLines(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.lines import XLines

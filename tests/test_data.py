@@ -43,43 +43,39 @@ def test_data_loader_unknown_data(dataset):
         _ = DataLoader.load_dataset(dataset)
 
 
-@pytest.mark.parametrize('bounds', [[-20, 120], (-20, 120), None])
-def test_dataset_normalization(bounds, datasets_dir):
-    """Confirm that data normalization is working by checking min and max."""
+@pytest.mark.parametrize('scale', [10, 0.5, None])
+def test_dataset_scale_data(scale, datasets_dir):
+    """Confirm that data scaling is working by checking min and max."""
 
-    dataset = DataLoader.load_dataset('dino', x_bounds=bounds, y_bounds=bounds)
+    original_df = pd.read_csv(datasets_dir / 'dino.csv')
+    original_min = original_df.min()
+    original_max = original_df.max()
 
-    if bounds:
-        assert_equal(dataset.df.min().to_numpy(), [bounds[0]] * 2)
-        assert_equal(dataset.df.max().to_numpy(), [bounds[1]] * 2)
+    dataset = DataLoader.load_dataset('dino', scale=scale)
+
+    if scale:
+        assert_equal(dataset.df.min().to_numpy(), original_min / scale)
+        assert_equal(dataset.df.max().to_numpy(), original_max / scale)
     else:
-        df = pd.read_csv(datasets_dir / 'dino.csv')
-        assert_frame_equal(dataset.df, df)
+        assert_frame_equal(dataset.df, original_df)
 
 
 @pytest.mark.parametrize(
-    'bounds',
-    [[], (), '', [3], [1, 2, 3], '12', [True, False]],
+    'scale',
+    [[3], (), '', '12', True, False, 0],
     ids=str,
 )
-def test_dataset_normalization_valid_bounds(bounds):
-    """Confirm that normalization doesn't happen unless bounds are valid."""
-    with pytest.raises(ValueError, match='bounds must be an iterable'):
-        _ = DataLoader.load_dataset('dino', x_bounds=bounds, y_bounds=bounds)
+def test_dataset_scale_data_valid_scale(scale):
+    """Confirm that scaling doesn't happen unless scale is valid."""
+    if scale is not False and scale == 0:
+        exc = ValueError
+        msg = 'scale must be non-zero'
+    else:
+        exc = TypeError
+        msg = 'scale must be a numeric value'
 
-
-@pytest.mark.parametrize(
-    ['x_bounds', 'y_bounds'],
-    [
-        ([10, 90], None),
-        (None, [10, 90]),
-    ],
-    ids=['missing y', 'missing x'],
-)
-def test_dataset_normalization_both_bounds_required(x_bounds, y_bounds):
-    """Confirm that normalization doesn't happen unless both bounds are provided."""
-    with pytest.raises(ValueError, match='supply both x and y'):
-        _ = DataLoader.load_dataset('dino', x_bounds=x_bounds, y_bounds=y_bounds)
+    with pytest.raises(exc, match=msg):
+        _ = DataLoader.load_dataset('dino', scale=scale)
 
 
 def test_dataset_validation_missing_columns(datasets_dir):
@@ -100,26 +96,39 @@ def test_dataset_validation_fix_column_casing(datasets_dir):
 
 
 @pytest.mark.parametrize(
-    ['limits', 'morph_bounds', 'plot_bounds'],
+    ['scale', 'morph_bounds', 'plot_bounds'],
     [
-        ([10, 90], [2, 98], [-6, 106]),
-        ([0, 100], [-10, 110], [-20, 120]),
+        (
+            10,
+            [[1.4717959999999999, 10.579484], [-0.670515, 10.914105]],
+            [[-0.7320549999999985, 12.783335], [-1.6359, 11.879489999999999]],
+        ),
+        (
+            0.5,
+            [[29.43592, 211.58968000000002], [-13.4103, 218.2821]],
+            [[-14.641100000000009, 255.66670000000005], [-32.718, 237.58980000000003]],
+        ),
+        (
+            None,
+            [[14.71796, 105.79484000000001], [-6.70515, 109.14105]],
+            [[-7.320550000000004, 127.83335000000002], [-16.359, 118.79490000000001]],
+        ),
     ],
 )
-def test_dataset_derive_bounds(limits, morph_bounds, plot_bounds):
+def test_dataset_derive_bounds(scale, morph_bounds, plot_bounds):
     """Test that Dataset._derive_bounds() is working."""
-    dataset = DataLoader.load_dataset('dino', x_bounds=limits, y_bounds=limits)
+    dataset = DataLoader.load_dataset('dino', scale=scale)
 
-    assert dataset.morph_bounds == BoundingBox(morph_bounds, morph_bounds)
-    assert dataset.plot_bounds == BoundingBox(plot_bounds, plot_bounds)
+    assert dataset.morph_bounds == BoundingBox(*morph_bounds)
+    assert dataset.plot_bounds == BoundingBox(*plot_bounds)
 
 
-@pytest.mark.parametrize('bounds', [[10, 90], None])
-def test_dataset_repr(bounds):
+@pytest.mark.parametrize('scale', [10, None])
+def test_dataset_repr(scale):
     """Check Dataset.__repr__()."""
 
-    dataset = DataLoader.load_dataset('dino', x_bounds=bounds, y_bounds=bounds)
-    assert repr(dataset) == (f'<Dataset name=dino normalized={bounds is not None}>')
+    dataset = DataLoader.load_dataset('dino', scale=scale)
+    assert repr(dataset) == (f'<Dataset name=dino scaled={scale is not None}>')
 
 
 def test_data_stats():

@@ -128,7 +128,10 @@ addopts = [
 ]
 xfail_strict = true
 testpaths = ["tests"]
-
+markers = [
+    "bad_input_to_argparse: Run tests on input validation for argparse.",
+    "cli: Run tests involving the CLI.",
+]
 
 [tool.numpydoc_validation]
 ignore = [

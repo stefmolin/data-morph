@@ -9,11 +9,12 @@ The ``data_morph`` package can be installed with ``pip``:
 
    $ pip install data_morph
 
-You can also install with ``conda`` (coming soon):
+.. 
+   You can also install with ``conda`` (coming soon):
 
-.. code:: console
+   .. code:: console
 
-   $ conda install data_morph -c conda-forge
+      $ conda install data_morph -c conda-forge
 
 Command Line Usage
 ------------------

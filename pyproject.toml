@@ -42,6 +42,7 @@ dev = [
     "pytest",
     "pytest-cov",
     "pytest-mock",
+    "pytest-randomly",
 ]
 docs = [
     "sphinx>=6.1.3",
@@ -112,10 +113,25 @@ skip_gitignore = true
 
 [tool.pytest.ini_options]
 addopts = [
+    "-ra",
+    "-l",
+    "-v",
+    "--tb=short",
     "--import-mode=importlib",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=data_morph",
+    "--cov=tests",
+    "--cov-report=term-missing",
+    "--cov-fail-under=90",
+    "--no-cov-on-fail",
 ]
+xfail_strict = true
 testpaths = ["tests"]
-
+markers = [
+    "bad_input_to_argparse: Run tests on input validation for argparse.",
+    "cli: Run tests involving the CLI.",
+]
 
 [tool.numpydoc_validation]
 ignore = [

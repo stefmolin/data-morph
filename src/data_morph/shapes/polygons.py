@@ -15,17 +15,8 @@ class Rectangle(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        xmin, xmax = dataset.data_bounds.x_bounds
-        ymin, ymax = dataset.data_bounds.y_bounds
-
-        x_offset = dataset.data_bounds.x_bounds.range / 5
-        y_offset = dataset.data_bounds.y_bounds.range / 5
-
-        xmin += x_offset
-        xmax -= x_offset
-
-        ymin += y_offset
-        ymax -= y_offset
+        xmin, xmax = dataset.df.x.quantile([0.1, 0.9])
+        ymin, ymax = dataset.df.y.quantile([0.1, 0.9])
 
         super().__init__(
             [[xmin, ymin], [xmin, ymax]],

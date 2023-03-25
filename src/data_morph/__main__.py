@@ -53,7 +53,8 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         'start_shape',
         help=(
             f'The starting shape. This could be one of {DataLoader.AVAILABLE_DATASETS} or '
-            "a path to a CSV file, in which case it should have two columns 'x' and 'y'."
+            "a path to a CSV file, in which case it should have two columns 'x' and 'y'. "
+            'See the documentation for visualizations of the built-in datasets.'
         ),
     )
     morph_config_group.add_argument(
@@ -65,6 +66,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'will be converted to each target shape separately. Valid target shapes are '
             f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'. Omit to convert to all """
             'target shapes in a single run.'
+            ' See the documentation for visualizations of the available target shapes.'
         ),
     )
     morph_config_group.add_argument(

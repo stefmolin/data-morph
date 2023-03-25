@@ -1,7 +1,6 @@
 """Class representing a dataset for morphing."""
 
 from numbers import Number
-from typing import Iterable
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -30,8 +29,9 @@ class Dataset:
         The name to use for the dataset.
     df : pandas.DataFrame
         DataFrame containing columns x and y.
-    x_bounds, y_bounds : Iterable[numbers.Number], optional
-        An iterable of min/max bounds for normalization.
+    scale : numbers.Number, optional
+        The factor to scale the data by (can be used to speed up morphing).
+        Values in the data's x and y columns will be divided by this value.
 
     See Also
     --------
@@ -45,12 +45,9 @@ class Dataset:
         self,
         name: str,
         df: pd.DataFrame,
-        x_bounds: Iterable[Number] = None,
-        y_bounds: Iterable[Number] = None,
+        scale: Number,
     ) -> None:
-        self.df: pd.DataFrame = self._validate_data(df).pipe(
-            self._normalize_data, x_bounds, y_bounds
-        )
+        self.df: pd.DataFrame = self._validate_data(df).pipe(self._scale_data, scale)
         """pandas.DataFrame: DataFrame containing columns x and y."""
 
         self.name: str = name
@@ -66,10 +63,7 @@ class Dataset:
         """BoundingBox: The bounds to use when plotting the morphed data."""
 
     def __repr__(self) -> str:
-        return (
-            f'<{self.__class__.__name__} name={self.name} '
-            f'normalized={self.normalized}>'
-        )
+        return f'<{self.__class__.__name__} name={self.name} ' f'scaled={self._scaled}>'
 
     def _derive_data_bounds(self) -> None:
         """
@@ -123,50 +117,30 @@ class Dataset:
         plot_bounds.align_aspect_ratio()
         return plot_bounds
 
-    def _normalize_data(
-        self, df, x_bounds: Iterable[Number], y_bounds: Iterable[Number]
-    ) -> pd.DataFrame:
+    def _scale_data(self, df, scale: Number) -> pd.DataFrame:
         """
-        Apply normalization.
+        Apply scaling to the data.
 
         Parameters
         ----------
         df : pandas.DataFrame
             The data to normalize.
-        x_bounds, y_bounds : Iterable[numbers.Number], optional
-            The desired minimum/maximum values. Either pass both or none.
+        scale : numbers.Number, optional
+            The factor to scale the data by (can be used to speed up morphing).
+            Values in the data's x and y columns will be divided by this value.
 
         Returns
         -------
         pandas.DataFrame
             The normalized data.
         """
-        if x_bounds is None and y_bounds is None:
-            self.normalized = False
+        if scale is None:
+            self._scaled = False
             return df
 
-        if (x_bounds is None and y_bounds is not None) or (
-            x_bounds is not None and y_bounds is None
-        ):
-            raise ValueError(
-                "Either don't supply bounds or supply both x and y bounds."
-            )
-
-        for col, bounds in [('x', x_bounds), ('y', y_bounds)]:
-            a, b = Interval(bounds, inclusive=True)
-            df = df.assign(
-                **{
-                    col: lambda c: (
-                        a
-                        + (c[col] - c[col].min())
-                        .multiply(b - a)
-                        .div(c[col].max() - c[col].min())
-                    )
-                }
-            )
-
-        self.normalized = True
-        return df
+        scaled_df = df.assign(x=df.x.div(scale), y=df.y.div(scale))
+        self._scaled = True
+        return scaled_df
 
     def _validate_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """

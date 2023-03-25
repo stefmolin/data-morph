@@ -9,7 +9,7 @@ The ``data_morph`` package can be installed with ``pip``:
 
    $ pip install data_morph
 
-.. 
+..
    You can also install with ``conda`` (coming soon):
 
    .. code:: console
@@ -19,7 +19,7 @@ The ``data_morph`` package can be installed with ``pip``:
 Command Line Usage
 ------------------
 
-Run ``data_morph`` on the command line:
+Run ``data-morph`` on the command line:
 
 .. code:: console
 

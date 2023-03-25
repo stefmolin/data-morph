@@ -1,0 +1,56 @@
+# This workflow builds Data Morph on Mac, Linux, and Windows for
+# multiple versions of Python to confirm it can be properly installed.
+#
+# For more information see https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+#
+# Author: Stefanie Molin
+
+name: CI
+
+on:
+  # Trigger on push to the primary branches and all versioned tags
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+
+  # Trigger on pull request always (note the trailing colon)
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build with Python ${{ matrix.python-version }} on ${{ matrix.os }}
+
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash -e {0}
+
+    strategy:
+        fail-fast: false
+        matrix:
+            os: [macos-latest, ubuntu-latest, windows-latest]
+            python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Data Morph
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install setuptools --upgrade
+          python -m pip install .
+
+      - name: Diagnostics
+        run: |
+          data-morph --version

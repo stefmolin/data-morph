@@ -124,7 +124,7 @@ class Dataset:
         Parameters
         ----------
         df : pandas.DataFrame
-            The data to normalize.
+            The data to scale.
         scale : numbers.Number, optional
             The factor to scale the data by (can be used to speed up morphing).
             Values in the data's x and y columns will be divided by this value.
@@ -132,7 +132,7 @@ class Dataset:
         Returns
         -------
         pandas.DataFrame
-            The normalized data.
+            The scaled data.
         """
         if scale is None:
             self._scaled = False

@@ -11,8 +11,7 @@ class Rectangle(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
@@ -45,8 +44,7 @@ class Star(LineCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader

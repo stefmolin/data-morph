@@ -16,8 +16,7 @@ class DotsGrid(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import DotsGrid
@@ -52,8 +51,7 @@ class DownParabola(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import DownParabola
@@ -90,8 +88,7 @@ class UpParabola(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import UpParabola
@@ -128,8 +125,7 @@ class Scatter(PointCollection):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.points import Scatter

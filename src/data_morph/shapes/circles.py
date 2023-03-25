@@ -17,8 +17,7 @@ class Circle(Shape):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.circles import Circle
@@ -93,8 +92,7 @@ class Bullseye(Shape):
     .. plot::
        :scale: 75
        :caption:
-            This shape is generated using the panda dataset
-            (without normalization).
+            This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.circles import Bullseye

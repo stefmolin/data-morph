@@ -1,0 +1,33 @@
+bounds:
+- src/data_morph/bounds/**/*
+
+ci/cd:
+- '.github/**/*'
+
+cli:
+- src/data_morph/__main__.py
+
+data:
+- src/data_morph/data/**/*
+
+documentation:
+- docs/**/*
+- README.rst
+
+morpher:
+- src/data_morph/morpher.py
+
+packaging:
+- pyproject.toml
+- README.rst
+- LICENSE
+- src/data_morph/__init__.py
+
+plotting:
+- src/data_morph/plotting/**/*
+
+shapes:
+- src/data_morph/shapes/**/*
+
+testing:
+- tests/**/*

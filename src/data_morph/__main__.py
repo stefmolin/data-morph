@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 from typing import Sequence, Union
 
+from . import __version__
 from .data.loader import DataLoader
 from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
@@ -44,6 +45,10 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             ' Documentation is at TODO.'
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+
+    parser.add_argument(
+        '--version', action='version', version=f'%(prog)s {__version__}'
     )
 
     morph_config_group = parser.add_argument_group(

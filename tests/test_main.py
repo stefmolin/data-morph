@@ -2,8 +2,15 @@
 
 import pytest
 
-from data_morph import __main__
+from data_morph import __main__, __version__
 from data_morph.data.dataset import Dataset
+
+
+def test_main_version(capsys):
+    """Confirm that --version works."""
+    with pytest.raises(SystemExit):
+        __main__.main(['--version'])
+    assert f'Data Morph {__version__}' == capsys.readouterr().out.strip()
 
 
 def test_main_bad_shape():

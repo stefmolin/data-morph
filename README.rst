@@ -4,6 +4,10 @@ Data Morph
 Morph an input dataset of 2D points into select shapes, while preserving the summary
 statistics to a given number of decimal points through simulated annealing.
 
+.. image:: docs/_static/panda_to_star.gif
+   :alt: Morphing the panda dataset into the star shape.
+   :align: center
+
 Installation
 ------------
 The ``data_morph`` package can be installed with ``pip``:
@@ -28,12 +32,8 @@ Run ``data-morph`` on the command line:
 
    $ data-morph --target-shape star -- panda
 
-This produces the following animation in the newly-created ``morphed_data`` directory
-within your current working directory:
-
-.. image:: docs/_static/panda_to_star.gif
-   :alt: Morphing the panda dataset into the star shape.
-   :align: center
+This produces the animation in the newly-created ``morphed_data`` directory
+within your current working directory (shown above).
 
 ----
 

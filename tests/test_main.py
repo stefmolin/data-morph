@@ -38,17 +38,18 @@ def test_main_bad_input_decimals(decimals, reason, capsys):
 
 @pytest.mark.bad_input_to_argparse
 @pytest.mark.parametrize(
-    ['shake', 'reason'],
+    ['value', 'reason'],
     [
         ('--', 'expected one argument'),
         ('s', 'invalid float value'),
     ],
 )
-def test_main_bad_input_shake(shake, reason, capsys):
-    """Test that invalid input for shake is handled correctly."""
+@pytest.mark.parametrize('field', ['shake', 'scale'])
+def test_main_bad_input_floats(field, value, reason, capsys):
+    """Test that invalid input for floats is handled correctly."""
     with pytest.raises(SystemExit):
-        __main__.main(['--shake', shake, 'dino'])
-    assert f'error: argument --shake: {reason}' in capsys.readouterr().err
+        __main__.main([f'--{field}', value, 'dino'])
+    assert f'error: argument --{field}: {reason}' in capsys.readouterr().err
 
 
 @pytest.mark.bad_input_to_argparse
@@ -76,74 +77,14 @@ def test_main_bad_input_boolean(field, value, capsys):
     )
 
 
-@pytest.mark.bad_input_to_argparse
 @pytest.mark.parametrize(
-    ['bounds', 'reason'],
-    [
-        (['-1'], 'expected 2 arguments'),
-        (['10', 's'], 'invalid float value'),
-    ],
+    ['start_shape', 'scale'],
+    [['dino', 10], ['dino', 0.5], ['dino', None]],
 )
-def test_main_bad_input_bounds(bounds, reason, capsys):
-    """Test that invalid input for bounds is handled correctly."""
-    with pytest.raises(SystemExit):
-        __main__.main(['--bounds', *bounds, '--', 'dino'])
-    assert f'error: argument --bounds: {reason}' in capsys.readouterr().err
-
-
-@pytest.mark.bad_input_to_argparse
-@pytest.mark.parametrize(
-    ['bounds', 'reason'],
-    [
-        (['-1'], 'expected 4 arguments'),
-        (['10', '90', '300', 's'], 'invalid float value'),
-    ],
-)
-def test_main_bad_input_xy_bounds(bounds, reason, capsys):
-    """Test that invalid input for xy_bounds is handled correctly."""
-    with pytest.raises(SystemExit):
-        __main__.main(['--xy-bounds', *bounds, '--', 'dino'])
-    assert f'error: argument --xy-bounds: {reason}' in capsys.readouterr().err
-
-
-def test_main_mutually_exclusive_bounds(capsys):
-    """Test that bounds options are mutually exclusive."""
-    with pytest.raises(SystemExit):
-        __main__.main(
-            [
-                '--bounds',
-                '10',
-                '90',
-                '--xy-bounds',
-                '10',
-                '90',
-                '300',
-                '380',
-                '--',
-                'dino',
-            ]
-        )
-    assert (
-        'error: argument --xy-bounds: not allowed with argument --bounds'
-        in capsys.readouterr().err
-    )
-
-
-@pytest.mark.parametrize(
-    ['start_shape', 'bounds'],
-    [['dino', [10, 100]], ['dino', [10, 100, 200, 290]], ['dino', None]],
-)
-def test_main_dataloader(start_shape, bounds, mocker):
+def test_main_dataloader(start_shape, scale, mocker):
     """Check that the DataLoader is being used correctly."""
 
-    if bounds is None or len(bounds) == 2:
-        arg = '--bounds'
-        x_bounds = y_bounds = bounds
-    else:
-        arg = '--xy-bounds'
-        x_bounds = bounds[:2]
-        y_bounds = bounds[2:]
-    bound_args = [arg, *[str(value) for value in bounds]] if bounds else []
+    bound_args = ['--scale', str(scale)] if scale else []
 
     load = mocker.patch.object(__main__.DataLoader, 'load_dataset', autospec=True)
     _ = mocker.patch.object(__main__.DataMorpher, 'morph')
@@ -153,7 +94,7 @@ def test_main_dataloader(start_shape, bounds, mocker):
         *bound_args,
     ]
     __main__.main([arg for arg in argv if arg])
-    load.assert_called_once_with(start_shape, x_bounds=x_bounds, y_bounds=y_bounds)
+    load.assert_called_once_with(start_shape, scale=scale)
 
 
 @pytest.mark.parametrize('flag', [True, False])

@@ -82,49 +82,20 @@ plot_html_show_formats = False
 
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
+html_logo = '_static/logo.png'
+html_favicon = '_static/favicon.ico'
 
 html_theme_options = {
     "github_url": "https://github.com/stefmolin/data-morph",
     "twitter_url": "https://twitter.com/StefanieMolin",
-    # "header_links_before_dropdown": 4,
-    # "use_edit_page_button": True,
-    "show_toc_level": 1,
-    "navbar_align": "left",  # [left, content, right] For testing that the navbar items align properly
+    "show_toc_level": 2,
+    "navbar_align": "left",
     # "navbar_center": ["version-switcher", "navbar-nav"],
-    # "announcement": "https://raw.githubusercontent.com/pydata/pydata-sphinx-theme/main/docs/_templates/custom-template.html",
-    # "show_nav_level": 2,
-    # "navbar_start": ["navbar-logo"],
-    # "navbar_end": ["theme-switcher", "navbar-icon-links"],
-    # "navbar_persistent": ["search-button"],
-    # "primary_sidebar_end": ["custom-template.html", "sidebar-ethical-ads.html"],
-    # "footer_start": ["test.html", "test.html"],
-    # "secondary_sidebar_items": ["page-toc.html"],  # Remove the source buttons
     # "switcher": {
     #     "json_url": json_url,
     #     "version_match": version_match,
     # },
 }
-
-# html_sidebars = {
-#     "community/index": [
-#         "sidebar-nav-bs",
-#         "custom-template",
-#     ],  # This ensures we test for custom sidebars
-#     "examples/no-sidebar": [],  # Test what page looks like with no sidebar items
-#     "examples/persistent-search-field": ["search-field"],
-#     # Blog sidebars
-#     # ref: https://ablog.readthedocs.io/manual/ablog-configuration-options/#blog-sidebars
-#     "examples/blog/*": [
-#         "ablog/postcard.html",
-#         "ablog/recentposts.html",
-#         "ablog/tagcloud.html",
-#         "ablog/categories.html",
-#         "ablog/authors.html",
-#         "ablog/languages.html",
-#         "ablog/locations.html",
-#         "ablog/archives.html",
-#     ],
-# }
 
 html_context = {
     "github_user": "stefmolin",

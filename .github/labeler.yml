@@ -1,7 +1,7 @@
 bounds:
 - src/data_morph/bounds/**/*
 
-'ci/cd':
+ci/cd:
 - '.github/**/*'
 
 cli:

@@ -28,7 +28,7 @@ class HighLines(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.morph_bounds.x_bounds
+        x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
 
         offset = y_bounds.range / 5
@@ -66,7 +66,7 @@ class HorizontalLines(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.morph_bounds.x_bounds
+        x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
 
         super().__init__(

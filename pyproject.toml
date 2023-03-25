@@ -123,7 +123,7 @@ addopts = [
     "--cov=data_morph",
     "--cov=tests",
     "--cov-report=term-missing",
-    "--cov-fail-under=90", # this should probably only be added for CI because we need to run all tests
+    "--cov-fail-under=90",
     "--no-cov-on-fail",
 ]
 xfail_strict = true

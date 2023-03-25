@@ -45,7 +45,7 @@ class Dataset:
         self,
         name: str,
         df: pd.DataFrame,
-        scale: Number,
+        scale: Number = None,
     ) -> None:
         self.df: pd.DataFrame = self._validate_data(df).pipe(self._scale_data, scale)
         """pandas.DataFrame: DataFrame containing columns x and y."""
@@ -137,6 +137,12 @@ class Dataset:
         if scale is None:
             self._scaled = False
             return df
+
+        if isinstance(scale, bool) or not isinstance(scale, Number):
+            raise TypeError('scale must be a numeric value.')
+
+        if not scale:
+            raise ValueError('scale must be non-zero.')
 
         scaled_df = df.assign(x=df.x.div(scale), y=df.y.div(scale))
         self._scaled = True

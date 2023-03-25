@@ -10,7 +10,7 @@ authors = [
     {name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com"}
 ]
 description = "Teaching tool on the importance of data visualization."
-readme = "README.md"
+readme = "README.rst"
 keywords = ["data visualization", "summary statistics", "data animation"]
 license = {file = "LICENSE"}
 classifiers = [

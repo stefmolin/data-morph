@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    name: Python ${{ matrix.python-version }}, ${{ matrix.os }}
+    name: Build with Python ${{ matrix.python-version }} on ${{ matrix.os }}
 
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
@@ -49,6 +49,4 @@ jobs:
 
       - name: Diagnostics
         run: |
-          ls
-          which python
           data-morph -v

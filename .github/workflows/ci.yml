@@ -16,16 +16,16 @@ on:
   # Trigger on pull request always (note the trailing colon)
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build with Python ${{ matrix.python-version }} on ${{ matrix.os }}
 
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
-
-    defaults:
-      run:
-        shell: bash -el {0}
 
     strategy:
         fail-fast: false
@@ -40,6 +40,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+          cache: pip
 
       - name: Install Data Morph
         run: |

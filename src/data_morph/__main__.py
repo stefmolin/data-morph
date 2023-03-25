@@ -12,7 +12,6 @@ from .shapes.factory import ShapeFactory
 
 ARG_DEFAULTS = {
     'output_dir': Path.cwd() / 'morphed_data',
-    'target_shape': 'all',
     'decimals': 2,
     'min_shake': 0.3,
     'iterations': 100_000,
@@ -64,13 +63,13 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
     morph_config_group.add_argument(
         '--target-shape',
-        nargs='*',
-        default=ARG_DEFAULTS['target_shape'],
+        required=True,
+        nargs='+',
         help=(
             'The shape(s) to convert to. If multiple shapes are provided, the starting shape '
             'will be converted to each target shape separately. Valid target shapes are '
-            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'. Omit to convert to all """
-            'target shapes in a single run.'
+            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'. Use 'all' to convert to """
+            'all target shapes in a single run.'
             ' See the documentation for visualizations of the available target shapes.'
         ),
     )
@@ -199,7 +198,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
 
     target_shapes = (
         ShapeFactory.AVAILABLE_SHAPES
-        if args.target_shape == 'all'
+        if args.target_shape == 'all' or 'all' in args.target_shape
         else set(args.target_shape).intersection(ShapeFactory.AVAILABLE_SHAPES)
     )
     if not target_shapes:

@@ -16,6 +16,7 @@ Usage
 -----
 
 Once installed, Data Morph can be used on the command line or as an importable Python package.
+Below are some examples; be sure to check out the documentation for more information.
 
 
 Command Line Usage
@@ -96,8 +97,8 @@ out the other built-in options:
 * The ``ShapeFactory.AVAILABLE_SHAPES`` attribute contains a list of available shapes, which
   are also visualized in the ``ShapeFactory`` documentation.
 
-Notes
------
+Acknowledgements
+----------------
 This code has been altered by Stefanie Molin to work for other input datasets
 by parameterizing the target shapes with information from the input shape.
 The original code works for a specific dataset called the "dinosaurus" and was created

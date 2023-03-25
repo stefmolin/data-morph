@@ -112,8 +112,20 @@ skip_gitignore = true
 
 [tool.pytest.ini_options]
 addopts = [
+    "-ra",
+    "-l",
+    "-v",
+    "--tb=short",
     "--import-mode=importlib",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=data_morph",
+    "--cov=tests",
+    "--cov-report=term-missing",
+    "--cov-fail-under=90", # this should probably only be added for CI because we need to run all tests
+    "--no-cov-on-fail",
 ]
+xfail_strict = true
 testpaths = ["tests"]
 
 

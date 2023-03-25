@@ -1,6 +1,8 @@
 Quick Start Guide
 =================
 
+.. INSTALLATION
+
 Installation
 ------------
 The ``data_morph`` package can be installed with ``pip``:
@@ -16,8 +18,19 @@ The ``data_morph`` package can be installed with ``pip``:
 
       $ conda install data_morph -c conda-forge
 
+.. USAGE INTRO
+
+Usage
+-----
+
+Once installed, Data Morph can be used on the command line or as an importable Python package.
+
+.. USAGE START
+
 Command Line Usage
-------------------
+~~~~~~~~~~~~~~~~~~
+
+.. CLI USAGE START
 
 Run ``data-morph`` on the command line:
 
@@ -25,12 +38,14 @@ Run ``data-morph`` on the command line:
 
    $ data-morph --target-shape star -- panda
 
-This produces the following animation in a the newly-created ``morphed_data`` directory
+This produces the following animation in the newly-created ``morphed_data`` directory
 within your current working directory:
 
-.. image:: _static/panda_to_star.gif
-   :alt: Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
+.. figure:: _static/panda_to_star.gif
+   :alt: Morphing the panda dataset into the star shape.
    :align: center
+
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
 
 ----
 
@@ -40,8 +55,12 @@ See all available CLI options by passing in ``--help``:
 
    $ data-morph --help
 
+.. CLI USAGE END
+
 Python Usage
-------------
+~~~~~~~~~~~~
+
+.. PYTHON USAGE START
 
 The :class:`.DataMorpher` class performs the morphing from a :class:`.Dataset` to a :class:`.Shape`.
 Any :class:`~pandas.DataFrame` with numeric columns ``x`` and ``y`` can be a :class:`.Dataset`.
@@ -71,7 +90,7 @@ With the :class:`.Dataset` and :class:`.Shape` created, here is a minimal exampl
 
    morpher = DataMorpher(
        decimals=2,
-       in_notebook=False,  # indicate whether you are running this in a Jupyter Notebook
+       in_notebook=False,  # whether you are running in a Jupyter Notebook
        output_dir='data_morph/output',
    )
 
@@ -84,10 +103,14 @@ With the :class:`.Dataset` and :class:`.Shape` created, here is a minimal exampl
    method is also saving plots to visualize the output periodically and make an animation; these end up in
    ``data_morph/output``, which we set as :attr:`.DataMorpher.output_dir`.
 
+.. PYTHON USAGE END
+
 ----
 
+.. VIZ LISTINGS
+
 In this example, we morphed the built-in panda :class:`.Dataset` into the star :class:`.Shape`. Be sure to try
-out the other options:
+out the other built-in options:
 
 * The :attr:`.DataLoader.AVAILABLE_DATASETS` attribute contains a list of available datasets, which
   are also visualized in the :class:`.DataLoader` documentation.

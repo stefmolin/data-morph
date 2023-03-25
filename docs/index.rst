@@ -15,11 +15,8 @@ Data Morph
    api
    release_notes
 
-Put some description of the project here.
-
-Show one of the animations here
-
-Link to the original paper, etc.
-
 .. automodule:: data_morph
    :noindex:
+
+.. include:: quickstart.rst
+   :start-after: .. INSTALLATION

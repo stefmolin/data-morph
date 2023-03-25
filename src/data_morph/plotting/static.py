@@ -51,7 +51,7 @@ def plot(
     )
     fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
-    ax.scatter(df.x, df.y, s=50, alpha=0.7, color='black')
+    ax.scatter(df.x, df.y, s=20, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
 
     tick_formatter = EngFormatter()

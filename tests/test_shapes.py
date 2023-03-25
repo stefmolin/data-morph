@@ -57,11 +57,11 @@ def test_dots(shape_factory):
     assert dots.distance(20, 50) == 0.0
 
 
-def test_scatter(shape_factory):
+@pytest.mark.parametrize(['x', 'y'], [(20, 50), (0, 0)])
+def test_scatter(shape_factory, x, y):
     """Test the Scatter class."""
     scatter = shape_factory.generate_shape('scatter')
-    assert scatter.distance(20, 50) == 0.0
-    assert pytest.approx(scatter.distance(20, 8)) == 31.509619
+    assert scatter.distance(x, y) == 0.0
 
 
 def test_lines(shape_factory):
@@ -93,13 +93,7 @@ def test_point_collection(shape_factory):
     ['shape', 'expected'],
     [
         ['new_shape', '<NewShape>'],
-        [
-            'dots',
-            (
-                '<Dots>\n  dots=\n       (11.0, 50.0)\n       '
-                '(11.0, 50.0)\n       (11.0, 77.0)'
-            ),
-        ],
+        ['dots', '<DotsGrid of 9 points'],
         [
             'x',
             (

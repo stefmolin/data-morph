@@ -1,10 +1,10 @@
 """Polygon shapes made from lines."""
 
 from ..data.dataset import Dataset
-from .bases.lines import Lines
+from .bases.line_collection import LineCollection
 
 
-class Star(Lines):
+class Star(LineCollection):
     """
     Class for the star shape.
 

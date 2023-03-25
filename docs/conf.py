@@ -23,6 +23,7 @@ release = data_morph.__version__
 
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
@@ -33,6 +34,12 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
+
+# -- autosectionlabel ---------------------------------------------------------
+
+# Make sure the target is unique
+autosectionlabel_prefix_document = True
 
 
 # -- intersphinx -------------------------------------------------------------

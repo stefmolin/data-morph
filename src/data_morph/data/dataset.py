@@ -63,7 +63,7 @@ class Dataset:
         """BoundingBox: The bounds to use when plotting the morphed data."""
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} name={self.name} ' f'scaled={self._scaled}>'
+        return f'<{self.__class__.__name__} name={self.name} scaled={self._scaled}>'
 
     def _derive_data_bounds(self) -> None:
         """

@@ -20,7 +20,7 @@ class DotsGrid(PointCollection):
             (without normalization).
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.patterns import DotsGrid
+        from data_morph.shapes.points import DotsGrid
 
         _ = DotsGrid(DataLoader.load_dataset('dino')).plot()
 

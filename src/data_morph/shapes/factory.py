@@ -18,7 +18,7 @@ class ShapeFactory:
 
     .. plot::
        :caption:
-            Target shapes currently available in ``data_morph``.
+            Target shapes currently available.
 
         from data_morph.data.loader import DataLoader
         from data_morph.shapes.factory import ShapeFactory

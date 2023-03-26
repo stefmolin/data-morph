@@ -36,7 +36,7 @@ Run ``data-morph`` on the command line:
 
 .. code:: console
 
-   $ data-morph --target-shape star -- panda
+   $ data-morph --start-shape panda --target-shape star
 
 This produces the following animation in the newly-created ``morphed_data`` directory
 within your current working directory:

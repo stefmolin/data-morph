@@ -10,11 +10,11 @@ statistics to a given number of decimal points through simulated annealing.
 
 Installation
 ------------
-The ``data_morph`` package can be installed with ``pip``:
+Data Morph can be installed with ``pip``:
 
 .. code:: console
 
-   $ pip install data_morph
+   $ pip install data-morph
 
 Usage
 -----
@@ -99,7 +99,7 @@ out the other built-in options:
 
 Acknowledgements
 ----------------
-This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/stefmolin))
+This code has been altered by Stefanie Molin (`@stefmolin <https://github.com/stefmolin>`_)
 to work for other input datasets by parameterizing the target shapes with information from the input shape.
 The original code works for a specific dataset called the "dinosaurus" and was created
 for the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and

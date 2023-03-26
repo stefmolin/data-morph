@@ -3,6 +3,8 @@ bounds:
 
 ci/cd:
 - '.github/**/*'
+- '.pre-commit-config.yaml'
+- setup.cfg
 
 cli:
 - src/data_morph/__main__.py

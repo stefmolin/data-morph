@@ -23,11 +23,6 @@ repos:
         additional_dependencies:
           - tomli
 
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-
   - repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
@@ -38,6 +33,11 @@ repos:
     hooks:
       - id: flake8
         types: [file, python]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
 
   - repo: https://github.com/adamchainz/blacken-docs
     rev: 1.13.0

@@ -6,6 +6,7 @@ ci/cd:
 
 cli:
 - src/data_morph/__main__.py
+- src/data_morph/cli.py
 
 data:
 - src/data_morph/data/**/*

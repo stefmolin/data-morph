@@ -51,7 +51,7 @@ docs = [
 ]
 
 [project.scripts]
-data-morph = "data_morph.__main__:main"
+data-morph = "data_morph.cli:main"
 
 [project.urls]
 source = "https://github.com/stefmolin/data-morph"

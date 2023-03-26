@@ -2,7 +2,7 @@
 #
 # Author: Stefanie Molin
 
-name: PR Linting
+name: Check PR
 
 on:
   # Trigger on pull request always (note the trailing colon)
@@ -12,7 +12,7 @@ jobs:
   # Run pre-commit checks on the files changed
   linting:
     runs-on: ubuntu-latest
-    name: Lint PR
+    name: Lint
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3

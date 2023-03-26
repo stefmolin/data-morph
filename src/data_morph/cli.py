@@ -50,10 +50,10 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         '--version', action='version', version=f'%(prog)s {__version__}'
     )
 
-    morph_config_group = parser.add_argument_group(
-        'morph config', description='Configuration for the morphing process.'
+    shape_config_group = parser.add_argument_group(
+        'shape config', description='Specification of start and end shapes.'
     )
-    morph_config_group.add_argument(
+    shape_config_group.add_argument(
         '--start-shape',
         required=True,
         nargs='+',
@@ -64,7 +64,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'See the documentation for visualizations of the built-in datasets.'
         ),
     )
-    morph_config_group.add_argument(
+    shape_config_group.add_argument(
         '--target-shape',
         required=True,
         nargs='+',
@@ -76,6 +76,10 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             ' See the documentation for visualizations of the available target shapes.'
         ),
     )
+
+    morph_config_group = parser.add_argument_group(
+        'morph config', description='Configuration for the morphing process.'
+    )
     morph_config_group.add_argument(
         '--decimals',
         default=ARG_DEFAULTS['decimals'],
@@ -85,6 +89,32 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'The number of decimal places to preserve equality. '
             f'Defaults to {ARG_DEFAULTS["decimals"]}.'
         ),
+    )
+    morph_config_group.add_argument(
+        '--iterations',
+        default=ARG_DEFAULTS['iterations'],
+        type=int,
+        help=(
+            'The number of iterations to run. '
+            f'Defaults to {ARG_DEFAULTS["iterations"]:,d}. '
+            'Datasets with more observations may require more iterations.'
+        ),
+    )
+    morph_config_group.add_argument(
+        '--scale',
+        default=None,
+        type=float,
+        help=(
+            'Scale the data on both x and y by dividing by a scale factor. '
+            'For example, `--scale 10` divides all x and y values by 10. '
+            'Datasets with large values will morph faster after scaling down.'
+        ),
+    )
+    morph_config_group.add_argument(
+        '--seed',
+        default=None,
+        type=int,
+        help='Provide a seed for reproducible results.',
     )
     morph_config_group.add_argument(
         '--shake',
@@ -101,36 +131,20 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'iterations (see --iterations).'
         ),
     )
-    morph_config_group.add_argument(
-        '--iterations',
-        default=ARG_DEFAULTS['iterations'],
-        type=int,
-        help=(
-            'The number of iterations to run. '
-            f'Defaults to {ARG_DEFAULTS["iterations"]:,d}. '
-            'Datasets with more observations may require more iterations.'
-        ),
-    )
-    morph_config_group.add_argument(
-        '--seed',
-        default=None,
-        type=int,
-        help='Provide a seed for reproducible results.',
-    )
-    morph_config_group.add_argument(
-        '--scale',
-        default=None,
-        type=float,
-        help=(
-            'Scale the data on both x and y by dividing by a scale factor. '
-            'For example, `--scale 10` divides all x and y values by 10. '
-            'Datasets with large values will morph faster after scaling down.'
-        ),
-    )
 
     file_group = parser.add_argument_group(
         'file config',
         description='Customize where files are written to and which types of files are kept.',
+    )
+    file_group.add_argument(
+        '--keep-frames',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to keep individual frame images in the output directory.'
+            " If you don't pass this, the frames will be deleted after the GIF file"
+            ' is created.'
+        ),
     )
     file_group.add_argument(
         '--output-dir',
@@ -143,19 +157,30 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         action='store_true',
         help='Whether to write CSV files to the output directory with the data for each frame.',
     )
-    file_group.add_argument(
-        '--keep-frames',
-        default=False,
-        action='store_true',
-        help=(
-            'Whether to keep individual frame images in the output directory.'
-            " If you don't pass this, the frames will be deleted after the GIF file"
-            ' is created.'
-        ),
-    )
 
     frame_group = parser.add_argument_group(
         'animation config', description='Customize aspects of the animation.'
+    )
+    frame_group.add_argument(
+        '--forward-only',
+        default=False,
+        action='store_true',
+        help=(
+            'By default, this module will create an animation that plays '
+            'first forward (applying the transformation) and then unwinds, '
+            'playing backward to undo the transformation. Pass this argument '
+            'to only play the animation in the forward direction before looping.'
+        ),
+    )
+    frame_group.add_argument(
+        '--freeze',
+        default=ARG_DEFAULTS['freeze'],
+        type=int,
+        help=(
+            'Number of frames to freeze at the first and final frame of the transition '
+            'in the animation. This only affects the frames selected, not the algorithm. '
+            f'Defaults to {ARG_DEFAULTS["freeze"]}.'
+        ),
     )
     frame_group.add_argument(
         '--ramp-in',
@@ -173,27 +198,6 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         help=(
             'Whether to slow down the transition from input to target towards the end '
             'of the animation. This only affects the frames selected, not the algorithm.'
-        ),
-    )
-    frame_group.add_argument(
-        '--freeze',
-        default=ARG_DEFAULTS['freeze'],
-        type=int,
-        help=(
-            'Number of frames to freeze at the first and final frame of the transition '
-            'in the animation. This only affects the frames selected, not the algorithm. '
-            f'Defaults to {ARG_DEFAULTS["freeze"]}.'
-        ),
-    )
-    frame_group.add_argument(
-        '--forward-only',
-        default=False,
-        action='store_true',
-        help=(
-            'By default, this module will create an animation that plays '
-            'first forward (applying the transformation) and then unwinds, '
-            'playing backward to undo the transformation. Pass this argument '
-            'to only play the animation in the forward direction before looping.'
         ),
     )
 

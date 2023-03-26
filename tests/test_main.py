@@ -16,7 +16,7 @@ def test_main_version(capsys):
 def test_main_bad_shape():
     """Test that invalid target shapes raise a ValueError."""
     with pytest.raises(ValueError, match='No valid target shapes were provided.'):
-        __main__.main(['dino', '--target-shape=does-not-exist'])
+        __main__.main(['--start-shape=dino', '--target-shape=does-not-exist'])
 
 
 @pytest.mark.bad_input_to_argparse
@@ -32,7 +32,7 @@ def test_main_bad_shape():
 def test_main_bad_input_decimals(decimals, reason, capsys):
     """Test that invalid input for decimals is handled correctly."""
     with pytest.raises(SystemExit):
-        __main__.main(['dino', f'--decimals={decimals}'])
+        __main__.main(['--start-shape=dino', f'--decimals={decimals}'])
     assert f'error: argument --decimals: {reason}:' in capsys.readouterr().err
 
 
@@ -48,7 +48,7 @@ def test_main_bad_input_decimals(decimals, reason, capsys):
 def test_main_bad_input_floats(field, value, reason, capsys):
     """Test that invalid input for floats is handled correctly."""
     with pytest.raises(SystemExit):
-        __main__.main([f'--{field}', value, 'dino'])
+        __main__.main([f'--{field}', value, '--start-shape=dino'])
     assert f'error: argument --{field}: {reason}' in capsys.readouterr().err
 
 
@@ -58,7 +58,7 @@ def test_main_bad_input_floats(field, value, reason, capsys):
 def test_main_bad_input_integers(field, value, capsys):
     """Test that invalid input for integers is handled correctly."""
     with pytest.raises(SystemExit):
-        __main__.main(['dino', f'--{field}={value}'])
+        __main__.main(['--start-shape=dino', f'--{field}={value}'])
     assert f'error: argument --{field}: invalid int value:' in capsys.readouterr().err
 
 
@@ -70,7 +70,7 @@ def test_main_bad_input_integers(field, value, capsys):
 def test_main_bad_input_boolean(field, value, capsys):
     """Test that invalid input for Boolean switches are handled correctly."""
     with pytest.raises(SystemExit):
-        __main__.main(['dino', f'--{field}={value}'])
+        __main__.main(['--start-shape=dino', f'--{field}={value}'])
     assert (
         f'error: argument --{field}: ignored explicit argument'
         in capsys.readouterr().err
@@ -89,7 +89,7 @@ def test_main_dataloader(start_shape, scale, mocker):
     load = mocker.patch.object(__main__.DataLoader, 'load_dataset', autospec=True)
     _ = mocker.patch.object(__main__.DataMorpher, 'morph')
     argv = [
-        start_shape,
+        f'--start-shape={start_shape}',
         '--target-shape=circle',
         *bound_args,
     ]
@@ -125,7 +125,7 @@ def test_main_one_shape(flag, mocker, tmp_path):
     morph_mock = mocker.patch.object(__main__.DataMorpher, 'morph', autospec=True)
 
     argv = [
-        morph_args['start_shape_name'],
+        f'--start-shape={morph_args["start_shape_name"]}',
         f'--target-shape={morph_args["target_shape"]}',
         f'--iterations={morph_args["iterations"]}',
         f'--decimals={init_args["decimals"]}' if init_args['decimals'] else '',
@@ -169,11 +169,11 @@ def test_main_one_shape(flag, mocker, tmp_path):
     ],
     ids=['two shapes', 'all shapes'],
 )
+@pytest.mark.parametrize('start_shape', [['dino'], ['dino', 'sheep']])
 def test_main_multiple_shapes(
-    target_shape, patched_options, monkeypatch, mocker, capsys
+    start_shape, target_shape, patched_options, monkeypatch, mocker, capsys
 ):
     """Check that multiple morphing is working."""
-    start_shape_name = 'dino'
 
     if patched_options:
         monkeypatch.setattr(
@@ -185,14 +185,19 @@ def test_main_multiple_shapes(
     shapes = patched_options or target_shape
 
     morph_noop = mocker.patch.object(__main__.DataMorpher, 'morph', autospec=True)
-    __main__.main([start_shape_name, *(['--target-shape', *target_shape])])
-    assert morph_noop.call_count == len(shapes)
+    __main__.main(['--start-shape', *start_shape, '--target-shape', *target_shape])
+    assert morph_noop.call_count == len(shapes) * len(start_shape)
+
+    err = capsys.readouterr().err
     assert (
         ''.join(
             [f'Morphing shape {i + 1} of {len(shapes)}\n' for i in range(len(shapes))]
         )
-        == capsys.readouterr().err
+        in err
     )
+    for shape in start_shape:
+        assert shape in err
+
     patterns_run = [
         str(kwargs['target_shape']) for _, kwargs in morph_noop.call_args_list
     ]

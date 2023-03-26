@@ -54,10 +54,13 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         'morph config', description='Configuration for the morphing process.'
     )
     morph_config_group.add_argument(
-        'start_shape',
+        '--start-shape',
+        required=True,
+        nargs='+',
         help=(
-            f'The starting shape. This could be one of {DataLoader.AVAILABLE_DATASETS} or '
-            "a path to a CSV file, in which case it should have two columns 'x' and 'y'. "
+            'The starting shape(s). A valid starting shape could be any of '
+            f'{DataLoader.AVAILABLE_DATASETS} or a path to a CSV file, '
+            "in which case it should have two columns 'x' and 'y'. "
             'See the documentation for visualizations of the built-in datasets.'
         ),
     )
@@ -207,33 +210,35 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'."""
         )
 
-    dataset = DataLoader.load_dataset(args.start_shape, scale=args.scale)
+    for start_shape in args.start_shape:
+        dataset = DataLoader.load_dataset(start_shape, scale=args.scale)
+        print(f"Processing starter shape '{dataset.name}'", file=sys.stderr)
 
-    shape_factory = ShapeFactory(dataset)
-    morpher = DataMorpher(
-        decimals=args.decimals,
-        output_dir=args.output_dir,
-        write_data=args.write_data,
-        seed=args.seed,
-        keep_frames=args.keep_frames,
-        forward_only_animation=args.forward_only,
-        num_frames=100,
-        in_notebook=False,
-    )
-
-    total_shapes = len(target_shapes)
-    for i, target_shape in enumerate(target_shapes, start=1):
-        if total_shapes > 1:
-            print(f'Morphing shape {i} of {total_shapes}', file=sys.stderr)
-        _ = morpher.morph(
-            start_shape=dataset,
-            target_shape=shape_factory.generate_shape(target_shape),
-            iterations=args.iterations,
-            min_shake=args.shake,
-            ramp_in=args.ramp_in,
-            ramp_out=args.ramp_out,
-            freeze_for=args.freeze,
+        shape_factory = ShapeFactory(dataset)
+        morpher = DataMorpher(
+            decimals=args.decimals,
+            output_dir=args.output_dir,
+            write_data=args.write_data,
+            seed=args.seed,
+            keep_frames=args.keep_frames,
+            forward_only_animation=args.forward_only,
+            num_frames=100,
+            in_notebook=False,
         )
+
+        total_shapes = len(target_shapes)
+        for i, target_shape in enumerate(target_shapes, start=1):
+            if total_shapes > 1:
+                print(f'Morphing shape {i} of {total_shapes}', file=sys.stderr)
+            _ = morpher.morph(
+                start_shape=dataset,
+                target_shape=shape_factory.generate_shape(target_shape),
+                iterations=args.iterations,
+                min_shake=args.shake,
+                ramp_in=args.ramp_in,
+                ramp_out=args.ramp_out,
+                freeze_for=args.freeze,
+            )
 
 
 if __name__ == '__main__':  # pragma: no cover

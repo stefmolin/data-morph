@@ -92,7 +92,7 @@ def test_point_collection(shape_factory):
     assert pytest.approx(parabola.distance(*parabola.points[0])) == 0.0
 
     # test a point off the curve
-    assert pytest.approx(parabola.distance(0, 0)) == 53.411313
+    assert pytest.approx(parabola.distance(0, 0)) == 53.774155
 
 
 @pytest.mark.parametrize(
@@ -117,7 +117,7 @@ def test_point_collection(shape_factory):
                 r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'
             ),
         ],
-        ['down_parab', '<DownParabola of 8 points>'],
+        ['down_parab', '<DownParabola of 100 points>'],
     ],
     ids=['new shape', 'dots', 'x', 'circle', 'bullseye', 'down parabola'],
 )

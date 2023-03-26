@@ -10,7 +10,7 @@ statistics to a given number of decimal points through simulated annealing.
 
 Installation
 ------------
-The ``data_morph`` package can be installed with ``pip``:
+Data Morph can be installed with ``pip``:
 
 .. code:: console
 

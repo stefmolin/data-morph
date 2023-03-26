@@ -1,5 +1,5 @@
 # This workflow runs pre-commit hooks on the files in the PR only.
-# 
+#
 # Author: Stefanie Molin
 
 name: PR Linting
@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: "3.11"
 
       - name: Install Dependencies
         run: |

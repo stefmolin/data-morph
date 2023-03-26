@@ -65,17 +65,19 @@ class DownParabola(PointCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.morph_bounds.x_bounds
-        x_range = x_bounds.range
-
+        x_bounds = dataset.data_bounds.x_bounds
         xmin, xmax = x_bounds
-        ymax = dataset.data_bounds.y_bounds[1]
+        xmid = xmax - x_bounds.range / 2
 
-        pts = [
-            [x, -(((x - (xmax - x_range / 2)) / 4) ** 2) + ymax]
-            for x in np.linspace(xmin, xmax, int(x_range / 3))
-        ]
-        super().__init__(*pts)
+        x_offset = x_bounds.range / 10
+        xmin += x_offset
+        xmax -= x_offset
+
+        ymin, ymax = dataset.data_bounds.y_bounds
+
+        poly = np.polynomial.Polynomial.fit([xmin, xmid, xmax], [ymin, ymax, ymin], 2)
+
+        super().__init__(*np.stack(poly.linspace(), axis=1))
 
     def __str__(self) -> str:
         return 'down_parab'
@@ -102,17 +104,19 @@ class UpParabola(PointCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.morph_bounds.x_bounds
-        x_range = x_bounds.range
-
+        x_bounds = dataset.data_bounds.x_bounds
         xmin, xmax = x_bounds
-        ymin = dataset.data_bounds.y_bounds[0]
+        xmid = xmax - x_bounds.range / 2
 
-        pts = [
-            [x, (((x - (xmax - x_range / 2)) / 4) ** 2) + ymin]
-            for x in np.linspace(xmin, xmax, int(x_range / 3))
-        ]
-        super().__init__(*pts)
+        x_offset = x_bounds.range / 10
+        xmin += x_offset
+        xmax -= x_offset
+
+        ymin, ymax = dataset.data_bounds.y_bounds
+
+        poly = np.polynomial.Polynomial.fit([xmin, xmid, xmax], [ymax, ymin, ymax], 2)
+
+        super().__init__(*np.stack(poly.linspace(), axis=1))
 
     def __str__(self) -> str:
         return 'up_parab'

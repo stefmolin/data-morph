@@ -18,6 +18,44 @@ ARG_DEFAULTS = {
     'freeze': 0,
 }
 
+_EXAMPLES = [
+    (
+        'morph the panda shape into a star',
+        'data-morph --start-shape panda --target-shape star',
+    ),
+    (
+        'morph the panda shape into all available target shapes',
+        'data-morph --start-shape panda --target-shape all',
+    ),
+    (
+        'morph the cat, dog, and panda shapes into the circle and slant_down shapes',
+        'data-morph --start-shape cat dog panda --target-shape circle slant_down',
+    ),
+    (
+        'morph the dog shape into upward-slanting lines over 50,000 iterations with seed 1',
+        'data-morph --start-shape dog --target-shape slant_up --iterations 50000 --seed 1',
+    ),
+    (
+        'morph the cat shape into a circle, preserving summary statistics to 3 decimal places',
+        'data-morph --start-shape cat --target-shape circle --decimals 3',
+    ),
+    (
+        'morph the music shape into a bullseye, specifying the output directory',
+        'data-morph --start-shape music --target-shape bullseye --output-dir path/to/dir',
+    ),
+    (
+        'morph the sheep shape into vertical lines, slowly ramping in and out for the animation',
+        'data-morph --start-shape sheep --target-shape v_lines --ramp-in --ramp-out',
+    ),
+]
+
+_EXAMPLE_SECTION = '\n\n  '.join(
+    [
+        f'{num}) {description}:' + '\n     $ ' + code
+        for num, (description, code) in enumerate(_EXAMPLES, start=1)
+    ]
+)
+
 
 def main(argv: Union[Sequence[str], None] = None) -> None:
     """
@@ -35,9 +73,9 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         description=(
             'Morph an input dataset of 2D points into select shapes, while '
             'preserving the summary statistics to a given number of decimal '
-            'points through simulated annealing. '
-            'For example, morph the panda shape into a star:\n\t'
-            'python -m data_morph --target-shape star -- panda'
+            'points through simulated annealing.\n\n'
+            'examples:\n  '
+            f'{_EXAMPLE_SECTION}'
         ),
         epilog=(
             'Source code available at https://github.com/stefmolin/data-morph.'
@@ -51,7 +89,8 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
 
     shape_config_group = parser.add_argument_group(
-        'shape config', description='Specification of start and end shapes.'
+        'shape configuration (required)',
+        description='Specify the start and end shapes.',
     )
     shape_config_group.add_argument(
         '--start-shape',
@@ -78,7 +117,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
 
     morph_config_group = parser.add_argument_group(
-        'morph config', description='Configuration for the morphing process.'
+        'morph configuration', description='Configure the morphing process.'
     )
     morph_config_group.add_argument(
         '--decimals',
@@ -133,7 +172,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
 
     file_group = parser.add_argument_group(
-        'file config',
+        'output file configuration',
         description='Customize where files are written to and which types of files are kept.',
     )
     file_group.add_argument(
@@ -159,7 +198,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
 
     frame_group = parser.add_argument_group(
-        'animation config', description='Customize aspects of the animation.'
+        'animation configuration', description='Customize aspects of the animation.'
     )
     frame_group.add_argument(
         '--forward-only',

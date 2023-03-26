@@ -1,18 +1,21 @@
 # This workflow runs pre-commit hooks on the files in the PR only.
-# 
+#
 # Author: Stefanie Molin
 
-name: PR Linting
+name: Check PR
 
 on:
-  # Trigger on pull request always (note the trailing colon)
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   # Run pre-commit checks on the files changed
   linting:
     runs-on: ubuntu-latest
-    name: Lint PR
+    name: Lint
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -22,7 +25,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: "3.11"
 
       - name: Install Dependencies
         run: |

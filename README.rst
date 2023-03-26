@@ -14,7 +14,7 @@ The ``data_morph`` package can be installed with ``pip``:
 
 .. code:: console
 
-   $ pip install data_morph
+   $ pip install data-morph
 
 Usage
 -----

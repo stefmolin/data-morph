@@ -5,7 +5,6 @@
 name: Check PR
 
 on:
-  # Trigger on pull request always (note the trailing colon)
   pull_request:
 
 concurrency:

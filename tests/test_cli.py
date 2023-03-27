@@ -5,6 +5,8 @@ import pytest
 from data_morph import __version__, cli
 from data_morph.data.dataset import Dataset
 
+pytestmark = pytest.mark.cli
+
 
 def test_cli_version(capsys):
     """Confirm that --version works."""

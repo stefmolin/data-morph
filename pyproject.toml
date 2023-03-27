@@ -132,6 +132,7 @@ markers = [
     "bad_input_to_argparse: Run tests on input validation for argparse.",
     "bounds: Run tests on bounds logic.",
     "cli: Run tests involving the CLI.",
+    "dataset: Run tests on Dataset logic.",
 ]
 
 [tool.numpydoc_validation]

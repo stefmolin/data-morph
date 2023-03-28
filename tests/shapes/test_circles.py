@@ -4,6 +4,7 @@ import re
 from numbers import Number
 from typing import Iterable, Tuple
 
+import numpy as np
 import pytest
 
 pytestmark = [pytest.mark.shapes, pytest.mark.circles]
@@ -44,7 +45,7 @@ class TestBullseye(CirclesModuleTestBase):
     )
 
     def test_init(self, shape):
-        """Test that the Bullseye contains two different radius Circles."""
+        """Test that the Bullseye contains two concentric circles."""
         assert len(shape.circles) == 2
 
         a, b = shape.circles
@@ -59,3 +60,11 @@ class TestCircle(CirclesModuleTestBase):
     shape_name = 'circle'
     distance_test_cases = [[(20, 50), 10.490381], [(10, 25), 15.910168]]
     repr_regex = r'^<Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'
+
+    def test_is_circle(self, shape):
+        """Test that the Circle is a valid circle (mathematically)."""
+        angles = np.arange(0, 361, 35)
+        x = shape.cx + shape.r * np.cos(angles)
+        y = shape.cy + shape.r * np.sin(angles)
+        for x, y in zip(x, y):
+            assert pytest.approx(shape.distance(x, y)) == 0

@@ -16,14 +16,14 @@ class LineCollection(Shape):
 
     Parameters
     ----------
-    *lines : Iterable[Iterable[Iterable[numbers.Number]]]
+    *lines : Iterable[Iterable[numbers.Number]]
         An iterable of two (x, y) pairs representing the endpoints
         of a line.
     """
 
-    def __init__(self, *lines: Iterable[Iterable[Iterable[Number]]]) -> None:
+    def __init__(self, *lines: Iterable[Iterable[Number]]) -> None:
         self.lines = lines
-        """Iterable[Iterable[Iterable[numbers.Number]]]: An iterable
+        """Iterable[Iterable[numbers.Number]]: An iterable
         of two (x, y) pairs representing the endpoints of a line."""
 
     def __repr__(self) -> str:
@@ -92,7 +92,7 @@ class LineCollection(Shape):
         if (u < 0.00001) or (u > 1):
             # closest point does not fall within the line segment, take the shorter
             # distance to an endpoint
-            distance = max(
+            distance = min(
                 self._euclidean_distance(point, start),
                 self._euclidean_distance(point, end),
             )

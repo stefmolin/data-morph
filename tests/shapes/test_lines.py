@@ -33,7 +33,8 @@ class LinesModuleTestBase:
 
     def test_init(self, shape):
         """Test that the shape consists of the correct number of distinct lines."""
-        assert len(shape.lines) == self.expected_line_count
+        num_unique_lines, *_ = np.unique(shape.lines, axis=0).shape
+        assert num_unique_lines == self.expected_line_count
 
     def test_distance(self, shape):
         """Test the distance() method."""

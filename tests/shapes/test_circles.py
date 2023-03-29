@@ -64,7 +64,8 @@ class TestCircle(CirclesModuleTestBase):
     def test_is_circle(self, shape):
         """Test that the Circle is a valid circle (mathematically)."""
         angles = np.arange(0, 361, 35)
-        x = shape.cx + shape.r * np.cos(angles)
-        y = shape.cy + shape.r * np.sin(angles)
-        for x, y in zip(x, y):
+        for x, y in zip(
+            shape.cx + shape.r * np.cos(angles),
+            shape.cy + shape.r * np.sin(angles),
+        ):
             assert pytest.approx(shape.distance(x, y)) == 0

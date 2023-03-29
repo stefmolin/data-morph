@@ -17,14 +17,6 @@ class LinesModuleTestBase:
     expected_line_count: int
     expected_slopes: Union[Iterable[Number], Number]
 
-    def _slope(self, start: Iterable[Number], end: Iterable[Number]) -> Number:
-        """Calculate the slope of a line given the endpoints."""
-        rise = end[1] - start[1]
-        run = end[0] - start[0]
-        if not run:
-            return np.inf
-        return rise / run
-
     @pytest.fixture(scope='class')
     def shape(self, shape_factory):
         """Fixture to get the shape for testing."""
@@ -124,8 +116,24 @@ class TestXLines(LinesModuleTestBase):
     """Test the XLines class."""
 
     shape_name = 'x'
-    distance_test_cases = [[(20, 50), 8.3205029], [(0, 0), 83.384650]]
+    distance_test_cases = [
+        [(8, 83), 0],  # edge of X line
+        [(20, 65), 0],  # middle of X (intersection point)
+        [(19, 64), 0.277350],  # off the X
+    ]
     expected_line_count = 2
     expected_slopes = [-1.5, 1.5]
 
-    # TODO need to test that the lines are perpendicular and intersect
+    def test_lines_form_an_x(self, shape):
+        """Test that the lines form an X."""
+        lines = np.array(shape.lines)
+
+        # check perpendicular
+        xs, ys = lines.T
+        runs = np.diff(xs, axis=0)
+        rises = np.diff(ys, axis=0)
+        assert np.dot(rises, runs.T) == 0
+
+        # check that the lines intersect in the middle
+        midpoints = (np.sum(lines.T, axis=1) / 2)[0].T
+        assert np.unique(midpoints).size == 1

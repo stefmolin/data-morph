@@ -134,7 +134,9 @@ markers = [
     "circles: Run tests on circular shapes.",
     "cli: Run tests involving the CLI.",
     "dataset: Run tests on Dataset logic.",
+    "input_validation: Run tests on input validation.",
     "lines: Run tests on LineCollection and related shapes.",
+    "morpher: Run tests on the morphing process,",
     "points: Run tests on PointCollection and related shapes.",
     "shapes: Run tests related to shapes.",
 ]

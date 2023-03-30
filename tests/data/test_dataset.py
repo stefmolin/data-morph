@@ -30,12 +30,13 @@ class TestDataset:
         else:
             assert_frame_equal(dataset.df, original_df)
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize(
         'scale',
         [[3], (), '', '12', True, False, 0],
         ids=str,
     )
-    def test_scale_data_valid_scale(self, scale):
+    def test_scale_data_invalid_scale(self, scale):
         """Confirm that scaling doesn't happen unless scale is valid."""
         if scale is not False and scale == 0:
             exc = ValueError
@@ -47,6 +48,7 @@ class TestDataset:
         with pytest.raises(exc, match=msg):
             _ = DataLoader.load_dataset('dino', scale=scale)
 
+    @pytest.mark.input_validation
     def test_validate_data_missing_columns(self, starter_shapes_dir):
         """Confirm that creation of a Dataset validates the DataFrame columns."""
 

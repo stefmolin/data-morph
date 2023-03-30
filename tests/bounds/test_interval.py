@@ -16,6 +16,7 @@ class TestInterval:
         assert bounds._bounds == limits
         assert bounds._inclusive == inclusive
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize(
         'limits',
         [[1, 1], [1.0, 1], [1, -1]],
@@ -50,6 +51,7 @@ class TestInterval:
         bounds = Interval(limits, inclusive)
         assert (value in bounds) == expected
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize(
         'value',
         [[1, 1], True, (1, -1), {2}, 's', dict(), None],
@@ -104,6 +106,7 @@ class TestInterval:
         bounds = Interval([0, 1], inclusive)
         assert repr(bounds) == expected
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize(
         ['value', 'expected_msg', 'exc_class'],
         [

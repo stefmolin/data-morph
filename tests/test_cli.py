@@ -21,7 +21,7 @@ def test_cli_bad_shape():
         cli.main(['--start-shape=dino', '--target-shape=does-not-exist'])
 
 
-@pytest.mark.bad_input_to_argparse
+@pytest.mark.input_validation
 @pytest.mark.parametrize(
     ['decimals', 'reason'],
     [
@@ -38,7 +38,7 @@ def test_cli_bad_input_decimals(decimals, reason, capsys):
     assert f'error: argument --decimals: {reason}:' in capsys.readouterr().err
 
 
-@pytest.mark.bad_input_to_argparse
+@pytest.mark.input_validation
 @pytest.mark.parametrize(
     ['value', 'reason'],
     [
@@ -54,7 +54,7 @@ def test_cli_bad_input_floats(field, value, reason, capsys):
     assert f'error: argument --{field}: {reason}' in capsys.readouterr().err
 
 
-@pytest.mark.bad_input_to_argparse
+@pytest.mark.input_validation
 @pytest.mark.parametrize('value', [True, False, 0.1, 's'])
 @pytest.mark.parametrize('field', ['iterations', 'freeze', 'seed'])
 def test_cli_bad_input_integers(field, value, capsys):
@@ -64,7 +64,7 @@ def test_cli_bad_input_integers(field, value, capsys):
     assert f'error: argument --{field}: invalid int value:' in capsys.readouterr().err
 
 
-@pytest.mark.bad_input_to_argparse
+@pytest.mark.input_validation
 @pytest.mark.parametrize('value', [1, 0, 's', -1, 0.5, True, False])
 @pytest.mark.parametrize(
     'field', ['ramp-in', 'ramp-out', 'forward-only', 'keep-frames']

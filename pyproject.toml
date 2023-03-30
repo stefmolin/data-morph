@@ -138,6 +138,7 @@ markers = [
     "lines: Run tests on LineCollection and related shapes.",
     "morpher: Run tests on the morphing process,",
     "points: Run tests on PointCollection and related shapes.",
+    "plotting: Run tests on plotting logic.",
     "shapes: Run tests related to shapes.",
 ]
 

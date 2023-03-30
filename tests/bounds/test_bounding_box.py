@@ -12,6 +12,7 @@ from data_morph.bounds.interval import Interval
 class TestBoundingBox:
     """Test the BoundingBox class."""
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize(
         ['x_bounds', 'y_bounds'],
         [
@@ -34,6 +35,7 @@ class TestBoundingBox:
         with pytest.raises(ValueError, match='BoundingBox requires bounds'):
             _ = BoundingBox(x_bounds, y_bounds)
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize('inclusive', ['ss', [True, True, False], [1, 2]])
     def test_input_validation_inclusive(self, inclusive):
         """Test that the __init__() method checks for valid inclusive value work."""
@@ -91,6 +93,7 @@ class TestBoundingBox:
         bbox = BoundingBox([0, 10], [0, 10], inclusive)
         assert (value in bbox) == expected
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize(
         'value',
         [
@@ -107,6 +110,7 @@ class TestBoundingBox:
         with pytest.raises(ValueError, match='must be an iterable of 2 numeric values'):
             _ = value in bbox
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize('other', [1, True, Interval([0, 1])])
     def test_eq_input_validation(self, other):
         """Test that input validation for the __eq__() method is working."""
@@ -131,6 +135,7 @@ class TestBoundingBox:
             repr(BoundingBox([0, 10], [0, 10])),
         )
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize(
         ['x', 'y'],
         [

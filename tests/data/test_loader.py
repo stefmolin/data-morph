@@ -29,6 +29,7 @@ class TestDataLoader:
         assert dataset_from_pkg.name == dataset_from_file.name
         assert_frame_equal(dataset_from_pkg.df, dataset_from_file.df)
 
+    @pytest.mark.input_validation
     @pytest.mark.parametrize('dataset', ['does_not_exist', 'does_not_exist.csv'])
     def test_load_dataset_unknown_data(self, dataset):
         """Confirm that trying to load non-existent datasets raises an exception."""

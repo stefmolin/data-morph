@@ -99,7 +99,7 @@ class TestVerticalLines(ParallelLinesModuleTestBase):
     """Test the VerticalLines class."""
 
     shape_name = 'v_lines'
-    distance_test_cases = [[(20, 50), 30.0], [(30, 60), 0.0]]
+    distance_test_cases = [[(35, 60), 5.0], [(30, 60), 0.0]]
     expected_line_count = 5
     expected_slopes = np.inf
 
@@ -108,7 +108,7 @@ class TestWideLines(ParallelLinesModuleTestBase):
     """Test the WideLines class."""
 
     shape_name = 'wide_lines'
-    distance_test_cases = [[(20, 50), 30.594117], [(30, 60), 4.0]]
+    distance_test_cases = [[(26, 50), 0], [(30, 60), 4.0]]
     expected_line_count = 2
     expected_slopes = np.inf
 

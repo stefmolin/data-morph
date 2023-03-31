@@ -1,4 +1,4 @@
-"""Tests for stats module."""
+"""Test the stats module."""
 
 from data_morph.data.loader import DataLoader
 from data_morph.data.stats import get_values

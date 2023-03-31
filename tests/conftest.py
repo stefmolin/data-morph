@@ -1,4 +1,4 @@
-"""Pytest config."""
+"""Global pytest config for data_morph tests."""
 
 from pathlib import Path
 

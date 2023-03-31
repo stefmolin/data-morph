@@ -1,1 +1,1 @@
-"""Tests for the data_morph.bounds subpackage."""
+"""Test the data_morph.bounds subpackage."""

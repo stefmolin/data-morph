@@ -1,4 +1,4 @@
-"""Tests for the dataset module."""
+"""Test the dataset module."""
 
 import pandas as pd
 import pytest

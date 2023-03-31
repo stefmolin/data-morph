@@ -21,6 +21,15 @@ class PolygonsModuleTestBase:
         """Fixture to get the shape for testing."""
         return shape_factory.generate_shape(self.shape_name)
 
+    @pytest.fixture(scope='class')
+    def slopes(self, shape):
+        """Fixture to get the slopes of the lines."""
+        xs, ys = np.array(shape.lines).T
+        runs = np.diff(xs, axis=0)
+        rises = np.diff(ys, axis=0)
+        slopes = rises / np.ma.masked_array(runs, mask=runs == 0)
+        return slopes.filled(np.inf)
+
     def test_init(self, shape):
         """Test that the shape consists of the correct number of distinct lines."""
         num_unique_lines, *_ = np.unique(shape.lines, axis=0).shape
@@ -43,6 +52,10 @@ class TestRectangle(PolygonsModuleTestBase):
     shape_name = 'rectangle'
     distance_test_cases = [[(20, 50), 0.0], [(30, 60), 2.0]]
     expected_line_count = 4
+
+    def test_slopes(self, slopes):
+        """Test that the slopes are as expected."""
+        assert np.array_equal(np.sort(slopes).flatten(), [0, 0, np.inf, np.inf])
 
 
 class TestStar(PolygonsModuleTestBase):

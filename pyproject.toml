@@ -136,8 +136,9 @@ markers = [
     "input_validation: Run tests on input validation.",
     "lines: Run tests on LineCollection and related shapes.",
     "morpher: Run tests on the morphing process,",
-    "points: Run tests on PointCollection and related shapes.",
     "plotting: Run tests on plotting logic.",
+    "points: Run tests on PointCollection and related shapes.",
+    "polygons: Run tests on polygon shapes.",
     "shapes: Run tests related to shapes.",
 ]
 

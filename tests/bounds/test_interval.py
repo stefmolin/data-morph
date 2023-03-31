@@ -1,4 +1,4 @@
-"""Tests for the interval module."""
+"""Test the interval module."""
 
 import pytest
 

@@ -1,4 +1,4 @@
-"""Tests for the loader module."""
+"""Test the loader module."""
 
 import pytest
 from pandas.testing import assert_frame_equal

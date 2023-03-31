@@ -1,4 +1,4 @@
-"""Tests for the bounding_box module."""
+"""Test the bounding_box module."""
 
 import re
 

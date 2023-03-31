@@ -20,10 +20,12 @@ class PointsModuleTestBase:
         """Fixture to get the shape for testing."""
         return shape_factory.generate_shape(self.shape_name)
 
-    def test_distance(self, shape):
-        """Test the distance() method."""
-        for test_point, expected_distance in self.distance_test_cases:
-            assert pytest.approx(shape.distance(*test_point)) == expected_distance
+    def test_distance(self, shape, test_point, expected_distance):
+        """
+        Test the distance() method parametrized by distance_test_cases
+        (see conftest.py).
+        """
+        assert pytest.approx(shape.distance(*test_point)) == expected_distance
 
 
 class TestDotsGrid(PointsModuleTestBase):

@@ -36,10 +36,12 @@ class LinesModuleTestBase:
         num_unique_lines, *_ = np.unique(shape.lines, axis=0).shape
         assert num_unique_lines == self.expected_line_count
 
-    def test_distance(self, shape):
-        """Test the distance() method."""
-        for test_point, expected_distance in self.distance_test_cases:
-            assert pytest.approx(shape.distance(*test_point)) == expected_distance
+    def test_distance(self, shape, test_point, expected_distance):
+        """
+        Test the distance() method parametrized by distance_test_cases
+        (see conftest.py).
+        """
+        assert pytest.approx(shape.distance(*test_point)) == expected_distance
 
     def test_slopes(self, slopes):
         """Test that the slopes are as expected."""

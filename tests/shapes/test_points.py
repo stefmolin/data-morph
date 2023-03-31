@@ -67,22 +67,35 @@ class TestDotsGrid(PointsModuleTestBase):
             assert row_midpoint == middle_row[point][1]
 
 
-class TestDownParabola(PointsModuleTestBase):
-    """Test the DownParabola class."""
-
-    shape_name = 'down_parab'
-    distance_test_cases = [[(20, 50), 7.929688], [(30, 60), 3.455534]]
-
-
 class TestScatter(PointsModuleTestBase):
     """Test the Scatter class."""
 
     shape_name = 'scatter'
-    distance_test_cases = [[(20, 50), 0.0], [(30, 60), 0.0]]
+    distance_test_cases = [[(20, 50), 0.0], [(30, 60), 0.0], [(-500, -150), 0.0]]
 
 
-class TestUpParabola(PointsModuleTestBase):
+class ParabolaTestBase(PointsModuleTestBase):
+    """Base test class for parabolic shapes."""
+
+    positive_quadratic_term: bool
+
+    def test_quadratic_term(self, shape):
+        """Check the sign of the quadratic term."""
+        poly = np.polynomial.Polynomial.fit(shape.points[:, 0], shape.points[:, 1], 2)
+        assert (poly.coef[2] > 0) == self.positive_quadratic_term
+
+
+class TestDownParabola(ParabolaTestBase):
+    """Test the DownParabola class."""
+
+    shape_name = 'down_parab'
+    distance_test_cases = [[(20, 50), 7.929688], [(30, 60), 3.455534]]
+    positive_quadratic_term = False
+
+
+class TestUpParabola(ParabolaTestBase):
     """Test the UpParabola class."""
 
     shape_name = 'up_parab'
     distance_test_cases = [[(0, 0), 53.774155], [(30, 60), 5.2576809]]
+    positive_quadratic_term = True

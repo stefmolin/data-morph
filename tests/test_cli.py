@@ -13,16 +13,14 @@ pytestmark = pytest.mark.cli
 @pytest.fixture(scope='module', params=['dino', 'sheep.csv'])
 def start_shape(starter_shapes_dir, request):
     """A fixture for starter shapes both by name and file for testing."""
+
+    def extract_starter_shape(item):
+        """Determine the starter shape."""
+        return str(starter_shapes_dir / item) if item.endswith('csv') else item
+
     if isinstance(request.param, str):
-        return (
-            str(starter_shapes_dir / request.param)
-            if request.param.endswith('csv')
-            else request.param
-        )
-    return [
-        str(starter_shapes_dir / item) if item.endswith('csv') else item
-        for item in request.param
-    ]
+        return extract_starter_shape(request.param)
+    return [extract_starter_shape(item) for item in request.param]
 
 
 def test_cli_version(capsys):

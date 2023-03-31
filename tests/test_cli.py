@@ -1,11 +1,28 @@
 """Test the CLI."""
 
+from pathlib import Path
+
 import pytest
 
 from data_morph import __version__, cli
 from data_morph.data.dataset import Dataset
 
 pytestmark = pytest.mark.cli
+
+
+@pytest.fixture(scope='module', params=['dino', 'sheep.csv'])
+def start_shape(starter_shapes_dir, request):
+    """A fixture for starter shapes both by name and file for testing."""
+    if isinstance(request.param, str):
+        return (
+            str(starter_shapes_dir / request.param)
+            if request.param.endswith('csv')
+            else request.param
+        )
+    return [
+        str(starter_shapes_dir / item) if item.endswith('csv') else item
+        for item in request.param
+    ]
 
 
 def test_cli_version(capsys):
@@ -100,7 +117,7 @@ def test_cli_dataloader(start_shape, scale, mocker):
 
 
 @pytest.mark.parametrize('flag', [True, False])
-def test_cli_one_shape(flag, mocker, tmp_path):
+def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
     """Check that the proper values are passed to morph a single shape."""
     init_args = {
         'decimals': 3 if flag else None,
@@ -113,7 +130,7 @@ def test_cli_one_shape(flag, mocker, tmp_path):
         'in_notebook': False,
     }
     morph_args = {
-        'start_shape_name': 'dino',
+        'start_shape_name': start_shape,
         'target_shape': 'circle',
         'min_shake': 0.5 if flag else None,
         'iterations': 1000,
@@ -155,7 +172,7 @@ def test_cli_one_shape(flag, mocker, tmp_path):
             assert str(value) == morph_args['target_shape']
         elif arg == 'start_shape':
             assert isinstance(value, Dataset)
-            assert value.name == morph_args['start_shape_name']
+            assert value.name == Path(morph_args['start_shape_name']).stem
         elif arg in ['freeze_for', 'min_shake']:
             arg = 'freeze' if arg == 'freeze_for' else arg
             assert value == (morph_args[arg] or cli.ARG_DEFAULTS[arg])
@@ -171,7 +188,18 @@ def test_cli_one_shape(flag, mocker, tmp_path):
     ],
     ids=['two shapes', 'all shapes'],
 )
-@pytest.mark.parametrize('start_shape', [['dino'], ['dino', 'sheep']])
+@pytest.mark.parametrize(
+    'start_shape',
+    [
+        ['dino'],
+        ['dino', 'sheep'],
+        ['dino.csv', 'sheep'],
+        ['dino', 'sheep.csv'],
+        ['dino.csv', 'sheep.csv'],
+    ],
+    indirect=True,
+    ids=str,
+)
 def test_cli_multiple_shapes(
     start_shape, target_shape, patched_options, monkeypatch, mocker, capsys
 ):
@@ -198,7 +226,7 @@ def test_cli_multiple_shapes(
         in err
     )
     for shape in start_shape:
-        assert shape in err
+        assert Path(shape).stem in err
 
     patterns_run = [
         str(kwargs['target_shape']) for _, kwargs in morph_noop.call_args_list

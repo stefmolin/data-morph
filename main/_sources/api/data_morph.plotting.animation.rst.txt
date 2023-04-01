@@ -1,0 +1,30 @@
+animation
+=========
+
+.. automodule:: data_morph.plotting.animation
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      stitch_gif_animation
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

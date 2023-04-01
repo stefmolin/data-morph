@@ -1,0 +1,6 @@
+plot\_with\_custom\_style
+=========================
+
+.. currentmodule:: data_morph.plotting.style
+
+.. autofunction:: plot_with_custom_style

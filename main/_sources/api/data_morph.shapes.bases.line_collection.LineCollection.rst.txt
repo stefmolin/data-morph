@@ -1,0 +1,6 @@
+LineCollection
+==============
+
+.. currentmodule:: data_morph.shapes.bases.line_collection
+
+.. autoclass:: LineCollection

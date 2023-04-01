@@ -1,0 +1,37 @@
+stats
+=====
+
+.. automodule:: data_morph.data.stats
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      get_values
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      SummaryStatistics
+   
+   
+
+   
+   
+   
+
+
+

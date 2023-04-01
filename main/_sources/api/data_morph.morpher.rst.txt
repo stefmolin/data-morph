@@ -1,0 +1,30 @@
+﻿morpher
+=======
+
+.. automodule:: data_morph.morpher
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      DataMorpher
+   
+   
+
+   
+   
+   
+
+
+

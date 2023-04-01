@@ -1,0 +1,6 @@
+ShapeFactory
+============
+
+.. currentmodule:: data_morph.shapes.factory
+
+.. autoclass:: ShapeFactory

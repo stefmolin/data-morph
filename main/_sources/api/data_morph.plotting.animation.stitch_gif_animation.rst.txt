@@ -1,0 +1,6 @@
+stitch\_gif\_animation
+======================
+
+.. currentmodule:: data_morph.plotting.animation
+
+.. autofunction:: stitch_gif_animation

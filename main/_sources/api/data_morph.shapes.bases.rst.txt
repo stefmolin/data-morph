@@ -1,0 +1,33 @@
+bases
+=====
+
+.. automodule:: data_morph.shapes.bases
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   data_morph.shapes.bases.line_collection
+   data_morph.shapes.bases.point_collection
+   data_morph.shapes.bases.shape
+

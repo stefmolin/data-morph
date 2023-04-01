@@ -1,0 +1,33 @@
+﻿plotting
+========
+
+.. automodule:: data_morph.plotting
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   data_morph.plotting.animation
+   data_morph.plotting.static
+   data_morph.plotting.style
+

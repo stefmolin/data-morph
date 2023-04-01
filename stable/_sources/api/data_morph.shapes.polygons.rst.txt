@@ -1,0 +1,31 @@
+polygons
+========
+
+.. automodule:: data_morph.shapes.polygons
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Rectangle
+      Star
+   
+   
+
+   
+   
+   
+
+
+

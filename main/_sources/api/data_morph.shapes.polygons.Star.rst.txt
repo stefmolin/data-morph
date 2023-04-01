@@ -1,0 +1,6 @@
+Star
+====
+
+.. currentmodule:: data_morph.shapes.polygons
+
+.. autoclass:: Star

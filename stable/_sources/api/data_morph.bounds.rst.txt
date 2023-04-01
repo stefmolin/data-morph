@@ -1,0 +1,32 @@
+﻿bounds
+======
+
+.. automodule:: data_morph.bounds
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   data_morph.bounds.bounding_box
+   data_morph.bounds.interval
+

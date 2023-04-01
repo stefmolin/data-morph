@@ -6,7 +6,7 @@ API
 .. rubric:: Modules
 
 .. autosummary::
-   :toctree: generated
+   :toctree: api
    :recursive:
 
    data_morph.bounds

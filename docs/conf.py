@@ -12,9 +12,7 @@ import data_morph
 
 project = 'Data Morph'
 current_year = dt.date.today().year
-copyright = (
-    f'2023{f"-{current_year}" if current_year != 2023 else ""}, ' 'Stefanie Molin'
-)
+copyright = f'2023{f"-{current_year}" if current_year != 2023 else ""}, Stefanie Molin'
 author = 'Stefanie Molin'
 release = data_morph.__version__
 
@@ -93,22 +91,19 @@ html_logo = '_static/logo.png'
 html_favicon = '_static/favicon.ico'
 
 html_theme_options = {
-    "github_url": "https://github.com/stefmolin/data-morph",
-    "twitter_url": "https://twitter.com/StefanieMolin",
-    "show_toc_level": 1,
-    "navbar_align": "left",
-    # "navbar_center": ["version-switcher", "navbar-nav"],
-    # "switcher": {
-    #     "json_url": json_url,
-    #     "version_match": version_match,
-    # },
+    'github_url': 'https://github.com/stefmolin/data-morph',
+    'twitter_url': 'https://twitter.com/StefanieMolin',
+    'show_toc_level': 1,
+    'navbar_align': 'left',
+    'navbar_center': ['version-switcher', 'navbar-nav'],
+    'switcher': {'json_url': '_static/switcher.json', 'version_match': release},
 }
 
 html_context = {
-    "github_user": "stefmolin",
-    "github_repo": "data-morph",
-    "github_version": "main",
-    "doc_path": "docs",
+    'github_user': 'stefmolin',
+    'github_repo': 'data-morph',
+    'github_version': 'main',
+    'doc_path': 'docs',
 }
 
 

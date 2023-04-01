@@ -1,8 +1,8 @@
 Release Notes
 =============
 
-0.1.0 (March 26, 2023)
-----------------------
+0.1.0 (April 2, 2023)
+---------------------
 
 This is the first release of Data Morph, which is a spinoff of
 `jmatejka/same-stats-different-graphs <https://github.com/jmatejka/same-stats-different-graphs>`_.

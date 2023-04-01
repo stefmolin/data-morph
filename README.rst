@@ -4,7 +4,7 @@ Data Morph
 Morph an input dataset of 2D points into select shapes, while preserving the summary
 statistics to a given number of decimal points through simulated annealing.
 
-.. image:: https://github.com/stefmolin/data-morph/raw/fbf67d320e6cc982a86678b9fe8daf5b7b9eb1b2/docs/_static/panda_to_star.gif
+.. image:: https://github.com/stefmolin/data-morph/raw/179403ed65e128b95b1258d68339163ca594f202/docs/_static/panda_to_star.gif
    :alt: Morphing the panda dataset into the star shape.
    :align: center
 

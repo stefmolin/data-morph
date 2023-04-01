@@ -57,7 +57,7 @@ class TestRectangle(PolygonsModuleTestBase):
 
     def test_slopes(self, slopes):
         """Test that the slopes are as expected."""
-        assert np.array_equal(np.sort(slopes).flatten(), [0, 0, np.inf, np.inf])
+        np.testing.assert_array_equal(np.sort(slopes).flatten(), [0, 0, np.inf, np.inf])
 
 
 class TestStar(PolygonsModuleTestBase):

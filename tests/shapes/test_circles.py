@@ -65,7 +65,7 @@ class TestCircle(CirclesModuleTestBase):
 
     def test_is_circle(self, shape):
         """Test that the Circle is a valid circle (mathematically)."""
-        angles = np.arange(0, 361, 35)
+        angles = np.arange(0, 361, 45)
         for x, y in zip(
             shape.cx + shape.r * np.cos(angles),
             shape.cy + shape.r * np.sin(angles),

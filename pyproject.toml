@@ -9,6 +9,9 @@ authors = [
     {name = "Aaron Stevens", email = "bheklilr2@gmail.com"},
     {name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com"}
 ]
+maintainers = [
+    {name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com"},
+]
 description = "Teaching tool on the importance of data visualization."
 readme = "README.rst"
 keywords = ["data visualization", "summary statistics", "data animation"]
@@ -54,7 +57,8 @@ docs = [
 data-morph = "data_morph.cli:main"
 
 [project.urls]
-source = "https://github.com/stefmolin/data-morph"
+"Source" = "https://github.com/stefmolin/data-morph"
+"Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

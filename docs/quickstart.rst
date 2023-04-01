@@ -5,18 +5,18 @@ Quick Start Guide
 
 Installation
 ------------
-The ``data_morph`` package can be installed with ``pip``:
+Data Morph can be installed with ``pip``:
 
 .. code:: console
 
-   $ pip install data_morph
+   $ pip install data-morph
 
 ..
    You can also install with ``conda`` (coming soon):
 
    .. code:: console
 
-      $ conda install data_morph -c conda-forge
+      $ conda install data-morph -c conda-forge
 
 .. USAGE INTRO
 

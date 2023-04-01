@@ -47,11 +47,11 @@ def plot(
         When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.
     """
     fig, ax = plt.subplots(
-        figsize=(12.5, 6), layout='constrained', subplot_kw={'aspect': 'equal'}
+        figsize=(7, 3), layout='constrained', subplot_kw={'aspect': 'equal'}
     )
     fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
-    ax.scatter(df.x, df.y, s=20, alpha=0.7, color='black')
+    ax.scatter(df.x, df.y, s=1, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
 
     tick_formatter = EngFormatter()
@@ -84,8 +84,8 @@ def plot(
 
     add_stat_text = partial(
         ax.text,
-        1.03,
-        fontsize=30,
+        1.05,
+        fontsize=15,
         transform=ax.transAxes,
         va='center',
     )

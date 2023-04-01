@@ -3,7 +3,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "data_morph"
+name = "data-morph-ai"
 authors = [
     {name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com"},
     {name = "Aaron Stevens", email = "bheklilr2@gmail.com"},

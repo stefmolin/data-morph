@@ -9,7 +9,7 @@ Data Morph can be installed with ``pip``:
 
 .. code:: console
 
-   $ pip install data-morph
+   $ pip install data-morph-ai
 
 ..
    You can also install with ``conda`` (coming soon):

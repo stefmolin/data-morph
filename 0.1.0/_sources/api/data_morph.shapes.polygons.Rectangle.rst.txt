@@ -1,0 +1,6 @@
+Rectangle
+=========
+
+.. currentmodule:: data_morph.shapes.polygons
+
+.. autoclass:: Rectangle

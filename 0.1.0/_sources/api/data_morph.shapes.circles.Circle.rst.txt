@@ -1,0 +1,6 @@
+Circle
+======
+
+.. currentmodule:: data_morph.shapes.circles
+
+.. autoclass:: Circle

@@ -1,0 +1,12 @@
+[
+    {
+        "name": "0.1.0 (stable)",
+        "version": "stable",
+        "url": "https://stefmolin.github.io/data-morph/stable/index.html"
+    },
+    {
+        "name": "dev",
+        "version": "dev",
+        "url": "https://stefmolin.github.io/data-morph/main/index.html"
+    }
+]

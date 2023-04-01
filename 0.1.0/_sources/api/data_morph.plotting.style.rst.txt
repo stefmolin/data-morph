@@ -1,0 +1,30 @@
+style
+=====
+
+.. automodule:: data_morph.plotting.style
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      plot_with_custom_style
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

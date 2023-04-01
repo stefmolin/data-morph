@@ -1,0 +1,33 @@
+points
+======
+
+.. automodule:: data_morph.shapes.points
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      DotsGrid
+      DownParabola
+      Scatter
+      UpParabola
+   
+   
+
+   
+   
+   
+
+
+

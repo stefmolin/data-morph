@@ -2,6 +2,7 @@ bounds:
 - src/data_morph/bounds/**/*
 
 ci/cd:
+- '.coveragerc'
 - '.github/**/*'
 - '.pre-commit-config.yaml'
 - setup.cfg

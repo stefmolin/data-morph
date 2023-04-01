@@ -10,7 +10,7 @@ authors = [
     {name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com"}
 ]
 maintainers = [
-    {name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com"},
+    {name = "Stefanie Molin"},
 ]
 description = "Teaching tool on the importance of data visualization."
 readme = "README.rst"

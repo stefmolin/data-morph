@@ -123,6 +123,7 @@ class TestXLines(LinesModuleTestBase):
         [(8, 83), 0],  # edge of X line
         [(20, 65), 0],  # middle of X (intersection point)
         [(19, 64), 0.277350],  # off the X
+        [(10, 20), 27.073973],  # off the X
     ]
     expected_line_count = 2
     expected_slopes = [-1.5, 1.5]
@@ -138,5 +139,5 @@ class TestXLines(LinesModuleTestBase):
         assert np.dot(rises, runs.T) == 0
 
         # check that the lines intersect in the middle
-        midpoints = (np.sum(lines.T, axis=1) / 2)[0].T
+        midpoints = np.mean(lines.T, axis=1)[0].T
         assert np.unique(midpoints).size == 1

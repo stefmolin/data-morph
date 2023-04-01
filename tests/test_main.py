@@ -4,6 +4,8 @@ import subprocess
 
 import pytest
 
+pytestmark = pytest.mark.cli
+
 
 @pytest.mark.parametrize(['flag', 'return_code'], [['--version', 0], ['', 2]])
 def test_main_access_cli(flag, return_code):

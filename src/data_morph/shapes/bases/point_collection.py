@@ -17,11 +17,11 @@ class PointCollection(Shape):
 
     Parameters
     ----------
-    *points : Iterable[Iterable[numbers.Number]]
+    *points : Iterable[numbers.Number]
         An iterable of (x, y) values representing an arrangement of points.
     """
 
-    def __init__(self, *points: Iterable[Iterable[Number]]) -> None:
+    def __init__(self, *points: Iterable[Number]) -> None:
         self.points = np.array(points)
         """numpy.array: An array of (x, y) values
         representing an arrangement of points."""

@@ -37,6 +37,7 @@ jobs:
 
       - name: Sphinx build
         run: |
+          git worktree add docs/_build/html gh-pages
           cd docs
           make html
 

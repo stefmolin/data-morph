@@ -20,7 +20,8 @@ Usage
 -----
 
 Once installed, Data Morph can be used on the command line or as an importable Python package.
-Below are some examples; be sure to check out the documentation for more information.
+Below are some examples; be sure to check out the
+`documentation <https://stefmolin.github.io/data-morph>`_ for more information.
 
 
 Command Line Usage

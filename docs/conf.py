@@ -7,6 +7,11 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 import datetime as dt
+import glob
+import shutil
+from pathlib import Path
+
+from packaging.version import parse as parse_version
 
 import data_morph
 
@@ -16,6 +21,32 @@ copyright = f'2023{f"-{current_year}" if current_year != 2023 else ""}, Stefanie
 author = 'Stefanie Molin'
 release = data_morph.__version__
 
+# information on where temporary and permanent files will go
+build_html_dir = Path('_build') / 'html'
+tmp_build = Path('_build') / '_tmp' / 'html'
+
+# for determining stable/dev/etc.
+last_minor_release = sorted(
+    [
+        parse_version(Path(dir).name)
+        for dir in glob.glob(f'{build_html_dir}/[0-9].[0-9]/')
+    ]
+    or [parse_version('0.0')]
+)[-1]
+docs_version = parse_version(release)
+docs_version_group = parse_version(f'{docs_version.major}.{docs_version.minor}')
+
+if docs_version.is_devrelease:
+    version_match = 'dev'
+elif docs_version_group >= last_minor_release:
+    version_match = 'stable'
+else:
+    version_match = f'{docs_version.major}.{docs_version.minor}'
+
+# clean up the old version
+if (old_build := build_html_dir / version_match).exists():
+    shutil.rmtree(old_build)
+
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
@@ -23,6 +54,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.autosummary',
+    'sphinx.ext.githubpages',
     'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
@@ -95,8 +127,11 @@ html_theme_options = {
     'twitter_url': 'https://twitter.com/StefanieMolin',
     'show_toc_level': 1,
     'navbar_align': 'left',
-    'navbar_center': ['version-switcher', 'navbar-nav'],
-    'switcher': {'json_url': '_static/switcher.json', 'version_match': release},
+    'navbar_end': ['version-switcher', 'theme-switcher', 'navbar-icon-links'],
+    'switcher': {
+        'json_url': 'https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/switcher.json',
+        'version_match': version_match,
+    },
 }
 
 html_context = {
@@ -124,6 +159,21 @@ def docstring_strip(app, what, name, obj, options, lines):
         lines[0] = ' '.join(extended_summary)
 
 
+def stable_version_sync(app, exception):
+    # copy the build to a permanent folder (can't delete here bc it raises an exception)
+    build = build_html_dir / version_match
+    shutil.copytree(tmp_build, build, dirs_exist_ok=True)
+
+    if version_match == 'stable':
+        shutil.copytree(
+            build,
+            build_html_dir / str(docs_version_group),
+            dirs_exist_ok=True,
+        )
+    print(f'Build finished. The HTML pages are in {build}.')
+
+
 def setup(app):
     app.connect('autodoc-skip-member', skip)
     app.connect('autodoc-process-docstring', docstring_strip)
+    app.connect('build-finished', stable_version_sync)

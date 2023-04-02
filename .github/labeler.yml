@@ -2,31 +2,35 @@ bounds:
 - src/data_morph/bounds/**/*
 
 ci/cd:
-- '.coveragerc'
-- '.github/**/*'
-- '.pre-commit-config.yaml'
-- setup.cfg
+- any:
+  - '.coveragerc'
+  - '.github/**/*'
+  - '.pre-commit-config.yaml'
+  - setup.cfg
 
 cli:
-- src/data_morph/__main__.py
-- src/data_morph/cli.py
+- any:
+  - src/data_morph/__main__.py
+  - src/data_morph/cli.py
 
 data:
 - src/data_morph/data/**/*
 
 documentation:
-- .github/workflows/docs.yml
-- docs/**/*
-- README.rst
+- any:
+  - .github/workflows/docs.yml
+  - docs/**/*
+  - README.rst
 
 morpher:
 - src/data_morph/morpher.py
 
 packaging:
-- pyproject.toml
-- README.rst
-- LICENSE
-- src/data_morph/__init__.py
+- any:
+  - pyproject.toml
+  - README.rst
+  - LICENSE
+  - src/data_morph/__init__.py
 
 plotting:
 - src/data_morph/plotting/**/*

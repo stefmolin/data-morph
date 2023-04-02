@@ -79,7 +79,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         ),
         epilog=(
             'Source code available at https://github.com/stefmolin/data-morph.'
-            # ' Documentation is at TODO.'
+            ' Documentation is at https://stefmolin.github.io/data-morph.'
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

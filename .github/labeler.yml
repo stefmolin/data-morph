@@ -3,6 +3,7 @@ bounds:
 
 ci/cd:
 - '.coveragerc'
+- '.github/**/*'
 - '.pre-commit-config.yaml'
 - setup.cfg
 
@@ -14,7 +15,7 @@ data:
 - src/data_morph/data/**/*
 
 documentation:
-- .github/workflows/docs.yml
+- '.github/workflows/docs.yml'
 - docs/**/*
 - README.rst
 

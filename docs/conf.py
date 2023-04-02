@@ -97,7 +97,10 @@ html_theme_options = {
     'show_toc_level': 1,
     'navbar_align': 'left',
     'navbar_center': ['version-switcher', 'navbar-nav'],
-    'switcher': {'json_url': '_static/switcher.json', 'version_match': release},
+    'switcher': {
+        'json_url': 'https://raw.githubusercontent.com/stefmolin/data-morph/gh-docs-updates/docs/_static/switcher.json',
+        'version_match': release,
+    },
 }
 
 html_context = {

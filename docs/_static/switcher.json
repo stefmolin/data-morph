@@ -2,11 +2,11 @@
     {
         "name": "0.1.0 (stable)",
         "version": "stable",
-        "url": "https://stefmolin.github.io/data-morph/0.1.0/index.html"
+        "url": "https://stefmolin.github.io/data-morph/stable/"
     },
     {
         "name": "dev",
-        "version": "dev",
-        "url": "https://stefmolin.github.io/data-morph/main/index.html"
+        "version": "0.2.0 (dev)",
+        "url": "https://stefmolin.github.io/data-morph/main/"
     }
 ]

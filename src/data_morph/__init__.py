@@ -21,5 +21,5 @@ served as the starting point for the ``data_morph`` code base, which is on GitHu
 `stefmolin/data-morph <https://github.com/stefmolin/data-morph>`_.
 """
 
-__version__ = '0.1.0'
+__version__ = '0.2.0.dev0'
 MAIN_DIR = __name__

@@ -8,7 +8,7 @@
 The versions that will show up in the switcher must be kept up-to-date in `_static/switcher.json`.
 
 ## Note on cleaning
-Use `make clean` to clean out the `_build` directory properly, if you use `rm` instead you need to run this again:
+Use `make clean` to clean out the `_build` directory properly, if you use `rm` instead, you will need to run this again:
 
 ```shell
 cd _build

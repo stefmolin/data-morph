@@ -1,0 +1,54 @@
+# This workflow builds the Data Morph documentation and publishes it using GitHub pages.
+#
+# Based on https://olgarithms.github.io/sphinx-tutorial/docs/8-automating-documentation-updates.html
+#
+# Author: Stefanie Molin
+
+name: Deploy Docs
+
+on:
+  push:
+    branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and deploy docs.
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install '.[docs]'
+
+      - name: git config
+        run: |
+          git config user.email "Stefanie Molin"
+          git config user.name "24376333+stefmolin@users.noreply.github.com"
+
+      - name: Sphinx build
+        run: |
+          git worktree add docs/_build/html gh-pages
+          cd docs
+          make html
+
+      - name: Deploy docs
+        run: |
+          cd docs/_build/html
+          git add --all
+          git commit -m "Update documentation."
+          git push origin gh-pages

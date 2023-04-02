@@ -15,6 +15,7 @@ data:
 - src/data_morph/data/**/*
 
 documentation:
+- '.github/workflows/docs.yml'
 - docs/**/*
 - README.rst
 

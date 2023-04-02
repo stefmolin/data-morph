@@ -8,6 +8,8 @@
 
 import datetime as dt
 
+from packaging.version import parse as parse_version
+
 import data_morph
 
 project = 'Data Morph'
@@ -16,6 +18,22 @@ copyright = f'2023{f"-{current_year}" if current_year != 2023 else ""}, Stefanie
 author = 'Stefanie Molin'
 release = data_morph.__version__
 
+# for determining stable/dev/etc.
+last_release = parse_version(
+    '0.1.0'
+)  # TODO: can this be passed in from GitHub Action using tag/release? or just read the other builds and sort?
+docs_version = parse_version(release)
+
+if docs_version.is_devrelease:
+    version_match = 'dev'
+elif (docs_version.major, docs_version.minor) == (
+    last_release.major,
+    last_release.minor,
+):
+    version_match = 'stable'
+else:
+    version_match = docs_version.release
+print(version_match)
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
@@ -96,10 +114,10 @@ html_theme_options = {
     'twitter_url': 'https://twitter.com/StefanieMolin',
     'show_toc_level': 1,
     'navbar_align': 'left',
-    'navbar_center': ['version-switcher', 'navbar-nav'],
+    'navbar_end': ['version-switcher', 'theme-switcher', 'navbar-icon-links'],
     'switcher': {
         'json_url': 'https://raw.githubusercontent.com/stefmolin/data-morph/gh-docs-updates/docs/_static/switcher.json',
-        'version_match': release,
+        'version_match': version_match,
     },
 }
 

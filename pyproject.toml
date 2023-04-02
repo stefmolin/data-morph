@@ -59,6 +59,7 @@ data-morph = "data_morph.cli:main"
 [project.urls]
 "Source" = "https://github.com/stefmolin/data-morph"
 "Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
+"Documentation" = "https://stefmolin.github.io/data-morph"
 
 [tool.setuptools.packages.find]
 where = ["src"]

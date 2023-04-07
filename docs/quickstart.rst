@@ -41,11 +41,26 @@ Run ``data-morph`` on the command line:
 This produces the following animation in the newly-created ``morphed_data`` directory
 within your current working directory:
 
-.. figure:: _static/panda_to_star.gif
+.. figure:: _static/panda-to-star.gif
    :alt: Morphing the panda dataset into the star shape.
    :align: center
 
    Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
+
+You can smooth the transition with the ``--ramp-in`` and ``--ramp-out`` flags. The ``--freeze``
+flag allows you to start the animation with the specified number of frames of the initial shape:
+
+.. code:: console
+
+   $ data-morph --start-shape panda --target-shape star --freeze 50 --ramp-in --ramp-out
+
+Here is the resulting animation:
+
+.. figure:: _static/panda-to-star-eased.gif
+   :alt: Morphing the panda dataset into the star shape with easing.
+   :align: center
+
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape` with easing.
 
 ----
 
@@ -94,7 +109,13 @@ With the :class:`.Dataset` and :class:`.Shape` created, here is a minimal exampl
        output_dir='data_morph/output',
    )
 
-   result = morpher.morph(start_shape=dataset, target_shape=target_shape)
+   result = morpher.morph(
+       start_shape=dataset,
+       target_shape=target_shape,
+       freeze_for=50,
+       ramp_in=True,
+       ramp_out=True,
+   )
 
 .. note::
 

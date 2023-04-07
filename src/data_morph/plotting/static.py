@@ -64,12 +64,13 @@ def plot(
     locs = np.linspace(0.8, 0.2, num=len(labels))
     max_label_length = max([len(label) for label in labels])
     max_stat = int(np.log10(np.max(np.abs(res)))) + 1
+    mean_digits = int(np.log10(np.max(np.abs([res.x_mean, res.y_mean])))) + 1
 
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.7f}", then we
     # can pull the `.format` method for that string to reduce typing it
     # repeatedly
     visible_decimals = 7
-    offset = 2 if res.x_mean < 0 or res.y_mean < 0 else 1
+    offset = 2 if (res.x_mean < 0 or res.y_mean < 0) and mean_digits >= max_stat else 1
     formatter = '{{:<{pad}}}: {{:{stat_pad}.{decimals}f}}'.format(
         pad=max_label_length,
         stat_pad=max_stat + visible_decimals + offset,

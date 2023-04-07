@@ -4,7 +4,7 @@ Data Morph
 Morph an input dataset of 2D points into select shapes, while preserving the summary
 statistics to a given number of decimal points through simulated annealing.
 
-.. image:: https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda_to_star.gif
+.. image:: https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif
    :alt: Morphing the panda dataset into the star shape.
    :align: center
 
@@ -110,5 +110,5 @@ The paper, video, and associated code and datasets can be found on the
 Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.
 The version of this code placed on GitHub at
 `jmatejka/same-stats-different-graphs <https://github.com/jmatejka/same-stats-different-graphs>`_,
-served as the starting point for the ``data_morph`` code base, which is on GitHub at
+served as the starting point for the Data Morph code base, which is on GitHub at
 `stefmolin/data-morph <https://github.com/stefmolin/data-morph>`_.

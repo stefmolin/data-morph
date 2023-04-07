@@ -1,6 +1,9 @@
 # ignore results when running from this directory
 morphed_data/
 
+# dev setup
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

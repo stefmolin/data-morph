@@ -426,9 +426,21 @@ served as the starting point for the <code class="docutils literal notranslate">
 <p>This produces the following animation in the newly-created <code class="docutils literal notranslate"><span class="pre">morphed_data</span></code> directory
 within your current working directory:</p>
 <figure class="align-center" id="id1">
-<img alt="Morphing the panda dataset into the star shape." src="_images/panda_to_star.gif" />
+<img alt="Morphing the panda dataset into the star shape." src="_images/panda-to-star.gif" />
 <figcaption>
 <p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a>.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>You can smooth the transition with the <code class="docutils literal notranslate"><span class="pre">--ramp-in</span></code> and <code class="docutils literal notranslate"><span class="pre">--ramp-out</span></code> flags. The <code class="docutils literal notranslate"><span class="pre">--freeze</span></code>
+flag allows you to start the animation with the specified number of frames of the initial shape:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>--target-shape<span class="w"> </span>star<span class="w"> </span>--freeze<span class="w"> </span><span class="m">50</span><span class="w"> </span>--ramp-in<span class="w"> </span>--ramp-out
+</pre></div>
+</div>
+<p>Here is the resulting animation:</p>
+<figure class="align-center" id="id2">
+<img alt="Morphing the panda dataset into the star shape with easing." src="_images/panda-to-star-eased.gif" />
+<figcaption>
+<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> with easing.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <hr class="docutils" />
@@ -464,7 +476,13 @@ All shapes are accessible via the <a class="reference internal" href="api/data_m
     <span class="n">output_dir</span><span class="o">=</span><span class="s1">&#39;data_morph/output&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">morpher</span><span class="o">.</span><span class="n">morph</span><span class="p">(</span><span class="n">start_shape</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">target_shape</span><span class="o">=</span><span class="n">target_shape</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">morpher</span><span class="o">.</span><span class="n">morph</span><span class="p">(</span>
+    <span class="n">start_shape</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+    <span class="n">target_shape</span><span class="o">=</span><span class="n">target_shape</span><span class="p">,</span>
+    <span class="n">freeze_for</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">ramp_in</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">ramp_out</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">

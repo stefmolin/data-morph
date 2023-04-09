@@ -15,8 +15,8 @@ Generate points
 ---------------
 
 Below are some ways to create an original starter dataset. Each method will
-will yield some (x, y) values in web browser coordinates. Save these to a
-text file called ``points.txt`` for processing in the
+yield some (x, y) points, which may be in web browser coordinates or Cartesian
+coordinates. Save these to a text file called ``points.txt`` for processing in the
 :ref:`next step <custom_datasets:create a csv file in cartesian coordinates>`.
 
 .. note::
@@ -65,18 +65,32 @@ morphing, and plot it:
     import pandas as pd
     import matplotlib.pyplot as plt
 
+
+    # whether the points are in web browser coordinates
+    browser_coordinates = True
+
     with open('points.txt') as file:
         points = pd.DataFrame(
             [tuple(map(float, line.split(','))) for line in file.readlines()],
             columns=['x', 'y'],
-        ).assign(  # flip across x-axis (web browser coordinates only)
-            y=lambda df: -df.y
         )
+
+        if browser_coordinates:
+            # reflect points over the x-axis (web browser coordinates only)
+            points = points.assign(y=lambda df: -df.y)
 
         points.to_csv('points.csv', index=False)
 
     points.plot(kind='scatter', x='x', y='y', color='black', s=1).axis('equal')
     plt.show()
+
+.. note::
+    While Data Morph provides a scaling option, consider scaling the data when
+    creating your CSV file to save some typing later. For example, you can divide
+    all values by 10 to scale down by a factor of 10. This makes morphing faster.
+
+    Likewise, you can shift the data in the x/y direction at this step, although
+    this is purely aesthetic.
 
 
 Morph the data

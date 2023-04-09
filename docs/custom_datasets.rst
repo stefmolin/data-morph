@@ -57,7 +57,7 @@ Create a CSV file in Cartesian coordinates
 Depending on the tool you use to generate your points in the previous step,
 your points may be in the web browser coordinate system, in which case they
 will appear upside-down unless we flip them. Use the following code to convert
-the points into Cartesian coordinates if necessary, save to a CSV file for
+the points into Cartesian coordinates (if necessary), save to a CSV file for
 morphing, and plot it:
 
 .. code:: python
@@ -99,12 +99,9 @@ Pass the path to the CSV file to use those points as the starting shape:
 
 .. code:: console
 
-   $ data-morph \
-        --start-shape path/to/points.csv \
-        --target-shape wide_lines \
-        --freeze 50 --ramp-in --ramp-out
+   $ data-morph --start-shape path/to/points.csv --target-shape wide_lines
 
-Here is an example:
+Here is an example animation generated from a custom dataset:
 
 .. figure:: _static/easter-egg-to-wide-lines.gif
    :alt: Congratulations, you've found the Easter egg!

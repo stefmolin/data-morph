@@ -40,9 +40,11 @@ following to create (x, y) points by free-hand drawing or tracing an image:
 Using an SVG image
 ~~~~~~~~~~~~~~~~~~
 
-If you are starting from an SVG image, you can use the `PathToPoints`_ tool to generate points
-(in web browser coordinates) from the paths in the SVG file. Depending on the starting image,
-you may want to `crop`_ and/or `remove whitespace`_ from the SVG file before generating the points.
+If you are starting from an SVG image, you can use a tool like `PathToPoints`_
+to generate points (in web browser coordinates) from the paths in the SVG file.
+Depending on the starting image, you may want to `crop`_ and/or `remove whitespace`_
+from the SVG file before generating the points. Note that the linked tools are just
+examples; make sure to look for the tool that works for your use case.
 
 .. _crop: https://msurguy.github.io/svg-cropper-tool/
 .. _remove whitespace: https://svgcrop.com/

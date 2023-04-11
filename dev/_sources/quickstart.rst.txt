@@ -27,7 +27,7 @@ Once installed, Data Morph can be used on the command line or as an importable P
 
 .. USAGE START
 
-Command Line Usage
+Command line usage
 ~~~~~~~~~~~~~~~~~~
 
 .. CLI USAGE START
@@ -72,7 +72,7 @@ See all available CLI options by passing in ``--help``:
 
 .. CLI USAGE END
 
-Python Usage
+Python usage
 ~~~~~~~~~~~~
 
 .. PYTHON USAGE START
@@ -138,3 +138,5 @@ out the other built-in options:
 
 * The :attr:`.ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which
   are also visualized in the :class:`.ShapeFactory` documentation.
+
+For further customization, the :doc:`custom_datasets` tutorial discusses how to generate custom input datasets.

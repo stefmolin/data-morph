@@ -12,6 +12,7 @@ Data Morph
    :hidden:
 
    quickstart
+   custom_datasets
    api
    release_notes
 

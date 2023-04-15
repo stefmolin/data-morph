@@ -4,18 +4,18 @@ codecov:
   require_ci_to_pass: false
 
 coverage:
-  range: "90...100"
   status:
     patch:
       default:
         target: 90%
     project:
+      default: false
       src:
         target: 90%
-        paths: 'src/.*'
+        paths: '!tests/'
       tests:
         target: 100%
-        paths: 'tests/.*'
+        paths: 'tests/'
 
 comment:
   layout: "reach, diff, files"

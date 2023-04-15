@@ -1,0 +1,23 @@
+codecov:
+  notify:
+    wait_for_ci: false
+  require_ci_to_pass: false
+
+coverage:
+  range: "90...100"
+  status:
+    patch:
+      default:
+        target: 90%
+    project:
+      default:
+        target: 90%
+      src:
+        target: 90%
+        paths: 'src/.*'
+      tests:
+        target: 100%
+        paths: 'tests/.*'
+
+comment:
+  layout: "reach, diff, files"

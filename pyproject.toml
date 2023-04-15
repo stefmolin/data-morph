@@ -13,7 +13,7 @@ maintainers = [
     {name = "Stefanie Molin"},
 ]
 description = "Teaching tool on the importance of data visualization."
-readme = "README.rst"
+readme = "README.md"
 keywords = ["data visualization", "summary statistics", "data animation"]
 license = {file = "LICENSE"}
 classifiers = [

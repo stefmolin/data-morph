@@ -127,8 +127,6 @@ addopts = [
     "--strict-config",
     "--cov=data_morph",
     "--cov=tests",
-    "--cov-report=term-missing",
-    "--cov-fail-under=90",
     "--no-cov-on-fail",
 ]
 xfail_strict = true

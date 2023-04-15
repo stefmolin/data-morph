@@ -8,7 +8,7 @@ Notes
 -----
 This code has been altered by Stefanie Molin to work for other input datasets
 by parameterizing the target shapes with information from the input shape.
-The original code works for a specific dataset called the "dinosaurus" and was created
+The original code works for a specific dataset called the "Datasaurus" and was created
 for the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and
 Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice
 (ACM CHI 2017).

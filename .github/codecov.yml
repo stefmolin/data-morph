@@ -10,12 +10,12 @@ coverage:
         target: 90%
     project:
       default: false
-      src:
+      data_morph:
         target: 90%
-        paths: '!tests/'
+        paths: "!tests/.*"
       tests:
         target: 100%
-        paths: 'tests/'
+        paths: "tests/.*"
 
 comment:
   layout: "reach, diff, files"

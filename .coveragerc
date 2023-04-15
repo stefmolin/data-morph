@@ -1,8 +1,5 @@
 [run]
 branch = True
-source =
-    src
-    tests
 
 [report]
 fail_under = 90

@@ -21,11 +21,14 @@ class DataLoader:
 
     .. plot::
        :caption:
-            Datasets currently included in Data Morph. Note that CSV
+            Datasets currently included in Data Morph. The ``dino``
+            shape is Alberto Cairo's `Datasaurus`_. Note that CSV
             files are also supported by :meth:`.load_dataset`.
 
         from data_morph.data.loader import DataLoader
         DataLoader.plot_available_datasets()
+
+    .. _Datasaurus: http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html
     """
 
     _DATA_PATH: str = 'data/starter_shapes/'

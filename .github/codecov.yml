@@ -10,8 +10,6 @@ coverage:
       default:
         target: 90%
     project:
-      default:
-        target: 90%
       src:
         target: 90%
         paths: 'src/.*'

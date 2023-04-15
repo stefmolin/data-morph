@@ -125,7 +125,7 @@ addopts = [
     "--import-mode=importlib",
     "--strict-markers",
     "--strict-config",
-    "--cov=src",
+    "--cov=data_morph",
     "--cov=tests",
     "--no-cov-on-fail",
 ]

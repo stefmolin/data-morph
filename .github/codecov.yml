@@ -1,3 +1,7 @@
+# This is the configuration for codecov.yml -- remember to validate it.
+#
+# cat .github/codecov.yml | curl --data-binary @- https://codecov.io/validate
+
 codecov:
   notify:
     wait_for_ci: false

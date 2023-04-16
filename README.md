@@ -98,4 +98,8 @@ In this example, we morphed the built-in panda `Dataset` into the star `Shape`. 
 This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/stefmolin)) to work for other input datasets by parameterizing the target shapes with information from the input shape. The original code works for a specific dataset called the "Datasaurus" and was created for the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice (ACM CHI 2017).
 
 The paper, video, and associated code and datasets can be found on the
-Autodesk Research website [here](https://www.autodeskresearch.com/publications/samestats>). The version of this code placed on GitHub at [jmatejka/same-stats-different-graphs](https://github.com/jmatejka/same-stats-different-graphs), served as the starting point for the Data Morph code base, which is on GitHub at [stefmolin/data-morph](https://github.com/stefmolin/data-morph).
+Autodesk Research website [here](https://www.autodeskresearch.com/publications/samestats). The version of this code placed on GitHub at [jmatejka/same-stats-different-graphs](https://github.com/jmatejka/same-stats-different-graphs), served as the starting point for the Data Morph code base, which is on GitHub at [stefmolin/data-morph](https://github.com/stefmolin/data-morph).
+
+## Citations
+
+If you use this software, please cite both Data Morph (DOI: [10.5281/zenodo.7834197](https://doi.org/10.5281/zenodo.7834197)) and *[Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing](https://www.autodeskresearch.com/publications/samestats)* by Justin Matejka and George Fitzmaurice (ACM CHI 2017).

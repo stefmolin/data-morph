@@ -1,14 +1,59 @@
-# Data Morph
+<div align="center">
+  <img src="https://github.com/stefmolin/data-morph/raw/main/docs/_static/logo.png">
 
-[![PyPI Latest Release](https://img.shields.io/pypi/v/data-morph-ai.svg)](https://pypi.org/project/data-morph-ai/)
-[![License](https://img.shields.io/pypi/l/data-morph-ai.svg)](https://github.com/stefmolin/data-morph/blob/main/LICENSE)
-[![codecov](https://codecov.io/gh/stefmolin/data-morph/branch/main/graph/badge.svg?token=3SEEG9SZQO)](https://codecov.io/gh/stefmolin/data-morph)
-[![CI](https://github.com/stefmolin/data-morph/actions/workflows/ci.yml/badge.svg)](https://github.com/stefmolin/data-morph/actions/workflows/ci.yml)
-[![Deploy Docs](https://github.com/stefmolin/data-morph/actions/workflows/docs.yml/badge.svg)](https://github.com/stefmolin/data-morph/actions/workflows/docs.yml)
-[![DOI](https://zenodo.org/badge/597895841.svg)](https://zenodo.org/badge/latestdoi/597895841)
+  <hr>
 
+  <table>
+   <tr>
+     <td>
+      <img alt="Last Release" src="https://img.shields.io/badge/last%20release-inactive?style=for-the-badge">
+     </td>
+     <td>
+      <a href="https://stefmolin.github.io/data-morph" target="_blank" rel="noopener noreferrer">
+        <img alt="View docs" src="https://img.shields.io/badge/docs-stable-success">
+      </a>
+      <a href="https://pypi.org/project/data-morph-ai/" target="_blank" rel="noopener noreferrer">
+        <img alt="PyPI release" src="https://img.shields.io/pypi/v/data-morph-ai.svg">
+      </a>
+      <a href="https://pypi.org/project/data-morph-ai/" target="_blank" rel="noopener noreferrer">
+        <img alt="Supported Python Versions" src="https://img.shields.io/pypi/pyversions/data-morph-ai">
+      </a>
+      <a href="https://github.com/stefmolin/data-morph/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">
+         <img alt="License" src="https://img.shields.io/pypi/l/data-morph-ai.svg?color=blueviolet">
+      </a>
+     </td>
+   </tr>
+   <tr>
+     <td>
+       <img alt="Citation information" src="https://img.shields.io/badge/for%20citation-inactive?style=for-the-badge">
+   </td>
+     <td>
+      <a href="https://zenodo.org/badge/latestdoi/597895841" target="_blank" rel="noopener noreferrer">
+        <img alt="DOI" src="https://zenodo.org/badge/597895841.svg">
+      </a>
+     </td>
+   </tr>
+   <tr>
+     <td>
+      <img alt="Build status" src="https://img.shields.io/badge/build%20status-inactive?style=for-the-badge">
+     </td>
+     <td>
+      <a href="https://codecov.io/gh/stefmolin/data-morph" target="_blank" rel="noopener noreferrer">
+        <img alt="codecov" src="https://codecov.io/gh/stefmolin/data-morph/branch/main/graph/badge.svg?token=3SEEG9SZQO">
+      </a>
+      <a href="https://github.com/stefmolin/data-morph/actions/workflows/ci.yml" target="_blank" rel="noopener noreferrer">
+        <img alt="CI" src="https://github.com/stefmolin/data-morph/actions/workflows/ci.yml/badge.svg">
+      </a>
+      <a href="https://github.com/stefmolin/data-morph/actions/workflows/docs.yml" target="_blank" rel="noopener noreferrer">
+        <img alt="Deploy Docs" src="https://github.com/stefmolin/data-morph/actions/workflows/docs.yml/badge.svg">
+      </a>
+     </td>
+   </tr>
+  </table>
+  <hr/>
+</div>
 
-Morph an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing.
+Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing.
 
 ![Morphing the panda dataset into the star shape.](https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif)
 

@@ -27,6 +27,6 @@ jobs:
         run: |
           response=$(cat .github/codecov.yml | curl --data-binary @- https://codecov.io/validate)
           echo $repsonse
-          if [[ $response = Error* ]]; then
+          if [[ $repsonse = Error* ]]; then
             exit 1
           fi

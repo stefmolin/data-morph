@@ -1,0 +1,32 @@
+# This workflow checks that the codecov.yml file is valid, if it is included in the PR.
+#
+# Author: Stefanie Molin
+
+name: Validate codecov config
+
+on:
+  pull_request:
+    paths:
+      - '.github/codecov.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  # check that the codecov.yml configuration is valid
+  codecov:
+    runs-on: ubuntu-latest
+    name: Validate codecov.yml
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Validate with codecov API
+        run: |
+          response=$(cat .github/codecov.yml | curl --data-binary @- https://codecov.io/validate)
+          echo $response
+          if [[ $response = Error* ]]; then
+            exit 1
+          fi

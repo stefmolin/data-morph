@@ -8,8 +8,7 @@
 [![DOI](https://zenodo.org/badge/597895841.svg)](https://zenodo.org/badge/latestdoi/597895841)
 
 
-Morph an input dataset of 2D points into select shapes, while preserving the summary
-statistics to a given number of decimal points through simulated annealing.
+Morph an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing.
 
 ![Morphing the panda dataset into the star shape.](https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif)
 
@@ -23,8 +22,7 @@ $ pip install data-morph-ai
 
 ## Usage
 
-Once installed, Data Morph can be used on the command line or as an importable Python package. Below are some examples; be sure to check out the
-[documentation](https://stefmolin.github.io/data-morph) for more information.
+Once installed, Data Morph can be used on the command line or as an importable Python package. Below are some examples; be sure to check out the [documentation](https://stefmolin.github.io/data-morph) for more information.
 
 
 ### Command Line Usage
@@ -35,8 +33,7 @@ Run `data-morph` on the command line:
 $ data-morph --start-shape panda --target-shape star
 ```
 
-This produces the animation in the newly-created `morphed_data` directory
-within your current working directory (shown above).
+This produces the animation in the newly-created `morphed_data` directory within your current working directory (shown above).
 
 ----
 
@@ -48,9 +45,7 @@ $ data-morph --help
 
 ### Python Usage
 
-The `DataMorpher` class performs the morphing from a `Dataset` to a `Shape`.
-Any `pandas.DataFrame` with numeric columns `x` and `y` can be a `Dataset`.
-Use the `DataLoader` to create the `Dataset` from a file or use a built-in dataset:
+The `DataMorpher` class performs the morphing from a `Dataset` to a `Shape`. Any `pandas.DataFrame` with numeric columns `x` and `y` can be a `Dataset`. Use the `DataLoader` to create the `Dataset` from a file or use a built-in dataset:
 
 ```python
 from data_morph.data.loader import DataLoader

@@ -5,6 +5,7 @@
 [![codecov](https://codecov.io/gh/stefmolin/data-morph/branch/main/graph/badge.svg?token=3SEEG9SZQO)](https://codecov.io/gh/stefmolin/data-morph)
 [![CI](https://github.com/stefmolin/data-morph/actions/workflows/ci.yml/badge.svg)](https://github.com/stefmolin/data-morph/actions/workflows/ci.yml)
 [![Deploy Docs](https://github.com/stefmolin/data-morph/actions/workflows/docs.yml/badge.svg)](https://github.com/stefmolin/data-morph/actions/workflows/docs.yml)
+[![DOI](https://zenodo.org/badge/597895841.svg)](https://zenodo.org/badge/latestdoi/597895841)
 
 
 Morph an input dataset of 2D points into select shapes, while preserving the summary
@@ -22,8 +23,7 @@ $ pip install data-morph-ai
 
 ## Usage
 
-Once installed, Data Morph can be used on the command line or as an importable Python package.
-Below are some examples; be sure to check out the
+Once installed, Data Morph can be used on the command line or as an importable Python package. Below are some examples; be sure to check out the
 [documentation](https://stefmolin.github.io/data-morph) for more information.
 
 

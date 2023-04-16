@@ -11,7 +11,7 @@ authors:
     orcid: 'https://orcid.org/0009-0001-3359-3346'
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.7834198
+    value: 10.5281/zenodo.7834197
 repository-code: 'https://github.com/stefmolin/data-morph'
 url: 'https://stefmolin.github.io/data-morph/'
 abstract: >-
@@ -23,6 +23,3 @@ keywords:
   - summary statistics
   - data animation
 license: MIT
-commit: d3d2f3826efaa2de41ae688a661cd06e3ff79112
-version: 0.1.0
-date-released: '2023-04-01'

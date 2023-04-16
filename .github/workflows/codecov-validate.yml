@@ -26,7 +26,7 @@ jobs:
       - name: Validate with codecov API
         run: |
           response=$(cat .github/codecov.yml | curl --data-binary @- https://codecov.io/validate)
-          echo $repsonse
-          if [[ $repsonse = Error* ]]; then
+          echo $response
+          if [[ $response = Error* ]]; then
             exit 1
           fi

@@ -90,7 +90,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
 
     shape_config_group = parser.add_argument_group(
         'shape configuration (required)',
-        description='Specify the start and end shapes.',
+        description='Specify the start and target shapes.',
     )
     shape_config_group.add_argument(
         '--start-shape',
@@ -188,6 +188,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     file_group.add_argument(
         '--output-dir',
         default=ARG_DEFAULTS['output_dir'],
+        metavar='DIRECTORY',
         help=f'Path to a directory for writing output files. Defaults to {ARG_DEFAULTS["output_dir"]}.',
     )
     file_group.add_argument(
@@ -215,6 +216,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         '--freeze',
         default=ARG_DEFAULTS['freeze'],
         type=int,
+        metavar='NUM_FRAMES',
         help=(
             'Number of frames to freeze at the first and final frame of the transition '
             'in the animation. This only affects the frames selected, not the algorithm. '

@@ -23,9 +23,10 @@ morpher:
 - src/data_morph/morpher.py
 
 packaging:
+- CITATION.cff
+- LICENSE
 - pyproject.toml
 - README.md
-- LICENSE
 - src/data_morph/__init__.py
 
 plotting:

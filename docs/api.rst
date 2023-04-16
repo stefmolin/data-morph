@@ -38,3 +38,7 @@ This produces the following animation in the directory specified as ``output_dir
 
 .. note::
    There is also a :ref:`CLI option <quickstart:command line usage>` for morphing.
+
+.. rubric:: Citations
+
+.. include:: citation.rst

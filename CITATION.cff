@@ -1,0 +1,25 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit edit via form.
+
+cff-version: 1.2.0
+title: 'stefmolin/data-morph: Data Morph'
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - family-names: Molin
+    given-names: Stefanie
+    orcid: 'https://orcid.org/0009-0001-3359-3346'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.7834197
+repository-code: 'https://github.com/stefmolin/data-morph'
+url: 'https://stefmolin.github.io/data-morph/'
+abstract: >-
+  Morph an input dataset of 2D points into select shapes,
+  while preserving the summary statistics to a given number
+  of decimal points through simulated annealing.
+keywords:
+  - data visualization
+  - summary statistics
+  - data animation
+license: MIT

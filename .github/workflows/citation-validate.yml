@@ -1,0 +1,37 @@
+# This workflow checks that the CITATION.cff file is valid, if it is included in the PR.
+#
+# Author: Stefanie Molin
+
+name: Validate CITATION.cff
+
+on:
+  pull_request:
+    paths:
+      - 'CITATION.cff'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  # check that the CITATION.cff configuration is valid
+  citation:
+    runs-on: ubuntu-latest
+    name: Validate CITATION.cff
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Install cffconvert
+        run: pip install cffconvert
+      - name: Validate
+        run: |
+          verdict=$(cffconvert --validate)
+          echo $verdict
+          if [[ $verdict != "Citation metadata are valid"* ]]; then
+            exit 1
+          fi

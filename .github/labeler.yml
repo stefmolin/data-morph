@@ -17,15 +17,16 @@ data:
 documentation:
 - '.github/workflows/docs.yml'
 - docs/**/*
-- README.rst
+- README.md
 
 morpher:
 - src/data_morph/morpher.py
 
 packaging:
-- pyproject.toml
-- README.rst
+- CITATION.cff
 - LICENSE
+- pyproject.toml
+- README.md
 - src/data_morph/__init__.py
 
 plotting:

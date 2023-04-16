@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/stefmolin/data-morph/raw/main/docs/_static/logo.png">
+  <img alt="Data Morph" src="https://github.com/stefmolin/data-morph/raw/main/docs/_static/logo.png">
 
   <hr>
 
@@ -55,7 +55,10 @@
 
 Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing.
 
-![Morphing the panda dataset into the star shape.](https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif)
+<div align="center">
+  <img alt="Morphing the panda dataset into the star shape." src="https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif">
+  <br/>
+</div>
 
 ## Installation
 

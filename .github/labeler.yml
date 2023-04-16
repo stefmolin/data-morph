@@ -17,14 +17,14 @@ data:
 documentation:
 - '.github/workflows/docs.yml'
 - docs/**/*
-- README.rst
+- README.md
 
 morpher:
 - src/data_morph/morpher.py
 
 packaging:
 - pyproject.toml
-- README.rst
+- README.md
 - LICENSE
 - src/data_morph/__init__.py
 

@@ -20,7 +20,7 @@ jobs:
       - uses: pre-commit/action@v3.0.0
       - name: Look for updates
         run: |
-          pre-commit autoupdate
+          pre-commit autoupdate --repo https://github.com/psf/black
       - name: Create PR
         uses: peter-evans/create-pull-request@v5
         with:

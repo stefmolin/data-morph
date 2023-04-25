@@ -17,7 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
-      - uses: pre-commit/action@v3.0.0
+      - name: Set up pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit install
       - name: Look for updates
         run: |
           pre-commit autoupdate --repo https://github.com/psf/black

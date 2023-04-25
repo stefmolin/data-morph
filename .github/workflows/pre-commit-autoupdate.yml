@@ -23,12 +23,13 @@ jobs:
           pre-commit autoupdate
       - name: Create PR
         uses: peter-evans/create-pull-request@v5
-        commit_message: |
-          ci: pre-commit autoupdate
-        signoff: true
-        branch: pre-commit-autoupdate
-        delete_branch: true
-        title: |
-          Pre-commit hook update
-        body: |
-          Pre-commit autoupdates.
+        with:
+          commit-message: |
+            ci: pre-commit autoupdate
+          signoff: true
+          branch: pre-commit-autoupdate
+          delete-branch: true
+          title: |
+            Pre-commit hook update
+          body: |
+            Pre-commit autoupdates.

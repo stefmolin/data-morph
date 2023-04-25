@@ -40,4 +40,4 @@ jobs:
           title: |
             Pre-commit hook update
           body: |
-            Pre-commit autoupdates.
+            Updating pre-commit hooks.

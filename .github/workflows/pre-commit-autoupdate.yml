@@ -14,6 +14,9 @@ jobs:
   pre_commit_autoupdate:
     name: Update pre-commit hooks
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3

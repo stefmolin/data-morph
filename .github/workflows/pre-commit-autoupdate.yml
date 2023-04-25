@@ -1,6 +1,7 @@
 name: Pre-commit update
 
 on:
+  pull_request:
   schedule:
     - cron: "54 18 * * 2"
   workflow_dispatch:

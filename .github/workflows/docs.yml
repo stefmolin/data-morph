@@ -39,12 +39,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install '.[docs]'
-
-      - name: git config
-        run: |
-          git config user.email "Stefanie Molin"
-          git config user.name "24376333+stefmolin@users.noreply.github.com"
-
       - name: Sphinx build
         run: |
           git worktree add docs/_build/html gh-pages
@@ -52,8 +46,8 @@ jobs:
           make html
 
       - name: Deploy docs
-        run: |
-          cd docs/_build/html
-          git add --all
-          git commit -m "Update documentation."
-          git push origin gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html

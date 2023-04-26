@@ -17,6 +17,7 @@ readme = "README.md"
 keywords = ["data visualization", "summary statistics", "data animation"]
 license = {file = "LICENSE"}
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Framework :: Matplotlib",
     "Intended Audience :: Education",
     "License :: OSI Approved :: MIT License",
@@ -57,9 +58,10 @@ docs = [
 data-morph = "data_morph.cli:main"
 
 [project.urls]
-"Source" = "https://github.com/stefmolin/data-morph"
+"Homepage" = "https://stefmolin.github.io/data-morph"
 "Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
-"Documentation" = "https://stefmolin.github.io/data-morph"
+"Documentation" = "https://stefmolin.github.io/data-morph/stable/api.html"
+"Source" = "https://github.com/stefmolin/data-morph"
 
 [tool.setuptools.packages.find]
 where = ["src"]

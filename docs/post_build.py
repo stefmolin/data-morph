@@ -41,6 +41,12 @@ if __name__ == '__main__':
     if (old_build := build_html_dir / version_match).exists():
         shutil.rmtree(old_build)
 
+    # move html files to proper spot
+    tmp_html = tmp_build / 'html'
+    for file in tmp_html.glob('*'):
+        file.rename(tmp_build / file.name)
+    tmp_html.rmdir()
+
     build = build_html_dir / version_match
     shutil.move(tmp_build, build)
 

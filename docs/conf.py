@@ -25,6 +25,8 @@ version_match, _ = determine_versions()
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+nitpick_ignore_regex = [('py:class', r'(optional|default.*)')]
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',

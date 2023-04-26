@@ -354,15 +354,15 @@ class DataMorpher:
             The maximum temperature for simulated annealing (starting temperature).
         min_temp : numbers.Number
             The minimum temperature for simulated annealing (ending temperature).
-        min_shake : Number
+        min_shake : numbers.Number
             The standard deviation of random movement applied in each direction,
             sampled from a normal distribution with a mean of zero. Value will start
             at ``max_shake`` and move toward ``min_shake``.
-        max_shake : Number
+        max_shake : numbers.Number
             The standard deviation of random movement applied in each direction,
             sampled from a normal distribution with a mean of zero. Value will start
             at ``max_shake`` and move toward ``min_shake``.
-        allowed_dist : Number
+        allowed_dist : numbers.Number
             The farthest apart the perturbed points can be from the target shape.
         ramp_in : bool, default ``False``
             Whether to more slowly transition in the beginning.

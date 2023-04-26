@@ -35,7 +35,7 @@ class Dataset:
 
     See Also
     --------
-    DataLoader
+    :class:`.DataLoader`
         Utility for creating :class:`Dataset` objects from CSV files.
     """
 

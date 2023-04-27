@@ -3,7 +3,7 @@ CLI Reference
 
 .. argparse::
     :ref: data_morph.cli._generate_parser_for_docs
-    :prog: Data Morph
+    :prog: data-morph
     :noepilog:
 
 ----

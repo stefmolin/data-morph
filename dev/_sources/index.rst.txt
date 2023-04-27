@@ -13,6 +13,7 @@ Data Morph
 
    quickstart
    custom_datasets
+   cli
    api
    release_notes
 

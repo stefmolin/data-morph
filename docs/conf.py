@@ -27,6 +27,9 @@ version_match, _ = determine_versions()
 
 nitpick_ignore_regex = [('py:class', r'(optional|default.*)')]
 
+# default language for code-highlighting (requires specific declarations to highlight)
+highlight_language = 'output'
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',

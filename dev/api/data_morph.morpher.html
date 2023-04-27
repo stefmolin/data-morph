@@ -621,13 +621,13 @@ with simulated annealing.</p>
 <li><p><strong>iterations</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The number of iterations to run simulated annealing for.</p></li>
 <li><p><strong>max_temp</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a>) – The maximum temperature for simulated annealing (starting temperature).</p></li>
 <li><p><strong>min_temp</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a>) – The minimum temperature for simulated annealing (ending temperature).</p></li>
-<li><p><strong>min_shake</strong> (<em>Number</em>) – The standard deviation of random movement applied in each direction,
+<li><p><strong>min_shake</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a>) – The standard deviation of random movement applied in each direction,
 sampled from a normal distribution with a mean of zero. Value will start
 at <code class="docutils literal notranslate"><span class="pre">max_shake</span></code> and move toward <code class="docutils literal notranslate"><span class="pre">min_shake</span></code>.</p></li>
-<li><p><strong>max_shake</strong> (<em>Number</em>) – The standard deviation of random movement applied in each direction,
+<li><p><strong>max_shake</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a>) – The standard deviation of random movement applied in each direction,
 sampled from a normal distribution with a mean of zero. Value will start
 at <code class="docutils literal notranslate"><span class="pre">max_shake</span></code> and move toward <code class="docutils literal notranslate"><span class="pre">min_shake</span></code>.</p></li>
-<li><p><strong>allowed_dist</strong> (<em>Number</em>) – The farthest apart the perturbed points can be from the target shape.</p></li>
+<li><p><strong>allowed_dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a>) – The farthest apart the perturbed points can be from the target shape.</p></li>
 <li><p><strong>ramp_in</strong> (bool, default <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to more slowly transition in the beginning.
 This only affects the frames, not the algorithm.</p></li>
 <li><p><strong>ramp_out</strong> (bool, default <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to slow down the transition at the end.

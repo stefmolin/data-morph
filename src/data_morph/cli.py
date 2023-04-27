@@ -3,7 +3,6 @@
 import argparse
 import sys
 import textwrap
-from pathlib import Path
 from typing import Sequence, Union
 
 from . import __version__
@@ -12,7 +11,7 @@ from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
 
 ARG_DEFAULTS = {
-    'output_dir': Path.cwd() / 'morphed_data',
+    'output_dir': 'morphed_data',
     'decimals': 2,
     'min_shake': 0.3,
     'iterations': 100_000,
@@ -107,7 +106,7 @@ def generate_parser() -> argparse.ArgumentParser:
         type=float,
         help=(
             'Scale the data on both x and y by dividing by a scale factor. '
-            'For example, `--scale 10` divides all x and y values by 10. '
+            'For example, ``--scale 10`` divides all x and y values by 10. '
             'Datasets with large values will morph faster after scaling down.'
         ),
     )
@@ -127,9 +126,9 @@ def generate_parser() -> argparse.ArgumentParser:
             'a mean of zero. Note that morphing initially sets the shake to 1, '
             'and then decreases the shake value over time toward the minimum value '
             f'defined here, which defaults to {ARG_DEFAULTS["min_shake"]}. Datasets '
-            'with large values may benefit from scaling (see --scale) '
+            'with large values may benefit from scaling (see ``--scale``) '
             'or increasing this towards 1, along with increasing the number of '
-            'iterations (see --iterations).'
+            'iterations (see ``--iterations``).'
         ),
     )
 
@@ -151,7 +150,10 @@ def generate_parser() -> argparse.ArgumentParser:
         '--output-dir',
         default=ARG_DEFAULTS['output_dir'],
         metavar='DIRECTORY',
-        help=f'Path to a directory for writing output files. Defaults to {ARG_DEFAULTS["output_dir"]}.',
+        help=(
+            'Path to a directory for writing output files. '
+            f'Defaults to ``{ARG_DEFAULTS["output_dir"]}``.'
+        ),
     )
     file_group.add_argument(
         '--write-data',

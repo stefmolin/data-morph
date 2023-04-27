@@ -46,6 +46,10 @@ def generate_parser() -> argparse.ArgumentParser:
         ),
     )
 
+    parser.add_argument(
+        '--version', action='version', version=f'%(prog)s {__version__}'
+    )
+
     shape_config_group = parser.add_argument_group(
         'Shape Configuration (required)',
         description='Specify the start and target shapes.',
@@ -198,10 +202,6 @@ def generate_parser() -> argparse.ArgumentParser:
             'Whether to slow down the transition from input to target towards the end '
             'of the animation. This only affects the frames selected, not the algorithm.'
         ),
-    )
-
-    parser.add_argument(
-        '--version', action='version', version=f'%(prog)s {__version__}'
     )
 
     return parser

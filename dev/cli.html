@@ -488,13 +488,13 @@ document.write(`
 <p>Default: 100000</p>
 </dd>
 <dt><kbd>--scale</kbd></dt>
-<dd><p>Scale the data on both x and y by dividing by a scale factor. For example, <cite>–scale 10</cite> divides all x and y values by 10. Datasets with large values will morph faster after scaling down.</p>
+<dd><p>Scale the data on both x and y by dividing by a scale factor. For example, <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">10</span></code> divides all x and y values by 10. Datasets with large values will morph faster after scaling down.</p>
 </dd>
 <dt><kbd>--seed</kbd></dt>
 <dd><p>Provide a seed for reproducible results.</p>
 </dd>
 <dt><kbd>--shake</kbd></dt>
-<dd><p>The standard deviation for the random movement applied in each direction, which will be sampled from a normal distribution with a mean of zero. Note that morphing initially sets the shake to 1, and then decreases the shake value over time toward the minimum value defined here, which defaults to 0.3. Datasets with large values may benefit from scaling (see –scale) or increasing this towards 1, along with increasing the number of iterations (see –iterations).</p>
+<dd><p>The standard deviation for the random movement applied in each direction, which will be sampled from a normal distribution with a mean of zero. Note that morphing initially sets the shake to 1, and then decreases the shake value over time toward the minimum value defined here, which defaults to 0.3. Datasets with large values may benefit from scaling (see <code class="docutils literal notranslate"><span class="pre">--scale</span></code>) or increasing this towards 1, along with increasing the number of iterations (see <code class="docutils literal notranslate"><span class="pre">--iterations</span></code>).</p>
 <p>Default: 0.3</p>
 </dd>
 </dl>
@@ -508,8 +508,8 @@ document.write(`
 <p>Default: False</p>
 </dd>
 <dt><kbd>--output-dir</kbd></dt>
-<dd><p>Path to a directory for writing output files. Defaults to /home/runner/work/data-morph/data-morph/docs/morphed_data.</p>
-<p>Default: /home/runner/work/data-morph/data-morph/docs/morphed_data</p>
+<dd><p>Path to a directory for writing output files. Defaults to <code class="docutils literal notranslate"><span class="pre">morphed_data</span></code>.</p>
+<p>Default: “morphed_data”</p>
 </dd>
 <dt><kbd>--write-data</kbd></dt>
 <dd><p>Whether to write CSV files to the output directory with the data for each frame.</p>

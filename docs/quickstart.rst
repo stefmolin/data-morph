@@ -64,7 +64,7 @@ Here is the resulting animation:
 
 ----
 
-See all available CLI options by passing in ``--help``:
+See all available CLI options by passing in ``--help`` or consulting the :doc:`cli`:
 
 .. code:: console
 

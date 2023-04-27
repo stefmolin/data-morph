@@ -27,7 +27,13 @@ def test_cli_version(capsys):
     """Confirm that --version works."""
     with pytest.raises(SystemExit):
         cli.main(['--version'])
-    assert f'Data Morph {__version__}' == capsys.readouterr().out.strip()
+    assert f'data-morph {__version__}' == capsys.readouterr().out.strip()
+
+
+def test_cli_usage_wrap_for_docs():
+    """Confirm that the usage wrapping for the docs is working."""
+    usage_text = cli._generate_parser_for_docs().format_usage()
+    assert all(len(line) <= cli.USAGE_WIDTH_FOR_DOCS for line in usage_text.split('\n'))
 
 
 def test_cli_bad_shape():

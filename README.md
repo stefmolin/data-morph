@@ -60,6 +60,8 @@ Data Morph transforms an input dataset of 2D points into select shapes, while pr
   <br/>
 </div>
 
+Read more about the creation of Data Morph [here](https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c).
+
 ## Installation
 
 Data Morph can be installed with `pip`:

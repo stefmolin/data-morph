@@ -37,7 +37,7 @@ jobs:
         run: |
           pre-commit run --from-ref origin/${{ github.base_ref }} --to-ref HEAD --show-diff-on-failure
 
-  # Build and upload the docs for review
+  # Check that docs can be built
   docs:
     runs-on: ubuntu-latest
     name: Build docs
@@ -59,10 +59,3 @@ jobs:
         run: |
           cd docs
           make html
-
-      - name: Upload built docs
-        uses: actions/upload-artifact@v3
-        with:
-          name: docs-build-${{ github.sha }}
-          path: docs/_build/html/dev/
-          if-no-files-found: error

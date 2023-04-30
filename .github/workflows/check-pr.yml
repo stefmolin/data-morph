@@ -36,3 +36,26 @@ jobs:
       - name: Run Checks
         run: |
           pre-commit run --from-ref origin/${{ github.base_ref }} --to-ref HEAD --show-diff-on-failure
+
+  # Check that docs can be built
+  docs:
+    runs-on: ubuntu-latest
+    name: Build docs
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install '.[docs]'
+
+      - name: Sphinx build
+        run: |
+          cd docs
+          make html

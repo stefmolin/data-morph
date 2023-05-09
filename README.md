@@ -15,6 +15,9 @@
       <a href="https://pypi.org/project/data-morph-ai/" target="_blank" rel="noopener noreferrer">
         <img alt="PyPI release" src="https://img.shields.io/pypi/v/data-morph-ai.svg">
       </a>
+      <a href="https://anaconda.org/conda-forge/data-morph-ai" target="_blank" rel="noopener noreferrer">
+        <img alt="conda-forge release" src="https://img.shields.io/conda/vn/conda-forge/data-morph-ai.svg">
+      </a>
       <a href="https://pypi.org/project/data-morph-ai/" target="_blank" rel="noopener noreferrer">
         <img alt="Supported Python Versions" src="https://img.shields.io/pypi/pyversions/data-morph-ai">
       </a>
@@ -60,14 +63,18 @@ Data Morph transforms an input dataset of 2D points into select shapes, while pr
   <br/>
 </div>
 
-Read more about the creation of Data Morph [here](https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c).
-
 ## Installation
 
-Data Morph can be installed with `pip`:
+Data Morph can be installed from PyPI using `pip`:
 
 ```console
 $ pip install data-morph-ai
+```
+
+Alternatively, Data Morph can be installed with `conda` by specifying the `conda-forge` channel:
+
+```console
+$ conda install -c conda-forge data-morph-ai
 ```
 
 ## Usage
@@ -143,6 +150,8 @@ In this example, we morphed the built-in panda `Dataset` into the star `Shape`. 
 This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/stefmolin)) to work for other input datasets by parameterizing the target shapes with information from the input shape. The original code works for a specific dataset called the "Datasaurus" and was created for the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice (ACM CHI 2017).
 
 The paper and video can be found on the Autodesk Research website [here](https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/). The version of the code placed on GitHub at [jmatejka/same-stats-different-graphs](https://github.com/jmatejka/same-stats-different-graphs), served as the starting point for the Data Morph code base, which is on GitHub at [stefmolin/data-morph](https://github.com/stefmolin/data-morph).
+
+Read more about the creation of Data Morph [here](https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c).
 
 ## Citations
 

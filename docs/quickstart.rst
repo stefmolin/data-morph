@@ -5,18 +5,17 @@ Quick Start Guide
 
 Installation
 ------------
-Data Morph can be installed with ``pip``:
+Data Morph can be installed from PyPI using ``pip``:
 
 .. code:: console
 
    $ pip install data-morph-ai
 
-..
-   You can also install with ``conda`` (coming soon):
+Alternatively, Data Morph can be installed with ``conda`` by specifying the ``conda-forge`` channel:
 
-   .. code:: console
+.. code:: console
 
-      $ conda install data-morph -c conda-forge
+   $ conda install -c conda-forge data-morph-ai
 
 .. USAGE INTRO
 

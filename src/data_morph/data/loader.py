@@ -22,8 +22,8 @@ class DataLoader:
     .. plot::
        :caption:
             Datasets currently included in Data Morph. The ``dino``
-            shape is Alberto Cairo's `Datasaurus`_. Note that CSV
-            files are also supported by :meth:`.load_dataset`.
+            shape is Alberto Cairo's `Datasaurus`_. Note that CSV files
+            are also supported by the :meth:`.load_dataset` method.
 
         from data_morph.data.loader import DataLoader
         DataLoader.plot_available_datasets()
@@ -135,17 +135,14 @@ class DataLoader:
                     labelleft=False,
                 )
                 points = cls.load_dataset(dataset)
-                points.df.plot(
-                    x='x',
-                    y='y',
-                    color='k',
-                    kind='scatter',
+                ax.scatter(points.df.x, points.df.y, s=4, color='black')
+                ax.set(
                     title=f'{dataset} ({points.df.shape[0]:,d} points)',
-                    ax=ax,
                     xlim=points.plot_bounds.x_bounds,
                     ylim=points.plot_bounds.y_bounds,
+                    xlabel='',
+                    ylabel='',
                 )
-                ax.set(xlabel='', ylabel='')
             else:
                 ax.remove()
         return axs

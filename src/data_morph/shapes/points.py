@@ -83,6 +83,84 @@ class DownParabola(PointCollection):
         return 'down_parab'
 
 
+class LeftParabola(PointCollection):
+    """
+    Class for the left parabola shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import LeftParabola
+
+        _ = LeftParabola(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        y_bounds = dataset.data_bounds.y_bounds
+        ymin, ymax = y_bounds
+        ymid = ymax - y_bounds.range / 2
+
+        y_offset = y_bounds.range / 10
+        ymin += y_offset
+        ymax -= y_offset
+
+        xmin, xmax = dataset.data_bounds.x_bounds
+
+        poly = np.polynomial.Polynomial.fit([ymin, ymid, ymax], [xmin, xmax, xmin], 2)
+
+        super().__init__(*np.stack(poly.linspace()[::-1], axis=1))
+
+    def __str__(self) -> str:
+        return 'left_parab'
+
+
+class RightParabola(PointCollection):
+    """
+    Class for the right parabola shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import RightParabola
+
+        _ = RightParabola(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        y_bounds = dataset.data_bounds.y_bounds
+        ymin, ymax = y_bounds
+        ymid = ymax - y_bounds.range / 2
+
+        y_offset = y_bounds.range / 10
+        ymin += y_offset
+        ymax -= y_offset
+
+        xmin, xmax = dataset.data_bounds.x_bounds
+
+        poly = np.polynomial.Polynomial.fit([ymin, ymid, ymax], [xmax, xmin, xmax], 2)
+
+        super().__init__(*np.stack(poly.linspace()[::-1], axis=1))
+
+    def __str__(self) -> str:
+        return 'right_parab'
+
+
 class UpParabola(PointCollection):
     """
     Class for the up parabola shape.

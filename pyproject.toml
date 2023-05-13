@@ -117,6 +117,7 @@ omit-covered-files = false
 atomic = true
 profile = "black"
 line_length = 88
+known_first_party = ["data_morph"]
 skip_gitignore = true
 
 [tool.pytest.ini_options]

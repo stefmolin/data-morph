@@ -524,6 +524,84 @@ document.write(`
         <span class="k">return</span> <span class="s1">&#39;down_parab&#39;</span></div>
 
 
+<div class="viewcode-block" id="LeftParabola"><a class="viewcode-back" href="../../../api/data_morph.shapes.points.LeftParabola.html#data_morph.shapes.points.LeftParabola">[docs]</a><span class="k">class</span> <span class="nc">LeftParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for the left parabola shape.</span>
+
+<span class="sd">    .. plot::</span>
+<span class="sd">       :scale: 75</span>
+<span class="sd">       :caption:</span>
+<span class="sd">            This shape is generated using the panda dataset.</span>
+
+<span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.shapes.points import LeftParabola</span>
+
+<span class="sd">        _ = LeftParabola(DataLoader.load_dataset(&#39;panda&#39;)).plot()</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset : Dataset</span>
+<span class="sd">        The starting dataset to morph into other shapes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
+        <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">y_bounds</span>
+        <span class="n">ymid</span> <span class="o">=</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">y_offset</span> <span class="o">=</span> <span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">10</span>
+        <span class="n">ymin</span> <span class="o">+=</span> <span class="n">y_offset</span>
+        <span class="n">ymax</span> <span class="o">-=</span> <span class="n">y_offset</span>
+
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
+
+        <span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">Polynomial</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymid</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">linspace</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;left_parab&#39;</span></div>
+
+
+<div class="viewcode-block" id="RightParabola"><a class="viewcode-back" href="../../../api/data_morph.shapes.points.RightParabola.html#data_morph.shapes.points.RightParabola">[docs]</a><span class="k">class</span> <span class="nc">RightParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for the right parabola shape.</span>
+
+<span class="sd">    .. plot::</span>
+<span class="sd">       :scale: 75</span>
+<span class="sd">       :caption:</span>
+<span class="sd">            This shape is generated using the panda dataset.</span>
+
+<span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.shapes.points import RightParabola</span>
+
+<span class="sd">        _ = RightParabola(DataLoader.load_dataset(&#39;panda&#39;)).plot()</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset : Dataset</span>
+<span class="sd">        The starting dataset to morph into other shapes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
+        <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">y_bounds</span>
+        <span class="n">ymid</span> <span class="o">=</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">y_offset</span> <span class="o">=</span> <span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">10</span>
+        <span class="n">ymin</span> <span class="o">+=</span> <span class="n">y_offset</span>
+        <span class="n">ymax</span> <span class="o">-=</span> <span class="n">y_offset</span>
+
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
+
+        <span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">Polynomial</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymid</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">linspace</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;right_parab&#39;</span></div>
+
+
 <div class="viewcode-block" id="UpParabola"><a class="viewcode-back" href="../../../api/data_morph.shapes.points.UpParabola.html#data_morph.shapes.points.UpParabola">[docs]</a><span class="k">class</span> <span class="nc">UpParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the up parabola shape.</span>

@@ -20,6 +20,8 @@ points
    
       DotsGrid
       DownParabola
+      LeftParabola
+      RightParabola
       Scatter
       UpParabola
    

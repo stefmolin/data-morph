@@ -35,7 +35,7 @@ class Dataset:
 
     See Also
     --------
-    DataLoader
+    :class:`.DataLoader`
         Utility for creating :class:`Dataset` objects from CSV files.
     """
 
@@ -199,8 +199,8 @@ class Dataset:
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
         ax.axis('equal')
-        ax = self.df.plot(kind='scatter', x='x', y='y', color='k', ax=ax, title=self)
-        ax.set(xlabel='', ylabel='')
+        ax.scatter(self.df.x, self.df.y, s=2, color='black')
+        ax.set(xlabel='', ylabel='', title=self)
 
         scale_base = 85
 

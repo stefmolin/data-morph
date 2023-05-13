@@ -47,11 +47,11 @@ def plot(
         When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.
     """
     fig, ax = plt.subplots(
-        figsize=(12.5, 6), layout='constrained', subplot_kw={'aspect': 'equal'}
+        figsize=(7, 3), layout='constrained', subplot_kw={'aspect': 'equal'}
     )
     fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
-    ax.scatter(df.x, df.y, s=20, alpha=0.7, color='black')
+    ax.scatter(df.x, df.y, s=1, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
 
     tick_formatter = EngFormatter()
@@ -64,12 +64,21 @@ def plot(
     locs = np.linspace(0.8, 0.2, num=len(labels))
     max_label_length = max([len(label) for label in labels])
     max_stat = int(np.log10(np.max(np.abs(res)))) + 1
+    mean_x_digits, mean_y_digits = map(
+        lambda x: int(x) + 1,
+        np.log10(np.abs([res.x_mean, res.y_mean])),
+    )
 
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.7f}", then we
     # can pull the `.format` method for that string to reduce typing it
     # repeatedly
     visible_decimals = 7
-    offset = 2 if res.x_mean < 0 or res.y_mean < 0 else 1
+    offset = (
+        2
+        if (res.x_mean < 0 and mean_x_digits >= max_stat)
+        or (res.y_mean < 0 and mean_y_digits >= max_stat)
+        else 1
+    )
     formatter = '{{:<{pad}}}: {{:{stat_pad}.{decimals}f}}'.format(
         pad=max_label_length,
         stat_pad=max_stat + visible_decimals + offset,
@@ -84,8 +93,8 @@ def plot(
 
     add_stat_text = partial(
         ax.text,
-        1.03,
-        fontsize=30,
+        1.05,
+        fontsize=15,
         transform=ax.transAxes,
         va='center',
     )

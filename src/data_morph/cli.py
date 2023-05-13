@@ -2,7 +2,7 @@
 
 import argparse
 import sys
-from pathlib import Path
+import textwrap
 from typing import Sequence, Union
 
 from . import __version__
@@ -11,77 +11,38 @@ from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
 
 ARG_DEFAULTS = {
-    'output_dir': Path.cwd() / 'morphed_data',
+    'output_dir': 'morphed_data',
     'decimals': 2,
     'min_shake': 0.3,
     'iterations': 100_000,
     'freeze': 0,
 }
 
-_EXAMPLES = [
-    (
-        'morph the panda shape into a star',
-        'data-morph --start-shape panda --target-shape star',
-    ),
-    (
-        'morph the panda shape into all available target shapes',
-        'data-morph --start-shape panda --target-shape all',
-    ),
-    (
-        'morph the cat, dog, and panda shapes into the circle and slant_down shapes',
-        'data-morph --start-shape cat dog panda --target-shape circle slant_down',
-    ),
-    (
-        'morph the dog shape into upward-slanting lines over 50,000 iterations with seed 1',
-        'data-morph --start-shape dog --target-shape slant_up --iterations 50000 --seed 1',
-    ),
-    (
-        'morph the cat shape into a circle, preserving summary statistics to 3 decimal places',
-        'data-morph --start-shape cat --target-shape circle --decimals 3',
-    ),
-    (
-        'morph the music shape into a bullseye, specifying the output directory',
-        'data-morph --start-shape music --target-shape bullseye --output-dir path/to/dir',
-    ),
-    (
-        'morph the sheep shape into vertical lines, slowly ramping in and out for the animation',
-        'data-morph --start-shape sheep --target-shape v_lines --ramp-in --ramp-out',
-    ),
-]
-
-_EXAMPLE_SECTION = '\n\n  '.join(
-    [
-        f'{num}) {description}:' + '\n     $ ' + code
-        for num, (description, code) in enumerate(_EXAMPLES, start=1)
-    ]
-)
+USAGE_WIDTH_FOR_DOCS = 80
 
 
-def main(argv: Union[Sequence[str], None] = None) -> None:
+def generate_parser() -> argparse.ArgumentParser:
     """
-    Run data morph as a script.
+    Generate an argument parser for the CLI.
 
-    Parameters
-    ----------
-    argv : Union[Sequence[str], None], optional
-        Makes it possible to pass in options without running on
-        the command line.
+    Returns
+    -------
+    argparse.argparse.ArgumentParser
+        Argument parser class for the CLI.
     """
 
     parser = argparse.ArgumentParser(
-        prog='Data Morph',
+        prog='data-morph',
         description=(
             'Morph an input dataset of 2D points into select shapes, while '
             'preserving the summary statistics to a given number of decimal '
-            'points through simulated annealing.\n\n'
-            'examples:\n  '
-            f'{_EXAMPLE_SECTION}'
+            'points through simulated annealing.'
         ),
         epilog=(
             'Source code available at https://github.com/stefmolin/data-morph.'
-            ' Documentation is at TODO.'
+            ' CLI reference and examples are at '
+            'https://stefmolin.github.io/data-morph/stable/cli.html.'
         ),
-        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -89,8 +50,8 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
 
     shape_config_group = parser.add_argument_group(
-        'shape configuration (required)',
-        description='Specify the start and end shapes.',
+        'Shape Configuration (required)',
+        description='Specify the start and target shapes.',
     )
     shape_config_group.add_argument(
         '--start-shape',
@@ -117,7 +78,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
 
     morph_config_group = parser.add_argument_group(
-        'morph configuration', description='Configure the morphing process.'
+        'Morph Configuration', description='Configure the morphing process.'
     )
     morph_config_group.add_argument(
         '--decimals',
@@ -145,7 +106,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         type=float,
         help=(
             'Scale the data on both x and y by dividing by a scale factor. '
-            'For example, `--scale 10` divides all x and y values by 10. '
+            'For example, ``--scale 10`` divides all x and y values by 10. '
             'Datasets with large values will morph faster after scaling down.'
         ),
     )
@@ -165,14 +126,14 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
             'a mean of zero. Note that morphing initially sets the shake to 1, '
             'and then decreases the shake value over time toward the minimum value '
             f'defined here, which defaults to {ARG_DEFAULTS["min_shake"]}. Datasets '
-            'with large values may benefit from scaling (see --scale) '
+            'with large values may benefit from scaling (see ``--scale``) '
             'or increasing this towards 1, along with increasing the number of '
-            'iterations (see --iterations).'
+            'iterations (see ``--iterations``).'
         ),
     )
 
     file_group = parser.add_argument_group(
-        'output file configuration',
+        'Output File Configuration',
         description='Customize where files are written to and which types of files are kept.',
     )
     file_group.add_argument(
@@ -188,7 +149,11 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     file_group.add_argument(
         '--output-dir',
         default=ARG_DEFAULTS['output_dir'],
-        help=f'Path to a directory for writing output files. Defaults to {ARG_DEFAULTS["output_dir"]}.',
+        metavar='DIRECTORY',
+        help=(
+            'Path to a directory for writing output files. '
+            f'Defaults to ``{ARG_DEFAULTS["output_dir"]}``.'
+        ),
     )
     file_group.add_argument(
         '--write-data',
@@ -198,7 +163,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
     )
 
     frame_group = parser.add_argument_group(
-        'animation configuration', description='Customize aspects of the animation.'
+        'Animation Configuration', description='Customize aspects of the animation.'
     )
     frame_group.add_argument(
         '--forward-only',
@@ -215,6 +180,7 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         '--freeze',
         default=ARG_DEFAULTS['freeze'],
         type=int,
+        metavar='NUM_FRAMES',
         help=(
             'Number of frames to freeze at the first and final frame of the transition '
             'in the animation. This only affects the frames selected, not the algorithm. '
@@ -240,7 +206,42 @@ def main(argv: Union[Sequence[str], None] = None) -> None:
         ),
     )
 
-    args = parser.parse_args(argv)
+    return parser
+
+
+def _generate_parser_for_docs() -> argparse.ArgumentParser:
+    """
+    Generate an argument parser for the documentation only.
+
+    Returns
+    -------
+    argparse.argparse.ArgumentParser
+        Modified argument parser class for the documentation.
+    """
+    parser = generate_parser()
+    usage_text = parser.format_usage()
+    parser.format_usage = lambda: textwrap.fill(
+        usage_text.replace('                  ', ' '),
+        width=USAGE_WIDTH_FOR_DOCS,
+        subsequent_indent='\t',
+        break_on_hyphens=False,
+        break_long_words=False,
+    )
+    return parser
+
+
+def main(argv: Union[Sequence[str], None] = None) -> None:
+    """
+    Run Data Morph as a script.
+
+    Parameters
+    ----------
+    argv : Union[Sequence[str], None], optional
+        Makes it possible to pass in options without running on
+        the command line.
+    """
+
+    args = generate_parser().parse_args(argv)
 
     target_shapes = (
         ShapeFactory.AVAILABLE_SHAPES

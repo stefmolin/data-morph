@@ -24,7 +24,7 @@ repos:
           - tomli
 
   - repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 23.3.0
     hooks:
       - id: black
 
@@ -48,7 +48,7 @@ repos:
           - black
 
   - repo: https://github.com/stefmolin/numpydoc
-    rev: f4663d3
+    rev: 6a1a606
     hooks:
       - id: numpydoc-validation
         exclude: (tests/|docs/).*

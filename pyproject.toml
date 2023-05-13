@@ -3,17 +3,21 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "data_morph"
+name = "data-morph-ai"
 authors = [
     {name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com"},
     {name = "Aaron Stevens", email = "bheklilr2@gmail.com"},
     {name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com"}
 ]
+maintainers = [
+    {name = "Stefanie Molin"},
+]
 description = "Teaching tool on the importance of data visualization."
-readme = "README.rst"
+readme = "README.md"
 keywords = ["data visualization", "summary statistics", "data animation"]
 license = {file = "LICENSE"}
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Framework :: Matplotlib",
     "Intended Audience :: Education",
     "License :: OSI Approved :: MIT License",
@@ -30,7 +34,7 @@ dependencies = [
     "matplotlib>=3.3",
     "numpy>=1.20",
     "pandas>=1.2",
-    "pytweening>=1.0.3",
+    "pytweening>=1.0.5",
     "scipy>=1.10.0",
     "tqdm>=4.64.1",
 ]
@@ -45,8 +49,9 @@ dev = [
     "pytest-randomly",
 ]
 docs = [
-    "sphinx>=6.1.3",
     "pydata-sphinx-theme>=0.13.1",
+    "sphinx>=6.1.3",
+    "sphinx-argparse>=0.4.0",
     "sphinx_copybutton>=0.5.1",
 ]
 
@@ -54,7 +59,10 @@ docs = [
 data-morph = "data_morph.cli:main"
 
 [project.urls]
-source = "https://github.com/stefmolin/data-morph"
+"Homepage" = "https://stefmolin.github.io/data-morph"
+"Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
+"Documentation" = "https://stefmolin.github.io/data-morph/stable/api.html"
+"Source" = "https://github.com/stefmolin/data-morph"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -109,6 +117,7 @@ omit-covered-files = false
 atomic = true
 profile = "black"
 line_length = 88
+known_first_party = ["data_morph"]
 skip_gitignore = true
 
 [tool.pytest.ini_options]
@@ -122,15 +131,22 @@ addopts = [
     "--strict-config",
     "--cov=data_morph",
     "--cov=tests",
-    "--cov-report=term-missing",
-    "--cov-fail-under=90",
     "--no-cov-on-fail",
 ]
 xfail_strict = true
 testpaths = ["tests"]
 markers = [
-    "bad_input_to_argparse: Run tests on input validation for argparse.",
+    "bounds: Run tests on bounds logic.",
+    "circles: Run tests on circular shapes.",
     "cli: Run tests involving the CLI.",
+    "dataset: Run tests on Dataset logic.",
+    "input_validation: Run tests on input validation.",
+    "lines: Run tests on LineCollection and related shapes.",
+    "morpher: Run tests on the morphing process,",
+    "plotting: Run tests on plotting logic.",
+    "points: Run tests on PointCollection and related shapes.",
+    "polygons: Run tests on polygon shapes.",
+    "shapes: Run tests related to shapes.",
 ]
 
 [tool.numpydoc_validation]

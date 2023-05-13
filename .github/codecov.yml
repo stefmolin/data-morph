@@ -1,0 +1,27 @@
+# This is the configuration for codecov.yml -- remember to validate it.
+#
+# cat .github/codecov.yml | curl --data-binary @- https://codecov.io/validate
+
+codecov:
+  notify:
+    wait_for_ci: false
+  require_ci_to_pass: false
+
+coverage:
+  status:
+    patch:
+      default:
+        target: 90%
+    project:
+      default: false
+      data_morph:
+        target: 90%
+        paths:
+          - "!tests/.*"
+      tests:
+        target: 100%
+        paths:
+          - "tests/.*"
+
+comment:
+  layout: "reach, diff, files"

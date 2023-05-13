@@ -8,18 +8,21 @@ Notes
 -----
 This code has been altered by Stefanie Molin to work for other input datasets
 by parameterizing the target shapes with information from the input shape.
-The original code works for a specific dataset called the "dinosaurus" and was created
+The original code works for a specific dataset called the "Datasaurus" and was created
 for the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and
 Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice
 (ACM CHI 2017).
 
-The paper, video, and associated code and datasets can be found on the
-Autodesk Research website `here <https://www.autodeskresearch.com/publications/samestats>`_.
-The version of this code placed on GitHub at
+The paper and video can be found on the `Autodesk Research website
+<https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/>`_.
+The version of the code placed on GitHub at
 `jmatejka/same-stats-different-graphs <https://github.com/jmatejka/same-stats-different-graphs>`_,
-served as the starting point for the ``data_morph`` code base, which is on GitHub at
+served as the starting point for the Data Morph code base, which is on GitHub at
 `stefmolin/data-morph <https://github.com/stefmolin/data-morph>`_.
+
+Read more about the creation of Data Morph `here
+<https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c>`_.
 """
 
-__version__ = '0.1.0'
+__version__ = '0.2.0.dev0'
 MAIN_DIR = __name__

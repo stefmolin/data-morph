@@ -1,6 +1,9 @@
 # ignore results when running from this directory
 morphed_data/
 
+# dev setup
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -27,7 +30,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-generated/
+docs/api/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

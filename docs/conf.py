@@ -7,28 +7,39 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 import datetime as dt
+import sys
+from pathlib import Path
 
 import data_morph
 
+sys.path.insert(0, str(Path('.').absolute()))
+from post_build import determine_versions  # noqa: E402
+
 project = 'Data Morph'
 current_year = dt.date.today().year
-copyright = (
-    f'2023{f"-{current_year}" if current_year != 2023 else ""}, ' 'Stefanie Molin'
-)
+copyright = f'2023{f"-{current_year}" if current_year != 2023 else ""}, Stefanie Molin'
 author = 'Stefanie Molin'
 release = data_morph.__version__
+version_match, _ = determine_versions()
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+nitpick_ignore_regex = [('py:class', r'(optional|default.*)')]
+
+# default language for code-highlighting (requires specific declarations to highlight)
+highlight_language = 'output'
 
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.autosummary',
+    'sphinx.ext.githubpages',
     'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx_copybutton',
+    'sphinxarg.ext',
     'matplotlib.sphinxext.plot_directive',
 ]
 
@@ -93,22 +104,22 @@ html_logo = '_static/logo.png'
 html_favicon = '_static/favicon.ico'
 
 html_theme_options = {
-    "github_url": "https://github.com/stefmolin/data-morph",
-    "twitter_url": "https://twitter.com/StefanieMolin",
-    "show_toc_level": 1,
-    "navbar_align": "left",
-    # "navbar_center": ["version-switcher", "navbar-nav"],
-    # "switcher": {
-    #     "json_url": json_url,
-    #     "version_match": version_match,
-    # },
+    'github_url': 'https://github.com/stefmolin/data-morph',
+    'twitter_url': 'https://twitter.com/StefanieMolin',
+    'show_toc_level': 1,
+    'navbar_align': 'left',
+    'navbar_end': ['version-switcher', 'theme-switcher', 'navbar-icon-links'],
+    'switcher': {
+        'json_url': 'https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/switcher.json',
+        'version_match': version_match,
+    },
 }
 
 html_context = {
-    "github_user": "stefmolin",
-    "github_repo": "data-morph",
-    "github_version": "main",
-    "doc_path": "docs",
+    'github_user': 'stefmolin',
+    'github_repo': 'data-morph',
+    'github_version': 'main',
+    'doc_path': 'docs',
 }
 
 

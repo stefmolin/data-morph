@@ -5,18 +5,17 @@ Quick Start Guide
 
 Installation
 ------------
-The ``data_morph`` package can be installed with ``pip``:
+Data Morph can be installed from PyPI using ``pip``:
 
 .. code:: console
 
-   $ pip install data_morph
+   $ pip install data-morph-ai
 
-..
-   You can also install with ``conda`` (coming soon):
+Alternatively, Data Morph can be installed with ``conda`` by specifying the ``conda-forge`` channel:
 
-   .. code:: console
+.. code:: console
 
-      $ conda install data_morph -c conda-forge
+   $ conda install -c conda-forge data-morph-ai
 
 .. USAGE INTRO
 
@@ -27,7 +26,7 @@ Once installed, Data Morph can be used on the command line or as an importable P
 
 .. USAGE START
 
-Command Line Usage
+Command line usage
 ~~~~~~~~~~~~~~~~~~
 
 .. CLI USAGE START
@@ -41,15 +40,30 @@ Run ``data-morph`` on the command line:
 This produces the following animation in the newly-created ``morphed_data`` directory
 within your current working directory:
 
-.. figure:: _static/panda_to_star.gif
+.. figure:: _static/panda-to-star.gif
    :alt: Morphing the panda dataset into the star shape.
    :align: center
 
    Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
 
+You can smooth the transition with the ``--ramp-in`` and ``--ramp-out`` flags. The ``--freeze``
+flag allows you to start the animation with the specified number of frames of the initial shape:
+
+.. code:: console
+
+   $ data-morph --start-shape panda --target-shape star --freeze 50 --ramp-in --ramp-out
+
+Here is the resulting animation:
+
+.. figure:: _static/panda-to-star-eased.gif
+   :alt: Morphing the panda dataset into the star shape with easing.
+   :align: center
+
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape` with easing.
+
 ----
 
-See all available CLI options by passing in ``--help``:
+See all available CLI options by passing in ``--help`` or consulting the :doc:`cli`:
 
 .. code:: console
 
@@ -57,7 +71,7 @@ See all available CLI options by passing in ``--help``:
 
 .. CLI USAGE END
 
-Python Usage
+Python usage
 ~~~~~~~~~~~~
 
 .. PYTHON USAGE START
@@ -94,7 +108,13 @@ With the :class:`.Dataset` and :class:`.Shape` created, here is a minimal exampl
        output_dir='data_morph/output',
    )
 
-   result = morpher.morph(start_shape=dataset, target_shape=target_shape)
+   result = morpher.morph(
+       start_shape=dataset,
+       target_shape=target_shape,
+       freeze_for=50,
+       ramp_in=True,
+       ramp_out=True,
+   )
 
 .. note::
 
@@ -117,3 +137,5 @@ out the other built-in options:
 
 * The :attr:`.ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which
   are also visualized in the :class:`.ShapeFactory` documentation.
+
+For further customization, the :doc:`custom_datasets` tutorial discusses how to generate custom input datasets.

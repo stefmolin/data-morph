@@ -1,8 +1,3 @@
-.. Data Morph documentation master file, created by
-   sphinx-quickstart on Sat Mar 11 15:15:31 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root ``toctree`` directive.
-
 Data Morph
 ==========
 
@@ -12,6 +7,8 @@ Data Morph
    :hidden:
 
    quickstart
+   custom_datasets
+   cli
    api
    release_notes
 
@@ -20,3 +17,8 @@ Data Morph
 
 .. include:: quickstart.rst
    :start-after: .. INSTALLATION
+
+Citations
+---------
+
+.. include:: citation.rst

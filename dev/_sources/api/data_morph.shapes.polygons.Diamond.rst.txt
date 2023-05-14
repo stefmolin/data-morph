@@ -1,0 +1,6 @@
+Diamond
+=======
+
+.. currentmodule:: data_morph.shapes.polygons
+
+.. autoclass:: Diamond

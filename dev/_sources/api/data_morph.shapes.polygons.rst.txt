@@ -18,6 +18,7 @@ polygons
    .. autosummary::
       :toctree:
    
+      Diamond
       Rectangle
       Star
    

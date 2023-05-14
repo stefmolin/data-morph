@@ -22,8 +22,11 @@ class DataLoader:
     .. plot::
        :caption:
             Datasets currently included in Data Morph. The ``dino``
-            shape is Alberto Cairo's `Datasaurus`_. Note that CSV files
-            are also supported by the :meth:`.load_dataset` method.
+            shape is Alberto Cairo's `Datasaurus`_. The Python logo
+            is a `trademark of the Python Software Foundation (PSF)
+            <https://www.python.org/psf/trademarks/>`_, used with permission
+            from the Foundation. Note that CSV files are also supported
+            by the :meth:`.load_dataset` method.
 
         from data_morph.data.loader import DataLoader
         DataLoader.plot_available_datasets()
@@ -39,9 +42,10 @@ class DataLoader:
         'dog': 'dog.csv',
         'music': 'music.csv',
         'panda': 'panda.csv',
+        'Python': 'python.csv',
         'sheep': 'sheep.csv',
     }
-    AVAILABLE_DATASETS = sorted(list(_DATASETS.keys()))
+    AVAILABLE_DATASETS = sorted(list(_DATASETS.keys()), key=str.lower)
     """list[str]: List of available built-in starter datasets,
     which can be visualized with :meth:`plot_available_datasets`."""
 
@@ -77,6 +81,8 @@ class DataLoader:
         :class:`~pandas.DataFrame` object, use the :class:`.Dataset`
         class directly.
         """
+        if dataset == 'python':
+            dataset = 'Python'
         try:
             filepath = files(MAIN_DIR).joinpath(
                 Path(cls._DATA_PATH) / cls._DATASETS[dataset]
@@ -136,6 +142,10 @@ class DataLoader:
                     labelleft=False,
                 )
                 points = cls.load_dataset(dataset)
+
+                if dataset == 'Python':
+                    dataset += u' logo\u2122'
+
                 ax.scatter(points.df.x, points.df.y, s=4, color='black')
                 ax.set(
                     title=f'{dataset} ({points.df.shape[0]:,d} points)',

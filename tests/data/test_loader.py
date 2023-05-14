@@ -35,3 +35,10 @@ class TestDataLoader:
         """Confirm that trying to load non-existent datasets raises an exception."""
         with pytest.raises(ValueError, match='Unknown dataset'):
             _ = DataLoader.load_dataset(dataset)
+
+    @pytest.mark.parametrize(
+        ['provided_name', 'expected_name'], [['python', 'Python'], ['Python', 'Python']]
+    )
+    def test_load_dataset_proper_nouns(self, provided_name, expected_name):
+        """Confirm that datasets with names that are proper nouns are being handled properly."""
+        assert DataLoader.load_dataset(provided_name).name == expected_name

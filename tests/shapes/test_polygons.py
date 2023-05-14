@@ -48,6 +48,18 @@ class PolygonsModuleTestBase:
         assert np.unique(endpoints, axis=0).shape[0] == self.expected_line_count
 
 
+class TestDiamond(PolygonsModuleTestBase):
+    """Test the Diamond class."""
+
+    shape_name = 'diamond'
+    distance_test_cases = [[(20, 50), 0.0], [(30, 60), 2.773501]]
+    expected_line_count = 4
+
+    def test_slopes(self, slopes):
+        """Test that the slopes are as expected."""
+        np.testing.assert_array_equal(np.sort(slopes).flatten(), [-1.5, -1.5, 1.5, 1.5])
+
+
 class TestRectangle(PolygonsModuleTestBase):
     """Test the Rectangle class."""
 

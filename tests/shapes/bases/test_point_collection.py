@@ -2,6 +2,7 @@
 
 import re
 
+import matplotlib.pyplot as plt
 import pytest
 
 from data_morph.shapes.bases.point_collection import PointCollection
@@ -35,3 +36,10 @@ class TestPointCollection:
             re.match(r'^<PointCollection of \d* points>$', repr(point_collection))
             is not None
         )
+
+    @pytest.mark.parametrize('ax', [None, plt.subplots()[1]])
+    def test_plot(self, point_collection, ax):
+        """Test that plotting is working."""
+        ax = point_collection.plot(ax)
+        assert len(ax.collections[0].get_offsets().data) == len(point_collection.points)
+        assert pytest.approx(ax.get_aspect()) == 1.0

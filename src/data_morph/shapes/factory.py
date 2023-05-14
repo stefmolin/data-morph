@@ -44,6 +44,7 @@ class ShapeFactory:
         'x': lines.XLines,
         'dots': points.DotsGrid,
         'down_parab': points.DownParabola,
+        'heart': points.Heart,
         'left_parab': points.LeftParabola,
         'scatter': points.Scatter,
         'right_parab': points.RightParabola,

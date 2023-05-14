@@ -70,5 +70,5 @@ class PointCollection(Shape):
             fig, ax = plt.subplots(layout='constrained')
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         _ = ax.axis('equal')
-        _ = ax.scatter(*self.points.T, s=2, color='k', alpha=self._alpha)
+        _ = ax.scatter(*self.points.T, s=5, color='k', alpha=self._alpha)
         return ax

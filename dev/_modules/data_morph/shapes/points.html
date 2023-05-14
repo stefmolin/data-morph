@@ -524,6 +524,54 @@ document.write(`
         <span class="k">return</span> <span class="s1">&#39;down_parab&#39;</span></div>
 
 
+<div class="viewcode-block" id="Heart"><a class="viewcode-back" href="../../../api/data_morph.shapes.points.Heart.html#data_morph.shapes.points.Heart">[docs]</a><span class="k">class</span> <span class="nc">Heart</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for the heart shape.</span>
+
+<span class="sd">    .. plot::</span>
+<span class="sd">       :scale: 75</span>
+<span class="sd">       :caption:</span>
+<span class="sd">            This shape is generated using the panda dataset.</span>
+
+<span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.shapes.points import Heart</span>
+
+<span class="sd">        _ = Heart(DataLoader.load_dataset(&#39;panda&#39;)).plot()</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset : Dataset</span>
+<span class="sd">        The starting dataset to morph into other shapes.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The formula for the heart shape is inspired by</span>
+<span class="sd">    `Heart Curve &lt;https://mathworld.wolfram.com/HeartCurve.html&gt;`_:</span>
+
+<span class="sd">        Weisstein, Eric W. &quot;Heart Curve.&quot; From `MathWorld &lt;https://mathworld.wolfram.com/&gt;`_</span>
+<span class="sd">        --A Wolfram Web Resource. https://mathworld.wolfram.com/HeartCurve.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
+        <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
+
+        <span class="n">x_shift</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_bounds</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y_shift</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y_bounds</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+
+        <span class="c1"># scale by the half the widest width of the heart</span>
+        <span class="n">scale_factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">)</span> <span class="o">/</span> <span class="mi">16</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">scale_factor</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">scale_factor</span> <span class="o">+</span> <span class="n">y_shift</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="LeftParabola"><a class="viewcode-back" href="../../../api/data_morph.shapes.points.LeftParabola.html#data_morph.shapes.points.LeftParabola">[docs]</a><span class="k">class</span> <span class="nc">LeftParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the left parabola shape.</span>

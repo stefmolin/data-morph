@@ -482,6 +482,7 @@ document.write(`
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">points</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="data_morph.shapes.points.DotsGrid.html">DotsGrid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="data_morph.shapes.points.DownParabola.html">DownParabola</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_morph.shapes.points.Heart.html">Heart</a></li>
 <li class="toctree-l3"><a class="reference internal" href="data_morph.shapes.points.LeftParabola.html">LeftParabola</a></li>
 <li class="toctree-l3"><a class="reference internal" href="data_morph.shapes.points.RightParabola.html">RightParabola</a></li>
 <li class="toctree-l3"><a class="reference internal" href="data_morph.shapes.points.Scatter.html">Scatter</a></li>
@@ -568,16 +569,19 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="data_morph.shapes.points.DownParabola.html#data_morph.shapes.points.DownParabola" title="data_morph.shapes.points.DownParabola"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DownParabola</span></code></a>(dataset)</p></td>
 <td><p>Class for the down parabola shape.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data_morph.shapes.points.LeftParabola.html#data_morph.shapes.points.LeftParabola" title="data_morph.shapes.points.LeftParabola"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LeftParabola</span></code></a>(dataset)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data_morph.shapes.points.Heart.html#data_morph.shapes.points.Heart" title="data_morph.shapes.points.Heart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Heart</span></code></a>(dataset)</p></td>
+<td><p>Class for the heart shape.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data_morph.shapes.points.LeftParabola.html#data_morph.shapes.points.LeftParabola" title="data_morph.shapes.points.LeftParabola"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LeftParabola</span></code></a>(dataset)</p></td>
 <td><p>Class for the left parabola shape.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data_morph.shapes.points.RightParabola.html#data_morph.shapes.points.RightParabola" title="data_morph.shapes.points.RightParabola"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RightParabola</span></code></a>(dataset)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data_morph.shapes.points.RightParabola.html#data_morph.shapes.points.RightParabola" title="data_morph.shapes.points.RightParabola"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RightParabola</span></code></a>(dataset)</p></td>
 <td><p>Class for the right parabola shape.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data_morph.shapes.points.Scatter.html#data_morph.shapes.points.Scatter" title="data_morph.shapes.points.Scatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Scatter</span></code></a>(dataset)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data_morph.shapes.points.Scatter.html#data_morph.shapes.points.Scatter" title="data_morph.shapes.points.Scatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Scatter</span></code></a>(dataset)</p></td>
 <td><p>Class for the scatter shape: a cloud of randomly-scattered points.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data_morph.shapes.points.UpParabola.html#data_morph.shapes.points.UpParabola" title="data_morph.shapes.points.UpParabola"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UpParabola</span></code></a>(dataset)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data_morph.shapes.points.UpParabola.html#data_morph.shapes.points.UpParabola" title="data_morph.shapes.points.UpParabola"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UpParabola</span></code></a>(dataset)</p></td>
 <td><p>Class for the up parabola shape.</p></td>
 </tr>
 </tbody>
@@ -721,14 +725,90 @@ representing an arrangement of points.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="data_morph.shapes.points.LeftParabola">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.shapes.points.</span></span><span class="sig-name descname"><span class="pre">LeftParabola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/shapes/points.html#LeftParabola"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.points.LeftParabola" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="data_morph.shapes.points.Heart">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.shapes.points.</span></span><span class="sig-name descname"><span class="pre">Heart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/shapes/points.html#Heart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.points.Heart" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a></p>
-<p>Class for the left parabola shape.</p>
+<p>Class for the heart shape.</p>
 <figure class="align-default" id="id5">
 <a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-3.png"><img alt="../_images/data_morph-shapes-points-3.png" class="plot-directive" src="../_images/data_morph-shapes-points-3.png" style="width: 384.0px; height: 288.0px;" /></a>
 <figcaption>
 <p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><em>Dataset</em></a>) – The starting dataset to morph into other shapes.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The formula for the heart shape is inspired by
+<a class="reference external" href="https://mathworld.wolfram.com/HeartCurve.html">Heart Curve</a>:</p>
+<blockquote>
+<div><p>Weisstein, Eric W. “Heart Curve.” From <a class="reference external" href="https://mathworld.wolfram.com/">MathWorld</a>
+–A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/HeartCurve.html">https://mathworld.wolfram.com/HeartCurve.html</a></p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="data_morph.shapes.points.Heart.distance">
+<span class="sig-name descname"><span class="pre">distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><span class="pre">Number</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><span class="pre">Number</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#data_morph.shapes.points.Heart.distance" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate the minimum distance from the points of this shape
+to a point (x, y).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a>) – Coordinates of a point in 2D space.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a>) – Coordinates of a point in 2D space.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The minimum distance from the points of this shape
+to the point (x, y).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data_morph.shapes.points.Heart.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.7.1)"><span class="pre">Axes</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.7.1)"><span class="pre">Axes</span></a></span></span><a class="headerlink" href="#data_morph.shapes.points.Heart.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ax</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.7.1)"><em>matplotlib.axes.Axes</em></a><em>, </em><em>optional</em>) – An optional <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.7.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axes</span></code></a> object to plot on.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.7.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axes</span></code></a> object containing the plot.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.7.1)">matplotlib.axes.Axes</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_morph.shapes.points.Heart.points">
+<span class="sig-name descname"><span class="pre">points</span></span><a class="headerlink" href="#data_morph.shapes.points.Heart.points" title="Permalink to this definition">#</a></dt>
+<dd><p>An array of (x, y) values
+representing an arrangement of points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="data_morph.shapes.points.LeftParabola">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.shapes.points.</span></span><span class="sig-name descname"><span class="pre">LeftParabola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/shapes/points.html#LeftParabola"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.points.LeftParabola" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a></p>
+<p>Class for the left parabola shape.</p>
+<figure class="align-default" id="id7">
+<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-4.png"><img alt="../_images/data_morph-shapes-points-4.png" class="plot-directive" src="../_images/data_morph-shapes-points-4.png" style="width: 384.0px; height: 288.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <dl class="field-list simple">
@@ -794,10 +874,10 @@ representing an arrangement of points.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.shapes.points.</span></span><span class="sig-name descname"><span class="pre">RightParabola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/shapes/points.html#RightParabola"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.points.RightParabola" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a></p>
 <p>Class for the right parabola shape.</p>
-<figure class="align-default" id="id7">
-<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-4.png"><img alt="../_images/data_morph-shapes-points-4.png" class="plot-directive" src="../_images/data_morph-shapes-points-4.png" style="width: 384.0px; height: 288.0px;" /></a>
+<figure class="align-default" id="id9">
+<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-5.png"><img alt="../_images/data_morph-shapes-points-5.png" class="plot-directive" src="../_images/data_morph-shapes-points-5.png" style="width: 384.0px; height: 288.0px;" /></a>
 <figcaption>
-<p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <dl class="field-list simple">
@@ -863,10 +943,10 @@ representing an arrangement of points.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.shapes.points.</span></span><span class="sig-name descname"><span class="pre">Scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/shapes/points.html#Scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.points.Scatter" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a></p>
 <p>Class for the scatter shape: a cloud of randomly-scattered points.</p>
-<figure class="align-default" id="id9">
-<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-5.png"><img alt="../_images/data_morph-shapes-points-5.png" class="plot-directive" src="../_images/data_morph-shapes-points-5.png" style="width: 384.0px; height: 288.0px;" /></a>
+<figure class="align-default" id="id11">
+<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-6.png"><img alt="../_images/data_morph-shapes-points-6.png" class="plot-directive" src="../_images/data_morph-shapes-points-6.png" style="width: 384.0px; height: 288.0px;" /></a>
 <figcaption>
-<p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <dl class="field-list simple">
@@ -930,10 +1010,10 @@ representing an arrangement of points.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.shapes.points.</span></span><span class="sig-name descname"><span class="pre">UpParabola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/shapes/points.html#UpParabola"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.points.UpParabola" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a></p>
 <p>Class for the up parabola shape.</p>
-<figure class="align-default" id="id11">
-<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-6.png"><img alt="../_images/data_morph-shapes-points-6.png" class="plot-directive" src="../_images/data_morph-shapes-points-6.png" style="width: 384.0px; height: 288.0px;" /></a>
+<figure class="align-default" id="id13">
+<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-7.png"><img alt="../_images/data_morph-shapes-points-7.png" class="plot-directive" src="../_images/data_morph-shapes-points-7.png" style="width: 384.0px; height: 288.0px;" /></a>
 <figcaption>
-<p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">This shape is generated using the panda dataset.</span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <dl class="field-list simple">
@@ -1053,6 +1133,12 @@ representing an arrangement of points.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.DownParabola.distance"><code class="docutils literal notranslate"><span class="pre">DownParabola.distance()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.DownParabola.plot"><code class="docutils literal notranslate"><span class="pre">DownParabola.plot()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.DownParabola.points"><code class="docutils literal notranslate"><span class="pre">DownParabola.points</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.Heart"><code class="docutils literal notranslate"><span class="pre">Heart</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.Heart.distance"><code class="docutils literal notranslate"><span class="pre">Heart.distance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.Heart.plot"><code class="docutils literal notranslate"><span class="pre">Heart.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.Heart.points"><code class="docutils literal notranslate"><span class="pre">Heart.points</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.shapes.points.LeftParabola"><code class="docutils literal notranslate"><span class="pre">LeftParabola</span></code></a><ul class="nav section-nav flex-column">

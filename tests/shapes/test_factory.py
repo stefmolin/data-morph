@@ -30,6 +30,11 @@ class TestShapeFactory:
             )
 
         axs = shape_factory.plot_available_shapes()
+        if subset is None or subset > 5:
+            assert len(axs) > 1
+        else:
+            assert len(axs) == axs.size
+
         populated_axs = [ax for ax in axs.flatten() if ax.get_figure()]
         assert len(populated_axs) == len(shape_factory.AVAILABLE_SHAPES)
         assert all([ax.get_xlabel() == ax.get_ylabel() == '' for ax in populated_axs])

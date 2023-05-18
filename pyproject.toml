@@ -113,12 +113,24 @@ omit-covered-files = false
 # generate-badge = "."
 # badge-format = "svg"
 
-[tool.isort]
-atomic = true
-profile = "black"
-line_length = 88
-known_first_party = ["data_morph"]
-skip_gitignore = true
+[tool.ruff]
+line-length = 88
+select = [
+    "C",  # mccabe rules
+    "F",  # pyflakes rules
+    "E",  # pycodestyle error rules
+    "W",  # pycodestyle warning rules
+    "B",  # flake8-bugbear rules
+    "I"   # isort rules
+]
+ignore = [
+    "C901",  # max-complexity-10
+    "E501",  # line-too-long
+    "B904"   # raise-without-from-inside-except
+]
+
+[tool.ruff.isort]
+known-first-party = ["data_morph"]
 
 [tool.pytest.ini_options]
 addopts = [

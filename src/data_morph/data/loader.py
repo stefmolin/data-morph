@@ -22,16 +22,20 @@ class DataLoader:
     .. plot::
        :caption:
             Datasets currently included in Data Morph. The ``dino``
-            shape is Alberto Cairo's `Datasaurus`_. The Python logo
-            is a `trademark of the Python Software Foundation (PSF)
-            <https://www.python.org/psf/trademarks/>`_, used with permission
-            from the Foundation. Note that CSV files are also supported
+            shape is Alberto Cairo's `Datasaurus`_. All logos are used
+            with permission (see below). Note that CSV files are also supported
             by the :meth:`.load_dataset` method.
 
         from data_morph.data.loader import DataLoader
         DataLoader.plot_available_datasets()
 
     .. _Datasaurus: http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html
+
+    .. important:: All logos are used with permission.
+
+        * The Python logo is a `trademark of the Python Software Foundation (PSF)
+          <https://www.python.org/psf/trademarks/>`_, used with permission from the Foundation.
+        * The `SuperDataScience (SDS) <https://www.superdatascience.com/>`_ logo is used with permission.
     """
 
     _DATA_PATH: str = 'data/starter_shapes/'
@@ -43,9 +47,10 @@ class DataLoader:
         'music': 'music.csv',
         'panda': 'panda.csv',
         'Python': 'python.csv',
+        'SDS': 'superdatascience.csv',
         'sheep': 'sheep.csv',
     }
-    AVAILABLE_DATASETS = sorted(list(_DATASETS.keys()), key=str.lower)
+    AVAILABLE_DATASETS = sorted(_DATASETS.keys(), key=str.lower)
     """list[str]: List of available built-in starter datasets,
     which can be visualized with :meth:`plot_available_datasets`."""
 
@@ -82,7 +87,9 @@ class DataLoader:
         class directly.
         """
         if dataset == 'python':
-            dataset = 'Python'
+            dataset = dataset.capitalize()
+        elif dataset == 'sds':
+            dataset = dataset.upper()
         try:
             filepath = files(MAIN_DIR).joinpath(
                 Path(cls._DATA_PATH) / cls._DATASETS[dataset]
@@ -115,7 +122,7 @@ class DataLoader:
         See Also
         --------
         AVAILABLE_DATASETS
-            The list of available datasets built into ``data_morph``.
+            The list of available datasets built into Data Morph.
         """
         num_plots = len(cls.AVAILABLE_DATASETS)
         num_cols = 3
@@ -145,6 +152,8 @@ class DataLoader:
 
                 if dataset == 'Python':
                     dataset += u' logo\u2122'
+                elif dataset == 'SDS':
+                    dataset += ' logo'
 
                 ax.scatter(points.df.x, points.df.y, s=4, color='black')
                 ax.set(

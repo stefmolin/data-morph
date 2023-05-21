@@ -37,8 +37,12 @@ class TestDataLoader:
             _ = DataLoader.load_dataset(dataset)
 
     @pytest.mark.parametrize(
-        ['provided_name', 'expected_name'], [['python', 'Python'], ['Python', 'Python']]
+        ['provided_name', 'expected_name'],
+        [['python', 'Python'], ['Python', 'Python'], ['sds', 'SDS'], ['SDS', 'SDS']],
     )
     def test_load_dataset_proper_nouns(self, provided_name, expected_name):
-        """Confirm that datasets with names that are proper nouns are being handled properly."""
+        """
+        Confirm that datasets with names that are proper nouns and abbreviations
+        are being handled properly.
+        """
         assert DataLoader.load_dataset(provided_name).name == expected_name

@@ -463,16 +463,20 @@ document.write(`
 <span class="sd">    .. plot::</span>
 <span class="sd">       :caption:</span>
 <span class="sd">            Datasets currently included in Data Morph. The ``dino``</span>
-<span class="sd">            shape is Alberto Cairo&#39;s `Datasaurus`_. The Python logo</span>
-<span class="sd">            is a `trademark of the Python Software Foundation (PSF)</span>
-<span class="sd">            &lt;https://www.python.org/psf/trademarks/&gt;`_, used with permission</span>
-<span class="sd">            from the Foundation. Note that CSV files are also supported</span>
+<span class="sd">            shape is Alberto Cairo&#39;s `Datasaurus`_. All logos are used</span>
+<span class="sd">            with permission (see below). Note that CSV files are also supported</span>
 <span class="sd">            by the :meth:`.load_dataset` method.</span>
 
 <span class="sd">        from data_morph.data.loader import DataLoader</span>
 <span class="sd">        DataLoader.plot_available_datasets()</span>
 
 <span class="sd">    .. _Datasaurus: http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html</span>
+
+<span class="sd">    .. important:: All logos are used with permission.</span>
+
+<span class="sd">        * The Python logo is a `trademark of the Python Software Foundation (PSF)</span>
+<span class="sd">          &lt;https://www.python.org/psf/trademarks/&gt;`_, used with permission from the Foundation.</span>
+<span class="sd">        * The `SuperDataScience (SDS) &lt;https://www.superdatascience.com/&gt;`_ logo is used with permission.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_DATA_PATH</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;data/starter_shapes/&#39;</span>
@@ -484,9 +488,10 @@ document.write(`
         <span class="s1">&#39;music&#39;</span><span class="p">:</span> <span class="s1">&#39;music.csv&#39;</span><span class="p">,</span>
         <span class="s1">&#39;panda&#39;</span><span class="p">:</span> <span class="s1">&#39;panda.csv&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Python&#39;</span><span class="p">:</span> <span class="s1">&#39;python.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;SDS&#39;</span><span class="p">:</span> <span class="s1">&#39;superdatascience.csv&#39;</span><span class="p">,</span>
         <span class="s1">&#39;sheep&#39;</span><span class="p">:</span> <span class="s1">&#39;sheep.csv&#39;</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="n">AVAILABLE_DATASETS</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">_DATASETS</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+    <span class="n">AVAILABLE_DATASETS</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_DATASETS</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;list[str]: List of available built-in starter datasets,</span>
 <span class="sd">    which can be visualized with :meth:`plot_available_datasets`.&quot;&quot;&quot;</span>
 
@@ -523,7 +528,9 @@ document.write(`
 <span class="sd">        class directly.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;python&#39;</span><span class="p">:</span>
-            <span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;Python&#39;</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;sds&#39;</span><span class="p">:</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">filepath</span> <span class="o">=</span> <span class="n">files</span><span class="p">(</span><span class="n">MAIN_DIR</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span>
                 <span class="n">Path</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_DATA_PATH</span><span class="p">)</span> <span class="o">/</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_DATASETS</span><span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
@@ -556,7 +563,7 @@ document.write(`
 <span class="sd">        See Also</span>
 <span class="sd">        --------</span>
 <span class="sd">        AVAILABLE_DATASETS</span>
-<span class="sd">            The list of available datasets built into ``data_morph``.</span>
+<span class="sd">            The list of available datasets built into Data Morph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">num_plots</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">AVAILABLE_DATASETS</span><span class="p">)</span>
         <span class="n">num_cols</span> <span class="o">=</span> <span class="mi">3</span>
@@ -586,6 +593,8 @@ document.write(`
 
                 <span class="k">if</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;Python&#39;</span><span class="p">:</span>
                     <span class="n">dataset</span> <span class="o">+=</span> <span class="sa">u</span><span class="s1">&#39; logo</span><span class="se">\u2122</span><span class="s1">&#39;</span>
+                <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;SDS&#39;</span><span class="p">:</span>
+                    <span class="n">dataset</span> <span class="o">+=</span> <span class="s1">&#39; logo&#39;</span>
 
                 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">points</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
                 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>

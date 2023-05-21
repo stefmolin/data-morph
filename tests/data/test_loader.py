@@ -46,3 +46,30 @@ class TestDataLoader:
         are being handled properly.
         """
         assert DataLoader.load_dataset(provided_name).name == expected_name
+
+    @pytest.mark.parametrize('subset', [2, 3, 5, None])
+    def test_plot_available_datasets(self, monkeypatch, subset):
+        """Test the plot_available_datasets() method."""
+        if subset:
+            monkeypatch.setattr(
+                DataLoader,
+                'AVAILABLE_DATASETS',
+                DataLoader.AVAILABLE_DATASETS[:subset],
+            )
+
+        axs = DataLoader.plot_available_datasets()
+        if subset is None or subset > 3:
+            assert len(axs) > 1
+        else:
+            assert len(axs) == axs.size
+
+        populated_axs = [ax for ax in axs.flatten() if ax.get_figure()]
+        assert len(populated_axs) == len(DataLoader.AVAILABLE_DATASETS)
+        assert all(ax.get_xlabel() == ax.get_ylabel() == '' for ax in populated_axs)
+
+        for dataset, ax in zip(DataLoader.AVAILABLE_DATASETS, populated_axs):
+            subplot_title = ax.get_title()
+            assert subplot_title.startswith(dataset)
+            assert subplot_title.endswith(' points)')
+            if dataset in ['Python', 'SDS']:
+                assert 'logo' in subplot_title

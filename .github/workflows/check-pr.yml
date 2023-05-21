@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Run pre-commit checks on the files changed
+  # Run pre-commit checks on all files
   linting:
     runs-on: ubuntu-latest
     name: Lint
@@ -35,7 +35,7 @@ jobs:
 
       - name: Run Checks
         run: |
-          pre-commit run --from-ref origin/${{ github.base_ref }} --to-ref HEAD --show-diff-on-failure
+          pre-commit run --all-files --show-diff-on-failure
 
   # Check that docs can be built
   docs:

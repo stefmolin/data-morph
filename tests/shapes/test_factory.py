@@ -37,7 +37,7 @@ class TestShapeFactory:
 
         populated_axs = [ax for ax in axs.flatten() if ax.get_figure()]
         assert len(populated_axs) == len(shape_factory.AVAILABLE_SHAPES)
-        assert all([ax.get_xlabel() == ax.get_ylabel() == '' for ax in populated_axs])
-        assert set(ax.get_title() for ax in populated_axs) == set(
+        assert all(ax.get_xlabel() == ax.get_ylabel() == '' for ax in populated_axs)
+        assert {ax.get_title() for ax in populated_axs} == set(
             shape_factory.AVAILABLE_SHAPES
         )

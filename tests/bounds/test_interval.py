@@ -54,7 +54,7 @@ class TestInterval:
     @pytest.mark.input_validation
     @pytest.mark.parametrize(
         'value',
-        [[1, 1], True, (1, -1), {2}, 's', dict(), None],
+        [[1, 1], True, (1, -1), {2}, 's', {}, None],
         ids=str,
     )
     def test_contains_invalid(self, value):

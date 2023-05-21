@@ -54,7 +54,7 @@ class ShapeFactory:
         'star': polygons.Star,
     }
 
-    AVAILABLE_SHAPES: list[str] = sorted(list(_SHAPE_MAPPING.keys()))
+    AVAILABLE_SHAPES: list[str] = sorted(_SHAPE_MAPPING.keys())
     """list[str]: The list of available shapes, which can be visualized with
     :meth:`.plot_available_shapes`."""
 

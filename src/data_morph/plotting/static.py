@@ -64,9 +64,8 @@ def plot(
     locs = np.linspace(0.8, 0.2, num=len(labels))
     max_label_length = max([len(label) for label in labels])
     max_stat = int(np.log10(np.max(np.abs(res)))) + 1
-    mean_x_digits, mean_y_digits = map(
-        lambda x: int(x) + 1,
-        np.log10(np.abs([res.x_mean, res.y_mean])),
+    mean_x_digits, mean_y_digits = (
+        int(x) + 1 for x in np.log10(np.abs([res.x_mean, res.y_mean]))
     )
 
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.7f}", then we

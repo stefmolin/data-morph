@@ -198,9 +198,12 @@ class TestDataMorpher:
             in_notebook=False,
         )
 
-        frame_config = dict(
-            iterations=iterations, ramp_in=False, ramp_out=False, freeze_for=0
-        )
+        frame_config = {
+            'iterations': iterations,
+            'ramp_in': False,
+            'ramp_out': False,
+            'freeze_for': 0,
+        }
         frames = morpher._select_frames(**frame_config)
 
         morphed_data = morpher.morph(

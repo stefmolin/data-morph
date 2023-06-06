@@ -1,6 +1,8 @@
 """Test the data_morph.morpher module."""
 
 import glob
+import hashlib
+from collections import Counter
 from functools import partial
 
 import pandas as pd
@@ -238,3 +240,50 @@ class TestDataMorpher:
 
         # confirm the animation was created
         assert (tmp_path / f'{dataset.name}_to_{target_shape}.gif').is_file()
+
+    @pytest.mark.parametrize('write_images', [True, False])
+    @pytest.mark.parametrize('start_frame', [0, 1, 20])
+    @pytest.mark.parametrize('freeze_for', [0, 2, 10])
+    def test_freeze_animation_frames(
+        self, write_images, start_frame, freeze_for, tmp_path
+    ):
+        """Confirm that freezing frames in the animation is working."""
+        dataset = DataLoader.load_dataset('dino')
+        morpher = DataMorpher(
+            decimals=2,
+            write_images=write_images,
+            write_data=True,
+            output_dir=tmp_path,
+            seed=21,
+            keep_frames=True,
+            num_frames=20,
+            in_notebook=False,
+        )
+
+        base_path = 'test-freeze'
+        end_frame = morpher._record_frames(
+            dataset.df,
+            dataset.plot_bounds,
+            base_path,
+            freeze_for,
+            start_frame,
+        )
+
+        # get image hashes
+        image_hashes = Counter()
+        for frame_image in glob.glob(str(tmp_path / f'{base_path}*.png')):
+            with open(frame_image, 'rb') as img:
+                image_hashes.update({hashlib.sha256(img.read()).hexdigest(): 1})
+
+        if not write_images:
+            assert not image_hashes
+        else:
+            # check that the number of frames is correct
+            assert end_frame - start_frame == freeze_for
+
+            # check that the images are indeed the same
+            if write_images and freeze_for:
+                assert len(image_hashes.keys()) == 1
+                assert list(image_hashes.values())[0] == freeze_for
+            else:
+                assert not image_hashes

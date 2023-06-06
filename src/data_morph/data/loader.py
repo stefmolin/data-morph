@@ -34,8 +34,10 @@ class DataLoader:
     .. important:: All logos are used with permission.
 
         * The Python logo is a `trademark of the Python Software Foundation (PSF)
-          <https://www.python.org/psf/trademarks/>`_, used with permission from the Foundation.
-        * The `SuperDataScience (SDS) <https://www.superdatascience.com/>`_ logo is used with permission.
+          <https://www.python.org/psf/trademarks/>`_, used with permission from
+          the Foundation.
+        * The `SuperDataScience (SDS) <https://www.superdatascience.com/podcast>`_
+          logo is used with permission.
     """
 
     _DATA_PATH: str = 'data/starter_shapes/'
@@ -100,12 +102,12 @@ class DataLoader:
             try:
                 name = Path(dataset).stem
                 df = pd.read_csv(dataset)
-            except FileNotFoundError:
+            except FileNotFoundError as err:
                 raise ValueError(
                     f'Unknown dataset "{dataset}". '
                     'Provide a valid path to a CSV dataset or use one of '
                     f'the included datasets: {", ".join(cls.AVAILABLE_DATASETS)}.'
-                )
+                ) from err
         return Dataset(name=name, df=df, scale=scale)
 
     @classmethod

@@ -77,8 +77,8 @@ class ShapeFactory:
         """
         try:
             return self._SHAPE_MAPPING[shape](self._dataset)
-        except KeyError:
-            raise ValueError(f'No such shape as {shape}.')
+        except KeyError as err:
+            raise ValueError(f'No such shape as {shape}.') from err
 
     @plot_with_custom_style
     def plot_available_shapes(self) -> Axes:

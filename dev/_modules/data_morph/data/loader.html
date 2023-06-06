@@ -475,8 +475,10 @@ document.write(`
 <span class="sd">    .. important:: All logos are used with permission.</span>
 
 <span class="sd">        * The Python logo is a `trademark of the Python Software Foundation (PSF)</span>
-<span class="sd">          &lt;https://www.python.org/psf/trademarks/&gt;`_, used with permission from the Foundation.</span>
-<span class="sd">        * The `SuperDataScience (SDS) &lt;https://www.superdatascience.com/&gt;`_ logo is used with permission.</span>
+<span class="sd">          &lt;https://www.python.org/psf/trademarks/&gt;`_, used with permission from</span>
+<span class="sd">          the Foundation.</span>
+<span class="sd">        * The `SuperDataScience (SDS) &lt;https://www.superdatascience.com/podcast&gt;`_</span>
+<span class="sd">          logo is used with permission.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_DATA_PATH</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;data/starter_shapes/&#39;</span>
@@ -541,12 +543,12 @@ document.write(`
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s1">&#39;Unknown dataset &quot;</span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s1">&quot;. &#39;</span>
                     <span class="s1">&#39;Provide a valid path to a CSV dataset or use one of &#39;</span>
                     <span class="sa">f</span><span class="s1">&#39;the included datasets: </span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">AVAILABLE_DATASETS</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
-                <span class="p">)</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
         <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DataLoader.plot_available_datasets"><a class="viewcode-back" href="../../../api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader.plot_available_datasets">[docs]</a>    <span class="nd">@classmethod</span>

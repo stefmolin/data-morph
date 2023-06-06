@@ -121,12 +121,11 @@ select = [
     "E",  # pycodestyle error rules
     "W",  # pycodestyle warning rules
     "B",  # flake8-bugbear rules
-    "I"   # isort rules
+    "I",  # isort rules
 ]
 ignore = [
     "C901",  # max-complexity-10
     "E501",  # line-too-long
-    "B904"   # raise-without-from-inside-except
 ]
 
 [tool.ruff.isort]

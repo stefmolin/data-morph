@@ -441,7 +441,7 @@ class DataMorpher:
         )
         frame_number = record_frames(
             data=morphed_data,
-            count=freeze_for,
+            count=max(freeze_for, 1),
             frame_number=0,
         )
 
@@ -454,7 +454,7 @@ class DataMorpher:
         get_current_temp = partial(
             _tweening,
             min_value=min_temp,
-            max_value=min_temp,
+            max_value=max_temp,
         )
         get_current_shake = partial(
             _tweening,

@@ -882,7 +882,7 @@ document.write(`
         <span class="p">)</span>
         <span class="n">frame_number</span> <span class="o">=</span> <span class="n">record_frames</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="n">morphed_data</span><span class="p">,</span>
-            <span class="n">count</span><span class="o">=</span><span class="n">freeze_for</span><span class="p">,</span>
+            <span class="n">count</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">freeze_for</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
             <span class="n">frame_number</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -895,7 +895,7 @@ document.write(`
         <span class="n">get_current_temp</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
             <span class="n">_tweening</span><span class="p">,</span>
             <span class="n">min_value</span><span class="o">=</span><span class="n">min_temp</span><span class="p">,</span>
-            <span class="n">max_value</span><span class="o">=</span><span class="n">min_temp</span><span class="p">,</span>
+            <span class="n">max_value</span><span class="o">=</span><span class="n">max_temp</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">get_current_shake</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
             <span class="n">_tweening</span><span class="p">,</span>

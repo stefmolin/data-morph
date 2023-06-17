@@ -200,28 +200,24 @@ class TestDataMorpher:
             in_notebook=False,
         )
 
-        frame_config = {
-            'iterations': iterations,
-            'ramp_in': False,
-            'ramp_out': False,
-            'freeze_for': 0,
-        }
-        frames = morpher._select_frames(**frame_config)
-
         morphed_data = morpher.morph(
             start_shape=dataset,
             target_shape=shape_factory.generate_shape(target_shape),
-            **frame_config,
+            iterations=iterations,
+            ramp_in=False,
+            ramp_out=False,
+            freeze_for=0,
         )
 
         # we don't save the data for the first frame since it is in the input data
         assert not (tmp_path / f'{base_file_name}-data-000.csv').is_file()
 
         # make sure we have the correct number of files
-        for kind, count in zip(
-            ['png', 'csv'], [num_frames - 1, num_frames - frames.count(0)]
-        ):
-            assert len(glob.glob(str(tmp_path / f'{base_file_name}*.{kind}'))) == count
+        for kind in ['png', 'csv']:
+            assert (
+                len(glob.glob(str(tmp_path / f'{base_file_name}*.{kind}')))
+                == num_frames
+            )
 
         # at the final frame, we have the output data
         assert_frame_equal(

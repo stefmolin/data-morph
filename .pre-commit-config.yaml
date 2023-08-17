@@ -42,8 +42,8 @@ repos:
         additional_dependencies:
           - black
 
-  - repo: https://github.com/stefmolin/numpydoc
-    rev: 6a1a606
+  - repo: https://github.com/numpy/numpydoc
+    rev: v1.6.0rc1
     hooks:
       - id: numpydoc-validation
         exclude: (tests/|docs/).*

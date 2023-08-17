@@ -50,7 +50,7 @@ dev = [
 ]
 docs = [
     "pydata-sphinx-theme>=0.13.1",
-    "sphinx>=6.1.3",
+    "sphinx>=6.1.3,<7.2",
     "sphinx-argparse>=0.4.0",
     "sphinx_copybutton>=0.5.1",
 ]

@@ -17,33 +17,33 @@ repos:
       - id: rst-inline-touching-normal
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.4
+    rev: v2.2.5
     hooks:
       - id: codespell
         additional_dependencies:
           - tomli
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.262
+    rev: v0.0.284
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
 
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.7.0
     hooks:
       - id: black
 
   - repo: https://github.com/adamchainz/blacken-docs
-    rev: 1.13.0
+    rev: 1.16.0
     hooks:
       - id: blacken-docs
         args: [--skip-string-normalization]
         additional_dependencies:
           - black
 
-  - repo: https://github.com/stefmolin/numpydoc
-    rev: 6a1a606
+  - repo: https://github.com/numpy/numpydoc
+    rev: v1.6.0rc1
     hooks:
       - id: numpydoc-validation
         exclude: (tests/|docs/).*

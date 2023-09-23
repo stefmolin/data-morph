@@ -24,13 +24,13 @@ repos:
           - tomli
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.284
+    rev: v0.0.291
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
 
   - repo: https://github.com/psf/black
-    rev: 23.7.0
+    rev: 23.9.1
     hooks:
       - id: black
 
@@ -43,7 +43,7 @@ repos:
           - black
 
   - repo: https://github.com/numpy/numpydoc
-    rev: v1.6.0rc1
+    rev: v1.6.0rc2
     hooks:
       - id: numpydoc-validation
         exclude: (tests/|docs/).*

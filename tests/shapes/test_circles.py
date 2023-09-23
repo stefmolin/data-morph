@@ -71,3 +71,39 @@ class TestCircle(CirclesModuleTestBase):
             shape.cy + shape.r * np.sin(angles),
         ):
             assert pytest.approx(shape.distance(x, y)) == 0
+
+
+class TestRings(CirclesModuleTestBase):
+    """Test the Rings class."""
+
+    shape_name = 'rings'
+    distance_test_cases = [[(20, 50), 3.16987], [(10, 25), 9.08004]]
+    repr_regex = (
+        r'^<Rings>\n'
+        r'  circles=\n'
+        r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>\n'
+        r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>'
+    )
+
+    @pytest.mark.parametrize('num_rings', [3, 5])
+    def test_init(self, shape_factory, num_rings):
+        """Test that the Rings contains multiple concentric circles."""
+        shape = shape_factory.generate_shape(self.shape_name, num_rings=num_rings)
+
+        assert len(shape.circles) == num_rings
+        assert all(
+            getattr(circle, center_coord) == getattr(shape.circles[0], center_coord)
+            for circle in shape.circles[1:]
+            for center_coord in ['cx', 'cy']
+        )
+        assert len({circle.r for circle in shape.circles}) == num_rings
+
+    @pytest.mark.parametrize('num_rings', ['3', -5, 1, True])
+    def test_num_rings_is_valid(self, shape_factory, num_rings):
+        """Test that num_rings input validation is working."""
+        if isinstance(num_rings, int):
+            with pytest.raises(ValueError, match='num_rings must be greater than 1'):
+                _ = shape_factory.generate_shape(self.shape_name, num_rings=num_rings)
+        else:
+            with pytest.raises(TypeError, match='num_rings must be an integer'):
+                _ = shape_factory.generate_shape(self.shape_name, num_rings=num_rings)

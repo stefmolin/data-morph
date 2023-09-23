@@ -3,6 +3,7 @@
 from numbers import Number
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.axes import Axes
 
 from ..data.dataset import Dataset
@@ -85,9 +86,9 @@ class Circle(Shape):
         return ax
 
 
-class Bullseye(Shape):
+class Rings(Shape):
     """
-    Class representing a bullseye shape comprising two concentric circles.
+    Class representing rings comprising multiple concentric circles.
 
     .. plot::
        :scale: 75
@@ -95,27 +96,41 @@ class Bullseye(Shape):
             This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.circles import Bullseye
+        from data_morph.shapes.circles import Rings
 
-        _ = Bullseye(DataLoader.load_dataset('panda')).plot()
+        _ = Rings(DataLoader.load_dataset('panda')).plot()
 
     Parameters
     ----------
     dataset : Dataset
         The starting dataset to morph into other shapes.
+    num_rings : int, default 4
+        The number of rings to include. Must be greater than 1.
+
+    See Also
+    --------
+    Circle : The individual rings are represented as circles.
     """
 
-    def __init__(self, dataset: Dataset) -> None:
+    def __init__(self, dataset: Dataset, num_rings: int = 4) -> None:
+        if not isinstance(num_rings, int):
+            raise TypeError('num_rings must be an integer')
+        if num_rings <= 1:
+            raise ValueError('num_rings must be greater than 1')
+
         stdev = dataset.df.std().mean()
-        self.circles: list[Circle] = [Circle(dataset, r) for r in [stdev, stdev * 2]]
-        """list[Circle]: The inner and outer :class:`Circle` objects."""
+        self.circles: list[Circle] = [
+            Circle(dataset, r)
+            for r in np.linspace(stdev / num_rings * 2, stdev * 2, num_rings)
+        ]
+        """list[Circle]: The individual rings represented by :class:`Circle` objects."""
 
     def __repr__(self) -> str:
         return self._recursive_repr('circles')
 
     def distance(self, x: Number, y: Number) -> float:
         """
-        Calculate the minimum absolute distance between this bullseye's inner and outer
+        Calculate the minimum absolute distance between any of this shape's
         circles' edges and a point (x, y).
 
         Parameters
@@ -126,13 +141,13 @@ class Bullseye(Shape):
         Returns
         -------
         float
-            The minimum absolute distance between this bullseye's inner and outer
+            The minimum absolute distance between any of this shape's
             circles' edges and the point (x, y).
 
         See Also
         --------
         Circle.distance :
-            A bullseye consists of two circles, so we use the minimum
+            Rings consists of multiple circles, so we use the minimum
             distance to one of the circles.
         """
         return min(circle.distance(x, y) for circle in self.circles)
@@ -155,3 +170,31 @@ class Bullseye(Shape):
         for circle in self.circles:
             ax = circle.plot(ax)
         return ax
+
+
+class Bullseye(Rings):
+    """
+    Class representing a bullseye shape comprising two concentric circles.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.circles import Bullseye
+
+        _ = Bullseye(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+
+    See Also
+    --------
+    Rings : The Bullseye is a special case where we only have 2 rings.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        super().__init__(dataset=dataset, num_rings=2)

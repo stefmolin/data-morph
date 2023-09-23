@@ -51,6 +51,7 @@ class ShapeFactory:
         'up_parab': points.UpParabola,
         'diamond': polygons.Diamond,
         'rectangle': polygons.Rectangle,
+        'rings': circles.Rings,
         'star': polygons.Star,
     }
 
@@ -61,7 +62,7 @@ class ShapeFactory:
     def __init__(self, dataset: Dataset) -> None:
         self._dataset: Dataset = dataset
 
-    def generate_shape(self, shape: str) -> Shape:
+    def generate_shape(self, shape: str, **kwargs) -> Shape:
         """
         Generate the shape object based on the dataset.
 
@@ -69,6 +70,9 @@ class ShapeFactory:
         ----------
         shape : str
             The desired shape. See :attr:`.AVAILABLE_SHAPES`.
+        **kwargs
+            Additional keyword arguments to pass down when creating
+            the shape.
 
         Returns
         -------
@@ -76,7 +80,7 @@ class ShapeFactory:
             An shape object of the requested type.
         """
         try:
-            return self._SHAPE_MAPPING[shape](self._dataset)
+            return self._SHAPE_MAPPING[shape](self._dataset, **kwargs)
         except KeyError as err:
             raise ValueError(f'No such shape as {shape}.') from err
 

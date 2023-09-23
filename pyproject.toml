@@ -161,11 +161,20 @@ markers = [
 ]
 
 [tool.numpydoc_validation]
-ignore = [
-    "EX01",
-    "SA01",
-    "SS06",
-    "ES01",
+checks = [
+    "all",  # report on all checks
+    "ES01", # but don't require an extended summary
+    "EX01", # or examples
+    "SA01", # or a see also section
+    "SS06", # and don't require the summary to fit on one line
 ]
-override_SS05 = '^((Process|Assess|Access) )'
-override_GL08 = '^(__(init|repr|str)__)$'
+exclude = [  # don't report on checks for these
+    '\.__init__$',
+    '\.__repr__$',
+    '\.__str__$',
+]
+override_SS05 = [  # allow docstrings to start with these words
+    '^Process ',
+    '^Assess ',
+    '^Access ',
+]

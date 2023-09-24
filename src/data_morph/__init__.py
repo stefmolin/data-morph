@@ -24,5 +24,5 @@ Read more about the creation of Data Morph `here
 <https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c>`_.
 """
 
-__version__ = '0.2.0.dev0'
+__version__ = '0.2.0'
 MAIN_DIR = __name__

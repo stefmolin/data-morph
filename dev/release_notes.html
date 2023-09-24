@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Release Notes &#8212; Data Morph 0.2.0.dev0 documentation</title>
+    <title>Release Notes &#8212; Data Morph 0.3.0.dev0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
   <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script src="_static/documentation_options.js?v=764ebb21"></script>
+    <script src="_static/documentation_options.js?v=660b83ef"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -459,6 +459,54 @@ document.write(`
                   
   <section id="release-notes">
 <h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
+<section id="september-24-2023">
+<h2>0.2.0 (September 24, 2023)<a class="headerlink" href="#september-24-2023" title="Link to this heading">#</a></h2>
+<section id="what-s-new">
+<h3>What’s New<a class="headerlink" href="#what-s-new" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Created 5 new target shapes: <a class="reference internal" href="api/data_morph.shapes.polygons.Diamond.html#data_morph.shapes.polygons.Diamond" title="data_morph.shapes.polygons.Diamond"><code class="xref py py-class docutils literal notranslate"><span class="pre">Diamond</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.Heart.html#data_morph.shapes.points.Heart" title="data_morph.shapes.points.Heart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Heart</span></code></a>,
+<a class="reference internal" href="api/data_morph.shapes.points.LeftParabola.html#data_morph.shapes.points.LeftParabola" title="data_morph.shapes.points.LeftParabola"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeftParabola</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.RightParabola.html#data_morph.shapes.points.RightParabola" title="data_morph.shapes.points.RightParabola"><code class="xref py py-class docutils literal notranslate"><span class="pre">RightParabola</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.circles.Rings.html#data_morph.shapes.circles.Rings" title="data_morph.shapes.circles.Rings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rings</span></code></a>.</p></li>
+<li><p>Created 3 new datasets: bunny, Python logo (TM), SuperDataScience logo.
+Logos are used with permission.</p></li>
+<li><p>Made it possible to install via <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
+<li><p>Configured versioned documentation hosted in GitHub Pages.</p></li>
+<li><p>Generated a <a class="reference internal" href="cli.html"><span class="doc">CLI reference</span></a> page in the documentation.</p></li>
+<li><p>Provided a <a class="reference internal" href="custom_datasets.html"><span class="doc">custom dataset creation tutorial</span></a> to the documentation.</p></li>
+<li><p>Included logo and badges in README.</p></li>
+<li><p>Included an example using easing for the animation to the documentation.</p></li>
+<li><p>Included reference to <a class="reference external" href="https://medium.com/&#64;stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c">blog post on the creation of Data Morph</a>
+in the documentation.</p></li>
+<li><p>Configured codecov reporting on test coverage with actions to validate the
+config both periodically and upon change.</p></li>
+<li><p>Incorporated metavar indicators for some CLI options.</p></li>
+<li><p>Added a test of the frame freezing functionality in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a>.</p></li>
+<li><p>Added a test for the <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory.plot_available_shapes" title="data_morph.shapes.factory.ShapeFactory.plot_available_shapes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShapeFactory.plot_available_shapes()</span></code></a> method used in the documentation.</p></li>
+<li><p>Added a test for the <a class="reference internal" href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.plot" title="data_morph.shapes.bases.point_collection.PointCollection.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PointCollection.plot()</span></code></a> method used in the documentation.</p></li>
+</ul>
+</section>
+<section id="bug-fixes">
+<h3>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fixed links to Autodesk assets after change to their website.</p></li>
+<li><p>Corrected missing type references in the documentation.</p></li>
+<li><p>Addressed a bug in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> that caused frame recording to miss first frame (initial dataset).</p></li>
+<li><p>Fixed a bug in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> that wasn’t properly decreasing
+the temperature in the simulated annealing process.</p></li>
+<li><p>Reduced point size for datasets displayed in the documentation so points
+appear with some separation and stay true to their subjects.</p></li>
+<li><p>Fixed bug in logic for padding statistics in plots that would use incorrect spacing in some cases.</p></li>
+</ul>
+</section>
+<section id="dependency-updates">
+<h3>Dependency Updates<a class="headerlink" href="#dependency-updates" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Changed the minimum Sphinx version to 7.2.1.</p></li>
+<li><p>Changed the minimum <code class="docutils literal notranslate"><span class="pre">pytweening</span></code> version to 1.0.5.</p></li>
+<li><p>Switched from <code class="docutils literal notranslate"><span class="pre">isort</span></code> and <code class="docutils literal notranslate"><span class="pre">flake8</span></code> to <code class="docutils literal notranslate"><span class="pre">ruff</span></code> in pre-commit setup.</p></li>
+<li><p>Updated pre-commit hooks to the latest versions and to use the new upstream <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> validation hook.</p></li>
+</ul>
+</section>
+</section>
 <section id="april-1-2023">
 <h2>0.1.0 (April 1, 2023)<a class="headerlink" href="#april-1-2023" title="Link to this heading">#</a></h2>
 <p>This is the first release of Data Morph, which is a spinoff of
@@ -469,7 +517,7 @@ The core improvements include:</p>
 <ul class="simple">
 <li><p>Created a modular package, moving away from functional programming to object-oriented programming.</p></li>
 <li><p>Introduction of <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> classes both for resuability of the code and to decouple the shapes from
-the original “dinosaurus” dataset and its hardcoded values. Morphing is now possible from any input dataset
+the original “datasaurus” dataset and its hardcoded values. Morphing is now possible from any input dataset
 to the target shapes. See the <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a> documentation for visuals.</p></li>
 <li><p>Creation of <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> to hold the data along with bounds needed for morphing and plotting and the name.</p></li>
 <li><p>Morph and plot bounding logic for automatic calculation of values needed for simulated annealing and plot limits.</p></li>
@@ -477,7 +525,7 @@ to the target shapes. See the <a class="reference internal" href="api/data_morph
 <li><p>Easier application of plotting theme.</p></li>
 <li><p>Documentation with Sphinx.</p></li>
 <li><p>Testing suite with pytest.</p></li>
-<li><p>Replaced center shape with scatter and included a new rectangle shape.</p></li>
+<li><p>Replaced center shape with <a class="reference internal" href="api/data_morph.shapes.points.Scatter.html#data_morph.shapes.points.Scatter" title="data_morph.shapes.points.Scatter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scatter</span></code></a> and included a new <a class="reference internal" href="api/data_morph.shapes.polygons.Rectangle.html#data_morph.shapes.polygons.Rectangle" title="data_morph.shapes.polygons.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a> shape.</p></li>
 </ul>
 </section>
 </section>
@@ -516,6 +564,12 @@ to the target shapes. See the <a class="reference internal" href="api/data_morph
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#september-24-2023">0.2.0 (September 24, 2023)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-new">What’s New</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-updates">Dependency Updates</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#april-1-2023">0.1.0 (April 1, 2023)</a></li>
 </ul>
   </nav></div>

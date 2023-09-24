@@ -1,0 +1,33 @@
+﻿data
+====
+
+.. automodule:: data_morph.data
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   data_morph.data.dataset
+   data_morph.data.loader
+   data_morph.data.stats
+

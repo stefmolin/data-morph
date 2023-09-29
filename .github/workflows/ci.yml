@@ -8,13 +8,17 @@
 name: CI
 
 on:
-  # Trigger on push to the primary branches and all versioned tags
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'docs/**'
+      - '.github/**'
     tags: [ "v*" ]
 
-  # Trigger on pull request always (note the trailing colon)
   pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '.github/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}

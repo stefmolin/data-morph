@@ -58,8 +58,7 @@
      </td>
      <td>
       <a href="https://pypi.org/project/data-morph-ai/" target="_blank" rel="noopener noreferrer">
-        <img alt="PyPI downloads" src="https://img.shields.io/pepy/dt/data-morph-ai?label=pypi&color=blueviolet
-">
+        <img alt="PyPI downloads" src="https://img.shields.io/pepy/dt/data-morph-ai?label=pypi&color=blueviolet">
       </a>
       <a href="https://anaconda.org/conda-forge/data-morph-ai" target="_blank" rel="noopener noreferrer">
         <img alt="conda-forge downloads" src="https://img.shields.io/conda/dn/conda-forge/data-morph-ai.svg?label=conda-forge&color=blueviolet">

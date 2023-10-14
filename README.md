@@ -31,9 +31,7 @@
        <img alt="Citation information" src="https://img.shields.io/badge/for%20citation-inactive?style=for-the-badge">
    </td>
      <td>
-      <a href="https://zenodo.org/badge/latestdoi/597895841" target="_blank" rel="noopener noreferrer">
-        <img alt="DOI" src="https://zenodo.org/badge/597895841.svg">
-      </a>
+      <a href="https://doi.org/10.5281/zenodo.8374121"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.8374121.svg" alt="DOI"></a>
      </td>
    </tr>
    <tr>

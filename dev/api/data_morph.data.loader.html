@@ -184,6 +184,28 @@
                       </a>
                     </li>
                 
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-header-nav-more-links" class="dropdown-menu">
+                    
+                <li class="nav-item">
+                  <a class="nav-link dropdown-item nav-external" href="https://medium.com/gitconnected/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c">
+                    Blog Post about Data Morph
+                  </a>
+                </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link dropdown-item nav-external" href="https://stefmolin.github.io/data-morph-talk/#/">
+                    Conference Talk Slides on Data Morph
+                  </a>
+                </li>
+                
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -342,6 +364,28 @@ document.write(`
                       </a>
                     </li>
                 
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-header-nav-more-links" class="dropdown-menu">
+                    
+                <li class="nav-item">
+                  <a class="nav-link dropdown-item nav-external" href="https://medium.com/gitconnected/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c">
+                    Blog Post about Data Morph
+                  </a>
+                </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link dropdown-item nav-external" href="https://stefmolin.github.io/data-morph-talk/#/">
+                    Conference Talk Slides on Data Morph
+                  </a>
+                </li>
+                
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
         
@@ -588,7 +632,7 @@ document.write(`
 <dl class="py class">
 <dt class="sig sig-object py" id="data_morph.data.loader.DataLoader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.data.loader.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><a class="reference internal" href="../_modules/data_morph/data/loader.html#DataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.data.loader.DataLoader" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class for loading datasets for morphing.</p>
 <figure class="align-default" id="id1">
 <img alt="../_images/data_morph-data-loader-1.png" class="plot-directive" src="../_images/data_morph-data-loader-1.png" />
@@ -616,21 +660,21 @@ logo is used with permission.</p></li>
 which can be visualized with <a class="reference internal" href="data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader.plot_available_datasets" title="data_morph.data.loader.DataLoader.plot_available_datasets"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_available_datasets()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="data_morph.data.loader.DataLoader.load_dataset">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><span class="pre">Number</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="reference internal" href="../_modules/data_morph/data/loader.html#DataLoader.load_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.data.loader.DataLoader.load_dataset" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.12)"><span class="pre">Number</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="reference internal" href="../_modules/data_morph/data/loader.html#DataLoader.load_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.data.loader.DataLoader.load_dataset" title="Link to this definition">#</a></dt>
 <dd><p>Load dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Either one of <a class="reference internal" href="data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader.AVAILABLE_DATASETS" title="data_morph.data.loader.DataLoader.AVAILABLE_DATASETS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AVAILABLE_DATASETS</span></code></a> or a path to a
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Either one of <a class="reference internal" href="data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader.AVAILABLE_DATASETS" title="data_morph.data.loader.DataLoader.AVAILABLE_DATASETS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AVAILABLE_DATASETS</span></code></a> or a path to a
 CSV file containing two columns: x and y.</p></li>
-<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.11)"><em>numbers.Number</em></a><em>, </em><em>optional</em>) – The factor to scale the data by (can be used to speed up morphing).
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.12)"><em>numbers.Number</em></a><em>, </em><em>optional</em>) – The factor to scale the data by (can be used to speed up morphing).
 Values in the data’s x and y columns will be divided by this value.</p></li>
 </ul>
 </dd>

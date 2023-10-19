@@ -25,6 +25,7 @@ version_match, _ = determine_versions()
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+# nitpicky = True
 nitpick_ignore_regex = [('py:class', r'(optional|default.*)')]
 
 # default language for code-highlighting (requires specific declarations to highlight)
@@ -113,6 +114,16 @@ html_theme_options = {
         'json_url': 'https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/switcher.json',
         'version_match': version_match,
     },
+    "external_links": [
+        {
+            "name": "Blog Post about Data Morph",
+            "url": "https://medium.com/gitconnected/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c",
+        },
+        {
+            "name": "Conference Talk Slides on Data Morph",
+            "url": "https://stefmolin.github.io/data-morph-talk/#/",
+        },
+    ],
 }
 
 html_context = {

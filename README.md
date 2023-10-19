@@ -79,7 +79,7 @@ Data Morph transforms an input dataset of 2D points into select shapes, while pr
 Data Morph can be installed from PyPI using `pip`:
 
 ```console
-$ pip install data-morph-ai
+$ python -m pip install data-morph-ai
 ```
 
 Alternatively, Data Morph can be installed with `conda` by specifying the `conda-forge` channel:
@@ -162,7 +162,7 @@ This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/st
 
 The paper and video can be found on the Autodesk Research website [here](https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/). The version of the code placed on GitHub at [jmatejka/same-stats-different-graphs](https://github.com/jmatejka/same-stats-different-graphs), served as the starting point for the Data Morph code base, which is on GitHub at [stefmolin/data-morph](https://github.com/stefmolin/data-morph).
 
-Read more about the creation of Data Morph [here](https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c).
+Read more about the creation of Data Morph [here](https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c) and [here](https://stefmolin.github.io/data-morph-talk/#/).
 
 ## Citations
 

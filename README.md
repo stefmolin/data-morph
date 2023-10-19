@@ -81,7 +81,7 @@ Data Morph transforms an input dataset of 2D points into select shapes, while pr
 Data Morph can be installed from PyPI using `pip`:
 
 ```console
-$ pip install data-morph-ai
+$ python -m pip install data-morph-ai
 ```
 
 Alternatively, Data Morph can be installed with `conda` by specifying the `conda-forge` channel:

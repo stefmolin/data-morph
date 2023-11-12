@@ -1,13 +1,26 @@
 """Utility functions for styling Matplotlib plots."""
 
+from contextlib import contextmanager
 from functools import wraps
 from importlib.resources import as_file, files
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Generator
 
 import matplotlib.pyplot as plt
 
 from .. import MAIN_DIR
+
+
+@contextmanager
+def style_context() -> Generator[None, None, None]:
+    """Context manager for plotting in a custom style."""
+
+    style = files(MAIN_DIR).joinpath(
+        Path('plotting') / 'config' / 'plot_style.mplstyle'
+    )
+    with as_file(style) as style_path:
+        with plt.style.context(['seaborn-v0_8-darkgrid', style_path]):
+            yield
 
 
 def plot_with_custom_style(plotting_function: Callable) -> Callable:
@@ -26,6 +39,7 @@ def plot_with_custom_style(plotting_function: Callable) -> Callable:
     """
 
     @wraps(plotting_function)
+    @style_context()
     def plot_in_style(*args, **kwargs) -> Any:
         """
         Use a context manager to set the plot style before running
@@ -43,12 +57,6 @@ def plot_with_custom_style(plotting_function: Callable) -> Callable:
         any
             Output of calling the plotting function.
         """
-        style = files(MAIN_DIR).joinpath(
-            Path('plotting') / 'config' / 'plot_style.mplstyle'
-        )
-        with as_file(style) as style_path:
-            with plt.style.context(['seaborn-v0_8-darkgrid', style_path]):
-                output = plotting_function(*args, **kwargs)
-        return output
+        return plotting_function(*args, **kwargs)
 
     return plot_in_style

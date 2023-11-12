@@ -21,7 +21,7 @@ class Dataset:
             Use :meth:`plot` to generate this visualization.
 
         from data_morph.data.loader import DataLoader
-        _ = DataLoader.load_dataset('panda').plot()
+        _ = DataLoader.load_dataset('panda').plot(show_bounds=True)
 
     Parameters
     ----------

@@ -520,14 +520,30 @@ document.write(`
   <h1>Source code for data_morph.plotting.style</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Utility functions for styling Matplotlib plots.&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">importlib.resources</span> <span class="kn">import</span> <span class="n">as_file</span><span class="p">,</span> <span class="n">files</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">MAIN_DIR</span>
+
+
+<div class="viewcode-block" id="style_context">
+<a class="viewcode-back" href="../../../api/data_morph.plotting.style.style_context.html#data_morph.plotting.style.style_context">[docs]</a>
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">style_context</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Context manager for plotting in a custom style.&quot;&quot;&quot;</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">files</span><span class="p">(</span><span class="n">MAIN_DIR</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span>
+        <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;plotting&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="s1">&#39;config&#39;</span> <span class="o">/</span> <span class="s1">&#39;plot_style.mplstyle&#39;</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">as_file</span><span class="p">(</span><span class="n">style</span><span class="p">)</span> <span class="k">as</span> <span class="n">style_path</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">([</span><span class="s1">&#39;seaborn-v0_8-darkgrid&#39;</span><span class="p">,</span> <span class="n">style_path</span><span class="p">]):</span>
+            <span class="k">yield</span></div>
+
 
 
 <div class="viewcode-block" id="plot_with_custom_style">
@@ -548,6 +564,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">plotting_function</span><span class="p">)</span>
+    <span class="nd">@style_context</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">plot_in_style</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use a context manager to set the plot style before running</span>
@@ -565,13 +582,7 @@ document.write(`
 <span class="sd">        any</span>
 <span class="sd">            Output of calling the plotting function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">style</span> <span class="o">=</span> <span class="n">files</span><span class="p">(</span><span class="n">MAIN_DIR</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span>
-            <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;plotting&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="s1">&#39;config&#39;</span> <span class="o">/</span> <span class="s1">&#39;plot_style.mplstyle&#39;</span>
-        <span class="p">)</span>
-        <span class="k">with</span> <span class="n">as_file</span><span class="p">(</span><span class="n">style</span><span class="p">)</span> <span class="k">as</span> <span class="n">style_path</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">([</span><span class="s1">&#39;seaborn-v0_8-darkgrid&#39;</span><span class="p">,</span> <span class="n">style_path</span><span class="p">]):</span>
-                <span class="n">output</span> <span class="o">=</span> <span class="n">plotting_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">output</span>
+        <span class="k">return</span> <span class="n">plotting_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">plot_in_style</span></div>
 

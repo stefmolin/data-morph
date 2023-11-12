@@ -15,6 +15,7 @@ style
       :toctree:
    
       plot_with_custom_style
+      style_context
    
    
 

@@ -79,19 +79,6 @@ version = {attr = "data_morph.__version__"}
 ignore-words-list = "recuse"
 ignore-regex = 'https://([\w/\.])+'
 
-[tool.black]
-line-length = 88
-target-version = ["py39", "py310", "py311"]
-skip-string-normalization = true
-exclude = '''
-/(
-    \.eggs         # exclude a few common directories in the
-  | \.git          # root of the project
-  | \.vscode
-  | build
-)/
-'''
-
 [tool.interrogate]
 ignore-init-method = true
 ignore-init-module = false
@@ -127,6 +114,10 @@ ignore = [
     "C901",  # max-complexity-10
     "E501",  # line-too-long
 ]
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "single"
 
 [tool.ruff.isort]
 known-first-party = ["data_morph"]

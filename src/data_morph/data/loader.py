@@ -153,7 +153,7 @@ class DataLoader:
                 points = cls.load_dataset(dataset)
 
                 if dataset == 'Python':
-                    dataset += u' logo\u2122'
+                    dataset += ' logo\u2122'
                 elif dataset == 'SDS':
                     dataset += ' logo'
 

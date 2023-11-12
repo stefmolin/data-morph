@@ -180,7 +180,7 @@ class Dataset:
         return data
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes = None, show_bounds: bool = True) -> Axes:
         """
         Plot the dataset and its bounds.
 
@@ -188,6 +188,8 @@ class Dataset:
         ----------
         ax : matplotlib.axes.Axes, optional
             An optional :class:`~matplotlib.axes.Axes` object to plot on.
+        show_bounds : bool, default ``True``
+            Whether to plot the bounds of the dataset.
 
         Returns
         -------
@@ -202,64 +204,73 @@ class Dataset:
         ax.scatter(self.df.x, self.df.y, s=2, color='black')
         ax.set(xlabel='', ylabel='', title=self)
 
-        scale_base = 85
+        if show_bounds:
+            scale_base = 85
 
-        # data bounds
-        x_offset = self.data_bounds.x_bounds.range / scale_base
-        y_offset = self.data_bounds.y_bounds.range / scale_base
-        data_rectangle = [
-            self.data_bounds.x_bounds[0] - x_offset,
-            self.data_bounds.y_bounds[0] - y_offset,
-        ]
+            # data bounds
+            x_offset = self.data_bounds.x_bounds.range / scale_base
+            y_offset = self.data_bounds.y_bounds.range / scale_base
+            data_rectangle = [
+                self.data_bounds.x_bounds[0] - x_offset,
+                self.data_bounds.y_bounds[0] - y_offset,
+            ]
 
-        ax.add_patch(
-            plt.Rectangle(
-                data_rectangle,
-                width=self.data_bounds.x_bounds.range + x_offset * 2,
-                height=self.data_bounds.y_bounds.range + y_offset * 2,
-                ec='blue',
-                linewidth=2,
-                fill=False,
+            ax.add_patch(
+                plt.Rectangle(
+                    data_rectangle,
+                    width=self.data_bounds.x_bounds.range + x_offset * 2,
+                    height=self.data_bounds.y_bounds.range + y_offset * 2,
+                    ec='blue',
+                    linewidth=2,
+                    fill=False,
+                )
             )
-        )
-        ax.text(
-            (self.df.x.max() + self.df.x.min()) / 2,
-            self.df.y.max() + self.data_bounds.y_bounds.range / scale_base,
-            'DATA BOUNDS',
-            color='blue',
-            va='bottom',
-            ha='center',
-        )
-
-        # morph bounds
-        morph_rectangle = [self.morph_bounds.x_bounds[0], self.morph_bounds.y_bounds[0]]
-        ax.add_patch(
-            plt.Rectangle(
-                morph_rectangle,
-                width=self.morph_bounds.x_bounds.range,
-                height=self.morph_bounds.y_bounds.range,
-                ec='red',
-                linewidth=2,
-                fill=False,
+            ax.text(
+                (self.df.x.max() + self.df.x.min()) / 2,
+                self.df.y.max() + self.data_bounds.y_bounds.range / scale_base,
+                'DATA BOUNDS',
+                color='blue',
+                va='bottom',
+                ha='center',
             )
-        )
-        ax.text(*morph_rectangle, ' MORPH BOUNDS', color='red', va='bottom', ha='left')
 
-        # plot bounds
-        plot_rectangle = [self.plot_bounds.x_bounds[0], self.plot_bounds.y_bounds[0]]
-        ax.add_patch(
-            plt.Rectangle(
-                plot_rectangle,
-                width=self.plot_bounds.x_bounds.range,
-                height=self.plot_bounds.y_bounds.range,
-                ec='#7CA1CC',
-                linewidth=2,
-                fill=False,
+            # morph bounds
+            morph_rectangle = [
+                self.morph_bounds.x_bounds[0],
+                self.morph_bounds.y_bounds[0],
+            ]
+            ax.add_patch(
+                plt.Rectangle(
+                    morph_rectangle,
+                    width=self.morph_bounds.x_bounds.range,
+                    height=self.morph_bounds.y_bounds.range,
+                    ec='red',
+                    linewidth=2,
+                    fill=False,
+                )
             )
-        )
-        ax.text(
-            *plot_rectangle, ' PLOT BOUNDS', color='#7CA1CC', va='bottom', ha='left'
-        )
+            ax.text(
+                *morph_rectangle, ' MORPH BOUNDS', color='red', va='bottom', ha='left'
+            )
+
+            # plot bounds
+            plot_rectangle = [
+                self.plot_bounds.x_bounds[0],
+                self.plot_bounds.y_bounds[0],
+            ]
+            ax.add_patch(
+                plt.Rectangle(
+                    plot_rectangle,
+                    width=self.plot_bounds.x_bounds.range,
+                    height=self.plot_bounds.y_bounds.range,
+                    ec='#7CA1CC',
+                    linewidth=2,
+                    fill=False,
+                )
+            )
+            ax.text(
+                *plot_rectangle, ' PLOT BOUNDS', color='#7CA1CC', va='bottom', ha='left'
+            )
 
         ax.autoscale()
         return ax

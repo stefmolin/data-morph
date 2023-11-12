@@ -180,7 +180,9 @@ class Dataset:
         return data
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None, show_bounds: bool = True) -> Axes:
+    def plot(
+        self, ax: Axes = None, show_bounds: bool = True, title: str = 'default'
+    ) -> Axes:
         """
         Plot the dataset and its bounds.
 
@@ -190,6 +192,9 @@ class Dataset:
             An optional :class:`~matplotlib.axes.Axes` object to plot on.
         show_bounds : bool, default ``True``
             Whether to plot the bounds of the dataset.
+        title : str, optional
+            Title to use for the plot. The default will call ``str()`` on the
+            Dataset. Pass ``None`` to leave the plot untitled.
 
         Returns
         -------
@@ -202,7 +207,7 @@ class Dataset:
 
         ax.axis('equal')
         ax.scatter(self.df.x, self.df.y, s=2, color='black')
-        ax.set(xlabel='', ylabel='', title=self)
+        ax.set(xlabel='', ylabel='', title=self if title == 'default' else title)
 
         if show_bounds:
             scale_base = 85

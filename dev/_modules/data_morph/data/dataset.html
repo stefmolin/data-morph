@@ -543,7 +543,7 @@ document.write(`
 <span class="sd">            Use :meth:`plot` to generate this visualization.</span>
 
 <span class="sd">        from data_morph.data.loader import DataLoader</span>
-<span class="sd">        _ = DataLoader.load_dataset(&#39;panda&#39;).plot()</span>
+<span class="sd">        _ = DataLoader.load_dataset(&#39;panda&#39;).plot(show_bounds=True)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -704,7 +704,7 @@ document.write(`
 <div class="viewcode-block" id="Dataset.plot">
 <a class="viewcode-back" href="../../../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.plot">[docs]</a>
     <span class="nd">@plot_with_custom_style</span>
-    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">show_bounds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot the dataset and its bounds.</span>
 
@@ -712,6 +712,8 @@ document.write(`
 <span class="sd">        ----------</span>
 <span class="sd">        ax : matplotlib.axes.Axes, optional</span>
 <span class="sd">            An optional :class:`~matplotlib.axes.Axes` object to plot on.</span>
+<span class="sd">        show_bounds : bool, default ``True``</span>
+<span class="sd">            Whether to plot the bounds of the dataset.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -726,64 +728,73 @@ document.write(`
         <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="n">scale_base</span> <span class="o">=</span> <span class="mi">85</span>
+        <span class="k">if</span> <span class="n">show_bounds</span><span class="p">:</span>
+            <span class="n">scale_base</span> <span class="o">=</span> <span class="mi">85</span>
 
-        <span class="c1"># data bounds</span>
-        <span class="n">x_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span>
-        <span class="n">y_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span>
-        <span class="n">data_rectangle</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_offset</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">,</span>
-        <span class="p">]</span>
+            <span class="c1"># data bounds</span>
+            <span class="n">x_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span>
+            <span class="n">y_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span>
+            <span class="n">data_rectangle</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_offset</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">,</span>
+            <span class="p">]</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
-                <span class="n">data_rectangle</span><span class="p">,</span>
-                <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">+</span> <span class="n">x_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">+</span> <span class="n">y_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                    <span class="n">data_rectangle</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">+</span> <span class="n">x_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">+</span> <span class="n">y_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span><span class="p">,</span>
-            <span class="s1">&#39;DATA BOUNDS&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
-            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
-            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1"># morph bounds</span>
-        <span class="n">morph_rectangle</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
-                <span class="n">morph_rectangle</span><span class="p">,</span>
-                <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
-                <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
-                <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span><span class="p">,</span>
+                <span class="s1">&#39;DATA BOUNDS&#39;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">morph_rectangle</span><span class="p">,</span> <span class="s1">&#39; MORPH BOUNDS&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 
-        <span class="c1"># plot bounds</span>
-        <span class="n">plot_rectangle</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
-                <span class="n">plot_rectangle</span><span class="p">,</span>
-                <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
-                <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
-                <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;#7CA1CC&#39;</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="c1"># morph bounds</span>
+            <span class="n">morph_rectangle</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                    <span class="n">morph_rectangle</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
+                    <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
+                    <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+                    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-            <span class="o">*</span><span class="n">plot_rectangle</span><span class="p">,</span> <span class="s1">&#39; PLOT BOUNDS&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#7CA1CC&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span>
-        <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">morph_rectangle</span><span class="p">,</span> <span class="s1">&#39; MORPH BOUNDS&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span>
+            <span class="p">)</span>
+
+            <span class="c1"># plot bounds</span>
+            <span class="n">plot_rectangle</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                    <span class="n">plot_rectangle</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
+                    <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">,</span>
+                    <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;#7CA1CC&#39;</span><span class="p">,</span>
+                    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">plot_rectangle</span><span class="p">,</span> <span class="s1">&#39; PLOT BOUNDS&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#7CA1CC&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span>
+            <span class="p">)</span>
 
         <span class="n">ax</span><span class="o">.</span><span class="n">autoscale</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">ax</span></div>

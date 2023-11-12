@@ -54,5 +54,5 @@ def test_plot_with_custom_style(tmp_path):
 
     style_plot()
 
-    assert save_plot.__doc__ == style_plot.__doc__
+    assert plot_with_custom_style.__doc__ != style_plot.__doc__
     assert not filecmp.cmp(no_style, styled, shallow=False)

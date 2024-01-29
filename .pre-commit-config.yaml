@@ -25,7 +25,7 @@ repos:
         exclude: \.(svg|png|pdf)$
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.5
+    rev: v0.1.14
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
@@ -35,7 +35,7 @@ repos:
     rev: v1.6.0
     hooks:
       - id: numpydoc-validation
-        exclude: (tests/|docs/).*
+        exclude: (tests|docs)/.*
 
   - repo: https://github.com/econchick/interrogate
     rev: 1.5.0

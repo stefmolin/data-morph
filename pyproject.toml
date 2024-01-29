@@ -135,6 +135,7 @@ addopts = [
     "--cov=data_morph",
     "--cov=tests",
     "--no-cov-on-fail",
+    "--cov-report=term-missing",
 ]
 xfail_strict = true
 testpaths = ["tests"]

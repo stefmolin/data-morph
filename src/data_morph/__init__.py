@@ -20,9 +20,9 @@ The version of the code placed on GitHub at
 served as the starting point for the Data Morph code base, which is on GitHub at
 `stefmolin/data-morph <https://github.com/stefmolin/data-morph>`_.
 
-Read more about the creation of Data Morph in `this blog post
-<https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c>`_
-and `this slide deck <https://stefmolin.github.io/data-morph-talk/#/>`_.
+Read more about the creation of Data Morph in `this article
+<https://stefaniemolin.com/articles/data-science/introducing-data-morph/>`_
+and `this slide deck <https://stefaniemolin.com/data-morph-talk/#/>`_.
 """
 
 __version__ = '0.3.0.dev0'

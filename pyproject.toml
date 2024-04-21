@@ -60,9 +60,9 @@ docs = [
 data-morph = "data_morph.cli:main"
 
 [project.urls]
-"Homepage" = "https://stefmolin.github.io/data-morph"
+"Homepage" = "https://stefaniemolin.com/data-morph"
 "Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
-"Documentation" = "https://stefmolin.github.io/data-morph/stable/api.html"
+"Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
 "Source" = "https://github.com/stefmolin/data-morph"
 
 [tool.setuptools.packages.find]

@@ -38,10 +38,23 @@
   <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="_static/documentation_options.js?v=6fc6f92e"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=30646c52"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-FMNM78QSKK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-FMNM78QSKK');
+            </script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-FMNM78QSKK');
+            </script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
@@ -186,15 +199,22 @@
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://medium.com/gitconnected/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c">
-                    Blog Post about Data Morph
+                  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">
+                    Article about Data Morph
                   </a>
                 </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://stefmolin.github.io/data-morph-talk/#/">
+                  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/data-morph-talk/#/">
                     Conference Talk Slides on Data Morph
+                  </a>
+                </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com">
+                    Stefanie Molin's Website
                   </a>
                 </li>
                 
@@ -378,15 +398,22 @@ document.write(`
                 <ul id="pst-nav-more-links-2" class="dropdown-menu">
                     
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://medium.com/gitconnected/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c">
-                    Blog Post about Data Morph
+                  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">
+                    Article about Data Morph
                   </a>
                 </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://stefmolin.github.io/data-morph-talk/#/">
+                  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/data-morph-talk/#/">
                     Conference Talk Slides on Data Morph
+                  </a>
+                </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com">
+                    Stefanie Molin's Website
                   </a>
                 </li>
                 
@@ -511,8 +538,8 @@ The version of the code placed on GitHub at
 <a class="reference external" href="https://github.com/jmatejka/same-stats-different-graphs">jmatejka/same-stats-different-graphs</a>,
 served as the starting point for the Data Morph code base, which is on GitHub at
 <a class="reference external" href="https://github.com/stefmolin/data-morph">stefmolin/data-morph</a>.</p>
-<p>Read more about the creation of Data Morph in <a class="reference external" href="https://medium.com/&#64;stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c">this blog post</a>
-and <a class="reference external" href="https://stefmolin.github.io/data-morph-talk/#/">this slide deck</a>.</p>
+<p>Read more about the creation of Data Morph in <a class="reference external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">this article</a>
+and <a class="reference external" href="https://stefaniemolin.com/data-morph-talk/#/">this slide deck</a>.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <p>Data Morph can be installed from PyPI using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
@@ -562,7 +589,7 @@ flag allows you to start the animation with the specified number of frames of th
 <section id="python-usage">
 <h3>Python usage<a class="headerlink" href="#python-usage" title="Link to this heading">#</a></h3>
 <p>The <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> class performs the morphing from a <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> to a <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a>.
-Any <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with numeric columns <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> can be a <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.
+Any <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with numeric columns <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> can be a <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.
 Use the <a class="reference internal" href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader" title="data_morph.data.loader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> to create the <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> from a file or use a built-in dataset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_morph.data.loader</span> <span class="kn">import</span> <span class="n">DataLoader</span>
 
@@ -597,7 +624,7 @@ All shapes are accessible via the <a class="reference internal" href="api/data_m
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">result</span></code> variable in the above code block is a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> of the data
+<p>The <code class="docutils literal notranslate"><span class="pre">result</span></code> variable in the above code block is a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> of the data
 after completing the specified iterations of the simulated annealing process. The <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.morph" title="data_morph.morpher.DataMorpher.morph"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DataMorpher.morph()</span></code></a>
 method is also saving plots to visualize the output periodically and make an animation; these end up in
 <code class="docutils literal notranslate"><span class="pre">data_morph/output</span></code>, which we set as <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.output_dir" title="data_morph.morpher.DataMorpher.output_dir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DataMorpher.output_dir</span></code></a>.</p>
@@ -714,7 +741,7 @@ by Justin Matejka and George Fitzmaurice (ACM CHI 2017).</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     <br/>
   </p>
 </div>

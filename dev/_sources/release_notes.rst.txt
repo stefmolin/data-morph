@@ -16,8 +16,8 @@ What's New
 * Provided a :doc:`custom dataset creation tutorial <custom_datasets>` to the documentation.
 * Included logo and badges in README.
 * Included an example using easing for the animation to the documentation.
-* Included reference to `blog post on the creation of Data Morph
-  <https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c>`_
+* Included reference to `article on the creation of Data Morph
+  <https://stefaniemolin.com/articles/data-science/introducing-data-morph/>`_
   in the documentation.
 * Configured codecov reporting on test coverage with actions to validate the
   config both periodically and upon change.

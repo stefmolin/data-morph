@@ -13,7 +13,7 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.7834197
 repository-code: 'https://github.com/stefmolin/data-morph'
-url: 'https://stefmolin.github.io/data-morph/'
+url: 'https://stefaniemolin.com/data-morph/'
 abstract: >-
   Morph an input dataset of 2D points into select shapes,
   while preserving the summary statistics to a given number

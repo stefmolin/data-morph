@@ -41,7 +41,7 @@ def generate_parser() -> argparse.ArgumentParser:
         epilog=(
             'Source code available at https://github.com/stefmolin/data-morph.'
             ' CLI reference and examples are at '
-            'https://stefmolin.github.io/data-morph/stable/cli.html.'
+            'https://stefaniemolin.com/data-morph/stable/cli.html.'
         ),
     )
 

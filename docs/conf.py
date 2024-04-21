@@ -116,14 +116,21 @@ html_theme_options = {
     },
     'external_links': [
         {
-            'name': 'Blog Post about Data Morph',
-            'url': 'https://medium.com/gitconnected/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c',
+            'name': 'Article about Data Morph',
+            'url': 'https://stefaniemolin.com/articles/data-science/introducing-data-morph/',
         },
         {
             'name': 'Conference Talk Slides on Data Morph',
-            'url': 'https://stefmolin.github.io/data-morph-talk/#/',
+            'url': 'https://stefaniemolin.com/data-morph-talk/#/',
+        },
+        {
+            'name': "Stefanie Molin's Website",
+            'url': 'https://stefaniemolin.com',
         },
     ],
+    'analytics': {
+        'google_analytics_id': 'G-FMNM78QSKK',
+    },
 }
 
 html_context = {

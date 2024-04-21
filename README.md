@@ -9,7 +9,7 @@
       <img alt="Last Release" src="https://img.shields.io/badge/last%20release-inactive?style=for-the-badge">
      </td>
      <td>
-      <a href="https://stefmolin.github.io/data-morph" target="_blank" rel="noopener noreferrer">
+      <a href="https://stefaniemolin.com/data-morph" target="_blank" rel="noopener noreferrer">
         <img alt="View docs" src="https://img.shields.io/badge/docs-stable-success">
       </a>
       <a href="https://pypi.org/project/data-morph-ai/" target="_blank" rel="noopener noreferrer">
@@ -90,7 +90,7 @@ $ conda install -c conda-forge data-morph-ai
 
 ## Usage
 
-Once installed, Data Morph can be used on the command line or as an importable Python package. Below are some examples; be sure to check out the [documentation](https://stefmolin.github.io/data-morph) for more information.
+Once installed, Data Morph can be used on the command line or as an importable Python package. Below are some examples; be sure to check out the [documentation](https://stefaniemolin.com/data-morph) for more information.
 
 
 ### Command Line Usage
@@ -162,7 +162,7 @@ This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/st
 
 The paper and video can be found on the Autodesk Research website [here](https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/). The version of the code placed on GitHub at [jmatejka/same-stats-different-graphs](https://github.com/jmatejka/same-stats-different-graphs), served as the starting point for the Data Morph code base, which is on GitHub at [stefmolin/data-morph](https://github.com/stefmolin/data-morph).
 
-Read more about the creation of Data Morph [here](https://medium.com/@stefaniemolin/data-morph-moving-beyond-the-datasaurus-dozen-156927b20f8c) and [here](https://stefmolin.github.io/data-morph-talk/#/).
+Read more about the creation of Data Morph [here](https://stefaniemolin.com/articles/data-science/introducing-data-morph/) and [here](https://stefaniemolin.com/data-morph-talk/#/).
 
 ## Citations
 

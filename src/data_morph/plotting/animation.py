@@ -1,6 +1,7 @@
 """Utility functions for animations."""
 
 import glob
+import math
 from pathlib import Path
 from typing import Union
 
@@ -63,3 +64,92 @@ def stitch_gif_animation(
         # remove the image files
         for img in imgs:
             Path(img).unlink()
+
+
+def ease_in_sine(n: Union[int, float]) -> float:
+    """
+    An ease-in sinusoidal function to generate animation steps (slow to fast).
+
+    Parameters
+    ----------
+    n : int or float
+        The time progress of the animation, from 0 to 1.
+
+    Returns
+    -------
+    float
+        The value progress, starting at 0.0 and ending at 1.0.
+    """
+    return -1 * math.cos(n * math.pi / 2) + 1
+
+
+def ease_out_sine(n: Union[int, float]) -> float:
+    """
+    An ease-out sinusoidal function to generate animation steps (fast to slow).
+
+    Parameters
+    ----------
+    n : int or float
+        The time progress of the animation, from 0 to 1.
+
+    Returns
+    -------
+    float
+        The value progress, starting at 0.0 and ending at 1.0.
+    """
+    return math.sin(n * math.pi / 2)
+
+
+def ease_in_out_sine(n: Union[int, float]) -> float:
+    """
+    An ease-in and ease-out sinusoidal function to generate animation steps (slow to fast to slow).
+
+    Parameters
+    ----------
+    n : int or float
+        The time progress of the animation, from 0 to 1.
+
+    Returns
+    -------
+    float
+        The value progress, starting at 0.0 and ending at 1.0.
+    """
+    return -0.5 * (math.cos(math.pi * n) - 1)
+
+
+def ease_in_out_quadratic(n: Union[int, float]) -> Union[int, float]:
+    """
+    An ease-in and ease-out quadratic function to generate animation steps (slow to fast to slow).
+
+    Parameters
+    ----------
+    n : int or float
+        The time progress of the animation, from 0 to 1.
+
+    Returns
+    -------
+    int or float
+        The value progress, starting at 0.0 and ending at 1.0.
+    """
+    if n < 0.5:
+        return 2 * n**2
+    else:
+        n = n * 2 - 1
+        return -0.5 * (n * (n - 2) - 1)
+
+
+def linear(n: Union[int, float]) -> Union[int, float]:
+    """
+    A linear function to generate animation steps.
+
+    Parameters
+    ----------
+    n : int or float
+        The time progress of the animation, from 0 to 1.
+
+    Returns
+    -------
+    int or float
+        The value progress, starting at 0.0 and ending at 1.0.
+    """
+    return n

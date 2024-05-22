@@ -35,7 +35,6 @@ dependencies = [
     "matplotlib>=3.3",
     "numpy>=1.20",
     "pandas>=1.2",
-    "pytweening>=1.0.5",
     "scipy>=1.10.0",
     "tqdm>=4.64.1",
 ]

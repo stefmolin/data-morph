@@ -66,90 +66,90 @@ def stitch_gif_animation(
             Path(img).unlink()
 
 
-def ease_in_sine(n: Union[int, float]) -> float:
+def ease_in_sine(step: Union[int, float]) -> float:
     """
     An ease-in sinusoidal function to generate animation steps (slow to fast).
 
     Parameters
     ----------
-    n : int or float
-        The time progress of the animation, from 0 to 1.
+    step : int or float
+        The current step of the animation, from 0 to 1.
 
     Returns
     -------
     float
-        The value progress, starting at 0.0 and ending at 1.0.
+        The eased value at the current step, from 0.0 to 1.0.
     """
-    return -1 * math.cos(n * math.pi / 2) + 1
+    return -1 * math.cos(step * math.pi / 2) + 1
 
 
-def ease_out_sine(n: Union[int, float]) -> float:
+def ease_out_sine(step: Union[int, float]) -> float:
     """
     An ease-out sinusoidal function to generate animation steps (fast to slow).
 
     Parameters
     ----------
-    n : int or float
-        The time progress of the animation, from 0 to 1.
+    step : int or float
+        The current step of the animation, from 0 to 1.
 
     Returns
     -------
     float
-        The value progress, starting at 0.0 and ending at 1.0.
+        The eased value at the current step, from 0.0 to 1.0.
     """
-    return math.sin(n * math.pi / 2)
+    return math.sin(step * math.pi / 2)
 
 
-def ease_in_out_sine(n: Union[int, float]) -> float:
+def ease_in_out_sine(step: Union[int, float]) -> float:
     """
     An ease-in and ease-out sinusoidal function to generate animation steps (slow to fast to slow).
 
     Parameters
     ----------
-    n : int or float
-        The time progress of the animation, from 0 to 1.
+    step : int or float
+        The current step of the animation, from 0 to 1.
 
     Returns
     -------
     float
-        The value progress, starting at 0.0 and ending at 1.0.
+        The eased value at the current step, from 0.0 to 1.0.
     """
-    return -0.5 * (math.cos(math.pi * n) - 1)
+    return -0.5 * (math.cos(math.pi * step) - 1)
 
 
-def ease_in_out_quadratic(n: Union[int, float]) -> Union[int, float]:
+def ease_in_out_quadratic(step: Union[int, float]) -> Union[int, float]:
     """
     An ease-in and ease-out quadratic function to generate animation steps (slow to fast to slow).
 
     Parameters
     ----------
-    n : int or float
-        The time progress of the animation, from 0 to 1.
+    step : int or float
+        The current step of the animation, from 0 to 1.
 
     Returns
     -------
     int or float
-        The value progress, starting at 0.0 and ending at 1.0.
+        The eased value at the current step, from 0.0 to 1.0.
     """
-    if n < 0.5:
-        return 2 * n**2
+    if step < 0.5:
+        return 2 * step**2
     else:
-        n = n * 2 - 1
-        return -0.5 * (n * (n - 2) - 1)
+        step = step * 2 - 1
+        return -0.5 * (step * (step - 2) - 1)
 
 
-def linear(n: Union[int, float]) -> Union[int, float]:
+def linear(step: Union[int, float]) -> Union[int, float]:
     """
     A linear function to generate animation steps.
 
     Parameters
     ----------
-    n : int or float
-        The time progress of the animation, from 0 to 1.
+    step : int or float
+        The current step of the animation, from 0 to 1.
 
     Returns
     -------
     int or float
-        The value progress, starting at 0.0 and ending at 1.0.
+        The eased value at the current step, from 0.0 to 1.0.
     """
-    return n
+    return step

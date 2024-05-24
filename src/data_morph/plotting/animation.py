@@ -80,6 +80,8 @@ def ease_in_sine(step: Union[int, float]) -> float:
     float
         The eased value at the current step, from 0.0 to 1.0.
     """
+    if not (isinstance(step, (int, float)) and 0 <= step <= 1):
+        raise ValueError('Step must be an integer or float, between 1 and 0.')
     return -1 * math.cos(step * math.pi / 2) + 1
 
 
@@ -97,6 +99,8 @@ def ease_out_sine(step: Union[int, float]) -> float:
     float
         The eased value at the current step, from 0.0 to 1.0.
     """
+    if not (isinstance(step, (int, float)) and 0 <= step <= 1):
+        raise ValueError('Step must be an integer or float, between 1 and 0.')
     return math.sin(step * math.pi / 2)
 
 
@@ -114,6 +118,8 @@ def ease_in_out_sine(step: Union[int, float]) -> float:
     float
         The eased value at the current step, from 0.0 to 1.0.
     """
+    if not (isinstance(step, (int, float)) and 0 <= step <= 1):
+        raise ValueError('Step must be an integer or float, between 1 and 0.')
     return -0.5 * (math.cos(math.pi * step) - 1)
 
 
@@ -131,6 +137,8 @@ def ease_in_out_quadratic(step: Union[int, float]) -> Union[int, float]:
     int or float
         The eased value at the current step, from 0.0 to 1.0.
     """
+    if not (isinstance(step, (int, float)) and 0 <= step <= 1):
+        raise ValueError('Step must be an integer or float, between 1 and 0.')
     if step < 0.5:
         return 2 * step**2
     else:
@@ -152,4 +160,6 @@ def linear(step: Union[int, float]) -> Union[int, float]:
     int or float
         The eased value at the current step, from 0.0 to 1.0.
     """
+    if not (isinstance(step, (int, float)) and 0 <= step <= 1):
+        raise ValueError('Step must be an integer or float, between 1 and 0.')
     return step

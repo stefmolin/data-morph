@@ -85,7 +85,7 @@ def test_easing_functions(ease_function, step, expected):
 def test_invalid_easing_step(ease_function, invalid_step):
     """Test that an invalid step type will produce a ValueError when passed to an easing function."""
     with pytest.raises(
-        ValueError, match='Step must be an integer or float, between 1 and 0.'
+        ValueError, match='Step must be an integer or float, between 0 and 1.'
     ):
         ease_func = getattr(animation, ease_function)
         ease_func(invalid_step)

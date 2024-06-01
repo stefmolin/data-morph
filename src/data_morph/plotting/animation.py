@@ -100,7 +100,7 @@ def ease_out_sine(step: Union[int, float]) -> float:
         The eased value at the current step, from 0.0 to 1.0.
     """
     if not (isinstance(step, (int, float)) and 0 <= step <= 1):
-        raise ValueError('Step must be an integer or float, between 1 and 0.')
+        raise ValueError('Step must be an integer or float, between 0 and 1.')
     return math.sin(step * math.pi / 2)
 
 

@@ -7,13 +7,19 @@ from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
-import pytweening
 import tqdm
 
 from .bounds.bounding_box import BoundingBox
 from .data.dataset import Dataset
 from .data.stats import get_values
-from .plotting.animation import stitch_gif_animation
+from .plotting.animation import (
+    ease_in_out_quadratic,
+    ease_in_out_sine,
+    ease_in_sine,
+    ease_out_sine,
+    linear,
+    stitch_gif_animation,
+)
 from .plotting.static import plot
 from .shapes.bases.shape import Shape
 
@@ -156,13 +162,13 @@ class DataMorpher:
         frames = [0] * freeze_for
 
         if ramp_in and not ramp_out:
-            easing_function = pytweening.easeInSine
+            easing_function = ease_in_sine
         elif ramp_out and not ramp_in:
-            easing_function = pytweening.easeOutSine
+            easing_function = ease_out_sine
         elif ramp_out and ramp_in:
-            easing_function = pytweening.easeInOutSine
+            easing_function = ease_in_out_sine
         else:
-            easing_function = pytweening.linear
+            easing_function = linear
 
         # add transition frames
         frames.extend(
@@ -447,7 +453,7 @@ class DataMorpher:
 
         def _tweening(frame, *, min_value, max_value):  # numpydoc ignore=PR01,RT01
             """Determine the next value with tweening."""
-            return (max_value - min_value) * pytweening.easeInOutQuad(
+            return (max_value - min_value) * ease_in_out_quadratic(
                 (iterations - frame) / iterations
             ) + min_value
 

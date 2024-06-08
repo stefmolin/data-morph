@@ -4,7 +4,7 @@ import glob
 import math
 from functools import wraps
 from pathlib import Path
-from typing import Union
+from typing import Callable, Union
 
 from PIL import Image
 
@@ -67,18 +67,20 @@ def stitch_gif_animation(
             Path(img).unlink()
 
 
-def check_step(easing_function: callable) -> callable:
+def check_step(
+    easing_function: Callable[[Union[int, float]], Union[int, float]],
+) -> Callable[[Union[int, float]], Union[int, float]]:
     """
     Decorator to check if the step is a float or int and if it is between 0 and 1.
 
     Parameters
     ----------
-    easing_function : callable
+    easing_function : Callable
         The easing function to be checked.
 
     Returns
     -------
-    callable
+    Callable
         The easing function with the check for the step.
     """
 

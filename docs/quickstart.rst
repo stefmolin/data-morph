@@ -1,6 +1,9 @@
 Quick Start Guide
 =================
 
+.. toctree::
+   :hidden:
+
 .. INSTALLATION
 
 Installation

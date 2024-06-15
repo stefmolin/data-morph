@@ -1,6 +1,9 @@
 Release Notes
 =============
 
+.. toctree::
+   :hidden:
+
 0.2.0 (September 24, 2023)
 --------------------------
 

@@ -1,9 +1,6 @@
 CLI Reference
 =============
 
-.. toctree::
-   :hidden:
-
 .. argparse::
     :ref: data_morph.cli._generate_parser_for_docs
     :prog: data-morph

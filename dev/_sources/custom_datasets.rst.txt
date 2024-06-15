@@ -115,5 +115,5 @@ Here is an example animation generated from a custom dataset:
 
 If you have the rights to distribute the dataset and you think it would be a good
 inclusion as a built-in dataset, make a PR to add it to Data Morph. Be sure to consult
-the `contributing guidelines <https://github.com/stefmolin/data-morph/blob/main/README.md>`_
+the `contributing guidelines <https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md>`_
 before doing so.

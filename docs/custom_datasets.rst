@@ -1,9 +1,6 @@
 Custom Datasets
 ===============
 
-.. toctree::
-   :hidden:
-
 This tutorial provides guidance on how to move from an idea for a custom dataset to
 an input dataset for morphing.
 

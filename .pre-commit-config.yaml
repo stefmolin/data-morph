@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: check-merge-conflict
@@ -17,7 +17,7 @@ repos:
       - id: rst-inline-touching-normal
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
+    rev: v2.3.0
     hooks:
       - id: codespell
         additional_dependencies:
@@ -25,20 +25,20 @@ repos:
         exclude: \.(svg|png|pdf)$
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.14
+    rev: v0.4.9
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
       - id: ruff-format
 
   - repo: https://github.com/numpy/numpydoc
-    rev: v1.6.0
+    rev: v1.7.0
     hooks:
       - id: numpydoc-validation
         exclude: (tests|docs)/.*
 
   - repo: https://github.com/econchick/interrogate
-    rev: 1.5.0
+    rev: 1.7.0
     hooks:
       - id: interrogate
         files: tests/.*

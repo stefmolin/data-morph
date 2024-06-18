@@ -1,83 +1,146 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
+
+requires = [
+  "setuptools",
+  "setuptools-scm",
+]
 
 [project]
 name = "data-morph-ai"
-authors = [
-    {name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com"},
-    {name = "Aaron Stevens", email = "bheklilr2@gmail.com"},
-    {name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com"}
-]
-maintainers = [
-    {name = "Stefanie Molin"},
-]
 description = "Teaching tool on the importance of data visualization."
 readme = "README.md"
-keywords = ["data visualization", "summary statistics", "data animation"]
-license = {file = "LICENSE"}
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Framework :: Matplotlib",
-    "Intended Audience :: Education",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: Scientific/Engineering :: Visualization",
+keywords = [
+  "data animation",
+  "data visualization",
+  "summary statistics",
+]
+license = { file = "LICENSE" }
+maintainers = [
+  { name = "Stefanie Molin" },
+]
+authors = [
+  { name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com" },
+  { name = "Aaron Stevens", email = "bheklilr2@gmail.com" },
+  { name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com" },
 ]
 requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Framework :: Matplotlib",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Visualization",
+]
+dynamic = [
+  "version",
+]
+
 dependencies = [
-    "matplotlib>=3.3",
-    "numpy>=1.20",
-    "pandas>=1.2",
-    "scipy>=1.10.0",
-    "tqdm>=4.64.1",
+  "matplotlib>=3.3",
+  "numpy>=1.20",
+  "pandas>=1.2",
+  "scipy>=1.10.0",
+  "tqdm>=4.64.1",
 ]
-dynamic = ["version"]
-
-[project.optional-dependencies]
-dev = [
-    "pre-commit",
-    "pytest",
-    "pytest-cov",
-    "pytest-mock",
-    "pytest-randomly",
+optional-dependencies.dev = [
+  "pre-commit",
+  "pytest",
+  "pytest-cov",
+  "pytest-mock",
+  "pytest-randomly",
 ]
-docs = [
-    "pydata-sphinx-theme>=0.15.3",
-    "sphinx>=7.2.6",
-    "sphinx-argparse>=0.4.0",
-    "sphinx_copybutton>=0.5.1",
+optional-dependencies.docs = [
+  "pydata-sphinx-theme>=0.15.3",
+  "sphinx>=7.2.6",
+  "sphinx-argparse>=0.4.0",
+  "sphinx-copybutton>=0.5.1",
 ]
-
-[project.scripts]
-data-morph = "data_morph.cli:main"
-
-[project.urls]
-"Homepage" = "https://stefaniemolin.com/data-morph"
-"Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
-"Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
-"Source" = "https://github.com/stefmolin/data-morph"
+urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
+urls."Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
+urls."Homepage" = "https://stefaniemolin.com/data-morph"
+urls."Source" = "https://github.com/stefmolin/data-morph"
+scripts.data-morph = "data_morph.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = [
+  "src",
+]
 
 [tool.setuptools.package-data]
-"data_morph.data.starter_shapes" = ["*"]
-"data_morph.plotting.config" = ["*"]
+"data_morph.data.starter_shapes" = [
+  "*",
+]
+"data_morph.plotting.config" = [
+  "*",
+]
 
 [tool.setuptools.dynamic]
-version = {attr = "data_morph.__version__"}
+version = { attr = "data_morph.__version__" }
 
-# configuration for supported pre-commit hooks
+[tool.ruff]
+line-length = 88
+format.indent-style = "space"
+format.quote-style = "single"
+select = [
+  "C", # mccabe rules
+  "F", # pyflakes rules
+  "E", # pycodestyle error rules
+  "W", # pycodestyle warning rules
+  "B", # flake8-bugbear rules
+  "I", # isort rules
+]
+ignore = [
+  "C901", # max-complexity-10
+  "E501", # line-too-long
+]
+
+isort.known-first-party = [
+  "data_morph",
+]
+
 [tool.codespell]
 ignore-words-list = "recuse"
 ignore-regex = 'https://([\w/\.])+'
+
+[tool.pytest.ini_options]
+addopts = [
+  "-ra",
+  "-l",
+  "-v",
+  "--tb=short",
+  "--import-mode=importlib",
+  "--strict-markers",
+  "--strict-config",
+  "--cov=data_morph",
+  "--cov=tests",
+  "--no-cov-on-fail",
+  "--cov-report=term-missing",
+]
+xfail_strict = true
+testpaths = [
+  "tests",
+]
+markers = [
+  "bounds: Run tests on bounds logic.",
+  "circles: Run tests on circular shapes.",
+  "cli: Run tests involving the CLI.",
+  "dataset: Run tests on Dataset logic.",
+  "input_validation: Run tests on input validation.",
+  "lines: Run tests on LineCollection and related shapes.",
+  "morpher: Run tests on the morphing process,",
+  "plotting: Run tests on plotting logic.",
+  "points: Run tests on PointCollection and related shapes.",
+  "polygons: Run tests on polygon shapes.",
+  "shapes: Run tests related to shapes.",
+]
 
 [tool.interrogate]
 ignore-init-method = true
@@ -91,7 +154,11 @@ ignore-nested-functions = false
 ignore-nested-classes = true
 ignore-setters = false
 fail-under = 100
-exclude = ["setup.py", "docs", "build"]
+exclude = [
+  "setup.py",
+  "docs",
+  "build",
+]
 verbose = 2
 quiet = false
 color = true
@@ -100,73 +167,21 @@ omit-covered-files = false
 # generate-badge = "."
 # badge-format = "svg"
 
-[tool.ruff]
-line-length = 88
-select = [
-    "C",  # mccabe rules
-    "F",  # pyflakes rules
-    "E",  # pycodestyle error rules
-    "W",  # pycodestyle warning rules
-    "B",  # flake8-bugbear rules
-    "I",  # isort rules
-]
-ignore = [
-    "C901",  # max-complexity-10
-    "E501",  # line-too-long
-]
-
-[tool.ruff.format]
-indent-style = "space"
-quote-style = "single"
-
-[tool.ruff.isort]
-known-first-party = ["data_morph"]
-
-[tool.pytest.ini_options]
-addopts = [
-    "-ra",
-    "-l",
-    "-v",
-    "--tb=short",
-    "--import-mode=importlib",
-    "--strict-markers",
-    "--strict-config",
-    "--cov=data_morph",
-    "--cov=tests",
-    "--no-cov-on-fail",
-    "--cov-report=term-missing",
-]
-xfail_strict = true
-testpaths = ["tests"]
-markers = [
-    "bounds: Run tests on bounds logic.",
-    "circles: Run tests on circular shapes.",
-    "cli: Run tests involving the CLI.",
-    "dataset: Run tests on Dataset logic.",
-    "input_validation: Run tests on input validation.",
-    "lines: Run tests on LineCollection and related shapes.",
-    "morpher: Run tests on the morphing process,",
-    "plotting: Run tests on plotting logic.",
-    "points: Run tests on PointCollection and related shapes.",
-    "polygons: Run tests on polygon shapes.",
-    "shapes: Run tests related to shapes.",
-]
-
 [tool.numpydoc_validation]
 checks = [
-    "all",  # report on all checks
-    "ES01", # but don't require an extended summary
-    "EX01", # or examples
-    "SA01", # or a see also section
-    "SS06", # and don't require the summary to fit on one line
+  "all",  # report on all checks
+  "ES01", # but don't require an extended summary
+  "EX01", # or examples
+  "SA01", # or a see also section
+  "SS06", # and don't require the summary to fit on one line
 ]
-exclude = [  # don't report on checks for these
-    '\.__init__$',
-    '\.__repr__$',
-    '\.__str__$',
+exclude = [ # don't report on checks for these
+  '\.__init__$',
+  '\.__repr__$',
+  '\.__str__$',
 ]
-override_SS05 = [  # allow docstrings to start with these words
-    '^Process ',
-    '^Assess ',
-    '^Access ',
+override_SS05 = [ # allow docstrings to start with these words
+  '^Process ',
+  '^Assess ',
+  '^Access ',
 ]

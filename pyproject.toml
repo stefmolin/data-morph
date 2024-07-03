@@ -89,20 +89,20 @@ version = { attr = "data_morph.__version__" }
 line-length = 88
 format.indent-style = "space"
 format.quote-style = "single"
-select = [
-  "C", # mccabe rules
-  "F", # pyflakes rules
-  "E", # pycodestyle error rules
-  "W", # pycodestyle warning rules
+lint.select = [
   "B", # flake8-bugbear rules
+  "C", # mccabe rules
+  "E", # pycodestyle error rules
+  "F", # pyflakes rules
   "I", # isort rules
+  "W", # pycodestyle warning rules
 ]
-ignore = [
+lint.ignore = [
   "C901", # max-complexity-10
   "E501", # line-too-long
 ]
 
-isort.known-first-party = [
+lint.isort.known-first-party = [
   "data_morph",
 ]
 

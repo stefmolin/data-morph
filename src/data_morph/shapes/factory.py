@@ -46,6 +46,7 @@ class ShapeFactory:
         'down_parab': points.DownParabola,
         'heart': points.Heart,
         'infinity': points.Infinity,
+        'figure_eight': points.FigureEight,
         'left_parab': points.LeftParabola,
         'scatter': points.Scatter,
         'right_parab': points.RightParabola,

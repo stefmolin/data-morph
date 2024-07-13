@@ -2,6 +2,7 @@
 
 import itertools
 from numbers import Number
+from typing import Tuple
 
 import numpy as np
 
@@ -131,24 +132,9 @@ class Heart(PointCollection):
         )
 
 
-class Infinity(PointCollection):
+class _LemniscateBernoulli(PointCollection):
     """
-    Class for the infinity shape.
-
-    .. plot::
-       :scale: 75
-       :caption:
-            This shape is generated using the panda dataset.
-
-        from data_morph.data.loader import DataLoader
-        from data_morph.shapes.points import Infinity
-
-        _ = Infinity(DataLoader.load_dataset('panda')).plot()
-
-    Parameters
-    ----------
-    dataset : Dataset
-        The starting dataset to morph into other shapes.
+    Implements the Lemniscate of Bernoulli Equation.
 
     Notes
     -----
@@ -172,12 +158,91 @@ class Infinity(PointCollection):
         x = (np.sqrt(2) * np.cos(t)) / (1 + np.square(np.sin(t)))
         y = (np.sqrt(2) * np.cos(t) * np.sin(t)) / (1 + np.square(np.sin(t)))
 
-        # scale by the half the widest width of the infinity
-        scale_factor = (x_bounds[1] - x_shift) * 0.75
+        scale_factor = (x_bounds[1] - x_shift) * scale
 
+        # Apply transforms
+        transformed_x, transformed_y = self._shift_bernoulli(x, y)
         super().__init__(
-            *np.stack([x * scale_factor + x_shift, y * scale_factor + y_shift], axis=1)
+            *np.stack(
+                [
+                    transformed_x * scale_factor + x_shift,
+                    transformed_y * scale_factor + y_shift,
+                ],
+                axis=1,
+            )
         )
+
+    def _shift_bernoulli(
+        self, x: np.ndarray, y: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        return x, y
+
+
+class Infinity(_LemniscateBernoulli):
+    """
+    Implements the Lemniscate of Bernoulli Equation,
+    which by default creates an infinity shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import LemniscateBernoulli
+
+        _ = LemniscateBernoulli(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+
+    Notes
+    -----
+    The formula for the infinity shape is directly taken from Lemniscate of
+    Bernoulli equation.
+    """
+
+    def __str__(self) -> str:
+        return 'infinity'
+
+
+class FigureEight(_LemniscateBernoulli):
+    """
+    Class for the Figure Eight shape using a
+    rotated Lemniscate of Bernoulli Equation.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import FigureEight
+
+        _ = FigureEight(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+
+    Notes
+    -----
+    Implements the Lemniscate of Bernoulli Equation with a transform
+    to draw a figure eight shape.
+
+    See Base class for implementation specifice details.
+    """
+
+    def _shift_bernoulli(
+        self, x: np.ndarray, y: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        return y, x
+
+    def __str__(self) -> str:
+        return 'figure_eight'
 
 
 class LeftParabola(PointCollection):

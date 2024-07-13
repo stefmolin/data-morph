@@ -25,7 +25,8 @@ class PointsModuleTestBase:
         Test the distance() method parametrized by distance_test_cases
         (see conftest.py).
         """
-        assert pytest.approx(shape.distance(*test_point), abs=1e-5) == expected_distance
+        actual_distance = pytest.approx(shape.distance(*test_point), abs=1e-5)
+        assert actual_distance == expected_distance
 
 
 class TestDotsGrid(PointsModuleTestBase):
@@ -141,3 +142,15 @@ class TestUpParabola(ParabolaTestBase):
     positive_quadratic_term = True
     x_index = 0
     y_index = 1
+
+
+class TestSpade(PointsModuleTestBase):
+    """Test the Spade class."""
+
+    shape_name = 'spade'
+    distance_test_cases = [
+        [(20.02810385, 75.43271708), 0],
+        [(29.90222827231392, 63.4652469587905), 0],
+        [(19.52424889753761, 60.33944515816489), 0],
+        [(20, 75), 0.2214756],
+    ]

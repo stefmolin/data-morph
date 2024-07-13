@@ -133,7 +133,7 @@ class Heart(PointCollection):
 
 class Infinity(PointCollection):
     """
-    Class for the figure eight shape.
+    Class for the infinity shape.
 
     .. plot::
        :scale: 75
@@ -152,7 +152,7 @@ class Infinity(PointCollection):
 
     Notes
     -----
-    The formula for the infinity shape  is directly taken from Lemniscate of
+    The formula for the infinity shape is directly taken from Lemniscate of
     Bernoulli equation.
     `Infinity Curve <https://mathworld.wolfram.com/Lemniscate.html>`_:
 

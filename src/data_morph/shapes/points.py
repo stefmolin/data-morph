@@ -131,6 +131,55 @@ class Heart(PointCollection):
         )
 
 
+class Infinity(PointCollection):
+    """
+    Class for the figure eight shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Infinity
+
+        _ = Infinity(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+
+    Notes
+    -----
+    The formula for the infinity shape  is directly taken from Lemniscate of
+    Bernoulli equation.
+    `Infinity Curve <https://mathworld.wolfram.com/Lemniscate.html>`_:
+
+         Weisstein, Eric W. "Lemniscate." From MathWorld--
+         A Wolfram Web Resource. https://mathworld.wolfram.com/Lemniscate.html
+    """
+
+    def __init__(self, dataset: Dataset, scale: float = 0.75) -> None:
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        x_shift = sum(x_bounds) / 2
+        y_shift = sum(y_bounds) / 2
+
+        t = np.linspace(-3, 3, num=2000)
+
+        x = (np.sqrt(2) * np.cos(t)) / (1 + np.square(np.sin(t)))
+        y = (np.sqrt(2) * np.cos(t) * np.sin(t)) / (1 + np.square(np.sin(t)))
+
+        # scale by the half the widest width of the infinity
+        scale_factor = (x_bounds[1] - x_shift) * 0.75
+
+        super().__init__(
+            *np.stack([x * scale_factor + x_shift, y * scale_factor + y_shift], axis=1)
+        )
+
+
 class LeftParabola(PointCollection):
     """
     Class for the left parabola shape.

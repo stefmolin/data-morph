@@ -49,6 +49,7 @@ class ShapeFactory:
         'scatter': points.Scatter,
         'right_parab': points.RightParabola,
         'up_parab': points.UpParabola,
+        'spiral': points.Spiral,
         'diamond': polygons.Diamond,
         'rectangle': polygons.Rectangle,
         'rings': circles.Rings,

@@ -1,6 +1,7 @@
 """Shapes that are composed of points."""
 
 import itertools
+import math
 from numbers import Number
 
 import numpy as np
@@ -304,3 +305,51 @@ class Scatter(PointCollection):
             Always returns 0 to allow for scattering of the points.
         """
         return 0
+
+
+class Spiral(PointCollection):
+    """
+    Class for the spiral shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Spiral
+
+        _ = Spiral(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+
+    Notes
+    -----
+    The formula for a spiral can be found here:
+    https://en.wikipedia.org/wiki/Archimedean_spiral
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        xmin, xmax = dataset.data_bounds.x_bounds
+        ymin, ymax = dataset.data_bounds.y_bounds
+
+        # Coordinates of centre
+        cx = dataset.df.x.mean()
+        cy = dataset.df.y.mean()
+
+        # Max radius
+        radius = min(xmax - xmin, ymax - ymin) / 2
+
+        # Number of rotations
+        num_rotations = 3
+
+        t = np.linspace(0, 1, num=200)
+
+        # x and y calculations for a spiral
+        x = (t * radius) * np.cos(2 * num_rotations * math.pi * t) + cx
+        y = (t * radius) * np.sin(2 * num_rotations * math.pi * t) + cy
+
+        super().__init__(*np.stack([x, y], axis=1))

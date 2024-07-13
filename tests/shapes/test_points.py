@@ -88,6 +88,13 @@ class TestScatter(PointsModuleTestBase):
     distance_test_cases = [[(20, 50), 0.0], [(30, 60), 0.0], [(-500, -150), 0.0]]
 
 
+class TestSpiral(PointsModuleTestBase):
+    """Test the Spiral class."""
+
+    shape_name = 'spiral'
+    distance_test_cases = [[(20, 60), 0.0], [(70, 90), 50.0]]
+
+
 class ParabolaTestBase(PointsModuleTestBase):
     """Base test class for parabolic shapes."""
 

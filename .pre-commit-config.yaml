@@ -22,7 +22,7 @@ repos:
       - id: codespell
         additional_dependencies:
           - tomli
-        exclude: \.(svg|png|pdf)$
+        exclude: (\.(svg|png|pdf)$)|(CODE_OF_CONDUCT.md)
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.9

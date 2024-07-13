@@ -48,6 +48,7 @@ class DataLoader:
         'dog': 'dog.csv',
         'music': 'music.csv',
         'panda': 'panda.csv',
+        'pi': 'pi.csv',
         'Python': 'python.csv',
         'SDS': 'superdatascience.csv',
         'sheep': 'sheep.csv',

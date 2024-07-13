@@ -40,7 +40,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx_copybutton',
-    'sphinxarg.ext',
+    'sphinx_argparse_cli',
     'matplotlib.sphinxext.plot_directive',
 ]
 

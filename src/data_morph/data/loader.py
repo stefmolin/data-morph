@@ -51,6 +51,7 @@ class DataLoader:
         'Python': 'python.csv',
         'SDS': 'superdatascience.csv',
         'sheep': 'sheep.csv',
+        'happy_birthday': 'happy_birthday.csv',
     }
     AVAILABLE_DATASETS = sorted(_DATASETS.keys(), key=str.lower)
     """list[str]: List of available built-in starter datasets,

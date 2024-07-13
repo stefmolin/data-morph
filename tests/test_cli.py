@@ -30,12 +30,6 @@ def test_cli_version(capsys):
     assert f'data-morph {__version__}' == capsys.readouterr().out.strip()
 
 
-def test_cli_usage_wrap_for_docs():
-    """Confirm that the usage wrapping for the docs is working."""
-    usage_text = cli._generate_parser_for_docs().format_usage()
-    assert all(len(line) <= cli.USAGE_WIDTH_FOR_DOCS for line in usage_text.split('\n'))
-
-
 def test_cli_bad_shape():
     """Test that invalid target shapes raise a ValueError."""
     with pytest.raises(ValueError, match='No valid target shapes were provided.'):

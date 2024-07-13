@@ -9,7 +9,7 @@ Open up an issue describing in detail the bug or feature request you are proposi
 Once you have been given the go ahead, you can start working on the code. Start by forking the project, cloning locally, and then creating a branch to work on. You will need to then install the main dependencies as well as the `dev` and `docs` dependencies, which can be done by running the following command:
 
 ```shell
-$ pip -e '.[dev,docs]'
+$ pip install -e '.[dev,docs]'
 ```
 
 Set up the pre-commit hooks to make sure you can pass the CI checks:

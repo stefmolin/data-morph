@@ -312,7 +312,7 @@ class Spiral(PointCollection):
     Class for the spiral shape.
 
     .. plot::
-       :scale: 75
+       :scale: 100
        :caption:
             This shape is generated using the panda dataset.
 

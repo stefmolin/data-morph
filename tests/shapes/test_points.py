@@ -84,6 +84,8 @@ class TestHeart(PointsModuleTestBase):
 
 
 class TestInfinity(PointsModuleTestBase):
+    """Test the Infinity class."""
+
     shape_name = 'infinity'
     distance_test_cases = [
         [(20, 60), 3.694037796061944],
@@ -92,6 +94,8 @@ class TestInfinity(PointsModuleTestBase):
 
 
 class TestFigureEight(PointsModuleTestBase):
+    """Test the FigureEight class."""
+
     shape_name = 'figure_eight'
     distance_test_cases = [
         [(20, 60), 3.2674569898782337],

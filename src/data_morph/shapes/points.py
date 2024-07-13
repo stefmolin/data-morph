@@ -136,6 +136,11 @@ class _LemniscateBernoulli(PointCollection):
     """
     Implements the Lemniscate of Bernoulli Equation.
 
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+
     Notes
     -----
     The formula for the infinity shape is directly taken from Lemniscate of
@@ -146,7 +151,7 @@ class _LemniscateBernoulli(PointCollection):
          A Wolfram Web Resource. https://mathworld.wolfram.com/Lemniscate.html
     """
 
-    def __init__(self, dataset: Dataset, scale: float = 0.75) -> None:
+    def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
 
@@ -158,7 +163,7 @@ class _LemniscateBernoulli(PointCollection):
         x = (np.sqrt(2) * np.cos(t)) / (1 + np.square(np.sin(t)))
         y = (np.sqrt(2) * np.cos(t) * np.sin(t)) / (1 + np.square(np.sin(t)))
 
-        scale_factor = (x_bounds[1] - x_shift) * scale
+        scale_factor = (x_bounds[1] - x_shift) * 0.75
 
         # Apply transforms
         transformed_x, transformed_y = self._shift_bernoulli(x, y)
@@ -175,6 +180,24 @@ class _LemniscateBernoulli(PointCollection):
     def _shift_bernoulli(
         self, x: np.ndarray, y: np.ndarray
     ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        A method which allows for manipulation of the Lemniscate Points after
+        they have been generated.
+
+        Parameters
+        ----------
+        x : np.ndarray
+            The Lemniscate X points.
+        y : np.ndarray
+            The Lemniscate Y points.
+
+        Returns
+        -------
+        np.ndarray
+            The manipulated Lemniscate X points.
+        np.ndarray
+            The manipulated Lemniscate Y points.
+        """
         return x, y
 
 
@@ -189,14 +212,9 @@ class Infinity(_LemniscateBernoulli):
             This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.points import LemniscateBernoulli
+        from data_morph.shapes.points import Infinity
 
-        _ = LemniscateBernoulli(DataLoader.load_dataset('panda')).plot()
-
-    Parameters
-    ----------
-    dataset : Dataset
-        The starting dataset to morph into other shapes.
+        _ = Infinity(DataLoader.load_dataset('panda')).plot()
 
     Notes
     -----
@@ -223,11 +241,6 @@ class FigureEight(_LemniscateBernoulli):
 
         _ = FigureEight(DataLoader.load_dataset('panda')).plot()
 
-    Parameters
-    ----------
-    dataset : Dataset
-        The starting dataset to morph into other shapes.
-
     Notes
     -----
     Implements the Lemniscate of Bernoulli Equation with a transform
@@ -239,6 +252,24 @@ class FigureEight(_LemniscateBernoulli):
     def _shift_bernoulli(
         self, x: np.ndarray, y: np.ndarray
     ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        A method which allows for manipulation of the Lemniscate Points after
+        they have been generated.
+
+        Parameters
+        ----------
+        x : np.ndarray
+            The Lemniscate X points.
+        y : np.ndarray
+            The Lemniscate Y points.
+
+        Returns
+        -------
+        np.ndarray
+            The manipulated Lemniscate X points.
+        np.ndarray
+            The manipulated Lemniscate Y points.
+        """
         return y, x
 
     def __str__(self) -> str:

@@ -5,7 +5,8 @@ from collections import namedtuple
 import pandas as pd
 
 SummaryStatistics = namedtuple(
-    'SummaryStatistics', ['x_mean', 'y_mean', 'x_stdev', 'y_stdev', 'correlation']
+    'SummaryStatistics',
+    ['x_mean', 'y_mean', 'x_med', 'y_med', 'x_stdev', 'y_stdev', 'correlation'],
 )
 SummaryStatistics.__doc__ = (
     'Named tuple containing the summary statistics for plotting/analysis.'
@@ -30,6 +31,8 @@ def get_values(df: pd.DataFrame) -> SummaryStatistics:
     return SummaryStatistics(
         df.x.mean(),
         df.y.mean(),
+        df.x.median(),
+        df.y.median(),
         df.x.std(),
         df.y.std(),
         df.corr().x.y,

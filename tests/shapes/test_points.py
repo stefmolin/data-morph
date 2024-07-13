@@ -25,6 +25,8 @@ class PointsModuleTestBase:
         Test the distance() method parametrized by distance_test_cases
         (see conftest.py).
         """
+        # print(shape.points[67])
+        print(shape.distance(*test_point))
         assert pytest.approx(shape.distance(*test_point), abs=1e-5) == expected_distance
 
 
@@ -78,6 +80,22 @@ class TestHeart(PointsModuleTestBase):
         [(27.38657942, 62.417184), 0.0],
         [(20, 50), 4.567369],
         [(10, 80), 8.564365],
+    ]
+
+
+class TestInfinity(PointsModuleTestBase):
+    shape_name = 'infinity'
+    distance_test_cases = [
+        [(20, 60), 3.694037796061944],
+        [(11.02368017, 68.01626706), 0.0],
+    ]
+
+
+class TestFigureEight(PointsModuleTestBase):
+    shape_name = 'figure_eight'
+    distance_test_cases = [
+        [(20, 60), 3.2674569898782337],
+        [(23.01626706, 56.02368017), 0.0],
     ]
 
 

@@ -60,7 +60,7 @@ optional-dependencies.dev = [
 optional-dependencies.docs = [
   "pydata-sphinx-theme>=0.15.3",
   "sphinx>=7.2.6",
-  "sphinx-argparse>=0.4.0",
+  "sphinx-argparse-cli>=1.16.0",
   "sphinx-copybutton>=0.5.1",
 ]
 urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"

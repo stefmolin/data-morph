@@ -2,6 +2,7 @@
 
 import itertools
 from numbers import Number
+from typing import Tuple
 
 import numpy as np
 
@@ -129,6 +130,150 @@ class Heart(PointCollection):
         super().__init__(
             *np.stack([x * scale_factor + x_shift, y * scale_factor + y_shift], axis=1)
         )
+
+
+class _LemniscateBernoulli(PointCollection):
+    """
+    Implements the Lemniscate of Bernoulli Equation.
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+
+    Notes
+    -----
+    The formula for the infinity shape is directly taken from Lemniscate of
+    Bernoulli equation.
+    `Infinity Curve <https://mathworld.wolfram.com/Lemniscate.html>`_:
+
+         Weisstein, Eric W. "Lemniscate." From MathWorld--
+         A Wolfram Web Resource. https://mathworld.wolfram.com/Lemniscate.html
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        x_shift = sum(x_bounds) / 2
+        y_shift = sum(y_bounds) / 2
+
+        t = np.linspace(-3, 3, num=2000)
+
+        x = (np.sqrt(2) * np.cos(t)) / (1 + np.square(np.sin(t)))
+        y = (np.sqrt(2) * np.cos(t) * np.sin(t)) / (1 + np.square(np.sin(t)))
+
+        scale_factor = (x_bounds[1] - x_shift) * 0.75
+
+        # Apply transforms
+        transformed_x, transformed_y = self._shift_bernoulli(x, y)
+        super().__init__(
+            *np.stack(
+                [
+                    transformed_x * scale_factor + x_shift,
+                    transformed_y * scale_factor + y_shift,
+                ],
+                axis=1,
+            )
+        )
+
+    def _shift_bernoulli(
+        self, x: np.ndarray, y: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        A method which allows for manipulation of the Lemniscate Points after
+        they have been generated.
+
+        Parameters
+        ----------
+        x : np.ndarray
+            The Lemniscate X points.
+        y : np.ndarray
+            The Lemniscate Y points.
+
+        Returns
+        -------
+        np.ndarray
+            The manipulated Lemniscate X points.
+        np.ndarray
+            The manipulated Lemniscate Y points.
+        """
+        return x, y
+
+
+class Infinity(_LemniscateBernoulli):
+    """
+    Implements the Lemniscate of Bernoulli Equation,
+    which by default creates an infinity shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Infinity
+
+        _ = Infinity(DataLoader.load_dataset('panda')).plot()
+
+    Notes
+    -----
+    The formula for the infinity shape is directly taken from Lemniscate of
+    Bernoulli equation.
+    """
+
+    def __str__(self) -> str:
+        return 'infinity'
+
+
+class FigureEight(_LemniscateBernoulli):
+    """
+    Class for the Figure Eight shape using a
+    rotated Lemniscate of Bernoulli Equation.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import FigureEight
+
+        _ = FigureEight(DataLoader.load_dataset('panda')).plot()
+
+    Notes
+    -----
+    Implements the Lemniscate of Bernoulli Equation with a transform
+    to draw a figure eight shape.
+
+    See Base class for implementation specifice details.
+    """
+
+    def _shift_bernoulli(
+        self, x: np.ndarray, y: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        A method which allows for manipulation of the Lemniscate Points after
+        they have been generated.
+
+        Parameters
+        ----------
+        x : np.ndarray
+            The Lemniscate X points.
+        y : np.ndarray
+            The Lemniscate Y points.
+
+        Returns
+        -------
+        np.ndarray
+            The manipulated Lemniscate X points.
+        np.ndarray
+            The manipulated Lemniscate Y points.
+        """
+        return y, x
+
+    def __str__(self) -> str:
+        return 'figure_eight'
 
 
 class LeftParabola(PointCollection):

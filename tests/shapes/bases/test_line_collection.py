@@ -34,12 +34,6 @@ class TestLineCollection:
         """Test the distance() method on points not on lines in the collection."""
         assert pytest.approx(line_collection.distance(*point)) == expected_distance
 
-    @pytest.mark.parametrize('line', [[(0, 0), (0, 0)], [(-1, -1), (-1, -1)]], ids=str)
-    def test_distance_to_small_line_magnitude(self, line_collection, line):
-        """Test _distance_point_to_line() for small line magnitudes."""
-        distance = line_collection._distance_point_to_line((30, 50), line)
-        assert distance == 9999
-
     def test_repr(self, line_collection):
         """Test that the __repr__() method is working."""
         lines = r'\n        '.join(

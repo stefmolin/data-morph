@@ -60,7 +60,10 @@ class Circle(Shape):
         float
             The absolute distance between this circle's edge and the point (x, y).
         """
-        return abs(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r)
+        return abs(
+            self._euclidean_distance(np.array([self.cx, self.cy]), np.array([x, y]))
+            - self.r
+        )
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:
@@ -125,6 +128,9 @@ class Rings(Shape):
         ]
         """list[Circle]: The individual rings represented by :class:`Circle` objects."""
 
+        self._coords = np.array([(circle.cx, circle.cy) for circle in self.circles])
+        self._radii = np.array([circle.r for circle in self.circles])
+
     def __repr__(self) -> str:
         return self._recursive_repr('circles')
 
@@ -150,7 +156,10 @@ class Rings(Shape):
             Rings consists of multiple circles, so we use the minimum
             distance to one of the circles.
         """
-        return min(circle.distance(x, y) for circle in self.circles)
+        point = np.array([x, y])
+        return np.min(
+            np.abs(np.linalg.norm(self._coords - point, axis=1) - self._radii)
+        )
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:

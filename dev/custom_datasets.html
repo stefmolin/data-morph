@@ -647,10 +647,17 @@ this is purely aesthetic.</p>
 </section>
 <section id="optional-contribute-the-dataset">
 <h2>(Optional) Contribute the dataset<a class="headerlink" href="#optional-contribute-the-dataset" title="Link to this heading">#</a></h2>
-<p>If you have the rights to distribute the dataset and you think it would be a good
-inclusion as a built-in dataset, make a PR to add it to Data Morph. Be sure to consult
-the <a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a>
+<p>If you have the rights to distribute the dataset and you think it would
+be a good built-in dataset, <a class="reference external" href="https://github.com/stefmolin/data-morph/issues">create an issue</a>
+in the Data Morph repository proposing its inclusion. Be sure to consult the
+<a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a>
 before doing so.</p>
+<p>If and only if you are given the go ahead:</p>
+<ol class="arabic simple">
+<li><p>Add your CSV file to the <code class="docutils literal notranslate"><span class="pre">src/data_morph/data/starter_shapes/</span></code> directory.</p></li>
+<li><p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">DataLoader._DATASETS</span></code> dictionary in <code class="docutils literal notranslate"><span class="pre">src/data_morph/data/loader.py</span></code>.</p></li>
+<li><p>Submit your pull request.</p></li>
+</ol>
 </section>
 </section>
 
@@ -754,7 +761,7 @@ before doing so.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.5.
     <br/>
   </p>
 </div>

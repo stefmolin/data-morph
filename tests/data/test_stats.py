@@ -6,9 +6,9 @@ from numpy.testing import assert_allclose, assert_equal
 from data_morph.data.loader import DataLoader
 from data_morph.data.stats import (
     get_values,
+    shifted_corrcoef,
     shifted_mean,
     shifted_var,
-    shifted_corrcoef,
 )
 
 

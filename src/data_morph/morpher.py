@@ -11,7 +11,7 @@ import tqdm
 
 from .bounds.bounding_box import BoundingBox
 from .data.dataset import Dataset
-from .data.stats import get_values
+from .data.stats import Statistics, SummaryStatistics
 from .plotting.animation import (
     ease_in_out_quadratic,
     ease_in_out_sine,
@@ -241,24 +241,20 @@ class DataMorpher:
 
     def _is_close_enough(
         self,
-        x1: Iterable[Number],
-        y1: Iterable[Number],
-        x2: Iterable[Number],
-        y2: Iterable[Number],
+        item1: SummaryStatistics,
+        item2: SummaryStatistics,
+        /,
     ) -> bool:
         """
         Check whether the statistics are within the acceptable bounds.
 
         Parameters
         ----------
-        x1 : Iterable[Number]
-            The original value of ``x``.
-        y1 : Iterable[Number]
-            The original value of ``y``.
-        x2 : Iterable[Number]
-            The perturbed  value of ``x``.
-        y2 : Iterable[Number]
-            The perturbed value of ``y``.
+        item1: SummaryStatistics
+            the first summary statistic
+
+        item2: SummaryStatistics
+            the second summary statistic
 
         Returns
         -------
@@ -268,8 +264,8 @@ class DataMorpher:
         return np.all(
             np.abs(
                 np.subtract(
-                    np.floor(np.array(get_values(x1, y1)) * 10**self.decimals),
-                    np.floor(np.array(get_values(x2, y2)) * 10**self.decimals),
+                    np.floor(np.array(item1) * 10**self.decimals),
+                    np.floor(np.array(item2) * 10**self.decimals),
                 )
             )
             == 0
@@ -285,7 +281,7 @@ class DataMorpher:
         allowed_dist: Number,
         temp: Number,
         bounds: BoundingBox,
-    ) -> tuple[MutableSequence[Number], MutableSequence[Number]]:
+    ) -> tuple[int, MutableSequence[Number], MutableSequence[Number]]:
         """
         Perform one round of perturbation.
 
@@ -311,8 +307,8 @@ class DataMorpher:
 
         Returns
         -------
-        tuple[MutableSequence[Number], MutableSequence[Number]]
-            The input dataset with one point perturbed.
+        tuple[int, MutableSequence[Number], MutableSequence[Number]]
+            The index and input dataset with one point perturbed.
         """
         row = self._rng.integers(0, len(x))
         initial_x = x[row]
@@ -338,7 +334,7 @@ class DataMorpher:
         x[row] = new_x
         y[row] = new_y
 
-        return x, y
+        return row, x, y
 
     def morph(
         self,
@@ -484,10 +480,16 @@ class DataMorpher:
             start_shape.df['y'].to_numpy(copy=True),
         )
 
+        # the starting dataset statistics
+        stats = Statistics(x, y)
+
+        # the summary statistics of the above
+        summary_stats = stats.perturb(0, 0, 0)
+
         for i in self._looper(
             iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
         ):
-            perturbed_data = self._perturb(
+            index, *perturbed_data = self._perturb(
                 np.copy(x),
                 np.copy(y),
                 target_shape=target_shape,
@@ -497,8 +499,20 @@ class DataMorpher:
                 bounds=start_shape.morph_bounds,
             )
 
-            if self._is_close_enough(x, y, *perturbed_data):
+            new_summary_stats = stats.perturb(
+                index,
+                perturbed_data[0][index] - x[index],
+                perturbed_data[1][index] - y[index],
+            )
+
+            if self._is_close_enough(summary_stats, new_summary_stats):
                 x, y = perturbed_data
+                summary_stats = stats.perturb(
+                    index,
+                    perturbed_data[0][index] - x[index],
+                    perturbed_data[1][index] - y[index],
+                    update=True,
+                )
                 morphed_data = pd.DataFrame({'x': x, 'y': y})
 
             frame_number = record_frames(

@@ -161,7 +161,6 @@ def test_new_corrcoef():
             x_new[row] += jitter_x
             y_new[row] += jitter_y
 
-            # corrcoef = np.corrcoef(x_new, y_new)[0, 1]
             corrcoef = (
                 np.cov(x_new, y_new, ddof=0) / np.sqrt(np.var(x_new) * np.var(y_new))
             )[0, 1]

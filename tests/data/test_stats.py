@@ -74,7 +74,9 @@ def test_new_var():
     # make sure if we don't do anything to the data that we retrieve the same results
     x = data['x'].to_numpy()
 
-    assert_equal(np.var(x, ddof=0), shifted_var(np.mean(x), np.var(x), x[0], 0, len(x)))
+    assert_equal(
+        np.var(x, ddof=0), shifted_var(np.mean(x), np.var(x), x[0], x[0], len(x))
+    )
 
     # we want to test both very large and very small displacements
     for scale in [0.1, 10]:
@@ -99,12 +101,12 @@ def test_new_var():
 
             varx = np.var(x_new)
             new_varx = shifted_var(
-                np.mean(x_old), np.var(x_old), x_old[row], jitter_x, len(x_old)
+                np.mean(x_old), np.var(x_old), x_old[row], x_new[row], len(x_old)
             )
 
             vary = np.var(y_new)
             new_vary = shifted_var(
-                np.mean(y_old), np.var(y_old), y_old[row], jitter_y, len(y_old)
+                np.mean(y_old), np.var(y_old), y_old[row], y_new[row], len(y_old)
             )
 
             assert_allclose(varx, new_varx)

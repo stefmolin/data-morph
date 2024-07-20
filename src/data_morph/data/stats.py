@@ -30,7 +30,7 @@ def shifted_var(
     mean_old: float,
     var_old: float,
     value_old: float,
-    delta: float,
+    value_new: float,
     size: int,
     *,
     ddof: int = 0,
@@ -40,8 +40,8 @@ def shifted_var(
     """
     return (
         var_old
-        + 2 * delta * (value_old - mean_old) / (size - ddof)
-        + delta**2 * (1 / (size - ddof) - 1 / (size - ddof) / size)
+        + 2 * (value_new - value_old) * (value_old - mean_old) / (size - ddof)
+        + (value_new - value_old) ** 2 * (1 / (size - ddof) - 1 / (size - ddof) / size)
     )
 
 
@@ -79,14 +79,14 @@ def shifted_corrcoef(
             mean_old=meanx_old,
             var_old=varx_old,
             value_old=x_old,
-            delta=deltax,
+            value_new=x_new,
             size=size,
         )
         * shifted_var(
             mean_old=meany_old,
             var_old=vary_old,
             value_old=y_old,
-            delta=deltay,
+            value_new=y_new,
             size=size,
         )
     )
@@ -180,7 +180,7 @@ class Statistics:
             mean_old=self.x_mean,
             var_old=self._x_var,
             value_old=self._x[index],
-            delta=deltax,
+            value_new=self._x[index] + deltax,
             size=len(self),
         )
 
@@ -188,7 +188,7 @@ class Statistics:
             mean_old=self.y_mean,
             var_old=self._y_var,
             value_old=self._y[index],
-            delta=deltay,
+            value_new=self._y[index] + deltay,
             size=len(self),
         )
 

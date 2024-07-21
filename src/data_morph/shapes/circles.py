@@ -43,6 +43,8 @@ class Circle(Shape):
         self.r: Number = r or dataset.df.std().mean() * 1.5
         """numbers.Number: The radius of the circle."""
 
+        self._center = np.array([self.cx, self.cy])
+
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
 
@@ -60,10 +62,7 @@ class Circle(Shape):
         float
             The absolute distance between this circle's edge and the point (x, y).
         """
-        return abs(
-            self._euclidean_distance(np.array([self.cx, self.cy]), np.array([x, y]))
-            - self.r
-        )
+        return abs(self._euclidean_distance(self._center, np.array([x, y])) - self.r)
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:

@@ -127,7 +127,7 @@ class Rings(Shape):
         ]
         """list[Circle]: The individual rings represented by :class:`Circle` objects."""
 
-        self._centers = np.array([(circle.cx, circle.cy) for circle in self.circles])
+        self._centers = np.array([circle._center for circle in self.circles])
         self._radii = np.array([circle.r for circle in self.circles])
 
     def __repr__(self) -> str:

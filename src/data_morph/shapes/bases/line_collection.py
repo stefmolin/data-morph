@@ -76,8 +76,9 @@ class LineCollection(Shape):
 
         .. _this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
         """
-        start, end = line
-        line_mag = self._euclidean_distance(np.array(start), np.array(end))
+        start, end = np.array(line)
+        line_mag = self._euclidean_distance(start, end)
+        point = np.array(point)
 
         if line_mag < 0.00000001:
             # Arbitrarily large value
@@ -94,14 +95,14 @@ class LineCollection(Shape):
             # closest point does not fall within the line segment, take the shorter
             # distance to an endpoint
             distance = min(
-                self._euclidean_distance(np.array(point), np.array(start)),
-                self._euclidean_distance(np.array(point), np.array(end)),
+                self._euclidean_distance(point, start),
+                self._euclidean_distance(point, end),
             )
         else:
             # Intersecting point is on the line, use the formula
             ix = x1 + u * (x2 - x1)
             iy = y1 + u * (y2 - y1)
-            distance = self._euclidean_distance(np.array(point), np.array((ix, iy)))
+            distance = self._euclidean_distance(point, np.array((ix, iy)))
 
         return distance
 

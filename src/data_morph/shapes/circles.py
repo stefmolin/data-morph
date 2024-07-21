@@ -128,7 +128,7 @@ class Rings(Shape):
         ]
         """list[Circle]: The individual rings represented by :class:`Circle` objects."""
 
-        self._coords = np.array([(circle.cx, circle.cy) for circle in self.circles])
+        self._centers = np.array([(circle.cx, circle.cy) for circle in self.circles])
         self._radii = np.array([circle.r for circle in self.circles])
 
     def __repr__(self) -> str:
@@ -158,7 +158,7 @@ class Rings(Shape):
         """
         point = np.array([x, y])
         return np.min(
-            np.abs(np.linalg.norm(self._coords - point, axis=1) - self._radii)
+            np.abs(np.linalg.norm(self._centers - point, axis=1) - self._radii)
         )
 
     @plot_with_custom_style

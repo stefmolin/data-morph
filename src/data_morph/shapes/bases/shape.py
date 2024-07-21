@@ -67,7 +67,7 @@ class Shape(ABC):
 
         See Also
         --------
-        scipy.spatial.distance.euclidean : Euclidean distance calculation.
+        numpy.linalg.norm : Euclidean distance calculation.
         """
         return np.linalg.norm(a - b)
 

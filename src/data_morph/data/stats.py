@@ -21,7 +21,23 @@ def shifted_mean(
     size: int,
 ) -> float:
     """
-    Return the shifted mean from the perturbed data.
+    Return the shifted mean by perturbing one point.
+
+    Parameters
+    ----------
+    mean_old : float
+        The old value of the mean of the data.
+    value_old : float
+        The old value of the point (before perturbation).
+    value_new : float
+        The new value of the point (after perturbation).
+    size : int
+        The size of the dataset.
+
+    Returns
+    -------
+    float
+        The new value of the mean of the data.
     """
     return (mean_old - value_old / size) + value_new / size
 
@@ -33,10 +49,32 @@ def shifted_var(
     value_new: float,
     size: int,
     *,
-    ddof: int = 0,
+    ddof: float = 0,
 ) -> float:
     """
-    Return the shifted covariance from the perturbed data.
+    Compute the shifted variance by perturbing one point.
+
+    Parameters
+    ----------
+    mean_old : float
+        The old value of the mean of the data.
+    var_old : float
+        The old value of the variance of the data.
+    value_old : float
+        The old value of the point (before perturbation).
+    value_new : float
+        The new value of the point (after perturbation).
+    size : int
+        The size of the dataset.
+    ddof : float, optional
+        “Delta Degrees of Freedom”: the divisor used in the calculation is ``N
+        - ddof``, where ``N`` represents the number of elements. By default
+        ``ddof`` is zero.
+
+    Returns
+    -------
+    float
+        The new value of the covariance of the data.
     """
     return (
         var_old
@@ -46,6 +84,21 @@ def shifted_var(
 
 
 def shifted_stdev(*args, **kwargs):
+    """
+    Compute the shifted standard deviation by perturbing one point.
+
+    Parameters
+    ----------
+    *args
+        The positional arguments passed to :attr:``shifted_cov``.
+    **kwargs
+        The keyword arguments passed to :attr:``shifted_cov``.
+
+    Returns
+    -------
+    float
+        The new value of the standard deviation of the data.
+    """
     return np.sqrt(shifted_var(*args, **kwargs))
 
 
@@ -54,15 +107,43 @@ def shifted_corrcoef(
     y_old: float,
     x_new: float,
     y_new: float,
-    meanx_old: float,  # the mean <x>
-    meany_old: float,  # the mean <y>
-    xy_old: float,  # the mean <xy>
-    varx_old: float,  # the variance <x^2> - <x>^2
-    vary_old: float,  # the variance <y^2> - <y>^2
+    meanx_old: float,
+    meany_old: float,
+    xy_old: float,
+    varx_old: float,
+    vary_old: float,
     size: int,
 ) -> float:
     """
-    Return the shifted correlation coefficient of the perturbed data.
+    Compute the shifted correlation of the data by perturbing one point.
+
+    Parameters
+    ----------
+    x_old : float
+        The old value of the point ``x`` (before perturbation).
+    y_old : float
+        The old value of the point ``y`` (before perturbation).
+    x_new : float
+        The new value of the point ``x`` (after perturbation).
+    y_new : float
+        The new value of the point ``y`` (after perturbation).
+    meanx_old : float
+        The old value of the mean of the data ``x``.
+    meany_old : float
+        The old value of the mean of the data ``y``.
+    xy_old : float
+        The old value of the mean of ``x * y``.
+    varx_old : float
+        The old value of the variance of ``x``.
+    vary_old : float
+        The old value of the variance of ``y``.
+    size : int
+        The size of the dataset.
+
+    Returns
+    -------
+    float
+        The new correlation coefficient of the data.
     """
     deltax = x_new - x_old
     deltay = y_new - y_old
@@ -95,6 +176,17 @@ def shifted_corrcoef(
 
 
 class Statistics:
+    """
+    Container for computing various statistics of the data.
+
+    Parameters
+    ----------
+    x : iterable of float
+        The ``x`` value of the data as an iterable.
+    y : iterable of float
+        The ``y`` value of the data as an iterable.
+    """
+
     def __init__(self, x: Iterable[Number], y: Iterable[Number]):
         if len(x) != len(y):
             raise ValueError('The two datasets should have the same size')
@@ -112,43 +204,73 @@ class Statistics:
         self._xy_mean = np.mean(self._x * self._y)
 
     @property
-    def x_mean(self):
+    def x_mean(self) -> float:
         """
         Return the mean of the ``x`` data.
+
+        Returns
+        -------
+        float
+            The mean of the ``x`` data.
         """
         return self._x_mean
 
     @property
-    def y_mean(self):
+    def y_mean(self) -> float:
         """
         Return the mean of the ``y`` data.
+
+        Returns
+        -------
+        float
+            The mean of the ``y`` data.
         """
         return self._y_mean
 
     @property
-    def x_stdev(self):
+    def x_stdev(self) -> float:
         """
         Return the std of the ``x`` data.
+
+        Returns
+        -------
+        float
+            The standard deviation of the ``x`` data.
         """
         return self._x_stdev
 
     @property
-    def y_stdev(self):
+    def y_stdev(self) -> float:
         """
         Return the std of the ``y`` data.
+
+        Returns
+        -------
+        float
+            The standard deviation of the ``y`` data.
         """
         return self._y_stdev
 
     @property
-    def corrcoef(self):
+    def corrcoef(self) -> float:
         """
         Return the correlation coefficient of the ``x`` and ``y`` data.
+
+        Returns
+        -------
+        float
+            The correlation coefficient between ``x`` and ``y`` data.
         """
         return self._corrcoef
 
     def __len__(self):
         """
         Return the size of the dataset.
+
+        Returns
+        -------
+        int
+            The size of the dataset.
         """
         return len(self._x)
 
@@ -162,6 +284,25 @@ class Statistics:
     ) -> SummaryStatistics:
         """
         Perturb a single point and return the new ``SummaryStatistics``.
+
+        Parameters
+        ----------
+        index : int
+            The index of the point we wish to perturb.
+
+        deltax : float
+            The amount by which to perturb the ``x`` point.
+
+        deltay : float
+            The amount by which to perturb the ``y`` point.
+
+        update : bool, optional
+            Whether to actually update the data (default: False).
+
+        Returns
+        -------
+        SummaryStatistics
+            The new summary statistics.
         """
         x_mean = shifted_mean(
             mean_old=self.x_mean,

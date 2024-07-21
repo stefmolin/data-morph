@@ -4,6 +4,7 @@ from numbers import Number
 from typing import Iterable
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.axes import Axes
 
 from ...plotting.style import plot_with_custom_style
@@ -44,65 +45,36 @@ class LineCollection(Shape):
         float
             The minimum distance from the lines of this shape to the
             point (x, y).
-        """
-        return min(
-            self._distance_point_to_line(point=(x, y), line=line) for line in self.lines
-        )
-
-    def _distance_point_to_line(
-        self,
-        point: Iterable[Number],
-        line: Iterable[Iterable[Number]],
-    ) -> float:
-        """
-        Calculate the minimum distance between a point and a line.
-
-        Parameters
-        ----------
-        point : Iterable[numbers.Number]
-            Coordinates of a point in 2D space.
-        line : Iterable[Iterable[numbers.Number]]
-            Coordinates of the endpoints of a line in 2D space.
-
-        Returns
-        -------
-        float
-            The minimum distance between the point and the line.
 
         Notes
         -----
-        Implementation based on `this VBA code`_.
+        Implementation based on `this SO answer`_.
 
-        .. _this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
+        .. _this SO answer: https://stackoverflow.com/a/58781995
         """
-        start, end = line
-        line_mag = self._euclidean_distance(start, end)
+        p = np.array([x, y])
+        lines = np.array(self.lines)
 
-        if line_mag < 0.00000001:
-            # Arbitrarily large value
-            return 9999
+        a = lines[:, 0, :]
+        b = lines[:, 1, :]
 
-        px, py = point
-        x1, y1 = start
-        x2, y2 = end
+        d_ba = b - a
+        d = np.divide(d_ba, (np.hypot(d_ba[:, 0], d_ba[:, 1]).reshape(-1, 1)))
 
-        u1 = ((px - x1) * (x2 - x1)) + ((py - y1) * (y2 - y1))
-        u = u1 / (line_mag * line_mag)
+        # signed parallel distance components
+        # rowwise dot products of 2D vectors
+        s = np.multiply(a - p, d).sum(axis=1)
+        t = np.multiply(p - b, d).sum(axis=1)
 
-        if (u < 0.00001) or (u > 1):
-            # closest point does not fall within the line segment, take the shorter
-            # distance to an endpoint
-            distance = min(
-                self._euclidean_distance(point, start),
-                self._euclidean_distance(point, end),
-            )
-        else:
-            # Intersecting point is on the line, use the formula
-            ix = x1 + u * (x2 - x1)
-            iy = y1 + u * (y2 - y1)
-            distance = self._euclidean_distance(point, (ix, iy))
+        # clamped parallel distance
+        h = np.maximum.reduce([s, t, np.zeros(len(s))])
 
-        return distance
+        # perpendicular distance component
+        # rowwise cross products of 2D vectors
+        d_pa = p - a
+        c = d_pa[:, 0] * d[:, 1] - d_pa[:, 1] * d[:, 0]
+
+        return np.min(np.hypot(h, c))
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:

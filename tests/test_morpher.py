@@ -11,6 +11,7 @@ from numpy.testing import assert_equal
 from pandas.testing import assert_frame_equal
 
 from data_morph.data.loader import DataLoader
+from data_morph.data.stats import Statistics
 from data_morph.morpher import DataMorpher
 from data_morph.shapes.factory import ShapeFactory
 
@@ -170,10 +171,16 @@ class TestDataMorpher:
             freeze_for=0,
         )
 
+        stats = Statistics(dataset.df['x'], dataset.df['y']).perturb(0, 0, 0)
+        perturbed_stats = Statistics(morphed_data['x'], morphed_data['y']).perturb(
+            0, 0, 0
+        )
+
         with pytest.raises(AssertionError):
             assert_frame_equal(morphed_data, dataset.df)
         assert morpher._is_close_enough(
-            dataset.df['x'], dataset.df['y'], morphed_data['x'], morphed_data['y']
+            stats,
+            perturbed_stats,
         )
 
         _, err = capsys.readouterr()

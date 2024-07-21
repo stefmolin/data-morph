@@ -3,7 +3,7 @@
 from functools import partial
 from numbers import Number
 from pathlib import Path
-from typing import Iterable, MutableSequence, Optional, Union
+from typing import MutableSequence, Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -506,13 +506,13 @@ class DataMorpher:
             )
 
             if self._is_close_enough(summary_stats, new_summary_stats):
-                x, y = perturbed_data
                 summary_stats = stats.perturb(
                     index,
                     perturbed_data[0][index] - x[index],
                     perturbed_data[1][index] - y[index],
                     update=True,
                 )
+                x, y = perturbed_data
                 morphed_data = pd.DataFrame({'x': x, 'y': y})
 
             frame_number = record_frames(

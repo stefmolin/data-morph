@@ -18,7 +18,7 @@ Set up the pre-commit hooks to make sure you can pass the CI checks:
 $ pre-commit install
 ```
 
-All commits will be squashed, so just make sure that the final commit passes all of the linting, documentation, and testing checks. These will run in GitHub Actions when you open a pull request, but you should also run them locally:
+All commits will be squashed, so just make sure that the final commit passes all linting, documentation, and testing checks. These will run in GitHub Actions when you open a pull request, but you should also run them locally:
 
 ```shell
 $ pre-commit run --all-files  # linting and documentation format checks
@@ -29,7 +29,7 @@ $ cd docs && make html        # build the documentation locally
 Some things to remember:
 
 - All code must be documented using docstrings in the [numpydoc style](https://numpydoc.readthedocs.io/en/latest/format.html) &ndash; the pre-commit hooks will check for this.
-- Any changes to the API must be accompanied with either an additional test case or a new test. Run `pytest` to make sure your changes are covered.
+- Any changes to the API must be accompanied by either an additional test case or a new test. Run `pytest` to make sure your changes are covered.
 - Documentation for the project is built with Sphinx. Your changes must render correct in the output. Run `make html` from the `docs` directory and inspect the result.
 
 ## 3. Open a pull request
@@ -43,13 +43,13 @@ In your description, please do the following:
 
 When you create your pull request, first-time contributors will need to wait for a maintainer to approve running the GitHub Actions workflows. Please be patient until this happens.
 
-Once it does, the same checks described above (testing, documentation, linting) that you ran on your machine will run on Linux, MacOS, and Windows with multiple versions of Python. Please note that it is possible that differences in operating systems and/or Python versions results in a failure, despite it working on your machine.
+Once it does, the same checks described above (testing, documentation, linting) that you ran on your machine will run on Linux, macOS, and Windows with multiple versions of Python. Please note that it is possible that differences in operating systems and/or Python versions results in a failure, despite it working on your machine.
 
 If anything fails, please attempt to fix it as we're unlikely to review your code until everything passes. If stuck, please feel free to leave a note in the pull request enumerating what you have already tried and someone may be able to offer assistance.
 
 ## 4. Code review
 
-After all of the checks in your pull request pass, a maintainer will review your code. In many cases, there will be some feedback to address, and this may require a few iterations to get to the best implementation. Remember to be patient and polite during this process.
+After all checks in your pull request pass, a maintainer will review your code. In many cases, there will be some feedback to address, and this may require a few iterations to get to the best implementation. Remember to be patient and polite during this process.
 
 ## 5. Congratulations!
 

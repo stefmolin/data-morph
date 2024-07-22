@@ -48,9 +48,11 @@ class DataLoader:
         'dog': 'dog.csv',
         'music': 'music.csv',
         'panda': 'panda.csv',
+        'pi': 'pi.csv',
         'Python': 'python.csv',
         'SDS': 'superdatascience.csv',
         'sheep': 'sheep.csv',
+        'soccer': 'soccer_ball.csv',
     }
     AVAILABLE_DATASETS = sorted(_DATASETS.keys(), key=str.lower)
     """list[str]: List of available built-in starter datasets,

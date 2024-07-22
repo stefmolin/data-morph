@@ -2,7 +2,6 @@
 
 import argparse
 import sys
-import textwrap
 from typing import Sequence, Union
 
 from . import __version__
@@ -17,8 +16,6 @@ ARG_DEFAULTS = {
     'iterations': 100_000,
     'freeze': 0,
 }
-
-USAGE_WIDTH_FOR_DOCS = 80
 
 
 def generate_parser() -> argparse.ArgumentParser:
@@ -206,27 +203,6 @@ def generate_parser() -> argparse.ArgumentParser:
         ),
     )
 
-    return parser
-
-
-def _generate_parser_for_docs() -> argparse.ArgumentParser:
-    """
-    Generate an argument parser for the documentation only.
-
-    Returns
-    -------
-    argparse.argparse.ArgumentParser
-        Modified argument parser class for the documentation.
-    """
-    parser = generate_parser()
-    usage_text = parser.format_usage()
-    parser.format_usage = lambda: textwrap.fill(
-        usage_text.replace('                  ', ' '),
-        width=USAGE_WIDTH_FOR_DOCS,
-        subsequent_indent='\t',
-        break_on_hyphens=False,
-        break_long_words=False,
-    )
     return parser
 
 

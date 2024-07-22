@@ -172,7 +172,9 @@ class TestDataMorpher:
 
         with pytest.raises(AssertionError):
             assert_frame_equal(morphed_data, dataset.df)
-        assert morpher._is_close_enough(dataset.df, morphed_data)
+        assert morpher._is_close_enough(
+            dataset.df['x'], dataset.df['y'], morphed_data['x'], morphed_data['y']
+        )
 
         _, err = capsys.readouterr()
         assert f'{target_shape} pattern: 100%' in err

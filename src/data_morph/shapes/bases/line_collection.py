@@ -4,6 +4,7 @@ from numbers import Number
 from typing import Iterable
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.axes import Axes
 
 from ...plotting.style import plot_with_custom_style
@@ -75,8 +76,9 @@ class LineCollection(Shape):
 
         .. _this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
         """
-        start, end = line
+        start, end = np.array(line)
         line_mag = self._euclidean_distance(start, end)
+        point = np.array(point)
 
         if line_mag < 0.00000001:
             # Arbitrarily large value
@@ -100,7 +102,7 @@ class LineCollection(Shape):
             # Intersecting point is on the line, use the formula
             ix = x1 + u * (x2 - x1)
             iy = y1 + u * (y2 - y1)
-            distance = self._euclidean_distance(point, (ix, iy))
+            distance = self._euclidean_distance(point, np.array((ix, iy)))
 
         return distance
 

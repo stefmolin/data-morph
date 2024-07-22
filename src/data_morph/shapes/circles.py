@@ -43,6 +43,8 @@ class Circle(Shape):
         self.r: Number = r or dataset.df.std().mean() * 1.5
         """numbers.Number: The radius of the circle."""
 
+        self._center = np.array([self.cx, self.cy])
+
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
 
@@ -60,7 +62,7 @@ class Circle(Shape):
         float
             The absolute distance between this circle's edge and the point (x, y).
         """
-        return abs(self._euclidean_distance((self.cx, self.cy), (x, y)) - self.r)
+        return abs(self._euclidean_distance(self._center, np.array([x, y])) - self.r)
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:
@@ -125,6 +127,9 @@ class Rings(Shape):
         ]
         """list[Circle]: The individual rings represented by :class:`Circle` objects."""
 
+        self._centers = np.array([circle._center for circle in self.circles])
+        self._radii = np.array([circle.r for circle in self.circles])
+
     def __repr__(self) -> str:
         return self._recursive_repr('circles')
 
@@ -150,7 +155,10 @@ class Rings(Shape):
             Rings consists of multiple circles, so we use the minimum
             distance to one of the circles.
         """
-        return min(circle.distance(x, y) for circle in self.circles)
+        point = np.array([x, y])
+        return np.min(
+            np.abs(np.linalg.norm(self._centers - point, axis=1) - self._radii)
+        )
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:

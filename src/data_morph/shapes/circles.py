@@ -41,7 +41,8 @@ class Circle(Shape):
         """numbers.Number: The radius of the circle."""
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} center={tuple(self.center)} radius={self.radius}>'
+        x, y = self.center
+        return f'<{self.__class__.__name__} center={(float(x), float(y))} radius={self.radius}>'
 
     def distance(self, x: Number, y: Number) -> float:
         """

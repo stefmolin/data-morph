@@ -27,10 +27,10 @@
    :toctree:
    :recursive:
 
-   data_morph.shapes.bases
-   data_morph.shapes.circles
-   data_morph.shapes.factory
-   data_morph.shapes.lines
-   data_morph.shapes.points
-   data_morph.shapes.polygons
+   bases
+   circles
+   factory
+   lines
+   points
+   polygons
 

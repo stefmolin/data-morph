@@ -27,7 +27,7 @@
    :toctree:
    :recursive:
 
-   data_morph.plotting.animation
-   data_morph.plotting.static
-   data_morph.plotting.style
+   animation
+   static
+   style
 

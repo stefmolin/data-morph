@@ -27,7 +27,7 @@
    :toctree:
    :recursive:
 
-   data_morph.data.dataset
-   data_morph.data.loader
-   data_morph.data.stats
+   dataset
+   loader
+   stats
 

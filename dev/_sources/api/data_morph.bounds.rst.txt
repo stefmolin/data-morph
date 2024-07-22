@@ -27,6 +27,6 @@
    :toctree:
    :recursive:
 
-   data_morph.bounds.bounding_box
-   data_morph.bounds.interval
+   bounding_box
+   interval
 

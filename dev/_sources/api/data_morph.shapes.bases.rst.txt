@@ -27,7 +27,7 @@ bases
    :toctree:
    :recursive:
 
-   data_morph.shapes.bases.line_collection
-   data_morph.shapes.bases.point_collection
-   data_morph.shapes.bases.shape
+   line_collection
+   point_collection
+   shape
 

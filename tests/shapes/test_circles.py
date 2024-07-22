@@ -9,6 +9,8 @@ import pytest
 
 pytestmark = [pytest.mark.shapes, pytest.mark.circles]
 
+CIRCLE_REPR = r'<Circle center=\((\d+\.*\d*), (\d+\.*\d*)\) radius=(\d+\.*\d*)>'
+
 
 class CirclesModuleTestBase:
     """Base for testing circle shapes."""
@@ -42,8 +44,8 @@ class TestBullseye(CirclesModuleTestBase):
     repr_regex = (
         r'^<Bullseye>\n'
         r'  circles=\n'
-        r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>\n'
-        r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'
+        r'          ' + CIRCLE_REPR + '\n'
+        r'          ' + CIRCLE_REPR + '$'
     )
 
     def test_init(self, shape):
@@ -51,9 +53,8 @@ class TestBullseye(CirclesModuleTestBase):
         assert len(shape.circles) == 2
 
         a, b = shape.circles
-        assert a.cx == b.cx
-        assert a.cy == b.cy
-        assert a.r != b.r
+        assert np.array_equal(a.center, b.center)
+        assert a.radius != b.radius
 
 
 class TestCircle(CirclesModuleTestBase):
@@ -61,14 +62,15 @@ class TestCircle(CirclesModuleTestBase):
 
     shape_name = 'circle'
     distance_test_cases = [[(20, 50), 10.490381], [(10, 25), 15.910168]]
-    repr_regex = r'^<Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>$'
+    repr_regex = '^' + CIRCLE_REPR + '$'
 
     def test_is_circle(self, shape):
         """Test that the Circle is a valid circle (mathematically)."""
         angles = np.arange(0, 361, 45)
+        cx, cy = shape.center
         for x, y in zip(
-            shape.cx + shape.r * np.cos(angles),
-            shape.cy + shape.r * np.sin(angles),
+            cx + shape.radius * np.cos(angles),
+            cy + shape.radius * np.sin(angles),
         ):
             assert pytest.approx(shape.distance(x, y)) == 0
 
@@ -81,8 +83,10 @@ class TestRings(CirclesModuleTestBase):
     repr_regex = (
         r'^<Rings>\n'
         r'  circles=\n'
-        r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>\n'
-        r'          <Circle cx=(\d+\.*\d*) cy=(\d+\.*\d*) r=(\d+\.*\d*)>'
+        r'          ' + CIRCLE_REPR + '\n'
+        r'          ' + CIRCLE_REPR + '\n'
+        r'          ' + CIRCLE_REPR + '\n'
+        r'          ' + CIRCLE_REPR + '$'
     )
 
     @pytest.mark.parametrize('num_rings', [3, 5])
@@ -92,11 +96,10 @@ class TestRings(CirclesModuleTestBase):
 
         assert len(shape.circles) == num_rings
         assert all(
-            getattr(circle, center_coord) == getattr(shape.circles[0], center_coord)
+            np.array_equal(circle.center, shape.circles[0].center)
             for circle in shape.circles[1:]
-            for center_coord in ['cx', 'cy']
         )
-        assert len({circle.r for circle in shape.circles}) == num_rings
+        assert len({circle.radius for circle in shape.circles}) == num_rings
 
     @pytest.mark.parametrize('num_rings', ['3', -5, 1, True])
     def test_num_rings_is_valid(self, shape_factory, num_rings):

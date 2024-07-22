@@ -1,6 +1,7 @@
 """Shapes that are composed of points."""
 
 import itertools
+import math
 from numbers import Number
 
 import numpy as np
@@ -304,3 +305,67 @@ class Scatter(PointCollection):
             Always returns 0 to allow for scattering of the points.
         """
         return 0
+
+
+class Spade(PointCollection):
+    """
+    Class for the spade shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Heart
+
+        _ = Spade(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        # Graph heart curve
+        x_shift = sum(x_bounds) / 2
+        y_shift = sum(y_bounds) / 2
+
+        t = np.linspace(-3, 3, num=90)
+
+        heart_x = -(16 * np.sin(t) ** 3)
+        heart_y = -(
+            13 * np.cos(t) - 5 * np.cos(2 * t) - 2 * np.cos(3 * t) - np.cos(4 * t)
+        )
+
+        # Graph line base
+        line_t = np.linspace(-6, 6, num=12)
+        line_x = line_t
+        line_y = [-16 for _ in line_t]
+
+        # Graph left wing
+        left_t = np.linspace(-6, 0, num=12)
+        left_x = left_t
+        left_y = [0.278 * math.pow(point + 6.0, 2) - 16.0 for point in left_t]
+
+        # Graph right wing
+        right_t = np.linspace(0, 6, num=12)
+        right_x = right_t
+        right_y = [0.278 * math.pow(point - 6.0, 2) - 16.0 for point in right_t]
+
+        x = np.concatenate((heart_x, line_x, left_x, right_x), axis=0)
+        y = np.concatenate((heart_y, line_y, left_y, right_y), axis=0)
+
+        # scale by the half the widest width of the heart
+        scale_factor = (x_bounds[1] - x_shift) / 16
+
+        super().__init__(
+            *np.stack(
+                [x * scale_factor + x_shift, y * scale_factor + y_shift],
+                axis=1,
+            )
+        )

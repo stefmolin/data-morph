@@ -23,6 +23,11 @@ class LineCollection(Shape):
     """
 
     def __init__(self, *lines: Iterable[Iterable[Number]]) -> None:
+        # check that lines that have the same starting and ending points raise an error
+        for line in lines:
+            start, end = line
+            if np.allclose(start, end):
+                raise ValueError(f'Line {line} has the same start and end point')
         self.lines = lines
         """Iterable[Iterable[numbers.Number]]: An iterable
         of two (x, y) pairs representing the endpoints of a line."""

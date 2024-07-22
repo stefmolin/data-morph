@@ -50,6 +50,9 @@ class Dataset:
         self.df: pd.DataFrame = self._validate_data(df).pipe(self._scale_data, scale)
         """pandas.DataFrame: DataFrame containing columns x and y."""
 
+        self._x = self.df['x'].to_numpy()
+        self._y = self.df['y'].to_numpy()
+
         self.name: str = name
         """str: The name to use for the dataset."""
 

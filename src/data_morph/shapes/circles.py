@@ -29,24 +29,19 @@ class Circle(Shape):
     ----------
     dataset : Dataset
         The starting dataset to morph into other shapes.
-    r : numbers.Number, optional
+    radius : numbers.Number, optional
         The radius of the circle.
     """
 
-    def __init__(self, dataset: Dataset, r: Number = None) -> None:
-        self.cx: Number = dataset.df.x.mean()
-        """numbers.Number: The x coordinate of the circle's center."""
+    def __init__(self, dataset: Dataset, radius: Number = None) -> None:
+        self.center: np.ndarray = dataset.df[['x', 'y']].mean().to_numpy()
+        """numpy.ndarray: The (x, y) coordinates of the circle's center."""
 
-        self.cy: Number = dataset.df.y.mean()
-        """numbers.Number: The y coordinate of the circle's center."""
-
-        self.r: Number = r or dataset.df.std().mean() * 1.5
+        self.radius: Number = radius or dataset.df.std().mean() * 1.5
         """numbers.Number: The radius of the circle."""
 
-        self._center = np.array([self.cx, self.cy])
-
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} cx={self.cx} cy={self.cy} r={self.r}>'
+        return f'<{self.__class__.__name__} center={tuple(self.center)} radius={self.radius}>'
 
     def distance(self, x: Number, y: Number) -> float:
         """
@@ -62,7 +57,9 @@ class Circle(Shape):
         float
             The absolute distance between this circle's edge and the point (x, y).
         """
-        return abs(self._euclidean_distance(self._center, np.array([x, y])) - self.r)
+        return abs(
+            self._euclidean_distance(self.center, np.array([x, y])) - self.radius
+        )
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:
@@ -83,7 +80,7 @@ class Circle(Shape):
             fig, ax = plt.subplots(layout='constrained')
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         _ = ax.axis('equal')
-        _ = ax.add_patch(plt.Circle((self.cx, self.cy), self.r, ec='k', fill=False))
+        _ = ax.add_patch(plt.Circle(self.center, self.radius, ec='k', fill=False))
         _ = ax.autoscale()
         return ax
 
@@ -127,8 +124,8 @@ class Rings(Shape):
         ]
         """list[Circle]: The individual rings represented by :class:`Circle` objects."""
 
-        self._centers = np.array([circle._center for circle in self.circles])
-        self._radii = np.array([circle.r for circle in self.circles])
+        self._centers = np.array([circle.center for circle in self.circles])
+        self._radii = np.array([circle.radius for circle in self.circles])
 
     def __repr__(self) -> str:
         return self._recursive_repr('circles')

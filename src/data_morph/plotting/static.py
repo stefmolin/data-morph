@@ -60,7 +60,7 @@ def plot(
 
     res = get_values(df)
 
-    labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
+    labels = ('X Mean', 'Y Mean', 'X Med.', 'Y Med.', 'X SD', 'Y SD', 'Corr.')
     locs = np.linspace(0.8, 0.2, num=len(labels))
     max_label_length = max([len(label) for label in labels])
     max_stat = int(np.log10(np.max(np.abs(res)))) + 1

@@ -37,7 +37,7 @@ class Circle(Shape):
         self.center: np.ndarray = dataset.df[['x', 'y']].mean().to_numpy()
         """numpy.ndarray: The (x, y) coordinates of the circle's center."""
 
-        self.radius: Number = radius or dataset.df.std().mean() * 1.5
+        self.radius: Number = radius or dataset.df[['x', 'y']].std().mean() * 1.5
         """numbers.Number: The radius of the circle."""
 
     def __repr__(self) -> str:

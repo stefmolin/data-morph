@@ -53,9 +53,9 @@ class LineCollection(Shape):
 
         Notes
         -----
-        Implementation based on `this SO answer`_.
+        Implementation based on `this Stack Overflow answer`_.
 
-        .. _this SO answer: https://stackoverflow.com/a/58781995
+        .. _this Stack Overflow answer: https://stackoverflow.com/a/58781995
         """
         p = np.array([x, y])
         lines = np.array(self.lines)

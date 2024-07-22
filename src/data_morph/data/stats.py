@@ -5,6 +5,7 @@ from numbers import Number
 from typing import Iterable
 
 import numpy as np
+from avltree import AvlTree
 
 SummaryStatistics = namedtuple(
     'SummaryStatistics', ['x_mean', 'y_mean', 'x_stdev', 'y_stdev', 'correlation']
@@ -12,6 +13,31 @@ SummaryStatistics = namedtuple(
 SummaryStatistics.__doc__ = (
     'Named tuple containing the summary statistics for plotting/analysis.'
 )
+
+
+def _create_median_avltree(data, /) -> tuple[AvlTree, AvlTree]:
+    """
+    Return a tuple of low and high AVL trees from input data.
+
+    Parameters
+    ----------
+    data
+        The input data as an iterable
+
+    Returns
+    -------
+    tuple[AvlTree, AvlTree]
+        The low and high AVL trees.
+    """
+    size = len(data)
+    xlow = AvlTree()
+    xhigh = AvlTree()
+    for index in range(size // 2):
+        xlow[data[index]] = None
+    for index in range(size // 2, size):
+        xhigh[data[index]] = None
+
+    return xlow, xhigh
 
 
 def shifted_mean(
@@ -173,6 +199,79 @@ def shifted_corrcoef(
     )
 
     return numerator / denominator
+
+
+def shifted_median(
+    xlow: AvlTree,
+    xhigh: AvlTree,
+    value_old: float,
+    value_new: float,
+) -> float:
+    """
+    Compute the shifted median using AVL trees.
+
+    Parameters
+    ----------
+    xlow : AvlTree
+        The lower part of the AVL tree (below the median).
+    xhigh : AvlTree
+        The higher part of the AVL tree (above the median).
+    value_old : float
+        The old value of the point (before perturbation).
+    value_new : float
+        The new value of the point (after perturbation).
+
+    Returns
+    -------
+    float
+        The new value of the median of the data.
+    """
+
+    low_max = xlow.maximum()
+    high_min = xhigh.minimum()
+
+    # case 1: xi in S1 (low) and xi' in S1 (low)
+    if value_old <= low_max and value_new <= low_max:
+        # remove xi from S1
+        del xlow[value_old]
+        # insert xi' into S1
+        xlow[value_new] = None
+    # case 2: xi in S1 (low) and xi' in S2 (high)
+    elif value_old <= low_max < value_new:
+        # remove xi from S1
+        del xlow[value_old]
+        # insert xi' into S2
+        xhigh[value_new] = None
+        # remove smallest element from S2
+        high_min = xhigh.minimum()
+        del xhigh[high_min]
+        # put the above element into S1
+        xlow[high_min] = None
+    # case 3: xi in S2 (high) and xi' in S1 (low)
+    elif value_new <= high_min <= value_old:
+        # remove xi from S2
+        del xhigh[value_old]
+        # insert xi' into S1
+        xlow[value_new] = None
+        # remove largest element from S1
+        low_max = xlow.maximum()
+        del xlow[low_max]
+        # put the above element into S2
+        xhigh[low_max] = None
+    # case 4: xi in S2 (high) and xi' in S2 (high)
+    elif value_old >= high_min and value_new >= high_min:
+        # remove xi from S2
+        del xhigh[value_old]
+        # insert xi' into S2
+        xhigh[value_new] = None
+
+    # in any case, the median should now be computable from xhigh.minimum() and
+    # xlow.maximum()
+
+    if len(xlow) == len(xhigh):
+        return (xlow.maximum() + xhigh.minimum()) / 2
+
+    return xhigh.minimum()
 
 
 class Statistics:

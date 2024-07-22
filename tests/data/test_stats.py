@@ -1,13 +1,16 @@
 """Test the stats module."""
 
 import numpy as np
+import pytest
 from numpy.testing import assert_allclose, assert_equal
 
 from data_morph.data.loader import DataLoader
 from data_morph.data.stats import (
+    _create_median_avltree,
     get_values,
     shifted_corrcoef,
     shifted_mean,
+    shifted_median,
     shifted_var,
 )
 
@@ -183,3 +186,59 @@ def test_new_corrcoef():
 
             x_old = np.copy(x_new)
             y_old = np.copy(y_new)
+
+
+@pytest.mark.parametrize('data', [list(range(5)), list(range(10))])
+def test_shifted_median(data):
+    """
+    Check that the ``shifted_median`` function works properly.
+    """
+    data = np.sort(np.array(data, dtype=float))
+    size = len(data)
+    xlow, xhigh = _create_median_avltree(data)
+    assert_equal(data, np.concatenate([list(xlow), list(xhigh)]))
+    # make sure it works if we don't do anything
+    ref = np.median(data)
+    actual = shifted_median(xlow, xhigh, data[0], data[0])
+    assert_equal(len(data), len(xlow) + len(xhigh))
+    assert_equal(ref, actual)
+
+    # move lower part of data into itself
+    x = np.copy(data)
+    xlow, xhigh = _create_median_avltree(data)
+    index = size // 2 - 1
+    x[index] -= 0.3
+    ref = np.median(x)
+    actual = shifted_median(xlow, xhigh, data[index], x[index])
+    assert_equal(len(x), len(xlow) + len(xhigh))
+    assert_equal(ref, actual)
+
+    # move higher part of data into itself
+    x = np.copy(data)
+    xlow, xhigh = _create_median_avltree(data)
+    index = size // 2 + 1
+    x[index] += 0.3
+    ref = np.median(x)
+    actual = shifted_median(xlow, xhigh, data[index], x[index])
+    assert_equal(len(x), len(xlow) + len(xhigh))
+    assert_equal(ref, actual)
+
+    # move higher part of data into lower part
+    x = np.copy(data)
+    xlow, xhigh = _create_median_avltree(data)
+    index = size // 2 + 1
+    x[index] -= 5.2
+    ref = np.median(x)
+    actual = shifted_median(xlow, xhigh, data[index], x[index])
+    assert_equal(len(x), len(xlow) + len(xhigh))
+    assert_equal(ref, actual)
+
+    # move lower part of data into higher part
+    x = np.copy(data)
+    xlow, xhigh = _create_median_avltree(data)
+    index = size // 2 - 1
+    x[index] += 5.2
+    ref = np.median(x)
+    actual = shifted_median(xlow, xhigh, data[index], x[index])
+    assert_equal(len(x), len(xlow) + len(xhigh))
+    assert_equal(ref, actual)

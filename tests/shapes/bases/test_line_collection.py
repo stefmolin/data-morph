@@ -1,7 +1,6 @@
 """Test line_collection module."""
 
 import itertools
-import re
 
 import pytest
 
@@ -42,14 +41,12 @@ class TestLineCollection:
 
     def test_repr(self, line_collection):
         """Test that the __repr__() method is working."""
-        lines = r'\n        '.join(
-            [r'\[\[\d+\.*\d*, \d+\.*\d*\], \[\d+\.*\d*, \d+\.*\d*\]\]']
-            * len(line_collection.lines)
-        )
-        assert (
-            re.match(
-                (r'^<LineCollection>\n  lines=\n        ' + lines),
-                repr(line_collection),
-            )
-            is not None
-        )
+        lines = r"""<LineCollection>
+  lines=
+        array([[0., 0.],
+       [0., 1.]])
+        array([[1., 0.],
+       [1., 1.]])
+        array([[10.5, 11.5],
+       [11. , 10. ]])"""
+        assert repr(line_collection) == lines

@@ -28,7 +28,7 @@ class LineCollection(Shape):
             start, end = line
             if np.allclose(start, end):
                 raise ValueError(f'Line {line} has the same start and end point')
-        self.lines = lines
+        self.lines = np.array(lines)
         """Iterable[Iterable[numbers.Number]]: An iterable
         of two (x, y) pairs representing the endpoints of a line."""
 
@@ -58,10 +58,9 @@ class LineCollection(Shape):
         .. _this Stack Overflow answer: https://stackoverflow.com/a/58781995
         """
         p = np.array([x, y])
-        lines = np.array(self.lines)
 
-        a = lines[:, 0, :]
-        b = lines[:, 1, :]
+        a = self.lines[:, 0, :]
+        b = self.lines[:, 1, :]
 
         d_ba = b - a
         d = np.divide(d_ba, (np.hypot(d_ba[:, 0], d_ba[:, 1]).reshape(-1, 1)))

@@ -23,7 +23,12 @@ class LineCollection(Shape):
     """
 
     def __init__(self, *lines: Iterable[Iterable[Number]]) -> None:
-        self.lines = lines
+        # check that lines that have the same starting and ending points raise an error
+        for line in lines:
+            start, end = line
+            if np.allclose(start, end):
+                raise ValueError(f'Line {line} has the same start and end point')
+        self.lines = np.array(lines)
         """Iterable[Iterable[numbers.Number]]: An iterable
         of two (x, y) pairs representing the endpoints of a line."""
 
@@ -45,66 +50,35 @@ class LineCollection(Shape):
         float
             The minimum distance from the lines of this shape to the
             point (x, y).
-        """
-        return min(
-            self._distance_point_to_line(point=(x, y), line=line) for line in self.lines
-        )
-
-    def _distance_point_to_line(
-        self,
-        point: Iterable[Number],
-        line: Iterable[Iterable[Number]],
-    ) -> float:
-        """
-        Calculate the minimum distance between a point and a line.
-
-        Parameters
-        ----------
-        point : Iterable[numbers.Number]
-            Coordinates of a point in 2D space.
-        line : Iterable[Iterable[numbers.Number]]
-            Coordinates of the endpoints of a line in 2D space.
-
-        Returns
-        -------
-        float
-            The minimum distance between the point and the line.
 
         Notes
         -----
-        Implementation based on `this VBA code`_.
+        Implementation based on `this Stack Overflow answer`_.
 
-        .. _this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba
+        .. _this Stack Overflow answer: https://stackoverflow.com/a/58781995
         """
-        start, end = np.array(line)
-        line_mag = self._euclidean_distance(start, end)
-        point = np.array(point)
+        p = np.array([x, y])
 
-        if line_mag < 0.00000001:
-            # Arbitrarily large value
-            return 9999
+        a = self.lines[:, 0, :]
+        b = self.lines[:, 1, :]
 
-        px, py = point
-        x1, y1 = start
-        x2, y2 = end
+        d_ba = b - a
+        d = np.divide(d_ba, (np.hypot(d_ba[:, 0], d_ba[:, 1]).reshape(-1, 1)))
 
-        u1 = ((px - x1) * (x2 - x1)) + ((py - y1) * (y2 - y1))
-        u = u1 / (line_mag * line_mag)
+        # signed parallel distance components
+        # rowwise dot products of 2D vectors
+        s = np.multiply(a - p, d).sum(axis=1)
+        t = np.multiply(p - b, d).sum(axis=1)
 
-        if (u < 0.00001) or (u > 1):
-            # closest point does not fall within the line segment, take the shorter
-            # distance to an endpoint
-            distance = min(
-                self._euclidean_distance(point, start),
-                self._euclidean_distance(point, end),
-            )
-        else:
-            # Intersecting point is on the line, use the formula
-            ix = x1 + u * (x2 - x1)
-            iy = y1 + u * (y2 - y1)
-            distance = self._euclidean_distance(point, np.array((ix, iy)))
+        # clamped parallel distance
+        h = np.maximum.reduce([s, t, np.zeros(len(s))])
 
-        return distance
+        # perpendicular distance component
+        # rowwise cross products of 2D vectors
+        d_pa = p - a
+        c = d_pa[:, 0] * d[:, 1] - d_pa[:, 1] * d[:, 0]
+
+        return np.min(np.hypot(h, c))
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:

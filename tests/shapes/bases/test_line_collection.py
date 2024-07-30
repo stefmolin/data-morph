@@ -1,7 +1,6 @@
 """Test line_collection module."""
 
 import itertools
-import re
 
 import pytest
 
@@ -35,21 +34,19 @@ class TestLineCollection:
         assert pytest.approx(line_collection.distance(*point)) == expected_distance
 
     @pytest.mark.parametrize('line', [[(0, 0), (0, 0)], [(-1, -1), (-1, -1)]], ids=str)
-    def test_distance_to_small_line_magnitude(self, line_collection, line):
-        """Test _distance_point_to_line() for small line magnitudes."""
-        distance = line_collection._distance_point_to_line((30, 50), line)
-        assert distance == 9999
+    def test_line_as_point(self, line):
+        """Test LineCollection raises a ValueError for small line magnitudes."""
+        with pytest.raises(ValueError):
+            LineCollection(line)
 
     def test_repr(self, line_collection):
         """Test that the __repr__() method is working."""
-        lines = r'\n        '.join(
-            [r'\[\[\d+\.*\d*, \d+\.*\d*\], \[\d+\.*\d*, \d+\.*\d*\]\]']
-            * len(line_collection.lines)
-        )
-        assert (
-            re.match(
-                (r'^<LineCollection>\n  lines=\n        ' + lines),
-                repr(line_collection),
-            )
-            is not None
-        )
+        lines = r"""<LineCollection>
+  lines=
+        array([[0., 0.],
+       [0., 1.]])
+        array([[1., 0.],
+       [1., 1.]])
+        array([[10.5, 11.5],
+       [11. , 10. ]])"""
+        assert repr(line_collection) == lines

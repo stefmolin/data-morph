@@ -1,6 +1,7 @@
 """Test line_collection module."""
 
 import itertools
+import re
 
 import pytest
 

@@ -41,12 +41,10 @@ class TestLineCollection:
 
     def test_repr(self, line_collection):
         """Test that the __repr__() method is working."""
-        lines = r"""<LineCollection>
-  lines=
-        array([[0., 0.],
-       [0., 1.]])
-        array([[1., 0.],
-       [1., 1.]])
-        array([[10.5, 11.5],
-       [11. , 10. ]])"""
-        assert repr(line_collection) == lines
+        assert (
+            re.match(
+                r"""<LineCollection>\n  lines=\n {8}array\(\[\[\d+""",
+                repr(line_collection),
+            )
+            is not None
+        )

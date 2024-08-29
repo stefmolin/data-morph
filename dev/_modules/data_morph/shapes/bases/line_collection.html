@@ -570,7 +570,13 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">lines</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Number</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span>
+        <span class="c1"># check that lines with the same starting and ending points raise an error</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">line</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Line </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1"> has the same start and end point&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterable[Iterable[numbers.Number]]: An iterable</span>
 <span class="sd">        of two (x, y) pairs representing the endpoints of a line.&quot;&quot;&quot;</span>
 
@@ -594,67 +600,49 @@ document.write(`
 <span class="sd">        float</span>
 <span class="sd">            The minimum distance from the lines of this shape to the</span>
 <span class="sd">            point (x, y).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_distance_point_to_line</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span>
-        <span class="p">)</span></div>
-
-
-    <span class="k">def</span> <span class="nf">_distance_point_to_line</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">point</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
-        <span class="n">line</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Number</span><span class="p">]],</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculate the minimum distance between a point and a line.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        point : Iterable[numbers.Number]</span>
-<span class="sd">            Coordinates of a point in 2D space.</span>
-<span class="sd">        line : Iterable[Iterable[numbers.Number]]</span>
-<span class="sd">            Coordinates of the endpoints of a line in 2D space.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        float</span>
-<span class="sd">            The minimum distance between the point and the line.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
-<span class="sd">        Implementation based on `this VBA code`_.</span>
+<span class="sd">        Implementation based on `this Stack Overflow answer`_.</span>
 
-<span class="sd">        .. _this VBA code: http://local.wasp.uwa.edu.au/~pbourke/geometry/pointline/source.vba</span>
+<span class="sd">        .. _this Stack Overflow answer: https://stackoverflow.com/a/58781995</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-        <span class="n">line_mag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_euclidean_distance</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="n">line_mag</span> <span class="o">&lt;</span> <span class="mf">0.00000001</span><span class="p">:</span>
-            <span class="c1"># Arbitrarily large value</span>
-            <span class="k">return</span> <span class="mi">9999</span>
+        <span class="n">start_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">end_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
 
-        <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">point</span>
-        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">start</span>
-        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="n">tangent_vector</span> <span class="o">=</span> <span class="n">end_points</span> <span class="o">-</span> <span class="n">start_points</span>
+        <span class="n">normalized_tangent_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+            <span class="n">tangent_vector</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">tangent_vector</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">tangent_vector</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">)</span>
 
-        <span class="n">u1</span> <span class="o">=</span> <span class="p">((</span><span class="n">px</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="n">py</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">))</span>
-        <span class="n">u</span> <span class="o">=</span> <span class="n">u1</span> <span class="o">/</span> <span class="p">(</span><span class="n">line_mag</span> <span class="o">*</span> <span class="n">line_mag</span><span class="p">)</span>
+        <span class="c1"># row-wise dot products of 2D vectors</span>
+        <span class="n">signed_parallel_distance_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">start_points</span> <span class="o">-</span> <span class="n">point</span><span class="p">,</span> <span class="n">normalized_tangent_vectors</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">signed_parallel_distance_end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">point</span> <span class="o">-</span> <span class="n">end_points</span><span class="p">,</span> <span class="n">normalized_tangent_vectors</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">&lt;</span> <span class="mf">0.00001</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">u</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="c1"># closest point does not fall within the line segment, take the shorter</span>
-            <span class="c1"># distance to an endpoint</span>
-            <span class="n">distance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_euclidean_distance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">start</span><span class="p">),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_euclidean_distance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">end</span><span class="p">),</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Intersecting point is on the line, use the formula</span>
-            <span class="n">ix</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span>
-            <span class="n">iy</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span>
-            <span class="n">distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_euclidean_distance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)))</span>
+        <span class="n">clamped_parallel_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">signed_parallel_distance_start</span><span class="p">,</span>
+                <span class="n">signed_parallel_distance_end</span><span class="p">,</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">signed_parallel_distance_start</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">distance</span>
+        <span class="c1"># row-wise cross products of 2D vectors</span>
+        <span class="n">perpendicular_distance_component</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span>
+            <span class="n">point</span> <span class="o">-</span> <span class="n">start_points</span><span class="p">,</span> <span class="n">normalized_tangent_vectors</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">clamped_parallel_distance</span><span class="p">,</span> <span class="n">perpendicular_distance_component</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="LineCollection.plot">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection.plot">[docs]</a>

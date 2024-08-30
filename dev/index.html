@@ -524,7 +524,9 @@ document.write(`
 <div class="toctree-wrapper compound">
 </div>
 <p>Data Morph allows you to morph an input dataset of 2D points into select shapes, while preserving the summary
-statistics to a given number of decimal points through simulated annealing.</p>
+statistics to a given number of decimal points through simulated annealing. It is intended
+to be used as a teaching tool to illustrate the importance of data visualization (see
+<a class="reference internal" href="#data-morph-in-the-classroom">Data Morph in the classroom</a> for ideas).</p>
 <p class="rubric">Notes</p>
 <p>This code has been altered by Stefanie Molin to work for other input datasets
 by parameterizing the target shapes with information from the input shape.
@@ -535,7 +537,7 @@ Identical Statistics through Simulated Annealing</em> by Justin Matejka and Geor
 <p>The paper and video can be found on the <a class="reference external" href="https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/">Autodesk Research website</a>.
 The version of the code placed on GitHub at
 <a class="reference external" href="https://github.com/jmatejka/same-stats-different-graphs">jmatejka/same-stats-different-graphs</a>,
-served as the starting point for the Data Morph code base, which is on GitHub at
+served as the starting point for the Data Morph codebase, which is on GitHub at
 <a class="reference external" href="https://github.com/stefmolin/data-morph">stefmolin/data-morph</a>.</p>
 <p>Read more about the creation of Data Morph in <a class="reference external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">this article</a>
 and <a class="reference external" href="https://stefaniemolin.com/data-morph-talk/#/">this slide deck</a>.</p>
@@ -561,10 +563,10 @@ and <a class="reference external" href="https://stefaniemolin.com/data-morph-tal
 </div>
 <p>This produces the following animation in the newly-created <code class="docutils literal notranslate"><span class="pre">morphed_data</span></code> directory
 within your current working directory:</p>
-<figure class="align-center" id="id1">
+<figure class="align-center" id="id3">
 <img alt="Morphing the panda dataset into the star shape." src="_images/panda-to-star.gif" />
 <figcaption>
-<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a>.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a>.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can smooth the transition with the <code class="docutils literal notranslate"><span class="pre">--ramp-in</span></code> and <code class="docutils literal notranslate"><span class="pre">--ramp-out</span></code> flags. The <code class="docutils literal notranslate"><span class="pre">--freeze</span></code>
@@ -573,10 +575,10 @@ flag allows you to start the animation with the specified number of frames of th
 </pre></div>
 </div>
 <p>Here is the resulting animation:</p>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id4">
 <img alt="Morphing the panda dataset into the star shape with easing." src="_images/panda-to-star-eased.gif" />
 <figcaption>
-<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> with easing.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> with easing.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <hr class="docutils" />
@@ -640,6 +642,28 @@ are also visualized in the <a class="reference internal" href="api/data_morph.sh
 <p>For further customization, the <a class="reference internal" href="custom_datasets.html"><span class="doc">Custom Datasets</span></a> tutorial discusses how to generate custom input datasets.</p>
 </section>
 </section>
+<section id="data-morph-in-the-classroom">
+<h2>Data Morph in the classroom<a class="headerlink" href="#data-morph-in-the-classroom" title="Link to this heading">#</a></h2>
+<p>Data Morph is intended to be used as a teaching tool to illustrate the importance
+of data visualization. Here are some potential classroom activities for instructors:</p>
+<ul class="simple">
+<li><p><strong>Statistics Focus</strong>: Have students pick one of the <a class="reference external" href="./api/data_morph.data.loader.html#data_morph.data.loader.DataLoader">built-in datasets</a>,
+and morph it into all available <a class="reference external" href="./api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory">target shapes</a>.
+Ask students to comment on which transformations worked best and why.</p></li>
+<li><p><strong>Creativity Focus</strong>: Have students <a class="reference internal" href="custom_datasets.html"><span class="doc">create a new dataset</span></a>
+(<em>e.g.</em>, your school logo or something that the student designs), and morph that into multiple
+<a class="reference external" href="./api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory">target shapes</a>.
+Ask students to comment on which transformations worked best and why.</p></li>
+<li><p><strong>Math and Coding Focus</strong>: Have students create a custom <a class="reference external" href="https://stefaniemolin.com/data-morph-talk/#/shape-class-hierarchy">shape</a> by inheriting
+from <a class="reference internal" href="api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> or <a class="reference internal" href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a> (there will be a
+tutorial on this in the future), and try morphing a couple of the <a class="reference external" href="./api/data_morph.data.loader.html#data_morph.data.loader.DataLoader">built-in datasets</a>
+into that shape. Ask students to explain how they chose to calculate the shape, and
+comment on which transformations worked best and why.</p></li>
+</ul>
+<p>If you end up using Data Morph in your classroom, I would love to hear about it. Please
+<a class="reference external" href="https://stefaniemolin.com/contact/">send me a message</a> detailing how you used it and
+how it went.</p>
+</section>
 <section id="citations">
 <h2>Citations<a class="headerlink" href="#citations" title="Link to this heading">#</a></h2>
 <p>If you use this software, please cite both Data Morph (DOI:
@@ -693,6 +717,7 @@ by Justin Matejka and George Fitzmaurice (ACM CHI 2017).</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-usage">Python usage</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-morph-in-the-classroom">Data Morph in the classroom</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citations">Citations</a></li>
 </ul>
   </nav></div>

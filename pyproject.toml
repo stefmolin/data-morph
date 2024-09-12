@@ -20,7 +20,7 @@ maintainers = [
   { name = "Stefanie Molin" },
 ]
 authors = [
-  { name = "Stefanie Molin", email = "24376333+stefmolin@users.noreply.github.com" },
+  { name = "Stefanie Molin", email = "data-morph@stefaniemolin.com" },
   { name = "Aaron Stevens", email = "bheklilr2@gmail.com" },
   { name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com" },
 ]
@@ -48,7 +48,6 @@ dependencies = [
   "matplotlib>=3.3",
   "numpy>=1.20",
   "pandas>=1.2",
-  "scipy>=1.10.0",
   "tqdm>=4.64.1",
 ]
 optional-dependencies.dev = [
@@ -61,7 +60,7 @@ optional-dependencies.dev = [
 optional-dependencies.docs = [
   "pydata-sphinx-theme>=0.15.3",
   "sphinx>=7.2.6",
-  "sphinx-argparse>=0.4.0",
+  "sphinx-argparse-cli>=1.16.0",
   "sphinx-copybutton>=0.5.1",
 ]
 urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"

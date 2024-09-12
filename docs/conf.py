@@ -40,7 +40,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx_copybutton',
-    'sphinxarg.ext',
+    'sphinx_argparse_cli',
     'matplotlib.sphinxext.plot_directive',
 ]
 
@@ -63,7 +63,6 @@ intersphinx_mapping = {
     'Pillow': ('https://pillow.readthedocs.io/en/stable/', None),
     'pytest': ('https://pytest.org/en/stable/', None),
     'python': ('https://docs.python.org/3/', None),
-    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
 }
 
 

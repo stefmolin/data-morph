@@ -23,7 +23,13 @@ class LineCollection(Shape):
     """
 
     def __init__(self, *lines: Iterable[Iterable[Number]]) -> None:
-        self.lines = lines
+        # check that lines with the same starting and ending points raise an error
+        for line in lines:
+            start, end = line
+            if np.allclose(start, end):
+                raise ValueError(f'Line {line} has the same start and end point')
+
+        self.lines = np.array(lines)
         """Iterable[Iterable[numbers.Number]]: An iterable
         of two (x, y) pairs representing the endpoints of a line."""
 
@@ -48,33 +54,45 @@ class LineCollection(Shape):
 
         Notes
         -----
-        Implementation based on `this SO answer`_.
+        Implementation based on `this Stack Overflow answer`_.
 
-        .. _this SO answer: https://stackoverflow.com/a/58781995
+        .. _this Stack Overflow answer: https://stackoverflow.com/a/58781995
         """
-        p = np.array([x, y])
-        lines = np.array(self.lines)
+        point = np.array([x, y])
 
-        a = lines[:, 0, :]
-        b = lines[:, 1, :]
+        start_points = self.lines[:, 0, :]
+        end_points = self.lines[:, 1, :]
 
-        d_ba = b - a
-        d = np.divide(d_ba, (np.hypot(d_ba[:, 0], d_ba[:, 1]).reshape(-1, 1)))
+        tangent_vector = end_points - start_points
+        normalized_tangent_vectors = np.divide(
+            tangent_vector,
+            np.hypot(tangent_vector[:, 0], tangent_vector[:, 1]).reshape(-1, 1),
+        )
 
-        # signed parallel distance components
-        # rowwise dot products of 2D vectors
-        s = np.multiply(a - p, d).sum(axis=1)
-        t = np.multiply(p - b, d).sum(axis=1)
+        # row-wise dot products of 2D vectors
+        signed_parallel_distance_start = np.multiply(
+            start_points - point, normalized_tangent_vectors
+        ).sum(axis=1)
+        signed_parallel_distance_end = np.multiply(
+            point - end_points, normalized_tangent_vectors
+        ).sum(axis=1)
 
-        # clamped parallel distance
-        h = np.maximum.reduce([s, t, np.zeros(len(s))])
+        clamped_parallel_distance = np.maximum.reduce(
+            [
+                signed_parallel_distance_start,
+                signed_parallel_distance_end,
+                np.zeros(signed_parallel_distance_start.shape[0]),
+            ]
+        )
 
-        # perpendicular distance component
-        # rowwise cross products of 2D vectors
-        d_pa = p - a
-        c = d_pa[:, 0] * d[:, 1] - d_pa[:, 1] * d[:, 0]
+        # row-wise cross products of 2D vectors
+        perpendicular_distance_component = np.cross(
+            point - start_points, normalized_tangent_vectors
+        )
 
-        return np.min(np.hypot(h, c))
+        return np.min(
+            np.hypot(clamped_parallel_distance, perpendicular_distance_component)
+        )
 
     @plot_with_custom_style
     def plot(self, ax: Axes = None) -> Axes:

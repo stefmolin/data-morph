@@ -34,15 +34,17 @@ class TestLineCollection:
         """Test the distance() method on points not on lines in the collection."""
         assert pytest.approx(line_collection.distance(*point)) == expected_distance
 
+    @pytest.mark.parametrize('line', [[(0, 0), (0, 0)], [(-1, -1), (-1, -1)]], ids=str)
+    def test_line_as_point(self, line):
+        """Test LineCollection raises a ValueError for small line magnitudes."""
+        with pytest.raises(ValueError):
+            LineCollection(line)
+
     def test_repr(self, line_collection):
         """Test that the __repr__() method is working."""
-        lines = r'\n        '.join(
-            [r'\[\[\d+\.*\d*, \d+\.*\d*\], \[\d+\.*\d*, \d+\.*\d*\]\]']
-            * len(line_collection.lines)
-        )
         assert (
             re.match(
-                (r'^<LineCollection>\n  lines=\n        ' + lines),
+                r"""<LineCollection>\n  lines=\n {8}array\(\[\[\d+""",
                 repr(line_collection),
             )
             is not None

@@ -68,7 +68,7 @@ class Dataset:
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} name={self.name} scaled={self._scaled}>'
 
-    def _derive_data_bounds(self) -> None:
+    def _derive_data_bounds(self) -> BoundingBox:
         """
         Derive bounds based on the data.
 
@@ -84,7 +84,7 @@ class Dataset:
             ]
         )
 
-    def _derive_morphing_bounds(self) -> None:
+    def _derive_morphing_bounds(self) -> BoundingBox:
         """
         Derive morphing bounds based on the data.
 
@@ -102,7 +102,7 @@ class Dataset:
         morph_bounds.adjust_bounds(x=x_offset, y=y_offset)
         return morph_bounds
 
-    def _derive_plotting_bounds(self) -> None:
+    def _derive_plotting_bounds(self) -> BoundingBox:
         """
         Derive plotting bounds based on the morphing bounds.
 

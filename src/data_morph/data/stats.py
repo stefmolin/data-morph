@@ -365,14 +365,12 @@ def shifted_median(
     else:
         xhigh.add(value_new)
 
-    remainder = (len(xlow) + len(xhigh)) % 2
-
     # Rebalance the two SortedCounters if their sizes differ by more than 1
     # NOTE: this operation is O(log n) since we are always doing it only a
     # handful (fixed number) of times
 
     # remove items from xlow and add them in xhigh
-    while len(xlow) > len(xhigh) + remainder:
+    while len(xlow) > len(xhigh):
         low_max = xlow.maximum()
         xlow.remove(low_max)
         xhigh.add(low_max)

@@ -13,11 +13,9 @@ of data visualization. Here are some potential classroom activities for instruct
   (*e.g.*, your school logo or something that the student designs), and morph that into multiple
   `target shapes <./api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory>`_.
   Ask students to comment on which transformations worked best and why.
-* **Math and Coding Focus**: Have students create a custom `shape
-  <https://stefaniemolin.com/data-morph-talk/#/shape-class-hierarchy>`_ by inheriting
-  from :class:`.LineCollection` or :class:`.PointCollection` (there will be a
-  tutorial on this in the future), and try morphing a couple of the `built-in datasets
-  <./api/data_morph.data.loader.html#data_morph.data.loader.DataLoader>`_
+* **Math and Coding Focus**: Have students :doc:`create a custom shape <shape_creation>`
+  by inheriting from :class:`.LineCollection` or :class:`.PointCollection`, and try morphing a
+  couple of the `built-in datasets <./api/data_morph.data.loader.html#data_morph.data.loader.DataLoader>`_
   into that shape. Ask students to explain how they chose to calculate the shape, and
   comment on which transformations worked best and why.
 

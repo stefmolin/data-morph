@@ -8,6 +8,7 @@ Data Morph
 
    quickstart
    custom_datasets
+   shape_creation
    cli
    api
    release_notes

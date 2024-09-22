@@ -147,6 +147,7 @@ html_sidebars = {
     'custom_datasets': [],
     'quickstart': [],
     'release_notes': [],
+    'shape_creation': [],
 }
 
 

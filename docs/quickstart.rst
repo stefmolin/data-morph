@@ -141,4 +141,5 @@ out the other built-in options:
 * The :attr:`.ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which
   are also visualized in the :class:`.ShapeFactory` documentation.
 
-For further customization, the :doc:`custom_datasets` tutorial discusses how to generate custom input datasets.
+For further customization, the :doc:`custom_datasets` tutorial discusses how to generate custom input datasets,
+and the :doc:`shape_creation` tutorial discusses how to generate custom target shapes.

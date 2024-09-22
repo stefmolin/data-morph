@@ -152,9 +152,9 @@ Note that the `result` variable in the above code block is a `pandas.DataFrame` 
 
 In this example, we morphed the built-in panda `Dataset` into the star `Shape`. Be sure to try out the other built-in options:
 
-* The `DataLoader.AVAILABLE_DATASETS` attribute contains a list of available datasets, which are also visualized in the `DataLoader` documentation.
+* The `DataLoader.AVAILABLE_DATASETS` attribute contains a list of available datasets, which are also visualized in the `DataLoader` documentation [here](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader).
 
-* The `ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which are also visualized in the `ShapeFactory` documentation.
+* The `ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which are also visualized in the `ShapeFactory` documentation [here](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory).
 
 ## Data Morph in the Classroom
 
@@ -162,7 +162,7 @@ Data Morph is intended to be used as a teaching tool to illustrate the importanc
 
 - **Statistics Focus**: Have students pick one of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader), and morph it into all available [target shapes](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory). Ask students to comment on which transformations worked best and why.
 - **Creativity Focus**: Have students [create a new dataset](https://stefaniemolin.com/data-morph/stable/custom_datasets.html) (*e.g.*, your school logo or something that the student designs), and morph that into multiple [target shapes](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory). Ask students to comment on which transformations worked best and why.
-- **Math and Coding Focus**: Have students [create a custom shape](https://stefaniemolin.com/data-morph/dev/shape-creation.html) by inheriting from `LineCollection` or `PointCollection`, and try morphing a couple of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader) into that shape. Ask students to explain how they chose to calculate the shape, and comment on which transformations worked best and why.
+- **Math and Coding Focus**: Have students [create a custom shape](https://stefaniemolin.com/data-morph/dev/shape_creation.html) by inheriting from `LineCollection` or `PointCollection`, and try morphing a couple of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader) into that shape. Ask students to explain how they chose to calculate the shape, and comment on which transformations worked best and why.
 
 If you end up using Data Morph in your classroom, I would love to hear about it. Please [send me a message](https://stefaniemolin.com/contact/) detailing how you used it and how it went.
 

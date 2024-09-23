@@ -25,7 +25,8 @@ class PointsModuleTestBase:
         Test the distance() method parametrized by distance_test_cases
         (see conftest.py).
         """
-        assert pytest.approx(shape.distance(*test_point), abs=1e-5) == expected_distance
+        actual_distance = shape.distance(*test_point)
+        assert pytest.approx(actual_distance, abs=1e-5) == expected_distance
 
 
 class TestDotsGrid(PointsModuleTestBase):

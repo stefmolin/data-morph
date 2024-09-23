@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 from numbers import Number
 from typing import Iterable, Optional
 
+import numpy as np
 from matplotlib.axes import Axes
-from scipy.spatial import distance
 
 
 class Shape(ABC):
@@ -67,9 +67,9 @@ class Shape(ABC):
 
         See Also
         --------
-        scipy.spatial.distance.euclidean : Euclidean distance calculation.
+        numpy.linalg.norm : Euclidean distance calculation.
         """
-        return distance.euclidean(a, b)
+        return np.linalg.norm(a - b)
 
     def _recursive_repr(self, attr: Optional[str] = None) -> str:
         """

@@ -1,10 +1,11 @@
 CLI Reference
 =============
 
-.. argparse::
-    :ref: data_morph.cli._generate_parser_for_docs
+.. sphinx_argparse_cli::
+    :module: data_morph.cli
+    :func: generate_parser
     :prog: data-morph
-    :noepilog:
+    :group_title_prefix:
 
 ----
 

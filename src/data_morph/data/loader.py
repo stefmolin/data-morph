@@ -29,7 +29,7 @@ class DataLoader:
         from data_morph.data.loader import DataLoader
         DataLoader.plot_available_datasets()
 
-    .. _Datasaurus: http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html
+    .. _Datasaurus: https://web.archive.org/web/20240620205540/http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html
 
     .. important:: All logos are used with permission.
 
@@ -48,9 +48,11 @@ class DataLoader:
         'dog': 'dog.csv',
         'music': 'music.csv',
         'panda': 'panda.csv',
+        'pi': 'pi.csv',
         'Python': 'python.csv',
         'SDS': 'superdatascience.csv',
         'sheep': 'sheep.csv',
+        'soccer': 'soccer_ball.csv',
     }
     AVAILABLE_DATASETS = sorted(_DATASETS.keys(), key=str.lower)
     """list[str]: List of available built-in starter datasets,

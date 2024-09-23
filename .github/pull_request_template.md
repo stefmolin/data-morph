@@ -5,6 +5,12 @@ Fixes #
 
 <!-- TODO -->
 
+**Examples**
+
+If you added a new dataset or shape, please comment on which datasets worked best for your shape or which shapes worked best for your dataset and provide the GIFs for those here.
+
+<!-- TODO -->
+
 **Checklist**
 
 <!-- Place an X between the [ ] for completed tasks -->

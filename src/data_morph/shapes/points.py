@@ -332,7 +332,7 @@ class Club(PointCollection):
 
         x_shift = sum(x_bounds) / 2
         y_shift = sum(y_bounds) / 2
-        scale_factor = x_bounds.range / 75
+        scale_factor = min(x_bounds.range, y_bounds.range) / 75
 
         # params for lobes
         r = 15 * scale_factor

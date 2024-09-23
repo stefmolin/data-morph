@@ -2,7 +2,9 @@
 Data Morph.
 
 Morph an input dataset of 2D points into select shapes, while preserving the summary
-statistics to a given number of decimal points through simulated annealing.
+statistics to a given number of decimal points through simulated annealing. It is intended
+to be used as a teaching tool to illustrate the importance of data visualization (see
+`Data Morph in the classroom`_ for ideas).
 
 Notes
 -----
@@ -17,7 +19,7 @@ The paper and video can be found on the `Autodesk Research website
 <https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/>`_.
 The version of the code placed on GitHub at
 `jmatejka/same-stats-different-graphs <https://github.com/jmatejka/same-stats-different-graphs>`_,
-served as the starting point for the Data Morph code base, which is on GitHub at
+served as the starting point for the Data Morph codebase, which is on GitHub at
 `stefmolin/data-morph <https://github.com/stefmolin/data-morph>`_.
 
 Read more about the creation of Data Morph in `this article

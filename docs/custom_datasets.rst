@@ -113,7 +113,14 @@ Here is an example animation generated from a custom dataset:
 (Optional) Contribute the dataset
 ---------------------------------
 
-If you have the rights to distribute the dataset and you think it would be a good
-inclusion as a built-in dataset, make a PR to add it to Data Morph. Be sure to consult
-the `contributing guidelines <https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md>`_
+If you have the rights to distribute the dataset and you think it would
+be a good built-in dataset, `create an issue <https://github.com/stefmolin/data-morph/issues>`_
+in the Data Morph repository proposing its inclusion. Be sure to consult the
+`contributing guidelines <https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md>`_
 before doing so.
+
+If and only if you are given the go ahead:
+
+1. Add your CSV file to the ``src/data_morph/data/starter_shapes/`` directory.
+2. Add an entry to the ``DataLoader._DATASETS`` dictionary in ``src/data_morph/data/loader.py``.
+3. Submit your pull request.

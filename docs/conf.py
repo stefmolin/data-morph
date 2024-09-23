@@ -63,7 +63,6 @@ intersphinx_mapping = {
     'Pillow': ('https://pillow.readthedocs.io/en/stable/', None),
     'pytest': ('https://pytest.org/en/stable/', None),
     'python': ('https://docs.python.org/3/', None),
-    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
 }
 
 
@@ -148,6 +147,7 @@ html_sidebars = {
     'custom_datasets': [],
     'quickstart': [],
     'release_notes': [],
+    'shape_creation': [],
 }
 
 

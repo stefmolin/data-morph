@@ -8,6 +8,7 @@ Data Morph
 
    quickstart
    custom_datasets
+   shape_creation
    cli
    api
    release_notes
@@ -17,6 +18,8 @@ Data Morph
 
 .. include:: quickstart.rst
    :start-after: .. INSTALLATION
+
+.. include:: classroom-ideas.rst
 
 Citations
 ---------

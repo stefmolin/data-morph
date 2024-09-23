@@ -67,7 +67,7 @@
   <hr/>
 </div>
 
-Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing.
+Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing. It is intended to be used as a teaching tool to illustrate the importance of data visualization (see the [Data Morph in the Classroom](https://github.com/stefmolin/data-morph/#data-morph-in-the-classroom) section for ideas).
 
 <div align="center">
   <img alt="Morphing the panda dataset into the star shape." src="https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif">
@@ -152,15 +152,25 @@ Note that the `result` variable in the above code block is a `pandas.DataFrame` 
 
 In this example, we morphed the built-in panda `Dataset` into the star `Shape`. Be sure to try out the other built-in options:
 
-* The `DataLoader.AVAILABLE_DATASETS` attribute contains a list of available datasets, which are also visualized in the `DataLoader` documentation.
+* The `DataLoader.AVAILABLE_DATASETS` attribute contains a list of available datasets, which are also visualized in the `DataLoader` documentation [here](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader).
 
-* The `ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which are also visualized in the `ShapeFactory` documentation.
+* The `ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which are also visualized in the `ShapeFactory` documentation [here](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory).
+
+## Data Morph in the Classroom
+
+Data Morph is intended to be used as a teaching tool to illustrate the importance of data visualization. Here are some potential classroom activities for instructors:
+
+- **Statistics Focus**: Have students pick one of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader), and morph it into all available [target shapes](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory). Ask students to comment on which transformations worked best and why.
+- **Creativity Focus**: Have students [create a new dataset](https://stefaniemolin.com/data-morph/stable/custom_datasets.html) (*e.g.*, your school logo or something that the student designs), and morph that into multiple [target shapes](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory). Ask students to comment on which transformations worked best and why.
+- **Math and Coding Focus**: Have students [create a custom shape](https://stefaniemolin.com/data-morph/dev/shape_creation.html) by inheriting from `LineCollection` or `PointCollection`, and try morphing a couple of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader) into that shape. Ask students to explain how they chose to calculate the shape, and comment on which transformations worked best and why.
+
+If you end up using Data Morph in your classroom, I would love to hear about it. Please [send me a message](https://stefaniemolin.com/contact/) detailing how you used it and how it went.
 
 ## Acknowledgements
 
 This code has been altered by Stefanie Molin ([@stefmolin](https://github.com/stefmolin)) to work for other input datasets by parameterizing the target shapes with information from the input shape. The original code works for a specific dataset called the "Datasaurus" and was created for the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice (ACM CHI 2017).
 
-The paper and video can be found on the Autodesk Research website [here](https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/). The version of the code placed on GitHub at [jmatejka/same-stats-different-graphs](https://github.com/jmatejka/same-stats-different-graphs), served as the starting point for the Data Morph code base, which is on GitHub at [stefmolin/data-morph](https://github.com/stefmolin/data-morph).
+The paper and video can be found on the Autodesk Research website [here](https://www.research.autodesk.com/publications/same-stats-different-graphs-generating-datasets-with-varied-appearance-and-identical-statistics-through-simulated-annealing/). The version of the code placed on GitHub at [jmatejka/same-stats-different-graphs](https://github.com/jmatejka/same-stats-different-graphs), served as the starting point for the Data Morph codebase, which is on GitHub at [stefmolin/data-morph](https://github.com/stefmolin/data-morph).
 
 Read more about the creation of Data Morph [here](https://stefaniemolin.com/articles/data-science/introducing-data-morph/) and [here](https://stefaniemolin.com/data-morph-talk/#/).
 

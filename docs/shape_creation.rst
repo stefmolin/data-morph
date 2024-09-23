@@ -94,7 +94,7 @@ Test out the shape
 Defining how your shape should be generated from the input dataset will require
 a few iterations. Be sure to test out your shape on different datasets:
 
-.. code:: shell
+.. code:: console
 
    $ data-morph --start-shape panda music soccer --target-shape <your shape>
 

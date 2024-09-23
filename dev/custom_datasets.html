@@ -672,6 +672,15 @@ before doing so.</p>
 <li><p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">DataLoader._DATASETS</span></code> dictionary in <code class="docutils literal notranslate"><span class="pre">src/data_morph/data/loader.py</span></code>.</p></li>
 <li><p>Submit your pull request.</p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For inclusion in Data Morph, the proposed dataset must work with more
+than one shape. You can pass <code class="docutils literal notranslate"><span class="pre">all</span></code> as the target shape to generate all
+options for inspection:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>path/to/points.csv<span class="w"> </span>--target-shape<span class="w"> </span>all
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 

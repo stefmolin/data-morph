@@ -124,3 +124,12 @@ If and only if you are given the go ahead:
 1. Add your CSV file to the ``src/data_morph/data/starter_shapes/`` directory.
 2. Add an entry to the ``DataLoader._DATASETS`` dictionary in ``src/data_morph/data/loader.py``.
 3. Submit your pull request.
+
+.. note::
+    For inclusion in Data Morph, the proposed dataset must work with more
+    than one shape. You can pass ``all`` as the target shape to generate all
+    options for inspection:
+
+    .. code:: console
+
+       $ data-morph --start-shape path/to/points.csv --target-shape all

@@ -330,40 +330,36 @@ class Spade(PointCollection):
         x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
 
-        # make heart points using Heart
-        heart_stack = Heart(dataset).points
-
-        # Graph heart curve
         x_shift = sum(x_bounds) / 2
         y_shift = sum(y_bounds) / 2
 
-        # vertical flip for heart
-        heart_y = -1.0 * (heart_stack[:, 1] - y_shift) + y_shift
+        # graph upside-down heart
+        heart_points = Heart(dataset).points
+        heart_points[:, 1] = -heart_points[:, 1] + 2 * y_shift
 
-        # Here, I reference kevinr1299 codes
-        # Graph line base
+        # line base
         line_x = np.linspace(-6, 6, num=12)
         line_y = np.repeat(-16, 12)
 
-        # Graph left wing
+        # left wing
         left_x = np.linspace(-6, 0, num=12)
-        left_y = 0.278 * np.power(left_x + 6.0, 2) - 16.0
+        left_y = 0.278 * np.power(left_x + 6.0, 2) - 16
 
-        # Graph right wing
+        # right wing
         right_x = np.linspace(0, 6, num=12)
-        right_y = 0.278 * np.power(right_x - 6.0, 2) - 16.0
+        right_y = 0.278 * np.power(right_x - 6.0, 2) - 16
 
         # shift and scale the base and wing
-        x = np.concatenate((line_x, left_x, right_x), axis=0)
-        y = np.concatenate((line_y, left_y, right_y), axis=0)
+        base_x = np.concatenate((line_x, left_x, right_x), axis=0)
+        base_y = np.concatenate((line_y, left_y, right_y), axis=0)
 
         # scale by the half the widest width of the spade
         scale_factor = (x_bounds[1] - x_shift) / 16
+        base_x = base_x * scale_factor + x_shift
+        base_y = base_y * scale_factor + y_shift
 
-        x = x * scale_factor + x_shift
-        y = y * scale_factor + y_shift
-
-        x = np.concatenate((heart_stack[:, 0], x), axis=0)
-        y = np.concatenate((heart_y, y), axis=0)
+        # combine the base and the upside-down heart
+        x = np.concatenate((heart_points[:, 0], base_x), axis=0)
+        y = np.concatenate((heart_points[:, 1], base_y), axis=0)
 
         super().__init__(*np.stack([x, y], axis=1))

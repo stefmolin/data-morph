@@ -335,7 +335,7 @@ class Club(PointCollection):
         scale_factor = min(x_bounds.range, y_bounds.range) / 75
 
         # params for lobes
-        r = 15 * scale_factor
+        radius = 15 * scale_factor
         top_lobe_y_offset = 18 * scale_factor
         bottom_lobes_x_offset = 15 * scale_factor
         bottom_lobes_y_offset = 9 * scale_factor
@@ -344,18 +344,18 @@ class Club(PointCollection):
 
         # top lobe
         angle_offset = -1 / 3 * np.pi
-        x_top = r * np.cos(t + angle_offset)
-        y_top = r * np.sin(t + angle_offset) + top_lobe_y_offset
+        x_top = radius * np.cos(t + angle_offset)
+        y_top = radius * np.sin(t + angle_offset) + top_lobe_y_offset
 
         # bottom left lobe
         angle_offset = 1 / 3 * np.pi
-        x_bottom_left = r * np.cos(t + angle_offset) - bottom_lobes_x_offset
-        y_bottom_left = r * np.sin(t + angle_offset) - bottom_lobes_y_offset
+        x_bottom_left = radius * np.cos(t + angle_offset) - bottom_lobes_x_offset
+        y_bottom_left = radius * np.sin(t + angle_offset) - bottom_lobes_y_offset
 
         # bottom right lobe
         angle_offset = np.pi
-        x_bottom_right = r * np.cos(t + angle_offset) + bottom_lobes_x_offset
-        y_bottom_right = r * np.sin(t + angle_offset) - bottom_lobes_y_offset
+        x_bottom_right = radius * np.cos(t + angle_offset) + bottom_lobes_x_offset
+        y_bottom_right = radius * np.sin(t + angle_offset) - bottom_lobes_y_offset
 
         x_lobes = [x_top, x_bottom_left, x_bottom_right]
         y_lobes = [y_top, y_bottom_left, y_bottom_right]
@@ -371,14 +371,12 @@ class Club(PointCollection):
         y_line = np.repeat(-stem_y_offset, 8)
 
         # left part of the stem
-        t_left = np.linspace(-(stem_x_offset - stem_x_pad), -stem_x_pad, num=6)
-        x_left = t_left
-        y_left = stem_scaler * np.power(t_left + stem_x_offset, 2) - stem_y_offset
+        x_left = np.linspace(-(stem_x_offset - stem_x_pad), -stem_x_pad, num=6)
+        y_left = stem_scaler * np.power(x_left + stem_x_offset, 2) - stem_y_offset
 
         # right part of the stem
-        t_right = np.linspace(stem_x_pad, stem_x_offset - stem_x_pad, num=6)
-        x_right = t_right
-        y_right = stem_scaler * np.power(t_right - stem_x_offset, 2) - stem_y_offset
+        x_right = np.linspace(stem_x_pad, stem_x_offset - stem_x_pad, num=6)
+        y_right = stem_scaler * np.power(x_right - stem_x_offset, 2) - stem_y_offset
 
         x_stem = [x_line, x_left, x_right]
         y_stem = [y_line, y_left, y_right]

@@ -53,6 +53,7 @@ class ShapeFactory:
         'rectangle': polygons.Rectangle,
         'rings': circles.Rings,
         'star': polygons.Star,
+        'club': points.Club,
         'spade': points.Spade,
     }
 

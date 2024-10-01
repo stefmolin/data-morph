@@ -304,3 +304,84 @@ class Scatter(PointCollection):
             Always returns 0 to allow for scattering of the points.
         """
         return 0
+
+
+class Club(PointCollection):
+    """
+    Class for the club shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Club
+
+        _ = Club(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        x_shift = sum(x_bounds) / 2
+        y_shift = sum(y_bounds) / 2
+        scale_factor = min(x_bounds.range, y_bounds.range) / 75
+
+        # params for lobes
+        radius = 15 * scale_factor
+        top_lobe_y_offset = 18 * scale_factor
+        bottom_lobes_x_offset = 15 * scale_factor
+        bottom_lobes_y_offset = 9 * scale_factor
+
+        t = np.linspace(0, (2 - 1 / 3) * np.pi, num=30)
+
+        # top lobe
+        angle_offset = -1 / 3 * np.pi
+        x_top = radius * np.cos(t + angle_offset)
+        y_top = radius * np.sin(t + angle_offset) + top_lobe_y_offset
+
+        # bottom left lobe
+        angle_offset = 1 / 3 * np.pi
+        x_bottom_left = radius * np.cos(t + angle_offset) - bottom_lobes_x_offset
+        y_bottom_left = radius * np.sin(t + angle_offset) - bottom_lobes_y_offset
+
+        # bottom right lobe
+        angle_offset = np.pi
+        x_bottom_right = radius * np.cos(t + angle_offset) + bottom_lobes_x_offset
+        y_bottom_right = radius * np.sin(t + angle_offset) - bottom_lobes_y_offset
+
+        x_lobes = [x_top, x_bottom_left, x_bottom_right]
+        y_lobes = [y_top, y_bottom_left, y_bottom_right]
+
+        # params for the stem
+        stem_x_offset = 8 * scale_factor
+        stem_y_offset = 34 * scale_factor
+        stem_scaler = 0.35 / scale_factor
+        stem_x_pad = 1.5 * scale_factor
+
+        # stem bottom
+        x_line = np.linspace(-stem_x_offset, stem_x_offset, num=8)
+        y_line = np.repeat(-stem_y_offset, 8)
+
+        # left part of the stem
+        x_left = np.linspace(-(stem_x_offset - stem_x_pad), -stem_x_pad, num=6)
+        y_left = stem_scaler * np.power(x_left + stem_x_offset, 2) - stem_y_offset
+
+        # right part of the stem
+        x_right = np.linspace(stem_x_pad, stem_x_offset - stem_x_pad, num=6)
+        y_right = stem_scaler * np.power(x_right - stem_x_offset, 2) - stem_y_offset
+
+        x_stem = [x_line, x_left, x_right]
+        y_stem = [y_line, y_left, y_right]
+
+        xs = x_shift + np.concatenate(x_lobes + x_stem)
+        ys = y_shift + np.concatenate(y_lobes + y_stem)
+
+        super().__init__(*np.stack([xs, ys], axis=1))

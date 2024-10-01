@@ -53,6 +53,7 @@ class ShapeFactory:
         'rectangle': polygons.Rectangle,
         'rings': circles.Rings,
         'star': polygons.Star,
+        'club': points.Club,
     }
 
     AVAILABLE_SHAPES: list[str] = sorted(_SHAPE_MAPPING.keys())

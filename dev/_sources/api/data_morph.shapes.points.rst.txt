@@ -18,6 +18,7 @@ points
    .. autosummary::
       :toctree:
    
+      Club
       DotsGrid
       DownParabola
       Heart

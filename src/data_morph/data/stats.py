@@ -1,8 +1,10 @@
 """Utility functions for calculating summary statistics."""
 
 from collections import namedtuple
+from numbers import Number
+from typing import Iterable
 
-import pandas as pd
+import numpy as np
 
 SummaryStatistics = namedtuple(
     'SummaryStatistics', ['x_mean', 'y_mean', 'x_stdev', 'y_stdev', 'correlation']
@@ -12,14 +14,17 @@ SummaryStatistics.__doc__ = (
 )
 
 
-def get_values(df: pd.DataFrame) -> SummaryStatistics:
+def get_values(x: Iterable[Number], y: Iterable[Number]) -> SummaryStatistics:
     """
     Calculate the summary statistics for the given set of points.
 
     Parameters
     ----------
-    df : pandas.DataFrame
-        A dataset with columns x and y.
+    x : Iterable[Number]
+        The ``x`` value of the dataset.
+
+    y : Iterable[Number]
+        The ``y`` value of the dataset.
 
     Returns
     -------
@@ -28,9 +33,9 @@ def get_values(df: pd.DataFrame) -> SummaryStatistics:
         along with the Pearson correlation coefficient between the two.
     """
     return SummaryStatistics(
-        df.x.mean(),
-        df.y.mean(),
-        df.x.std(),
-        df.y.std(),
-        df.corr().x.y,
+        np.mean(x),
+        np.mean(y),
+        np.std(x, ddof=1),
+        np.std(y, ddof=1),
+        np.corrcoef(x, y)[0, 1],
     )

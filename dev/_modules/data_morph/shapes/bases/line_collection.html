@@ -649,8 +649,10 @@ document.write(`
         <span class="p">)</span>
 
         <span class="c1"># row-wise cross products of 2D vectors</span>
-        <span class="n">perpendicular_distance_component</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span>
-            <span class="n">point</span> <span class="o">-</span> <span class="n">start_points</span><span class="p">,</span> <span class="n">normalized_tangent_vectors</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">start_points</span>
+        <span class="n">perpendicular_distance_component</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">diff</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">normalized_tangent_vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">diff</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">normalized_tangent_vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>

@@ -86,8 +86,10 @@ class LineCollection(Shape):
         )
 
         # row-wise cross products of 2D vectors
-        perpendicular_distance_component = np.cross(
-            point - start_points, normalized_tangent_vectors
+        diff = point - start_points
+        perpendicular_distance_component = (
+            diff[..., 0] * normalized_tangent_vectors[..., 1]
+            - diff[..., 1] * normalized_tangent_vectors[..., 0]
         )
 
         return np.min(

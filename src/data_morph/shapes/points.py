@@ -424,11 +424,11 @@ class Spade(PointCollection):
 
         # left wing
         left_x = np.linspace(-6, 0, num=12)
-        left_y = 0.278 * np.power(left_x + 6.0, 2) - 16
+        left_y = 0.278 * np.power(left_x + 6, 2) - 16
 
         # right wing
         right_x = np.linspace(0, 6, num=12)
-        right_y = 0.278 * np.power(right_x - 6.0, 2) - 16
+        right_y = 0.278 * np.power(right_x - 6, 2) - 16
 
         # shift and scale the base and wing
         base_x = np.concatenate((line_x, left_x, right_x), axis=0)

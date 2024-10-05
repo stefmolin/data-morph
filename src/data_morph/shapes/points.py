@@ -385,3 +385,62 @@ class Club(PointCollection):
         ys = y_shift + np.concatenate(y_lobes + y_stem)
 
         super().__init__(*np.stack([xs, ys], axis=1))
+
+
+class Spade(PointCollection):
+    """
+    Class for the spade shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Spade
+
+        _ = Spade(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        x_shift = sum(x_bounds) / 2
+        y_shift = sum(y_bounds) / 2
+
+        # graph upside-down heart
+        heart_points = Heart(dataset).points
+        heart_points[:, 1] = -heart_points[:, 1] + 2 * y_shift
+
+        # line base
+        line_x = np.linspace(-6, 6, num=12)
+        line_y = np.repeat(-16, 12)
+
+        # left wing
+        left_x = np.linspace(-6, 0, num=12)
+        left_y = 0.278 * np.power(left_x + 6, 2) - 16
+
+        # right wing
+        right_x = np.linspace(0, 6, num=12)
+        right_y = 0.278 * np.power(right_x - 6, 2) - 16
+
+        # shift and scale the base and wing
+        base_x = np.concatenate((line_x, left_x, right_x), axis=0)
+        base_y = np.concatenate((line_y, left_y, right_y), axis=0)
+
+        # scale by the half the widest width of the spade
+        scale_factor = (x_bounds[1] - x_shift) / 16
+        base_x = base_x * scale_factor + x_shift
+        base_y = base_y * scale_factor + y_shift
+
+        # combine the base and the upside-down heart
+        x = np.concatenate((heart_points[:, 0], base_x), axis=0)
+        y = np.concatenate((heart_points[:, 1], base_y), axis=0)
+
+        super().__init__(*np.stack([x, y], axis=1))

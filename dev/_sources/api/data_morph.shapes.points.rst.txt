@@ -25,6 +25,7 @@ points
       LeftParabola
       RightParabola
       Scatter
+      Spade
       UpParabola
    
    

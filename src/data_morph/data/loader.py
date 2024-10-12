@@ -46,6 +46,7 @@ class DataLoader:
         'cat': 'cat.csv',
         'dino': 'dino.csv',
         'dog': 'dog.csv',
+        'gorilla': 'gorilla.csv',
         'music': 'music.csv',
         'panda': 'panda.csv',
         'pi': 'pi.csv',

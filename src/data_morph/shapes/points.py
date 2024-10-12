@@ -304,3 +304,143 @@ class Scatter(PointCollection):
             Always returns 0 to allow for scattering of the points.
         """
         return 0
+
+
+class Club(PointCollection):
+    """
+    Class for the club shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Club
+
+        _ = Club(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        x_shift = sum(x_bounds) / 2
+        y_shift = sum(y_bounds) / 2
+        scale_factor = min(x_bounds.range, y_bounds.range) / 75
+
+        # params for lobes
+        radius = 15 * scale_factor
+        top_lobe_y_offset = 18 * scale_factor
+        bottom_lobes_x_offset = 15 * scale_factor
+        bottom_lobes_y_offset = 9 * scale_factor
+
+        t = np.linspace(0, (2 - 1 / 3) * np.pi, num=30)
+
+        # top lobe
+        angle_offset = -1 / 3 * np.pi
+        x_top = radius * np.cos(t + angle_offset)
+        y_top = radius * np.sin(t + angle_offset) + top_lobe_y_offset
+
+        # bottom left lobe
+        angle_offset = 1 / 3 * np.pi
+        x_bottom_left = radius * np.cos(t + angle_offset) - bottom_lobes_x_offset
+        y_bottom_left = radius * np.sin(t + angle_offset) - bottom_lobes_y_offset
+
+        # bottom right lobe
+        angle_offset = np.pi
+        x_bottom_right = radius * np.cos(t + angle_offset) + bottom_lobes_x_offset
+        y_bottom_right = radius * np.sin(t + angle_offset) - bottom_lobes_y_offset
+
+        x_lobes = [x_top, x_bottom_left, x_bottom_right]
+        y_lobes = [y_top, y_bottom_left, y_bottom_right]
+
+        # params for the stem
+        stem_x_offset = 8 * scale_factor
+        stem_y_offset = 34 * scale_factor
+        stem_scaler = 0.35 / scale_factor
+        stem_x_pad = 1.5 * scale_factor
+
+        # stem bottom
+        x_line = np.linspace(-stem_x_offset, stem_x_offset, num=8)
+        y_line = np.repeat(-stem_y_offset, 8)
+
+        # left part of the stem
+        x_left = np.linspace(-(stem_x_offset - stem_x_pad), -stem_x_pad, num=6)
+        y_left = stem_scaler * np.power(x_left + stem_x_offset, 2) - stem_y_offset
+
+        # right part of the stem
+        x_right = np.linspace(stem_x_pad, stem_x_offset - stem_x_pad, num=6)
+        y_right = stem_scaler * np.power(x_right - stem_x_offset, 2) - stem_y_offset
+
+        x_stem = [x_line, x_left, x_right]
+        y_stem = [y_line, y_left, y_right]
+
+        xs = x_shift + np.concatenate(x_lobes + x_stem)
+        ys = y_shift + np.concatenate(y_lobes + y_stem)
+
+        super().__init__(*np.stack([xs, ys], axis=1))
+
+
+class Spade(PointCollection):
+    """
+    Class for the spade shape.
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the panda dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.shapes.points import Spade
+
+        _ = Spade(DataLoader.load_dataset('panda')).plot()
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The starting dataset to morph into other shapes.
+    """
+
+    def __init__(self, dataset: Dataset) -> None:
+        x_bounds = dataset.data_bounds.x_bounds
+        y_bounds = dataset.data_bounds.y_bounds
+
+        x_shift = sum(x_bounds) / 2
+        y_shift = sum(y_bounds) / 2
+
+        # graph upside-down heart
+        heart_points = Heart(dataset).points
+        heart_points[:, 1] = -heart_points[:, 1] + 2 * y_shift
+
+        # line base
+        line_x = np.linspace(-6, 6, num=12)
+        line_y = np.repeat(-16, 12)
+
+        # left wing
+        left_x = np.linspace(-6, 0, num=12)
+        left_y = 0.278 * np.power(left_x + 6, 2) - 16
+
+        # right wing
+        right_x = np.linspace(0, 6, num=12)
+        right_y = 0.278 * np.power(right_x - 6, 2) - 16
+
+        # shift and scale the base and wing
+        base_x = np.concatenate((line_x, left_x, right_x), axis=0)
+        base_y = np.concatenate((line_y, left_y, right_y), axis=0)
+
+        # scale by the half the widest width of the spade
+        scale_factor = (x_bounds[1] - x_shift) / 16
+        base_x = base_x * scale_factor + x_shift
+        base_y = base_y * scale_factor + y_shift
+
+        # combine the base and the upside-down heart
+        x = np.concatenate((heart_points[:, 0], base_x), axis=0)
+        y = np.concatenate((heart_points[:, 1], base_y), axis=0)
+
+        super().__init__(*np.stack([x, y], axis=1))

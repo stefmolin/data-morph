@@ -10,15 +10,19 @@ name: CI
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - 'docs/**'
-      - '.github/**'
+    paths:
+      - '**'
+      - '!docs/**'
+      - '!.github/**'
+      - '.github/workflows/ci.yml'
     tags: [ "v*" ]
 
   pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - '.github/**'
+    paths:
+      - '**'
+      - '!docs/**'
+      - '!.github/**'
+      - '.github/workflows/ci.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -65,4 +69,6 @@ jobs:
         run: pytest
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v4.6.0
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

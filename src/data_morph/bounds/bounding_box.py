@@ -1,7 +1,9 @@
 """Class for working with two-dimensional bounds."""
 
+from __future__ import annotations
+
+from collections.abc import Iterable
 from numbers import Number
-from typing import Iterable, Union
 
 from ._utils import _validate_2d
 from .interval import Interval
@@ -13,7 +15,7 @@ class BoundingBox:
 
     Parameters
     ----------
-    x_bounds, y_bounds : Union[Interval, Iterable[numbers.Number]]
+    x_bounds, y_bounds : Interval | Iterable[numbers.Number]
         A 2-dimensional numeric iterable or an :class:`.Interval` object.
     inclusive : bool, default ``False``
         Whether the bounds include the endpoints. Default
@@ -23,10 +25,10 @@ class BoundingBox:
 
     def __init__(
         self,
-        x_bounds: Union[Interval, Iterable[Number]],
-        y_bounds: Union[Interval, Iterable[Number]],
+        x_bounds: Interval | Iterable[Number],
+        y_bounds: Interval | Iterable[Number],
         inclusive: Iterable[bool] = False,
-    ):
+    ) -> None:
         if x_bounds is None or y_bounds is None:
             raise ValueError('BoundingBox requires bounds for both dimensions.')
 
@@ -74,7 +76,7 @@ class BoundingBox:
         x, y = _validate_2d(value, 'input')
         return x in self.x_bounds and y in self.y_bounds
 
-    def __eq__(self, other: 'BoundingBox') -> bool:
+    def __eq__(self, other: BoundingBox) -> bool:
         """
         Check whether two :class:`.BoundingBox` objects are equivalent.
 
@@ -137,7 +139,7 @@ class BoundingBox:
         x_range, y_range = self.range
         return x_range / y_range
 
-    def clone(self) -> 'BoundingBox':
+    def clone(self) -> BoundingBox:
         """
         Clone this instance.
 

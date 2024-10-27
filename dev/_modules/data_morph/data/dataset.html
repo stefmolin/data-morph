@@ -622,7 +622,7 @@
         <span class="c1"># could also make this a parameter to __init__()</span>
         <span class="n">morph_bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
 
-        <span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span> <span class="o">=</span> <span class="p">[</span><span class="n">offset</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">]</span>
+        <span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
 
         <span class="n">morph_bounds</span><span class="o">.</span><span class="n">adjust_bounds</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_offset</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">morph_bounds</span>
@@ -638,14 +638,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: range * 0.2 is still a bit arbitrary (need to take into account density at the edges)</span>
         <span class="c1"># could also make this a parameter to __init__()</span>
-        <span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span> <span class="o">=</span> <span class="p">[</span><span class="n">offset</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">]</span>
+        <span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
 
         <span class="n">plot_bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
         <span class="n">plot_bounds</span><span class="o">.</span><span class="n">adjust_bounds</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_offset</span><span class="p">)</span>
         <span class="n">plot_bounds</span><span class="o">.</span><span class="n">align_aspect_ratio</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">plot_bounds</span>
 
-    <span class="k">def</span> <span class="nf">_scale_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_scale_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply scaling to the data.</span>
 

@@ -1,9 +1,12 @@
 """Utility functions for static plotting."""
 
+from __future__ import annotations
+
+from collections.abc import Iterable
 from functools import partial
 from numbers import Number
 from pathlib import Path
-from typing import Iterable, Union
+from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,10 +23,10 @@ def plot(
     df: pd.DataFrame,
     x_bounds: Iterable[Number],
     y_bounds: Iterable[Number],
-    save_to: Union[str, Path],
+    save_to: str | Path,
     decimals: int,
-    **save_kwds,
-) -> Union[Axes, None]:
+    **save_kwds: Any,  # noqa: ANN401
+) -> Axes | None:
     """
     Plot the dataset and summary statistics.
 
@@ -78,16 +81,8 @@ def plot(
         or (res.y_mean < 0 and mean_y_digits >= max_stat)
         else 1
     )
-    formatter = '{{:<{pad}}}: {{:{stat_pad}.{decimals}f}}'.format(
-        pad=max_label_length,
-        stat_pad=max_stat + visible_decimals + offset,
-        decimals=visible_decimals,
-    ).format
-    corr_formatter = '{{:<{pad}}}: {{:+{corr_pad}.{decimals}f}}'.format(
-        pad=max_label_length,
-        corr_pad=max_stat + visible_decimals + offset,
-        decimals=visible_decimals,
-    ).format
+    formatter = f'{{:<{max_label_length}}}: {{:{max_stat + visible_decimals + offset}.{visible_decimals}f}}'.format
+    corr_formatter = f'{{:<{max_label_length}}}: {{:+{max_stat + visible_decimals + offset}.{visible_decimals}f}}'.format
     stat_clip = visible_decimals - decimals
 
     add_stat_text = partial(

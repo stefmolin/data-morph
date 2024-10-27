@@ -1,7 +1,7 @@
 """Utility functions for working with intervals."""
 
+from collections.abc import Iterable
 from numbers import Number
-from typing import Iterable
 
 
 def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:

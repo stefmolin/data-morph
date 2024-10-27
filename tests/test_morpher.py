@@ -1,6 +1,5 @@
 """Test the data_morph.morpher module."""
 
-import glob
 import hashlib
 from collections import Counter
 from functools import partial
@@ -214,10 +213,7 @@ class TestDataMorpher:
 
         # make sure we have the correct number of files
         for kind in ['png', 'csv']:
-            assert (
-                len(glob.glob(str(tmp_path / f'{base_file_name}*.{kind}')))
-                == num_frames
-            )
+            assert len(list(tmp_path.glob(f'{base_file_name}*.{kind}'))) == num_frames
 
         # at the final frame, we have the output data
         assert_frame_equal(
@@ -267,8 +263,8 @@ class TestDataMorpher:
 
         # get image hashes
         image_hashes = Counter()
-        for frame_image in glob.glob(str(tmp_path / f'{base_path}*.png')):
-            with open(frame_image, 'rb') as img:
+        for frame_image in tmp_path.glob(f'{base_path}*.png'):
+            with frame_image.open('rb') as img:
                 image_hashes.update({hashlib.sha256(img.read()).hexdigest(): 1})
 
         if not write_images:

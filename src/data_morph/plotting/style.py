@@ -1,10 +1,11 @@
 """Utility functions for styling Matplotlib plots."""
 
+from collections.abc import Generator
 from contextlib import contextmanager
 from functools import wraps
 from importlib.resources import as_file, files
 from pathlib import Path
-from typing import Any, Callable, Generator
+from typing import Any, Callable
 
 import matplotlib.pyplot as plt
 
@@ -18,9 +19,11 @@ def style_context() -> Generator[None, None, None]:
     style = files(MAIN_DIR).joinpath(
         Path('plotting') / 'config' / 'plot_style.mplstyle'
     )
-    with as_file(style) as style_path:
-        with plt.style.context(['seaborn-v0_8-darkgrid', style_path]):
-            yield
+    with (
+        as_file(style) as style_path,
+        plt.style.context(['seaborn-v0_8-darkgrid', style_path]),
+    ):
+        yield
 
 
 def plot_with_custom_style(plotting_function: Callable) -> Callable:
@@ -40,7 +43,7 @@ def plot_with_custom_style(plotting_function: Callable) -> Callable:
 
     @wraps(plotting_function)
     @style_context()
-    def plot_in_style(*args, **kwargs) -> Any:
+    def plot_in_style(*args: Any, **kwargs: Any) -> Any:  # noqa: ANN401
         """
         Use a context manager to set the plot style before running
         the plotting function.

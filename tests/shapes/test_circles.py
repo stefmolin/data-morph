@@ -1,8 +1,8 @@
 """Test circles module."""
 
 import re
+from collections.abc import Iterable
 from numbers import Number
-from typing import Iterable, Tuple
 
 import numpy as np
 import pytest
@@ -16,7 +16,7 @@ class CirclesModuleTestBase:
     """Base for testing circle shapes."""
 
     shape_name: str
-    distance_test_cases: Iterable[Tuple[Iterable[Number], float]]
+    distance_test_cases: Iterable[tuple[Iterable[Number], float]]
     repr_regex: str
 
     @pytest.fixture(scope='class')

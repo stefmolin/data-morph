@@ -1,7 +1,9 @@
 """Test lines module."""
 
+from __future__ import annotations
+
+from collections.abc import Iterable
 from numbers import Number
-from typing import Iterable, Tuple, Union
 
 import numpy as np
 import pytest
@@ -13,9 +15,9 @@ class LinesModuleTestBase:
     """Base for testing line-based shapes."""
 
     shape_name: str
-    distance_test_cases: Iterable[Tuple[Iterable[Number], float]]
+    distance_test_cases: Iterable[tuple[Iterable[Number], float]]
     expected_line_count: int
-    expected_slopes: Union[Iterable[Number], Number]
+    expected_slopes: Iterable[Number] | Number
 
     @pytest.fixture(scope='class')
     def shape(self, shape_factory):

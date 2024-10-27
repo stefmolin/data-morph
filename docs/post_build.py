@@ -16,7 +16,7 @@ def determine_versions():
     """Determine stable/dev/etc. and docs version number."""
     last_minor_release = sorted(
         [
-            parse_version(Path(directory).name)
+            parse_version(directory.name)
             for directory in Path().glob(f'{build_html_dir}/[0-9].[0-9]/')
         ]
         or [parse_version('0.0')]

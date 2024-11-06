@@ -17,7 +17,7 @@ Generate points
 Below are some ways to create an original starter dataset. Each method will
 yield some (x, y) points, which may be in web browser coordinates or Cartesian
 coordinates. Save these to a text file called ``points.txt`` for processing in the
-:ref:`next step <custom_datasets:create a csv file in cartesian coordinates>`.
+:ref:`next step <tutorials/custom-datasets:create a csv file in cartesian coordinates>`.
 
 .. note::
     All tools included in this section are for reference only;
@@ -103,7 +103,7 @@ Pass the path to the CSV file to use those points as the starting shape:
 
 Here is an example animation generated from a custom dataset:
 
-.. figure:: _static/easter-egg-to-wide-lines.gif
+.. figure:: ../_static/tutorials/easter-egg-to-wide-lines.gif
    :alt: Congratulations, you've found the Easter egg!
    :align: center
 

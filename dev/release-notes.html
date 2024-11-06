@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Custom Datasets &#8212; Data Morph 0.3.0.dev0 documentation</title>
+    <title>Release Notes &#8212; Data Morph 0.3.0.dev0 documentation</title>
   
   
   
@@ -34,6 +34,8 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/tutorials/style.css?v=61399967" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -46,6 +48,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=30646c52"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-FMNM78QSKK"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -59,7 +62,7 @@
                 gtag('js', new Date());
                 gtag('config', 'G-FMNM78QSKK');
             </script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'custom_datasets';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'release-notes';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/switcher.json';
@@ -69,8 +72,7 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Shape Creation" href="shape_creation.html" />
-    <link rel="prev" title="Quick Start Guide" href="quickstart.html" />
+    <link rel="prev" title="Star" href="api/data_morph.shapes.polygons.Star.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -162,16 +164,9 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    Custom Datasets
-  </a>
-</li>
-
-
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="shape_creation.html">
-    Shape Creation
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
   </a>
 </li>
 
@@ -189,19 +184,19 @@
   </a>
 </li>
 
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Release Notes
+  </a>
+</li>
+
             <li class="nav-item dropdown">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="release_notes.html">
-    Release Notes
-  </a>
-</li>
-
-
 <li class=" ">
   <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">
     Article about Data Morph
@@ -353,16 +348,9 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    Custom Datasets
-  </a>
-</li>
-
-
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="shape_creation.html">
-    Shape Creation
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
   </a>
 </li>
 
@@ -381,8 +369,8 @@
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="release_notes.html">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
     Release Notes
   </a>
 </li>
@@ -508,7 +496,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Custom Datasets</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Release Notes</span></li>
   </ul>
 </nav>
 </div>
@@ -525,129 +513,76 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="custom-datasets">
-<h1>Custom Datasets<a class="headerlink" href="#custom-datasets" title="Link to this heading">#</a></h1>
-<p>This tutorial provides guidance on how to move from an idea for a custom dataset to
-an input dataset for morphing.</p>
-<nav class="contents local" id="steps">
-<p class="topic-title">Steps</p>
+  <section id="release-notes">
+<h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
+<section id="september-24-2023">
+<h2>0.2.0 (September 24, 2023)<a class="headerlink" href="#september-24-2023" title="Link to this heading">#</a></h2>
+<section id="what-s-new">
+<h3>What’s New<a class="headerlink" href="#what-s-new" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="#generate-points" id="id2">Generate points</a></p>
-<ul>
-<li><p><a class="reference internal" href="#drawing-a-shape" id="id3">Drawing a shape</a></p></li>
-<li><p><a class="reference internal" href="#using-an-svg-image" id="id4">Using an SVG image</a></p></li>
+<li><p>Created 5 new target shapes: <a class="reference internal" href="api/data_morph.shapes.polygons.Diamond.html#data_morph.shapes.polygons.Diamond" title="data_morph.shapes.polygons.Diamond"><code class="xref py py-class docutils literal notranslate"><span class="pre">Diamond</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.Heart.html#data_morph.shapes.points.Heart" title="data_morph.shapes.points.Heart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Heart</span></code></a>,
+<a class="reference internal" href="api/data_morph.shapes.points.LeftParabola.html#data_morph.shapes.points.LeftParabola" title="data_morph.shapes.points.LeftParabola"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeftParabola</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.RightParabola.html#data_morph.shapes.points.RightParabola" title="data_morph.shapes.points.RightParabola"><code class="xref py py-class docutils literal notranslate"><span class="pre">RightParabola</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.circles.Rings.html#data_morph.shapes.circles.Rings" title="data_morph.shapes.circles.Rings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rings</span></code></a>.</p></li>
+<li><p>Created 3 new datasets: bunny, Python logo (TM), SuperDataScience logo.
+Logos are used with permission.</p></li>
+<li><p>Made it possible to install via <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
+<li><p>Configured versioned documentation hosted in GitHub Pages.</p></li>
+<li><p>Generated a <a class="reference internal" href="cli.html"><span class="doc">CLI reference</span></a> page in the documentation.</p></li>
+<li><p>Provided a <a class="reference internal" href="tutorials/custom-datasets.html"><span class="doc">custom dataset creation tutorial</span></a> to the documentation.</p></li>
+<li><p>Included logo and badges in README.</p></li>
+<li><p>Included an example using easing for the animation to the documentation.</p></li>
+<li><p>Included reference to <a class="reference external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">article on the creation of Data Morph</a>
+in the documentation.</p></li>
+<li><p>Configured codecov reporting on test coverage with actions to validate the
+config both periodically and upon change.</p></li>
+<li><p>Incorporated metavar indicators for some CLI options.</p></li>
+<li><p>Added a test of the frame freezing functionality in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a>.</p></li>
+<li><p>Added a test for the <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory.plot_available_shapes" title="data_morph.shapes.factory.ShapeFactory.plot_available_shapes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShapeFactory.plot_available_shapes()</span></code></a> method used in the documentation.</p></li>
+<li><p>Added a test for the <a class="reference internal" href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.plot" title="data_morph.shapes.bases.point_collection.PointCollection.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PointCollection.plot()</span></code></a> method used in the documentation.</p></li>
 </ul>
-</li>
-<li><p><a class="reference internal" href="#create-a-csv-file-in-cartesian-coordinates" id="id5">Create a CSV file in Cartesian coordinates</a></p></li>
-<li><p><a class="reference internal" href="#morph-the-data" id="id6">Morph the data</a></p></li>
-<li><p><a class="reference internal" href="#optional-contribute-the-dataset" id="id7">(Optional) Contribute the dataset</a></p></li>
-</ul>
-</nav>
-<hr class="docutils" />
-<section id="generate-points">
-<h2>Generate points<a class="headerlink" href="#generate-points" title="Link to this heading">#</a></h2>
-<p>Below are some ways to create an original starter dataset. Each method will
-yield some (x, y) points, which may be in web browser coordinates or Cartesian
-coordinates. Save these to a text file called <code class="docutils literal notranslate"><span class="pre">points.txt</span></code> for processing in the
-<a class="reference internal" href="#create-a-csv-file-in-cartesian-coordinates"><span class="std std-ref">next step</span></a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>All tools included in this section are for reference only;
-this is not an endorsement.</p>
-</div>
-<section id="drawing-a-shape">
-<h3>Drawing a shape<a class="headerlink" href="#drawing-a-shape" title="Link to this heading">#</a></h3>
-<p>If you have a shape in mind or plan to trace one, you can use a tool like the
-following to create (x, y) points by free-hand drawing or tracing an image:</p>
+</section>
+<section id="bug-fixes">
+<h3>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Trace an image with <a class="reference external" href="https://www.mobilefish.com/services/record_mouse_coordinates/record_mouse_coordinates.php">Mobilefish.com</a> (web browser coordinates)</p></li>
-<li><p>Draw an image with <a class="reference external" href="http://robertgrantstats.co.uk/drawmydata.html">DrawMyData</a> (Cartesian coordinates)</p></li>
+<li><p>Fixed links to Autodesk assets after change to their website.</p></li>
+<li><p>Corrected missing type references in the documentation.</p></li>
+<li><p>Addressed a bug in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> that caused frame recording to miss first frame (initial dataset).</p></li>
+<li><p>Fixed a bug in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> that wasn’t properly decreasing
+the temperature in the simulated annealing process.</p></li>
+<li><p>Reduced point size for datasets displayed in the documentation so points
+appear with some separation and stay true to their subjects.</p></li>
+<li><p>Fixed bug in logic for padding statistics in plots that would use incorrect spacing in some cases.</p></li>
 </ul>
 </section>
-<section id="using-an-svg-image">
-<h3>Using an SVG image<a class="headerlink" href="#using-an-svg-image" title="Link to this heading">#</a></h3>
-<p>If you are starting from an SVG image, you can use a tool like <a class="reference external" href="https://shinao.github.io/PathToPoints/">PathToPoints</a>
-to generate points (in web browser coordinates) from the paths in the SVG file.
-Depending on the starting image, you may want to <a class="reference external" href="https://msurguy.github.io/svg-cropper-tool/">crop</a> and/or <a class="reference external" href="https://svgcrop.com/">remove whitespace</a>
-from the SVG file before generating the points. Note that the linked tools are just
-examples; make sure to look for the tool that works for your use case.</p>
+<section id="dependency-updates">
+<h3>Dependency Updates<a class="headerlink" href="#dependency-updates" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Changed the minimum Sphinx version to 7.2.1.</p></li>
+<li><p>Changed the minimum <code class="docutils literal notranslate"><span class="pre">pytweening</span></code> version to 1.0.5.</p></li>
+<li><p>Switched from <code class="docutils literal notranslate"><span class="pre">isort</span></code> and <code class="docutils literal notranslate"><span class="pre">flake8</span></code> to <code class="docutils literal notranslate"><span class="pre">ruff</span></code> in pre-commit setup.</p></li>
+<li><p>Updated pre-commit hooks to the latest versions and to use the new upstream <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> validation hook.</p></li>
+</ul>
 </section>
 </section>
-<section id="create-a-csv-file-in-cartesian-coordinates">
-<h2>Create a CSV file in Cartesian coordinates<a class="headerlink" href="#create-a-csv-file-in-cartesian-coordinates" title="Link to this heading">#</a></h2>
-<p>Depending on the tool you use to generate your points in the previous step,
-your points may be in the web browser coordinate system, in which case they
-will appear upside-down unless we flip them. Use the following code to convert
-the points into Cartesian coordinates (if necessary), save to a CSV file for
-morphing, and plot it:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-
-<span class="c1"># whether the points are in web browser coordinates</span>
-<span class="n">browser_coordinates</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;points.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-    <span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-        <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()],</span>
-        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span>
-    <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">browser_coordinates</span><span class="p">:</span>
-        <span class="c1"># reflect points over the x-axis (web browser coordinates only)</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="o">-</span><span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-
-    <span class="n">points</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;points.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="n">points</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>While Data Morph provides a scaling option, consider scaling the data when
-creating your CSV file to save some typing later. For example, you can divide
-all values by 10 to scale down by a factor of 10. This makes morphing faster.</p>
-<p>Likewise, you can shift the data in the x/y direction at this step, although
-this is purely aesthetic.</p>
-</div>
-</section>
-<section id="morph-the-data">
-<h2>Morph the data<a class="headerlink" href="#morph-the-data" title="Link to this heading">#</a></h2>
-<p>Pass the path to the CSV file to use those points as the starting shape:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>path/to/points.csv<span class="w"> </span>--target-shape<span class="w"> </span>wide_lines
-</pre></div>
-</div>
-<p>Here is an example animation generated from a custom dataset:</p>
-<figure class="align-center" id="id1">
-<img alt="Congratulations, you've found the Easter egg!" src="_images/easter-egg-to-wide-lines.gif" />
-<figcaption>
-<p><span class="caption-text">Congratulations, you’ve found the Easter egg!</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
-<section id="optional-contribute-the-dataset">
-<h2>(Optional) Contribute the dataset<a class="headerlink" href="#optional-contribute-the-dataset" title="Link to this heading">#</a></h2>
-<p>If you have the rights to distribute the dataset and you think it would
-be a good built-in dataset, <a class="reference external" href="https://github.com/stefmolin/data-morph/issues">create an issue</a>
-in the Data Morph repository proposing its inclusion. Be sure to consult the
-<a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a>
-before doing so.</p>
-<p>If and only if you are given the go ahead:</p>
-<ol class="arabic simple">
-<li><p>Add your CSV file to the <code class="docutils literal notranslate"><span class="pre">src/data_morph/data/starter_shapes/</span></code> directory.</p></li>
-<li><p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">DataLoader._DATASETS</span></code> dictionary in <code class="docutils literal notranslate"><span class="pre">src/data_morph/data/loader.py</span></code>.</p></li>
-<li><p>Submit your pull request.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For inclusion in Data Morph, the proposed dataset must work with more
-than one shape. You can pass <code class="docutils literal notranslate"><span class="pre">all</span></code> as the target shape to generate all
-options for inspection:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>path/to/points.csv<span class="w"> </span>--target-shape<span class="w"> </span>all
-</pre></div>
-</div>
-</div>
+<section id="april-1-2023">
+<h2>0.1.0 (April 1, 2023)<a class="headerlink" href="#april-1-2023" title="Link to this heading">#</a></h2>
+<p>This is the first release of Data Morph, which is a spinoff of
+<a class="reference external" href="https://github.com/jmatejka/same-stats-different-graphs">jmatejka/same-stats-different-graphs</a>.
+Data Morph extends the original premise from
+<a class="reference external" href="https://www.autodeskresearch.com/publications/samestats">the Autodesk Research paper</a> to be more general.
+The core improvements include:</p>
+<ul class="simple">
+<li><p>Created a modular package, moving away from functional programming to object-oriented programming.</p></li>
+<li><p>Introduction of <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> classes both for resuability of the code and to decouple the shapes from
+the original “datasaurus” dataset and its hardcoded values. Morphing is now possible from any input dataset
+to the target shapes. See the <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a> documentation for visuals.</p></li>
+<li><p>Creation of <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> to hold the data along with bounds needed for morphing and plotting and the name.</p></li>
+<li><p>Morph and plot bounding logic for automatic calculation of values needed for simulated annealing and plot limits.</p></li>
+<li><p>Fun new starter datasets: cat, dog, music, panda, and sheep. See the <a class="reference internal" href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader" title="data_morph.data.loader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> documentation for visuals.</p></li>
+<li><p>Easier application of plotting theme.</p></li>
+<li><p>Documentation with Sphinx.</p></li>
+<li><p>Testing suite with pytest.</p></li>
+<li><p>Replaced center shape with <a class="reference internal" href="api/data_morph.shapes.points.Scatter.html#data_morph.shapes.points.Scatter" title="data_morph.shapes.points.Scatter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scatter</span></code></a> and included a new <a class="reference internal" href="api/data_morph.shapes.polygons.Rectangle.html#data_morph.shapes.polygons.Rectangle" title="data_morph.shapes.polygons.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a> shape.</p></li>
+</ul>
 </section>
 </section>
 
@@ -657,30 +592,6 @@ options for inspection:</p>
               
               
               
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="quickstart.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Quick Start Guide</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="shape_creation.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Shape Creation</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
               
             </div>
             
@@ -698,21 +609,20 @@ options for inspection:</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-points">Generate points</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#drawing-a-shape">Drawing a shape</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-svg-image">Using an SVG image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#september-24-2023">0.2.0 (September 24, 2023)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-new">What’s New</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-updates">Dependency Updates</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-csv-file-in-cartesian-coordinates">Create a CSV file in Cartesian coordinates</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#morph-the-data">Morph the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-contribute-the-dataset">(Optional) Contribute the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#april-1-2023">0.1.0 (April 1, 2023)</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="_sources/custom_datasets.rst.txt">
+    <a href="_sources/release-notes.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

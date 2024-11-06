@@ -27,7 +27,7 @@ base class (:class:`.Shape`), which defines the basics of how a shape
 needs to behave (*i.e.*, it must have a ``distance()`` method and a
 ``plot()`` method).
 
-.. figure:: ../_static/shapes_uml.svg
+.. figure:: ../_static/tutorials/shapes_uml.svg
    :alt: UML diagram showing the hierarchy of the shape classes.
    :align: center
 

@@ -4,7 +4,8 @@ Data Morph.
 Morph an input dataset of 2D points into select shapes, while preserving the summary
 statistics to a given number of decimal points through simulated annealing. It is intended
 to be used as a teaching tool to illustrate the importance of data visualization (see
-`Data Morph in the classroom`_ for ideas).
+`Data Morph in the classroom <https://stefaniemolin.com/data-morph/dev/index.html#data-morph-in-the-classroom>`_
+for ideas).
 
 Notes
 -----

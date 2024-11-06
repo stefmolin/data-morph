@@ -42,6 +42,7 @@ extensions = [
     'sphinx_copybutton',
     'sphinx_argparse_cli',
     'matplotlib.sphinxext.plot_directive',
+    'sphinx_design',
 ]
 
 templates_path = ['_templates']
@@ -100,6 +101,7 @@ plot_html_show_formats = False
 
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
+html_css_files = ['tutorials/style.css']
 html_logo = '_static/logo.png'
 html_favicon = '_static/favicon.ico'
 
@@ -130,6 +132,7 @@ html_theme_options = {
     'analytics': {
         'google_analytics_id': 'G-FMNM78QSKK',
     },
+    'show_prev_next': False,
 }
 
 html_context = {
@@ -144,10 +147,9 @@ html_context = {
 # https://github.com/pydata/pydata-sphinx-theme/pull/1682
 html_sidebars = {
     'cli': [],
-    'custom_datasets': [],
     'quickstart': [],
-    'release_notes': [],
-    'shape_creation': [],
+    'release-notes': [],
+    'tutorials/*': [],
 }
 
 

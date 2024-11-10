@@ -1,9 +1,11 @@
 """Module containing data morphing logic."""
 
+from __future__ import annotations
+
+from collections.abc import Iterable, MutableSequence
 from functools import partial
 from numbers import Number
 from pathlib import Path
-from typing import Iterable, MutableSequence, Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -58,10 +60,10 @@ class DataMorpher:
         *,
         decimals: int,
         in_notebook: bool,
-        output_dir: Optional[Union[str, Path]] = None,
+        output_dir: str | Path | None = None,
         write_images: bool = True,
         write_data: bool = False,
-        seed: Optional[int] = None,
+        seed: int | None = None,
         num_frames: int = 100,
         keep_frames: bool = False,
         forward_only_animation: bool = False,
@@ -462,7 +464,9 @@ class DataMorpher:
             frame_number=0,
         )
 
-        def _tweening(frame, *, min_value, max_value):  # numpydoc ignore=PR01,RT01
+        def _tweening(
+            frame: int, *, min_value: Number, max_value: Number
+        ) -> Number:  # numpydoc ignore=PR01,RT01
             """Determine the next value with tweening."""
             return (max_value - min_value) * ease_in_out_quadratic(
                 (iterations - frame) / iterations

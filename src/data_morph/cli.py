@@ -1,8 +1,10 @@
 """Run Data Morph CLI from start shape to end shape preserving summary statistics."""
 
+from __future__ import annotations
+
 import argparse
 import sys
-from typing import Sequence, Union
+from collections.abc import Sequence
 
 from . import __version__
 from .data.loader import DataLoader
@@ -206,13 +208,13 @@ def generate_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: Union[Sequence[str], None] = None) -> None:
+def main(argv: Sequence[str] | None = None) -> None:
     """
     Run Data Morph as a script.
 
     Parameters
     ----------
-    argv : Union[Sequence[str], None], optional
+    argv : Sequence[str] | None, optional
         Makes it possible to pass in options without running on
         the command line.
     """

@@ -1,8 +1,10 @@
 """Abstract base class for shapes."""
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Iterable
 from numbers import Number
-from typing import Iterable, Optional
 
 import numpy as np
 from matplotlib.axes import Axes
@@ -71,7 +73,7 @@ class Shape(ABC):
         """
         return np.linalg.norm(a - b)
 
-    def _recursive_repr(self, attr: Optional[str] = None) -> str:
+    def _recursive_repr(self, attr: str | None = None) -> str:
         """
         Return string representation of the shape incorporating
         any items inside a specific attribute.

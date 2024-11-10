@@ -1,10 +1,11 @@
 """Utility functions for animations."""
 
-import glob
+from __future__ import annotations
+
 import math
 from functools import wraps
 from pathlib import Path
-from typing import Callable, Union
+from typing import Callable
 
 from PIL import Image
 
@@ -12,9 +13,9 @@ from ..shapes.bases.shape import Shape
 
 
 def stitch_gif_animation(
-    output_dir: Union[str, Path],
+    output_dir: str | Path,
     start_shape: str,
-    target_shape: Union[str, Shape],
+    target_shape: str | Shape,
     keep_frames: bool = False,
     forward_only_animation: bool = False,
 ) -> None:
@@ -44,7 +45,7 @@ def stitch_gif_animation(
     output_dir = Path(output_dir)
 
     # find the frames and sort them
-    imgs = sorted(glob.glob(str(output_dir / f'{start_shape}-to-{target_shape}*.png')))
+    imgs = sorted(output_dir.glob(f'{start_shape}-to-{target_shape}*.png'))
 
     frames = [Image.open(img) for img in imgs]
 
@@ -68,8 +69,8 @@ def stitch_gif_animation(
 
 
 def check_step(
-    easing_function: Callable[[Union[int, float]], Union[int, float]],
-) -> Callable[[Union[int, float]], Union[int, float]]:
+    easing_function: Callable[[int | float], int | float],
+) -> Callable[[int | float], int | float]:
     """
     Decorator to check if the step is a float or int and if it is between 0 and 1.
 
@@ -85,7 +86,7 @@ def check_step(
     """
 
     @wraps(easing_function)
-    def wrapper(step: Union[int, float]) -> Union[int, float]:
+    def wrapper(step: int | float) -> int | float:
         """
         Wrapper function to check the step.
 
@@ -107,7 +108,7 @@ def check_step(
 
 
 @check_step
-def ease_in_sine(step: Union[int, float]) -> float:
+def ease_in_sine(step: int | float) -> float:
     """
     An ease-in sinusoidal function to generate animation steps (slow to fast).
 
@@ -125,7 +126,7 @@ def ease_in_sine(step: Union[int, float]) -> float:
 
 
 @check_step
-def ease_out_sine(step: Union[int, float]) -> float:
+def ease_out_sine(step: int | float) -> float:
     """
     An ease-out sinusoidal function to generate animation steps (fast to slow).
 
@@ -143,7 +144,7 @@ def ease_out_sine(step: Union[int, float]) -> float:
 
 
 @check_step
-def ease_in_out_sine(step: Union[int, float]) -> float:
+def ease_in_out_sine(step: int | float) -> float:
     """
     An ease-in and ease-out sinusoidal function to generate animation steps (slow to fast to slow).
 
@@ -161,7 +162,7 @@ def ease_in_out_sine(step: Union[int, float]) -> float:
 
 
 @check_step
-def ease_in_out_quadratic(step: Union[int, float]) -> Union[int, float]:
+def ease_in_out_quadratic(step: int | float) -> int | float:
     """
     An ease-in and ease-out quadratic function to generate animation steps (slow to fast to slow).
 
@@ -183,7 +184,7 @@ def ease_in_out_quadratic(step: Union[int, float]) -> Union[int, float]:
 
 
 @check_step
-def linear(step: Union[int, float]) -> Union[int, float]:
+def linear(step: int | float) -> int | float:
     """
     A linear function to generate animation steps.
 

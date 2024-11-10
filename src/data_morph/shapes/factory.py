@@ -1,6 +1,7 @@
 """Factory class for generating shape objects."""
 
 from itertools import zip_longest
+from numbers import Number
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -53,6 +54,8 @@ class ShapeFactory:
         'rectangle': polygons.Rectangle,
         'rings': circles.Rings,
         'star': polygons.Star,
+        'club': points.Club,
+        'spade': points.Spade,
     }
 
     AVAILABLE_SHAPES: list[str] = sorted(_SHAPE_MAPPING.keys())
@@ -62,7 +65,7 @@ class ShapeFactory:
     def __init__(self, dataset: Dataset) -> None:
         self._dataset: Dataset = dataset
 
-    def generate_shape(self, shape: str, **kwargs) -> Shape:
+    def generate_shape(self, shape: str, **kwargs: Number) -> Shape:
         """
         Generate the shape object based on the dataset.
 

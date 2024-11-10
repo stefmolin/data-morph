@@ -1,7 +1,7 @@
 """Base class for shapes that are composed of points."""
 
+from collections.abc import Iterable
 from numbers import Number
-from typing import Iterable
 
 import matplotlib.pyplot as plt
 import numpy as np

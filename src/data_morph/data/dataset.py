@@ -97,7 +97,7 @@ class Dataset:
         # could also make this a parameter to __init__()
         morph_bounds = self.data_bounds.clone()
 
-        x_offset, y_offset = [offset * 0.2 for offset in self.data_bounds.range]
+        x_offset, y_offset = (offset * 0.2 for offset in self.data_bounds.range)
 
         morph_bounds.adjust_bounds(x=x_offset, y=y_offset)
         return morph_bounds
@@ -113,14 +113,14 @@ class Dataset:
         """
         # TODO: range * 0.2 is still a bit arbitrary (need to take into account density at the edges)
         # could also make this a parameter to __init__()
-        x_offset, y_offset = [offset * 0.2 for offset in self.data_bounds.range]
+        x_offset, y_offset = (offset * 0.2 for offset in self.data_bounds.range)
 
         plot_bounds = self.morph_bounds.clone()
         plot_bounds.adjust_bounds(x=x_offset, y=y_offset)
         plot_bounds.align_aspect_ratio()
         return plot_bounds
 
-    def _scale_data(self, df, scale: Number) -> pd.DataFrame:
+    def _scale_data(self, df: pd.DataFrame, scale: Number) -> pd.DataFrame:
         """
         Apply scaling to the data.
 

@@ -17,7 +17,7 @@ Generate points
 Below are some ways to create an original starter dataset. Each method will
 yield some (x, y) points, which may be in web browser coordinates or Cartesian
 coordinates. Save these to a text file called ``points.txt`` for processing in the
-:ref:`next step <custom_datasets:create a csv file in cartesian coordinates>`.
+:ref:`next step <tutorials/custom-datasets:create a csv file in cartesian coordinates>`.
 
 .. note::
     All tools included in this section are for reference only;
@@ -103,7 +103,7 @@ Pass the path to the CSV file to use those points as the starting shape:
 
 Here is an example animation generated from a custom dataset:
 
-.. figure:: _static/easter-egg-to-wide-lines.gif
+.. figure:: ../_static/tutorials/easter-egg-to-wide-lines.gif
    :alt: Congratulations, you've found the Easter egg!
    :align: center
 
@@ -124,3 +124,12 @@ If and only if you are given the go ahead:
 1. Add your CSV file to the ``src/data_morph/data/starter_shapes/`` directory.
 2. Add an entry to the ``DataLoader._DATASETS`` dictionary in ``src/data_morph/data/loader.py``.
 3. Submit your pull request.
+
+.. note::
+    For inclusion in Data Morph, the proposed dataset must work with more
+    than one shape. You can pass ``all`` as the target shape to generate all
+    options for inspection:
+
+    .. code:: console
+
+       $ data-morph --start-shape path/to/points.csv --target-shape all

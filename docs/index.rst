@@ -7,10 +7,10 @@ Data Morph
    :hidden:
 
    quickstart
-   custom_datasets
+   tutorials/index
    cli
    api
-   release_notes
+   release-notes
 
 .. automodule:: data_morph
    :noindex:

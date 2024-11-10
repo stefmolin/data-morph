@@ -13,7 +13,7 @@ What's New
 * Made it possible to install via ``conda``.
 * Configured versioned documentation hosted in GitHub Pages.
 * Generated a :doc:`CLI reference <cli>` page in the documentation.
-* Provided a :doc:`custom dataset creation tutorial <custom_datasets>` to the documentation.
+* Provided a :doc:`custom dataset creation tutorial <tutorials/custom-datasets>` to the documentation.
 * Included logo and badges in README.
 * Included an example using easing for the animation to the documentation.
 * Included reference to `article on the creation of Data Morph

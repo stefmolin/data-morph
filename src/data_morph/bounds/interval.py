@@ -1,7 +1,7 @@
 """Class for working with bounds."""
 
+from collections.abc import Iterable
 from numbers import Number
-from typing import Iterable
 
 from ._utils import _validate_2d
 

@@ -1,12 +1,12 @@
 """Utility functions for calculating summary statistics."""
 
 from collections import namedtuple
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 from numbers import Number
-from typing import Iterable, Optional
+from typing import Iterable
 
 import numpy as np
-from avltree import AvlTree
+from sortedcounter import SortedCounter
 
 SummaryStatistics = namedtuple(
     'SummaryStatistics',
@@ -17,114 +17,14 @@ SummaryStatistics.__doc__ = (
 )
 
 
-class SortedCounter:
-    """
-    A version of ``collections.Counter`` that is ordered.
-
-    Notes
-    -----
-    The time complexity of lookup, insertion, and deletion is O(log n).
-    """
-
-    def __init__(self, iterable: Optional[Iterable] = None, /):
-        """
-        Create a ``SortedCounter`` from an iterable or a mapping.
-        """
-        self._tree = AvlTree()
-        # internal counter for how many elements are there (= size of
-        # container)
-        self._counter = 0
-
-        if iterable is not None:
-            if isinstance(iterable, Iterable):
-                for item in iterable:
-                    self.add(item)
-            elif isinstance(iterable, Mapping):
-                for key, value in iterable.items():
-                    self.add(key, times=value)
-            else:
-                raise TypeError(
-                    f'Type {type(iterable)} not supported for SortedCounter container.'
-                )
-
-        self._counter = sum(self._tree[key] for key in self._tree)
-
-    def add(self, key, /, times: int = 1):
-        """
-        Add a value to the container (possibly multiple times).
-
-        Raises
-        ------
-        ValueError
-            If ``times`` is < 0.
-        """
-        if times <= 0:
-            raise ValueError(
-                f'Cannot add {times} item {key} to container; # of items to add must be > 0'
-            )
-
-        try:
-            self._tree[key] += times
-        except KeyError:
-            self._tree[key] = times
-        self._counter += times
-
-    def remove(self, key, /, times: int = 1):
-        """
-        Remove a value from the container (possibly multiple times).
-
-        Raises
-        ------
-        ValueError
-            If ``times`` is < 0.
-
-        Notes
-        -----
-        If ``key`` is not present in the container, does nothing.
-        If ``times`` is larger than the current number of items in the
-        container, ``key`` is removed from the container.
-        """
-        if times <= 0:
-            raise ValueError(
-                f'Cannot remove item {key} {times} times from container; # of items to remove must be > 0'
-            )
-
-        if self._tree[key] - times <= 0:
-            del self._tree[key]
-        else:
-            self._tree[key] -= times
-        self._counter -= times
-
-    def __getitem__(self, key):
-        return self._tree[key]
-
-    def __len__(self):
-        return self._counter
-
-    def maximum(self):
-        """
-        Return the maximum value stored in the container.
-        """
-        return self._tree.maximum()
-
-    def minimum(self):
-        """
-        Return the minimum value stored in the container.
-        """
-        return self._tree.minimum()
-
-    def __repr__(self):
-        return f'{self.__class__.__name__}({repr(dict(self._tree))})'
-
-
 def create_median_tree(data: Sequence, /) -> tuple[SortedCounter, SortedCounter]:
     """
     Return a tuple of low and high ``SortedCounter``s from input data.
 
     Parameters
     ----------
-    data
-        The input data as an iterable
+    data : Sequence
+        The input data as an iterable.
 
     Returns
     -------

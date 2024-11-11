@@ -48,7 +48,7 @@ dependencies = [
   "matplotlib>=3.3",
   "numpy>=1.20",
   "pandas>=1.2",
-  "sortedcounter",
+  "sortedcountercpp",
   "tqdm>=4.64.1",
 ]
 optional-dependencies.dev = [

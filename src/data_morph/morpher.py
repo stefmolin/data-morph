@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import MutableSequence
 from functools import partial
 from numbers import Number
 from pathlib import Path
@@ -251,11 +252,11 @@ class DataMorpher:
 
         Parameters
         ----------
-        item1: SummaryStatistics
-            the first summary statistic
+        item1 : SummaryStatistics
+            The first summary statistic.
 
-        item2: SummaryStatistics
-            the second summary statistic
+        item2 : SummaryStatistics
+            The second summary statistic.
 
         Returns
         -------

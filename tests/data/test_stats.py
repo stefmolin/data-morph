@@ -196,7 +196,6 @@ def test_shifted_median(data):
     data = np.sort(np.array(data, dtype=float))
     size = len(data)
     xlow, xhigh = create_median_tree(data)
-    # assert_equal(data, np.concatenate([list(xlow), list(xhigh)]))
     # make sure it works if we don't do anything
     ref = np.median(data)
     actual = shifted_median(xlow, xhigh, data[0], data[0])

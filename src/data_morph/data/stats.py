@@ -1,9 +1,8 @@
 """Utility functions for calculating summary statistics."""
 
 from collections import namedtuple
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 from numbers import Number
-from typing import Iterable
 
 import numpy as np
 from sortedcounter import SortedCounter
@@ -111,7 +110,7 @@ def shifted_var(
     )
 
 
-def shifted_stdev(*args, **kwargs):
+def shifted_stdev(*args: float, **kwargs: int) -> float:
     """
     Compute the shifted standard deviation by perturbing one point.
 
@@ -302,7 +301,7 @@ class Statistics:
         The ``y`` value of the data as an iterable.
     """
 
-    def __init__(self, x: Iterable[Number], y: Iterable[Number]):
+    def __init__(self, x: Iterable[Number], y: Iterable[Number]) -> None:
         if len(x) != len(y):
             raise ValueError('The two datasets should have the same size')
 
@@ -382,7 +381,7 @@ class Statistics:
         """
         return self._corrcoef
 
-    def __len__(self):
+    def __len__(self) -> int:
         """
         Return the size of the dataset.
 

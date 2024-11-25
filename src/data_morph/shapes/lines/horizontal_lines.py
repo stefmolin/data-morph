@@ -26,6 +26,8 @@ class HorizontalLines(LineCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'h_lines'
+
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
@@ -36,6 +38,3 @@ class HorizontalLines(LineCollection):
                 for y in np.linspace(y_bounds[0], y_bounds[1], 5)
             ]
         )
-
-    def __str__(self) -> str:
-        return 'h_lines'

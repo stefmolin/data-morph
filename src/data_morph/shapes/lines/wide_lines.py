@@ -24,6 +24,8 @@ class WideLines(LineCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'wide_lines'
+
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
@@ -36,6 +38,3 @@ class WideLines(LineCollection):
             [[lower, y_bounds[0]], [lower, y_bounds[1]]],
             [[upper, y_bounds[0]], [upper, y_bounds[1]]],
         )
-
-    def __str__(self) -> str:
-        return 'wide_lines'

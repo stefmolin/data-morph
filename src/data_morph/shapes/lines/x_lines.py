@@ -24,11 +24,10 @@ class XLines(LineCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'x'
+
     def __init__(self, dataset: Dataset) -> None:
         xmin, xmax = dataset.morph_bounds.x_bounds
         ymin, ymax = dataset.morph_bounds.y_bounds
 
         super().__init__([[xmin, ymin], [xmax, ymax]], [[xmin, ymax], [xmax, ymin]])
-
-    def __str__(self) -> str:
-        return 'x'

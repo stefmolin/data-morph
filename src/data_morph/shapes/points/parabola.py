@@ -26,6 +26,8 @@ class DownParabola(PointCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'down_parab'
+
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
         xmin, xmax = x_bounds
@@ -40,9 +42,6 @@ class DownParabola(PointCollection):
         poly = np.polynomial.Polynomial.fit([xmin, xmid, xmax], [ymin, ymax, ymin], 2)
 
         super().__init__(*np.stack(poly.linspace(), axis=1))
-
-    def __str__(self) -> str:
-        return 'down_parab'
 
 
 class LeftParabola(PointCollection):
@@ -65,6 +64,8 @@ class LeftParabola(PointCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'left_parab'
+
     def __init__(self, dataset: Dataset) -> None:
         y_bounds = dataset.data_bounds.y_bounds
         ymin, ymax = y_bounds
@@ -79,9 +80,6 @@ class LeftParabola(PointCollection):
         poly = np.polynomial.Polynomial.fit([ymin, ymid, ymax], [xmin, xmax, xmin], 2)
 
         super().__init__(*np.stack(poly.linspace()[::-1], axis=1))
-
-    def __str__(self) -> str:
-        return 'left_parab'
 
 
 class RightParabola(PointCollection):
@@ -104,6 +102,8 @@ class RightParabola(PointCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'right_parab'
+
     def __init__(self, dataset: Dataset) -> None:
         y_bounds = dataset.data_bounds.y_bounds
         ymin, ymax = y_bounds
@@ -118,9 +118,6 @@ class RightParabola(PointCollection):
         poly = np.polynomial.Polynomial.fit([ymin, ymid, ymax], [xmax, xmin, xmax], 2)
 
         super().__init__(*np.stack(poly.linspace()[::-1], axis=1))
-
-    def __str__(self) -> str:
-        return 'right_parab'
 
 
 class UpParabola(PointCollection):
@@ -143,6 +140,8 @@ class UpParabola(PointCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'up_parab'
+
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
         xmin, xmax = x_bounds
@@ -157,6 +156,3 @@ class UpParabola(PointCollection):
         poly = np.polynomial.Polynomial.fit([xmin, xmid, xmax], [ymax, ymin, ymax], 2)
 
         super().__init__(*np.stack(poly.linspace(), axis=1))
-
-    def __str__(self) -> str:
-        return 'up_parab'

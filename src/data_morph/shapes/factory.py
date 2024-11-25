@@ -9,8 +9,31 @@ from matplotlib.axes import Axes
 
 from ..data.dataset import Dataset
 from ..plotting.style import plot_with_custom_style
-from . import circles, lines, points, polygons
 from .bases.shape import Shape
+from .circles import Bullseye, Circle, Rings
+from .lines import (
+    Diamond,
+    HighLines,
+    HorizontalLines,
+    Rectangle,
+    SlantDownLines,
+    SlantUpLines,
+    Star,
+    VerticalLines,
+    WideLines,
+    XLines,
+)
+from .points import (
+    Club,
+    DotsGrid,
+    DownParabola,
+    Heart,
+    LeftParabola,
+    RightParabola,
+    Scatter,
+    Spade,
+    UpParabola,
+)
 
 
 class ShapeFactory:
@@ -34,28 +57,28 @@ class ShapeFactory:
     """
 
     _SHAPE_MAPPING: dict = {
-        'bullseye': circles.Bullseye,
-        'circle': circles.Circle,
-        'high_lines': lines.HighLines,
-        'h_lines': lines.HorizontalLines,
-        'slant_down': lines.SlantDownLines,
-        'slant_up': lines.SlantUpLines,
-        'v_lines': lines.VerticalLines,
-        'wide_lines': lines.WideLines,
-        'x': lines.XLines,
-        'dots': points.DotsGrid,
-        'down_parab': points.DownParabola,
-        'heart': points.Heart,
-        'left_parab': points.LeftParabola,
-        'scatter': points.Scatter,
-        'right_parab': points.RightParabola,
-        'up_parab': points.UpParabola,
-        'diamond': polygons.Diamond,
-        'rectangle': polygons.Rectangle,
-        'rings': circles.Rings,
-        'star': polygons.Star,
-        'club': points.Club,
-        'spade': points.Spade,
+        'bullseye': Bullseye,
+        'circle': Circle,
+        'high_lines': HighLines,
+        'h_lines': HorizontalLines,
+        'slant_down': SlantDownLines,
+        'slant_up': SlantUpLines,
+        'v_lines': VerticalLines,
+        'wide_lines': WideLines,
+        'x': XLines,
+        'dots': DotsGrid,
+        'down_parab': DownParabola,
+        'heart': Heart,
+        'left_parab': LeftParabola,
+        'scatter': Scatter,
+        'right_parab': RightParabola,
+        'up_parab': UpParabola,
+        'diamond': Diamond,
+        'rectangle': Rectangle,
+        'rings': Rings,
+        'star': Star,
+        'club': Club,
+        'spade': Spade,
     }
 
     AVAILABLE_SHAPES: list[str] = sorted(_SHAPE_MAPPING.keys())

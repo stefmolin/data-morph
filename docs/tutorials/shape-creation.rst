@@ -82,10 +82,14 @@ Register the shape
 For the ``data-morph`` CLI to find your shape, you need to register it with the
 :class:`.ShapeFactory`:
 
-1. Add your shape class to the appropriate file inside the ``src/data_morph/shapes/``
-   directory. Note that the filenames correspond to the type of shape (*e.g.*, use
-   ``src/data_morph/shapes/points.py`` for a new shape inheriting from :class:`.PointCollection`).
-2. Add an entry to the ``ShapeFactory._SHAPE_MAPPING`` dictionary in
+1. Add your shape class to the appropriate module inside the ``src/data_morph/shapes/``
+   directory. Note that these correspond to the type of shape (*e.g.*, use
+   ``src/data_morph/shapes/points/<your_shape>.py`` for a new shape inheriting from
+   :class:`.PointCollection`).
+2. Add your shape to ``__all__`` in that module's ``__init__.py`` (*e.g.*, use
+   ``src/data_morph/shapes/points/__init__.py`` for a new shape inheriting from
+   :class:`.PointCollection`).
+3. Add an entry to the ``ShapeFactory._SHAPE_MAPPING`` dictionary in
    ``src/data_morph/shapes/factory.py``.
 
 Test out the shape

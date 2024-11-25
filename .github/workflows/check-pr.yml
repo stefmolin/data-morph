@@ -1,4 +1,4 @@
-# This workflow runs pre-commit hooks on the files in the PR only.
+# This workflow runs pre-commit hooks all files and confirms the docs can be built.
 #
 # Author: Stefanie Molin
 
@@ -6,10 +6,6 @@ name: Check PR
 
 on:
   pull_request:
-    paths:
-      - 'docs/**'
-      - 'src/**'
-      - 'tests/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}

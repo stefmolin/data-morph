@@ -1,4 +1,4 @@
-# This workflow runs pre-commit hooks all files and confirms the docs can be built.
+# This workflow runs the pre-commit hooks on all files and confirms the docs can be built.
 #
 # Author: Stefanie Molin
 

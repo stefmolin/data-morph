@@ -8,9 +8,9 @@ name: Generate Morphs
 on:
   push:
   pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - 'tests/**'
+    paths:
+      - 'src/**'
+      - 'pyproject.toml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}

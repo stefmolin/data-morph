@@ -12,6 +12,7 @@ on:
     branches: [ "main" ]
     paths:
       - '**'
+      - '!bin/**'
       - '!docs/**'
       - '!.github/**'
       - '.github/workflows/ci.yml'

@@ -1,5 +1,7 @@
 """Shapes that are circular in nature."""
 
+from __future__ import annotations
+
 from numbers import Number
 
 import matplotlib.pyplot as plt
@@ -33,7 +35,7 @@ class Circle(Shape):
         The radius of the circle.
     """
 
-    def __init__(self, dataset: Dataset, radius: Number = None) -> None:
+    def __init__(self, dataset: Dataset, radius: Number | None = None) -> None:
         self.center: np.ndarray = dataset.df[['x', 'y']].mean().to_numpy()
         """numpy.ndarray: The (x, y) coordinates of the circle's center."""
 
@@ -63,7 +65,7 @@ class Circle(Shape):
         )
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 
@@ -159,7 +161,7 @@ class Rings(Shape):
         )
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 

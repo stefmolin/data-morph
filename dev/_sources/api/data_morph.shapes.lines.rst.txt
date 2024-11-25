@@ -13,19 +13,6 @@ lines
 
    
    
-   .. rubric:: Classes
-
-   .. autosummary::
-      :toctree:
-   
-      HighLines
-      HorizontalLines
-      SlantDownLines
-      SlantUpLines
-      VerticalLines
-      WideLines
-      XLines
-   
    
 
    
@@ -33,4 +20,21 @@ lines
    
 
 
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   diamond
+   high_lines
+   horizontal_lines
+   rectangle
+   slant_down
+   slant_up
+   star
+   vertical_lines
+   wide_lines
+   x_lines
 

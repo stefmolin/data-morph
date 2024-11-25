@@ -32,5 +32,4 @@
    factory
    lines
    points
-   polygons
 

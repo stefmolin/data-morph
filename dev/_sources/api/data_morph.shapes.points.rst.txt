@@ -13,21 +13,6 @@ points
 
    
    
-   .. rubric:: Classes
-
-   .. autosummary::
-      :toctree:
-   
-      Club
-      DotsGrid
-      DownParabola
-      Heart
-      LeftParabola
-      RightParabola
-      Scatter
-      Spade
-      UpParabola
-   
    
 
    
@@ -35,4 +20,17 @@ points
    
 
 
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   club
+   dots_grid
+   heart
+   parabola
+   scatter
+   spade
 

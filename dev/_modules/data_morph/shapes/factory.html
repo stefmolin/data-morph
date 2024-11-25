@@ -524,8 +524,31 @@
 
 <span class="kn">from</span> <span class="nn">..data.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
 <span class="kn">from</span> <span class="nn">..plotting.style</span> <span class="kn">import</span> <span class="n">plot_with_custom_style</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">circles</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">polygons</span>
 <span class="kn">from</span> <span class="nn">.bases.shape</span> <span class="kn">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">.circles</span> <span class="kn">import</span> <span class="n">Bullseye</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Rings</span>
+<span class="kn">from</span> <span class="nn">.lines</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Diamond</span><span class="p">,</span>
+    <span class="n">HighLines</span><span class="p">,</span>
+    <span class="n">HorizontalLines</span><span class="p">,</span>
+    <span class="n">Rectangle</span><span class="p">,</span>
+    <span class="n">SlantDownLines</span><span class="p">,</span>
+    <span class="n">SlantUpLines</span><span class="p">,</span>
+    <span class="n">Star</span><span class="p">,</span>
+    <span class="n">VerticalLines</span><span class="p">,</span>
+    <span class="n">WideLines</span><span class="p">,</span>
+    <span class="n">XLines</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.points</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Club</span><span class="p">,</span>
+    <span class="n">DotsGrid</span><span class="p">,</span>
+    <span class="n">DownParabola</span><span class="p">,</span>
+    <span class="n">Heart</span><span class="p">,</span>
+    <span class="n">LeftParabola</span><span class="p">,</span>
+    <span class="n">RightParabola</span><span class="p">,</span>
+    <span class="n">Scatter</span><span class="p">,</span>
+    <span class="n">Spade</span><span class="p">,</span>
+    <span class="n">UpParabola</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="ShapeFactory">
@@ -551,28 +574,28 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_SHAPE_MAPPING</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;bullseye&#39;</span><span class="p">:</span> <span class="n">circles</span><span class="o">.</span><span class="n">Bullseye</span><span class="p">,</span>
-        <span class="s1">&#39;circle&#39;</span><span class="p">:</span> <span class="n">circles</span><span class="o">.</span><span class="n">Circle</span><span class="p">,</span>
-        <span class="s1">&#39;high_lines&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="o">.</span><span class="n">HighLines</span><span class="p">,</span>
-        <span class="s1">&#39;h_lines&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="o">.</span><span class="n">HorizontalLines</span><span class="p">,</span>
-        <span class="s1">&#39;slant_down&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="o">.</span><span class="n">SlantDownLines</span><span class="p">,</span>
-        <span class="s1">&#39;slant_up&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="o">.</span><span class="n">SlantUpLines</span><span class="p">,</span>
-        <span class="s1">&#39;v_lines&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="o">.</span><span class="n">VerticalLines</span><span class="p">,</span>
-        <span class="s1">&#39;wide_lines&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="o">.</span><span class="n">WideLines</span><span class="p">,</span>
-        <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="o">.</span><span class="n">XLines</span><span class="p">,</span>
-        <span class="s1">&#39;dots&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">DotsGrid</span><span class="p">,</span>
-        <span class="s1">&#39;down_parab&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">DownParabola</span><span class="p">,</span>
-        <span class="s1">&#39;heart&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">Heart</span><span class="p">,</span>
-        <span class="s1">&#39;left_parab&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">LeftParabola</span><span class="p">,</span>
-        <span class="s1">&#39;scatter&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">Scatter</span><span class="p">,</span>
-        <span class="s1">&#39;right_parab&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">RightParabola</span><span class="p">,</span>
-        <span class="s1">&#39;up_parab&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">UpParabola</span><span class="p">,</span>
-        <span class="s1">&#39;diamond&#39;</span><span class="p">:</span> <span class="n">polygons</span><span class="o">.</span><span class="n">Diamond</span><span class="p">,</span>
-        <span class="s1">&#39;rectangle&#39;</span><span class="p">:</span> <span class="n">polygons</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">,</span>
-        <span class="s1">&#39;rings&#39;</span><span class="p">:</span> <span class="n">circles</span><span class="o">.</span><span class="n">Rings</span><span class="p">,</span>
-        <span class="s1">&#39;star&#39;</span><span class="p">:</span> <span class="n">polygons</span><span class="o">.</span><span class="n">Star</span><span class="p">,</span>
-        <span class="s1">&#39;club&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">Club</span><span class="p">,</span>
-        <span class="s1">&#39;spade&#39;</span><span class="p">:</span> <span class="n">points</span><span class="o">.</span><span class="n">Spade</span><span class="p">,</span>
+        <span class="s1">&#39;bullseye&#39;</span><span class="p">:</span> <span class="n">Bullseye</span><span class="p">,</span>
+        <span class="s1">&#39;circle&#39;</span><span class="p">:</span> <span class="n">Circle</span><span class="p">,</span>
+        <span class="s1">&#39;high_lines&#39;</span><span class="p">:</span> <span class="n">HighLines</span><span class="p">,</span>
+        <span class="s1">&#39;h_lines&#39;</span><span class="p">:</span> <span class="n">HorizontalLines</span><span class="p">,</span>
+        <span class="s1">&#39;slant_down&#39;</span><span class="p">:</span> <span class="n">SlantDownLines</span><span class="p">,</span>
+        <span class="s1">&#39;slant_up&#39;</span><span class="p">:</span> <span class="n">SlantUpLines</span><span class="p">,</span>
+        <span class="s1">&#39;v_lines&#39;</span><span class="p">:</span> <span class="n">VerticalLines</span><span class="p">,</span>
+        <span class="s1">&#39;wide_lines&#39;</span><span class="p">:</span> <span class="n">WideLines</span><span class="p">,</span>
+        <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">XLines</span><span class="p">,</span>
+        <span class="s1">&#39;dots&#39;</span><span class="p">:</span> <span class="n">DotsGrid</span><span class="p">,</span>
+        <span class="s1">&#39;down_parab&#39;</span><span class="p">:</span> <span class="n">DownParabola</span><span class="p">,</span>
+        <span class="s1">&#39;heart&#39;</span><span class="p">:</span> <span class="n">Heart</span><span class="p">,</span>
+        <span class="s1">&#39;left_parab&#39;</span><span class="p">:</span> <span class="n">LeftParabola</span><span class="p">,</span>
+        <span class="s1">&#39;scatter&#39;</span><span class="p">:</span> <span class="n">Scatter</span><span class="p">,</span>
+        <span class="s1">&#39;right_parab&#39;</span><span class="p">:</span> <span class="n">RightParabola</span><span class="p">,</span>
+        <span class="s1">&#39;up_parab&#39;</span><span class="p">:</span> <span class="n">UpParabola</span><span class="p">,</span>
+        <span class="s1">&#39;diamond&#39;</span><span class="p">:</span> <span class="n">Diamond</span><span class="p">,</span>
+        <span class="s1">&#39;rectangle&#39;</span><span class="p">:</span> <span class="n">Rectangle</span><span class="p">,</span>
+        <span class="s1">&#39;rings&#39;</span><span class="p">:</span> <span class="n">Rings</span><span class="p">,</span>
+        <span class="s1">&#39;star&#39;</span><span class="p">:</span> <span class="n">Star</span><span class="p">,</span>
+        <span class="s1">&#39;club&#39;</span><span class="p">:</span> <span class="n">Club</span><span class="p">,</span>
+        <span class="s1">&#39;spade&#39;</span><span class="p">:</span> <span class="n">Spade</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">AVAILABLE_SHAPES</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_SHAPE_MAPPING</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>

@@ -1,0 +1,30 @@
+slant\_up
+=========
+
+.. automodule:: data_morph.shapes.lines.slant_up
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      SlantUpLines
+   
+   
+
+   
+   
+   
+
+
+

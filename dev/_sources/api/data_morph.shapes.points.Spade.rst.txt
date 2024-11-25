@@ -1,6 +1,0 @@
-Spade
-=====
-
-.. currentmodule:: data_morph.shapes.points
-
-.. autoclass:: Spade

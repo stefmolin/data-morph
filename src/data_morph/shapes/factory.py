@@ -57,33 +57,39 @@ class ShapeFactory:
         The starting dataset to morph into other shapes.
     """
 
+    _SHAPE_CLASSES: tuple[type[Shape]] = (
+        Bullseye,
+        Circle,
+        Club,
+        Diamond,
+        DotsGrid,
+        DownParabola,
+        Heart,
+        HighLines,
+        HorizontalLines,
+        LeftParabola,
+        Rectangle,
+        RightParabola,
+        Rings,
+        Scatter,
+        SlantDownLines,
+        SlantUpLines,
+        Spade,
+        Star,
+        UpParabola,
+        VerticalLines,
+        WideLines,
+        XLines,
+    )
+    """New shape classes must be registered here."""
+
     _SHAPE_MAPPING: ClassVar[dict[str, type[Shape]]] = {
-        'bullseye': Bullseye,
-        'circle': Circle,
-        'high_lines': HighLines,
-        'h_lines': HorizontalLines,
-        'slant_down': SlantDownLines,
-        'slant_up': SlantUpLines,
-        'v_lines': VerticalLines,
-        'wide_lines': WideLines,
-        'x': XLines,
-        'dots': DotsGrid,
-        'down_parab': DownParabola,
-        'heart': Heart,
-        'left_parab': LeftParabola,
-        'scatter': Scatter,
-        'right_parab': RightParabola,
-        'up_parab': UpParabola,
-        'diamond': Diamond,
-        'rectangle': Rectangle,
-        'rings': Rings,
-        'star': Star,
-        'club': Club,
-        'spade': Spade,
+        shape_cls.get_name(): shape_cls for shape_cls in _SHAPE_CLASSES
     }
+    """Mapping of shape display names to classes."""
 
     AVAILABLE_SHAPES: list[str] = sorted(_SHAPE_MAPPING.keys())
-    """list[str]: The list of available shapes, which can be visualized with
+    """The list of available shapes, which can be visualized with
     :meth:`.plot_available_shapes`."""
 
     def __init__(self, dataset: Dataset) -> None:

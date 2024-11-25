@@ -24,6 +24,8 @@ class SlantDownLines(LineCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'slant_down'
+
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.morph_bounds.x_bounds
         y_bounds = dataset.morph_bounds.y_bounds
@@ -43,6 +45,3 @@ class SlantDownLines(LineCollection):
             [[xmin + x_offset, ymax], [xmax, ymin + y_offset]],
             [[xmid, ymax], [xmax, ymid]],
         )
-
-    def __str__(self) -> str:
-        return 'slant_down'

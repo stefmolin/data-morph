@@ -24,6 +24,8 @@ class HighLines(LineCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'high_lines'
+
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
         y_bounds = dataset.data_bounds.y_bounds
@@ -36,6 +38,3 @@ class HighLines(LineCollection):
             [[x_bounds[0], lower], [x_bounds[1], lower]],
             [[x_bounds[0], upper], [x_bounds[1], upper]],
         )
-
-    def __str__(self) -> str:
-        return 'high_lines'

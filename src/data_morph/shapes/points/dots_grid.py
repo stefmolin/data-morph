@@ -26,6 +26,8 @@ class DotsGrid(PointCollection):
         The starting dataset to morph into other shapes.
     """
 
+    name = 'dots'
+
     def __init__(self, dataset: Dataset) -> None:
         xlow, xhigh = dataset.df.x.quantile([0.05, 0.95]).tolist()
         ylow, yhigh = dataset.df.y.quantile([0.05, 0.95]).tolist()
@@ -36,6 +38,3 @@ class DotsGrid(PointCollection):
         super().__init__(
             *list(itertools.product([xlow, xmid, xhigh], [ylow, ymid, yhigh]))
         )
-
-    def __str__(self) -> str:
-        return 'dots'

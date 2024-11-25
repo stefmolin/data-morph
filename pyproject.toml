@@ -102,14 +102,13 @@ lint.select = [
   "I",   # isort
   "N",   # pep8-naming
   "PTH", # flake8-use-pathlib
+  "RUF", # ruff-specific rules
   "SIM", # flake8-simplify
   "TRY", # tryceratops
   "UP",  # pyupgrade
   "W",   # pycodestyle warning
 ]
 lint.ignore = [
-  "ANN101", # missing type annotation for self (will be removed in future ruff version)
-  "ANN102", # missing type annotation for cls in classmethod (will be removed in future ruff version)
   "E501",   # line-too-long
   "TRY003", # avoid specifying long messages outside the exception class (revisit later and consider making custom exceptions)
 ]

@@ -1,6 +1,5 @@
 """Test polygons module."""
 
-from collections.abc import Iterable
 from numbers import Number
 
 import numpy as np
@@ -13,7 +12,7 @@ class PolygonsModuleTestBase:
     """Base for testing polygon shapes."""
 
     shape_name: str
-    distance_test_cases: Iterable[tuple[Iterable[Number], float]]
+    distance_test_cases: tuple[tuple[tuple[Number], float]]
     expected_line_count: int
 
     @pytest.fixture(scope='class')
@@ -52,7 +51,7 @@ class TestDiamond(PolygonsModuleTestBase):
     """Test the Diamond class."""
 
     shape_name = 'diamond'
-    distance_test_cases = [[(20, 50), 0.0], [(30, 60), 2.773501]]
+    distance_test_cases = (((20, 50), 0.0), ((30, 60), 2.773501))
     expected_line_count = 4
 
     def test_slopes(self, slopes):
@@ -64,7 +63,7 @@ class TestRectangle(PolygonsModuleTestBase):
     """Test the Rectangle class."""
 
     shape_name = 'rectangle'
-    distance_test_cases = [[(20, 50), 0.0], [(30, 60), 2.0]]
+    distance_test_cases = (((20, 50), 0.0), ((30, 60), 2.0))
     expected_line_count = 4
 
     def test_slopes(self, slopes):
@@ -76,5 +75,5 @@ class TestStar(PolygonsModuleTestBase):
     """Test the Star class."""
 
     shape_name = 'star'
-    distance_test_cases = [[(20, 50), 5.856516], [(30, 60), 3.709127]]
+    distance_test_cases = (((20, 50), 5.856516), ((30, 60), 3.709127))
     expected_line_count = 10

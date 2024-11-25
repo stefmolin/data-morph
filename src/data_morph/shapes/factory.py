@@ -2,6 +2,7 @@
 
 from itertools import zip_longest
 from numbers import Number
+from typing import ClassVar
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -56,7 +57,7 @@ class ShapeFactory:
         The starting dataset to morph into other shapes.
     """
 
-    _SHAPE_MAPPING: dict = {
+    _SHAPE_MAPPING: ClassVar[dict[str, type[Shape]]] = {
         'bullseye': Bullseye,
         'circle': Circle,
         'high_lines': HighLines,

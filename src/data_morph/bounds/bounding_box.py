@@ -97,7 +97,7 @@ class BoundingBox:
     def __repr__(self) -> str:
         return '<BoundingBox>\n' f'  x={self.x_bounds}' '\n' f'  y={self.y_bounds}'
 
-    def adjust_bounds(self, x: Number = None, y: Number = None) -> None:
+    def adjust_bounds(self, x: Number | None = None, y: Number | None = None) -> None:
         """
         Adjust bounding box range.
 

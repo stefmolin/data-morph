@@ -103,7 +103,7 @@ class Shape(ABC):
         )
 
     @abstractmethod
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 

@@ -1,6 +1,5 @@
 """Test points module."""
 
-from collections.abc import Iterable
 from numbers import Number
 
 import numpy as np
@@ -13,7 +12,7 @@ class PointsModuleTestBase:
     """Base for testing point-based shapes."""
 
     shape_name: str
-    distance_test_cases: Iterable[tuple[Iterable[Number], float]]
+    distance_test_cases: tuple[tuple[tuple[Number], float]]
 
     @pytest.fixture(scope='class')
     def shape(self, shape_factory):
@@ -33,7 +32,7 @@ class TestDotsGrid(PointsModuleTestBase):
     """Test the DotsGrid class."""
 
     shape_name = 'dots'
-    distance_test_cases = [[(20, 50), 0.0], [(30, 60), 3.640055]]
+    distance_test_cases = (((20, 50), 0.0), ((30, 60), 3.640055))
     expected_point_count = 9
 
     def test_init(self, shape):
@@ -72,21 +71,21 @@ class TestHeart(PointsModuleTestBase):
     """Test the Heart class."""
 
     shape_name = 'heart'
-    distance_test_cases = [
-        [(19.89946048, 54.82281916), 0.0],
-        [(10.84680454, 70.18556376), 0.0],
-        [(29.9971295, 67.66402445), 0.0],
-        [(27.38657942, 62.417184), 0.0],
-        [(20, 50), 4.567369],
-        [(10, 80), 8.564365],
-    ]
+    distance_test_cases = (
+        ((19.89946048, 54.82281916), 0.0),
+        ((10.84680454, 70.18556376), 0.0),
+        ((29.9971295, 67.66402445), 0.0),
+        ((27.38657942, 62.417184), 0.0),
+        ((20, 50), 4.567369),
+        ((10, 80), 8.564365),
+    )
 
 
 class TestScatter(PointsModuleTestBase):
     """Test the Scatter class."""
 
     shape_name = 'scatter'
-    distance_test_cases = [[(20, 50), 0.0], [(30, 60), 0.0], [(-500, -150), 0.0]]
+    distance_test_cases = (((20, 50), 0.0), ((30, 60), 0.0), ((-500, -150), 0.0))
 
 
 class ParabolaTestBase(PointsModuleTestBase):
@@ -108,7 +107,7 @@ class TestDownParabola(ParabolaTestBase):
     """Test the DownParabola class."""
 
     shape_name = 'down_parab'
-    distance_test_cases = [[(20, 50), 7.929688], [(30, 60), 3.455534]]
+    distance_test_cases = (((20, 50), 7.929688), ((30, 60), 3.455534))
     positive_quadratic_term = False
     x_index = 0
     y_index = 1
@@ -118,7 +117,7 @@ class TestLeftParabola(ParabolaTestBase):
     """Test the LeftParabola class."""
 
     shape_name = 'left_parab'
-    distance_test_cases = [[(50, 20), 46.31798], [(10, 77), 0.0]]
+    distance_test_cases = (((50, 20), 46.31798), ((10, 77), 0.0))
     positive_quadratic_term = False
     x_index = 1
     y_index = 0
@@ -128,7 +127,7 @@ class TestRightParabola(ParabolaTestBase):
     """Test the RightParabola class."""
 
     shape_name = 'right_parab'
-    distance_test_cases = [[(50, 20), 38.58756], [(10, 77), 7.740692]]
+    distance_test_cases = (((50, 20), 38.58756), ((10, 77), 7.740692))
     positive_quadratic_term = True
     x_index = 1
     y_index = 0
@@ -138,7 +137,7 @@ class TestUpParabola(ParabolaTestBase):
     """Test the UpParabola class."""
 
     shape_name = 'up_parab'
-    distance_test_cases = [[(0, 0), 53.774155], [(30, 60), 5.2576809]]
+    distance_test_cases = (((0, 0), 53.774155), ((30, 60), 5.2576809))
     positive_quadratic_term = True
     x_index = 0
     y_index = 1
@@ -148,28 +147,28 @@ class TestClub(PointsModuleTestBase):
     """Test the Club class."""
 
     shape_name = 'club'
-    distance_test_cases = [
-        [(19.639387, 73.783711), 0.0],  # top lobe
-        [(12.730310, 60.295844), 0.0],  # bottom left lobe
-        [(27.630301, 60.920443), 0.0],  # bottom right lobe
-        [(20.304761, 55.933333), 0.0],  # top of stem
-        [(18.8, 57.076666), 0.0],  # left part of stem
-        [(20.933333, 57.823333), 0.0],  # right part of stem
-        [(0, 0), 58.717591],
-        [(20, 50), 5.941155],
-        [(10, 80), 10.288055],
-    ]
+    distance_test_cases = (
+        ((19.639387, 73.783711), 0.0),  # top lobe
+        ((12.730310, 60.295844), 0.0),  # bottom left lobe
+        ((27.630301, 60.920443), 0.0),  # bottom right lobe
+        ((20.304761, 55.933333), 0.0),  # top of stem
+        ((18.8, 57.076666), 0.0),  # left part of stem
+        ((20.933333, 57.823333), 0.0),  # right part of stem
+        ((0, 0), 58.717591),
+        ((20, 50), 5.941155),
+        ((10, 80), 10.288055),
+    )
 
 
 class TestSpade(PointsModuleTestBase):
     """Test the Spade class."""
 
     shape_name = 'spade'
-    distance_test_cases = [
-        [(19.97189615, 75.43271708), 0],
-        [(23.75, 55), 0],
-        [(11.42685318, 59.11304904), 0],
-        [(20, 75), 0.2037185],
-        [(0, 0), 57.350348],
-        [(10, 80), 10.968080],
-    ]
+    distance_test_cases = (
+        ((19.97189615, 75.43271708), 0),
+        ((23.75, 55), 0),
+        ((11.42685318, 59.11304904), 0),
+        ((20, 75), 0.2037185),
+        ((0, 0), 57.350348),
+        ((10, 80), 10.968080),
+    )

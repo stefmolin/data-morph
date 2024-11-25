@@ -543,6 +543,8 @@
 <span class="sd">        The starting dataset to morph into other shapes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dots&#39;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">xlow</span><span class="p">,</span> <span class="n">xhigh</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">ylow</span><span class="p">,</span> <span class="n">yhigh</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -552,10 +554,7 @@
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">([</span><span class="n">xlow</span><span class="p">,</span> <span class="n">xmid</span><span class="p">,</span> <span class="n">xhigh</span><span class="p">],</span> <span class="p">[</span><span class="n">ylow</span><span class="p">,</span> <span class="n">ymid</span><span class="p">,</span> <span class="n">yhigh</span><span class="p">]))</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;dots&#39;</span></div>
+        <span class="p">)</span></div>
 
 </pre></div>
 

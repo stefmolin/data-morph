@@ -61,18 +61,18 @@ to calculate its position and scale:
 
     class XLines(LineCollection):
 
+        name = 'x'
+
         def __init__(self, dataset: Dataset) -> None:
             xmin, xmax = dataset.morph_bounds.x_bounds
             ymin, ymax = dataset.morph_bounds.y_bounds
 
             super().__init__([[xmin, ymin], [xmax, ymax]], [[xmin, ymax], [xmax, ymin]])
 
-        def __str__(self) -> str:
-            return 'x'
 
 Since we inherit from :class:`.LineCollection` here, we don't need to define
 the ``distance()`` and ``plot()`` methods (unless we want to override them).
-We do override the ``__str__()`` method here since the default will result in
+We do set the ``name`` attribute here since the default will result in
 a value of ``xlines`` and ``x`` makes more sense for use in the documentation
 (see :class:`.ShapeFactory`).
 
@@ -89,8 +89,8 @@ For the ``data-morph`` CLI to find your shape, you need to register it with the
 2. Add your shape to ``__all__`` in that module's ``__init__.py`` (*e.g.*, use
    ``src/data_morph/shapes/points/__init__.py`` for a new shape inheriting from
    :class:`.PointCollection`).
-3. Add an entry to the ``ShapeFactory._SHAPE_MAPPING`` dictionary in
-   ``src/data_morph/shapes/factory.py``.
+3. Add an entry to the ``ShapeFactory._SHAPE_CLASSES`` tuple in
+   ``src/data_morph/shapes/factory.py``, preserving alphabetical order.
 
 Test out the shape
 ------------------

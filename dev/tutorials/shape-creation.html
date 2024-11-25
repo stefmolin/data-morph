@@ -578,19 +578,18 @@ the algorithm can move the points) or percentiles using the data itself (see
 to calculate its position and scale:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">XLines</span><span class="p">(</span><span class="n">LineCollection</span><span class="p">):</span>
 
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
         <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]],</span> <span class="p">[[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]])</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;x&#39;</span>
 </pre></div>
 </div>
 <p>Since we inherit from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> here, we don’t need to define
 the <code class="docutils literal notranslate"><span class="pre">distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> methods (unless we want to override them).
-We do override the <code class="docutils literal notranslate"><span class="pre">__str__()</span></code> method here since the default will result in
+We do set the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute here since the default will result in
 a value of <code class="docutils literal notranslate"><span class="pre">xlines</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> makes more sense for use in the documentation
 (see <a class="reference internal" href="../api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a>).</p>
 </section>
@@ -607,8 +606,8 @@ directory. Note that these correspond to the type of shape (<em>e.g.</em>, use
 <li><p>Add your shape to <code class="docutils literal notranslate"><span class="pre">__all__</span></code> in that module’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> (<em>e.g.</em>, use
 <code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/points/__init__.py</span></code> for a new shape inheriting from
 <a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a>).</p></li>
-<li><p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">ShapeFactory._SHAPE_MAPPING</span></code> dictionary in
-<code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/factory.py</span></code>.</p></li>
+<li><p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">ShapeFactory._SHAPE_CLASSES</span></code> tuple in
+<code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/factory.py</span></code>, preserving alphabetical order.</p></li>
 </ol>
 </section>
 <section id="test-out-the-shape">

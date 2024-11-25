@@ -541,14 +541,13 @@
 <span class="sd">        The starting dataset to morph into other shapes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
         <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]],</span> <span class="p">[[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]])</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;x&#39;</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]],</span> <span class="p">[[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]])</span></div>
 
 </pre></div>
 

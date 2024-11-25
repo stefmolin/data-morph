@@ -517,6 +517,7 @@
 
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">zip_longest</span>
 <span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -573,7 +574,7 @@
 <span class="sd">        The starting dataset to morph into other shapes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_SHAPE_MAPPING</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_SHAPE_MAPPING</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">Shape</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;bullseye&#39;</span><span class="p">:</span> <span class="n">Bullseye</span><span class="p">,</span>
         <span class="s1">&#39;circle&#39;</span><span class="p">:</span> <span class="n">Circle</span><span class="p">,</span>
         <span class="s1">&#39;high_lines&#39;</span><span class="p">:</span> <span class="n">HighLines</span><span class="p">,</span>

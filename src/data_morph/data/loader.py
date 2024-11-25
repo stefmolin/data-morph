@@ -164,10 +164,17 @@ class DataLoader:
                     dataset += ' logo'
 
                 ax.scatter(points.df.x, points.df.y, s=4, color='black')
+
+                # tight plot bounds for the grid of datasets in the docs
+                bounds = points.data_bounds.clone()
+                x_offset, y_offset = (offset * 0.1 for offset in bounds.range)
+                bounds.adjust_bounds(x=x_offset, y=y_offset)
+                bounds.align_aspect_ratio()
+
                 ax.set(
                     title=f'{dataset} ({points.df.shape[0]:,d} points)',
-                    xlim=points.plot_bounds.x_bounds,
-                    ylim=points.plot_bounds.y_bounds,
+                    xlim=bounds.x_bounds,
+                    ylim=bounds.y_bounds,
                     xlabel='',
                     ylabel='',
                 )

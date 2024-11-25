@@ -7,9 +7,6 @@ name: Generate Morphs
 
 on:
   pull_request:
-    paths:
-      - 'src/**'
-      - 'pyproject.toml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}

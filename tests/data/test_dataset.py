@@ -62,7 +62,7 @@ class TestDataset:
 
         df = pd.read_csv(starter_shapes_dir / 'dino.csv').rename(columns={'x': 'X'})
         dataset = Dataset('dino', df)
-        assert not dataset.df[dataset._REQUIRED_COLUMNS].empty
+        assert not dataset.df[list(dataset._REQUIRED_COLUMNS)].empty
 
     @pytest.mark.bounds
     @pytest.mark.parametrize(

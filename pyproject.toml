@@ -62,6 +62,7 @@ optional-dependencies.docs = [
   "sphinx>=7.2.6",
   "sphinx-argparse-cli>=1.16.0",
   "sphinx-copybutton>=0.5.1",
+  "sphinx-design>=0.6.1",
 ]
 urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
 urls."Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
@@ -101,16 +102,15 @@ lint.select = [
   "I",   # isort
   "N",   # pep8-naming
   "PTH", # flake8-use-pathlib
+  "RUF", # ruff-specific rules
   "SIM", # flake8-simplify
   "TRY", # tryceratops
   "UP",  # pyupgrade
   "W",   # pycodestyle warning
 ]
 lint.ignore = [
-  "ANN101", # missing type annotation for self (will be removed in future ruff version)
-  "ANN102", # missing type annotation for cls in classmethod (will be removed in future ruff version)
   "E501",   # line-too-long
-  "TRY003", # avoid specifying long messages outside the exception class (revisit later and consider making custom acceptions)
+  "TRY003", # avoid specifying long messages outside the exception class (revisit later and consider making custom exceptions)
 ]
 
 lint.extend-per-file-ignores."docs/*" = [

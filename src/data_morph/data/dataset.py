@@ -1,5 +1,7 @@
 """Class representing a dataset for morphing."""
 
+from __future__ import annotations
+
 from numbers import Number
 
 import matplotlib.pyplot as plt
@@ -39,13 +41,13 @@ class Dataset:
         Utility for creating :class:`Dataset` objects from CSV files.
     """
 
-    _REQUIRED_COLUMNS = ['x', 'y']
+    _REQUIRED_COLUMNS = ('x', 'y')
 
     def __init__(
         self,
         name: str,
         df: pd.DataFrame,
-        scale: Number = None,
+        scale: Number | None = None,
     ) -> None:
         self.df: pd.DataFrame = self._validate_data(df).pipe(self._scale_data, scale)
         """pandas.DataFrame: DataFrame containing columns x and y."""
@@ -181,7 +183,7 @@ class Dataset:
 
     @plot_with_custom_style
     def plot(
-        self, ax: Axes = None, show_bounds: bool = True, title: str = 'default'
+        self, ax: Axes | None = None, show_bounds: bool = True, title: str = 'default'
     ) -> Axes:
         """
         Plot the dataset and its bounds.

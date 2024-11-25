@@ -1,7 +1,6 @@
 """Test circles module."""
 
 import re
-from collections.abc import Iterable
 from numbers import Number
 
 import numpy as np
@@ -16,7 +15,7 @@ class CirclesModuleTestBase:
     """Base for testing circle shapes."""
 
     shape_name: str
-    distance_test_cases: Iterable[tuple[Iterable[Number], float]]
+    distance_test_cases: tuple[tuple[tuple[Number], float]]
     repr_regex: str
 
     @pytest.fixture(scope='class')
@@ -40,7 +39,7 @@ class TestBullseye(CirclesModuleTestBase):
     """Test the Bullseye class."""
 
     shape_name = 'bullseye'
-    distance_test_cases = [[(20, 50), 3.660254], [(10, 25), 9.08004]]
+    distance_test_cases = (((20, 50), 3.660254), ((10, 25), 9.08004))
     repr_regex = (
         r'^<Bullseye>\n'
         r'  circles=\n'
@@ -61,7 +60,7 @@ class TestCircle(CirclesModuleTestBase):
     """Test the Circle class."""
 
     shape_name = 'circle'
-    distance_test_cases = [[(20, 50), 10.490381], [(10, 25), 15.910168]]
+    distance_test_cases = (((20, 50), 10.490381), ((10, 25), 15.910168))
     repr_regex = '^' + CIRCLE_REPR + '$'
 
     def test_is_circle(self, shape):
@@ -79,7 +78,7 @@ class TestRings(CirclesModuleTestBase):
     """Test the Rings class."""
 
     shape_name = 'rings'
-    distance_test_cases = [[(20, 50), 3.16987], [(10, 25), 9.08004]]
+    distance_test_cases = (((20, 50), 3.16987), ((10, 25), 9.08004))
     repr_regex = (
         r'^<Rings>\n'
         r'  circles=\n'

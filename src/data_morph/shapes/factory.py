@@ -9,8 +9,8 @@ from matplotlib.axes import Axes
 
 from ..data.dataset import Dataset
 from ..plotting.style import plot_with_custom_style
-from . import circles
 from .bases.shape import Shape
+from .circles import Bullseye, Circle, Rings
 from .lines import (
     Diamond,
     HighLines,
@@ -57,8 +57,8 @@ class ShapeFactory:
     """
 
     _SHAPE_MAPPING: dict = {
-        'bullseye': circles.Bullseye,
-        'circle': circles.Circle,
+        'bullseye': Bullseye,
+        'circle': Circle,
         'high_lines': HighLines,
         'h_lines': HorizontalLines,
         'slant_down': SlantDownLines,
@@ -75,7 +75,7 @@ class ShapeFactory:
         'up_parab': UpParabola,
         'diamond': Diamond,
         'rectangle': Rectangle,
-        'rings': circles.Rings,
+        'rings': Rings,
         'star': Star,
         'club': Club,
         'spade': Spade,

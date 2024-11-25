@@ -78,9 +78,10 @@ jobs:
           echo "Detected changes to shape(s): $SHAPE_ALL_CHANGED_FILES"
           SHAPE_ARGS=$(python bin/ci.py $SHAPE_ALL_CHANGED_FILES)
           echo "Generating morphs for the following shapes: $SHAPE_ARGS"
-          data-morph \
+          parallel -j0 data-morph \
                --start-shape music \
-               --target-shape $SHAPE_ARGS \
+               --target-shape {} \
+               ::: $SHAPE_ARGS
 
       # For core code changes, we want to do a couple morphs to see if they still look ok
       # Only need to run if neither of the previous two morphs ran

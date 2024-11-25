@@ -34,10 +34,10 @@ jobs:
         fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b  # v5.3.0
 
       - name: Install Data Morph
         run: |
@@ -47,7 +47,7 @@ jobs:
 
       - name: Get all dataset and shape files that have changed
         id: changed-files-yaml
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@4edd678ac3f81e2dc578756871e4d00c19191daf  # v45.0.4
         with:
           files_yaml: |
             dataset:
@@ -92,7 +92,7 @@ jobs:
                --target-shape {} \
                ::: bullseye heart rectangle star slant_up
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882  # v4.4.3
         with:
           name: morphed_data
           path: morphed_data

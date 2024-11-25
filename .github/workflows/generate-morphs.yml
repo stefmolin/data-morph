@@ -16,10 +16,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  generate-morphs:
     name: Run Data Morph on new/altered datasets/shapes
 
-    # Just generate on one operating system, they should all be the same
+    # Just generate on one operating system (they should all be the same)
     runs-on: ubuntu-latest
 
     defaults:
@@ -54,7 +54,7 @@ jobs:
             shape:
               - src/data_morph/shapes/**
 
-      # If datasets are added or changed
+      # If datasets were added or changed in this PR
       - name: Generate morphs from new or changed datasets
         if: steps.changed-files-yaml.outputs.dataset_any_changed == 'true'
         env:
@@ -68,7 +68,7 @@ jobs:
                --target-shape {} \
                ::: bullseye heart rectangle star slant_up
 
-      # If shapes are added or modified
+      # If shapes are added or modified in this PR
       - name: Generate morphs from new or changed shapes
         if: steps.changed-files-yaml.outputs.shape_any_changed == 'true'
         env:

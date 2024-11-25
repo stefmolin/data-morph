@@ -39,8 +39,7 @@ for dataset, filename in DataLoader._DATASETS.items():
 new_files = [Path(x).name for x in new_paths]
 for shape, shape_cls in ShapeFactory._SHAPE_MAPPING.items():
     # Find the class and all parent classes and get their module name
-    # We get the module name because it ends in the python file without .py extension
-    # To make it easy to compare, we just add the extension onto the end
+    # We get the module name because it ends in the Python file without .py extension
     mro = [
         x.__module__ for x in shape_cls.__mro__ if x.__module__.startswith('data_morph')
     ]

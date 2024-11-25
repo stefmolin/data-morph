@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 """
-Pass in the filenames that changed and it'll tell you the arguments of datasets and shapes.
-See examples below
+Call this script with the names of files that have changed to get the
+datasets and shapes to test with the CLI.
+
+Examples
+--------
 
 $ python bin/ci.py src/data_morph/shapes/circles.py
 bullseye circle rings
@@ -9,7 +12,7 @@ bullseye circle rings
 $ python bin/ci.py src/data_morph/shapes/bases/line_collection.py
 high_lines h_lines slant_down slant_up v_lines wide_lines x diamond rectangle star
 
- python bin/ci.py src/data_morph/data/starter_shapes/superdatascience.csv
+$ python bin/ci.py src/data_morph/data/starter_shapes/superdatascience.csv
 SDS
 """
 from data_morph.shapes.factory import ShapeFactory

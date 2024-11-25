@@ -12,7 +12,7 @@ on:
   pull_request:
     paths-ignore:
       - 'docs/**'
-      - 'src/tests/**'
+      - 'tests/**'
 
 
 concurrency:
@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build with Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    name: Run Data Morph on new/altered datasets/shapes
 
     # Just generate on one operating system, they should all be the same
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
           python -m pip install setuptools --upgrade
           python -m pip install .
 
-      - name: Get all dataset files that have changed
+      - name: Get all dataset and shape files that have changed
         id: changed-files-yaml
         uses: tj-actions/changed-files@v45
         with:
@@ -61,8 +61,7 @@ jobs:
         env:
           DATASET_ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.dataset_all_changed_files }}
         run: |
-          echo "One or more dataset file(s) has changed."
-          echo "List all the files that have changed: $DATASET_ALL_CHANGED_FILES"
+          echo "Detected changes to dataset(s): $DATASET_ALL_CHANGED_FILES"
           DATASET_ARGS=$(python bin/ci.py $DATASET_ALL_CHANGED_FILES)
           echo "Generating morphs for the following datasets: $DATASET_ARGS"
           parallel -j0 data-morph \
@@ -76,8 +75,7 @@ jobs:
         env:
           SHAPE_ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.shape_all_changed_files }}
         run: |
-          echo "One or more shape file(s) has changed."
-          echo "List all the files that have changed: $SHAPE_ALL_CHANGED_FILES"
+          echo "Detected changes to shape(s): $SHAPE_ALL_CHANGED_FILES"
           SHAPE_ARGS=$(python bin/ci.py $SHAPE_ALL_CHANGED_FILES)
           echo "Generating morphs for the following shapes: $SHAPE_ARGS"
           data-morph \
@@ -86,7 +84,7 @@ jobs:
 
       # For core code changes, we want to do a couple morphs to see if they still look ok
       # Only need to run if neither of the previous two morphs ran
-      - name: Morph shapes
+      - name: Morph shapes with core code changes
         if: steps.changed-files-yaml.outputs.dataset_any_changed != 'true' && steps.changed-files-yaml.outputs.shape_any_changed != 'true'
         run: |
           parallel -j0 data-morph \

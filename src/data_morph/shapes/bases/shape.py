@@ -13,6 +13,21 @@ from matplotlib.axes import Axes
 class Shape(ABC):
     """Abstract base class for a shape."""
 
+    name: str | None = None
+    """The display name for the shape, if the lowercased class name is not desired."""
+
+    @classmethod
+    def get_name(cls) -> str:
+        """
+        Get the name of the shape.
+
+        Returns
+        -------
+        str
+            The name of the shape.
+        """
+        return cls.name or cls.__name__.lower()
+
     def __repr__(self) -> str:
         """
         Return string representation of the shape.
@@ -32,8 +47,12 @@ class Shape(ABC):
         -------
         str
             The human-readable string representation of the shape.
+
+        See Also
+        --------
+        get_name : This calls the :meth:`.get_name` class method.
         """
-        return self.__class__.__name__.lower()
+        return self.get_name()
 
     @abstractmethod
     def distance(self, x: Number, y: Number) -> float:
@@ -103,7 +122,7 @@ class Shape(ABC):
         )
 
     @abstractmethod
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 

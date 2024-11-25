@@ -1,5 +1,7 @@
 """Base class for shapes that are composed of points."""
 
+from __future__ import annotations
+
 from collections.abc import Iterable
 from numbers import Number
 
@@ -52,7 +54,7 @@ class PointCollection(Shape):
         )
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 

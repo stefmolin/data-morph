@@ -278,6 +278,6 @@ class TestDataMorpher:
             # check that the images are indeed the same
             if write_images and freeze_for:
                 assert len(image_hashes.keys()) == 1
-                assert list(image_hashes.values())[0] == freeze_for
+                assert next(iter(image_hashes.values())) == freeze_for
             else:
                 assert not image_hashes

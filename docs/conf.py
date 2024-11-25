@@ -13,7 +13,7 @@ from pathlib import Path
 import data_morph
 
 sys.path.insert(0, str(Path().absolute()))
-from post_build import determine_versions  # noqa: E402
+from post_build import determine_versions
 
 project = 'Data Morph'
 current_year = dt.date.today().year

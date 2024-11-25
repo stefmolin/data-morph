@@ -1,9 +1,12 @@
 """Load data for morphing."""
 
+from __future__ import annotations
+
 from importlib.resources import files
 from itertools import zip_longest
 from numbers import Number
 from pathlib import Path
+from typing import ClassVar
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -41,7 +44,7 @@ class DataLoader:
     """
 
     _DATA_PATH: str = 'data/starter_shapes/'
-    _DATASETS: dict = {
+    _DATASETS: ClassVar[dict[str, str]] = {
         'bunny': 'bunny.csv',
         'cat': 'cat.csv',
         'dino': 'dino.csv',
@@ -66,7 +69,7 @@ class DataLoader:
     def load_dataset(
         cls,
         dataset: str,
-        scale: Number = None,
+        scale: Number | None = None,
     ) -> Dataset:
         """
         Load dataset.

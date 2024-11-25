@@ -7,6 +7,10 @@ name: Generate Morphs
 
 on:
   pull_request:
+    paths:
+      - 'src/**'
+      - 'pyproject.toml'
+      - '.github/workflows/generate-morphs.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}

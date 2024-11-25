@@ -70,7 +70,7 @@ class Club(PointCollection):
 
         Returns
         -------
-        tuple[np.ndarray, np.ndarray]
+        tuple[numpy.ndarray, numpy.ndarray]
             The *x* and *y* coordinates for the arc.
         """
         x = r * np.cos(t + angle_offset) + x_offset
@@ -91,7 +91,7 @@ class Club(PointCollection):
 
         Returns
         -------
-        tuple[list[np.ndarray], list[np.ndarray]]
+        tuple[list[numpy.ndarray], list[numpy.ndarray]]
             The *x* and *y* coordinates for the lobes.
         """
         radius = 15 * scale_factor
@@ -128,7 +128,7 @@ class Club(PointCollection):
 
         Returns
         -------
-        tuple[list[np.ndarray], list[np.ndarray]]
+        tuple[list[numpy.ndarray], list[numpy.ndarray]]
             The *x* and *y* coordinates for the stem.
         """
         stem_x_offset = 8 * scale_factor

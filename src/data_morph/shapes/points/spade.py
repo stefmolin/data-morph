@@ -62,7 +62,7 @@ class Spade(PointCollection):
 
         Returns
         -------
-        np.ndarray
+        numpy.ndarray
             The points for the upside-down heart.
 
         See Also
@@ -91,7 +91,7 @@ class Spade(PointCollection):
 
         Returns
         -------
-        tuple[np.ndarray, np.ndarray]
+        tuple[numpy.ndarray, numpy.ndarray]
             The *x* and *y* coordinates for the base of the spade.
         """
         # line base

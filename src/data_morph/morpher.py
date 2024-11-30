@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import MutableSequence
 from functools import partial
 from numbers import Number
 from pathlib import Path
@@ -12,7 +13,7 @@ import tqdm
 
 from .bounds.bounding_box import BoundingBox
 from .data.dataset import Dataset
-from .data.stats import get_values
+from .data.stats import Statistics, SummaryStatistics
 from .plotting.animation import (
     ease_in_out_quadratic,
     ease_in_out_sine,
@@ -240,16 +241,22 @@ class DataMorpher:
                 frame_number += 1
         return frame_number
 
-    def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
+    def _is_close_enough(
+        self,
+        item1: SummaryStatistics,
+        item2: SummaryStatistics,
+        /,
+    ) -> bool:
         """
         Check whether the statistics are within the acceptable bounds.
 
         Parameters
         ----------
-        df1 : pandas.DataFrame
-            The original DataFrame.
-        df2 : pandas.DataFrame
-            The DataFrame after the latest perturbation.
+        item1 : SummaryStatistics
+            The first summary statistic.
+
+        item2 : SummaryStatistics
+            The second summary statistic.
 
         Returns
         -------
@@ -259,10 +266,8 @@ class DataMorpher:
         return np.all(
             np.abs(
                 np.subtract(
-                    *(
-                        np.floor(np.array(get_values(data)) * 10**self.decimals)
-                        for data in [df1, df2]
-                    )
+                    np.floor(np.array(item1) * 10**self.decimals),
+                    np.floor(np.array(item2) * 10**self.decimals),
                 )
             )
             == 0
@@ -270,21 +275,24 @@ class DataMorpher:
 
     def _perturb(
         self,
-        df: pd.DataFrame,
+        x: MutableSequence[Number],
+        y: MutableSequence[Number],
         target_shape: Shape,
         *,
         shake: Number,
         allowed_dist: Number,
         temp: Number,
         bounds: BoundingBox,
-    ) -> pd.DataFrame:
+    ) -> tuple[int, MutableSequence[Number], MutableSequence[Number]]:
         """
         Perform one round of perturbation.
 
         Parameters
         ----------
-        df : pandas.DataFrame
-            The data to perturb.
+        x : MutableSequence[Number]
+            The ``x`` part of the dataset.
+        y : MutableSequence[Number]
+            The ``y`` part of the dataset.
         target_shape : Shape
             The shape to morph the data into.
         shake : numbers.Number
@@ -301,12 +309,12 @@ class DataMorpher:
 
         Returns
         -------
-        pandas.DataFrame
-            The input dataset with one point perturbed.
+        tuple[int, MutableSequence[Number], MutableSequence[Number]]
+            The index and input dataset with one point perturbed.
         """
-        row = self._rng.integers(0, len(df))
-        initial_x = df.at[row, 'x']
-        initial_y = df.at[row, 'y']
+        row = self._rng.integers(0, len(x))
+        initial_x = x[row]
+        initial_y = y[row]
 
         # this is the simulated annealing step, if "do_bad", then we are willing to
         # accept a new state which is worse than the current one
@@ -325,10 +333,10 @@ class DataMorpher:
             within_bounds = [new_x, new_y] in bounds
             done = close_enough and within_bounds
 
-        df.loc[row, 'x'] = new_x
-        df.loc[row, 'y'] = new_y
+        x[row] = new_x
+        y[row] = new_y
 
-        return df
+        return row, x, y
 
     def morph(
         self,
@@ -471,11 +479,23 @@ class DataMorpher:
             max_value=max_shake,
         )
 
+        x, y = (
+            start_shape.df['x'].to_numpy(copy=True),
+            start_shape.df['y'].to_numpy(copy=True),
+        )
+
+        # the starting dataset statistics
+        stats = Statistics(x, y)
+
+        # the summary statistics of the above
+        summary_stats = stats.perturb(0, 0, 0)
+
         for i in self._looper(
             iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
         ):
-            perturbed_data = self._perturb(
-                morphed_data.copy(),
+            index, *perturbed_data = self._perturb(
+                np.copy(x),
+                np.copy(y),
                 target_shape=target_shape,
                 shake=get_current_shake(i),
                 allowed_dist=allowed_dist,
@@ -483,8 +503,21 @@ class DataMorpher:
                 bounds=start_shape.morph_bounds,
             )
 
-            if self._is_close_enough(start_shape.df, perturbed_data):
-                morphed_data = perturbed_data
+            new_summary_stats = stats.perturb(
+                index,
+                perturbed_data[0][index] - x[index],
+                perturbed_data[1][index] - y[index],
+            )
+
+            if self._is_close_enough(summary_stats, new_summary_stats):
+                summary_stats = stats.perturb(
+                    index,
+                    perturbed_data[0][index] - x[index],
+                    perturbed_data[1][index] - y[index],
+                    update=True,
+                )
+                x, y = perturbed_data
+                morphed_data = pd.DataFrame({'x': x, 'y': y})
 
             frame_number = record_frames(
                 data=morphed_data,

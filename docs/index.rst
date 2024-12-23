@@ -18,6 +18,8 @@ Data Morph
 .. include:: quickstart.rst
    :start-after: .. INSTALLATION
 
+.. _classroom ideas:
+
 .. include:: classroom-ideas.rst
 
 Citations

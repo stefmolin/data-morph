@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import EngFormatter
 
-from ..data.stats import get_values
+from ..data.stats import get_summary_statistics
 from .style import plot_with_custom_style
 
 if TYPE_CHECKING:
@@ -64,7 +64,7 @@ def plot(
     ax.xaxis.set_major_formatter(tick_formatter)
     ax.yaxis.set_major_formatter(tick_formatter)
 
-    res = get_values(data)
+    res = get_summary_statistics(data)
 
     labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
     locs = np.linspace(0.8, 0.2, num=len(labels))

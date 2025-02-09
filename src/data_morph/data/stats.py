@@ -12,7 +12,7 @@ SummaryStatistics.__doc__ = (
 )
 
 
-def get_values(data: pd.DataFrame) -> SummaryStatistics:
+def get_summary_statistics(data: pd.DataFrame) -> SummaryStatistics:
     """
     Calculate the summary statistics for the given set of points.
 

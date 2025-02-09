@@ -225,7 +225,7 @@ class TestDataMorpher:
         with pytest.raises(AssertionError):
             assert_frame_equal(
                 pd.read_csv(
-                    tmp_path / f'{base_file_name}-data-{num_frames//2:03d}.csv'
+                    tmp_path / f'{base_file_name}-data-{num_frames // 2:03d}.csv'
                 ),
                 morphed_data,
             )

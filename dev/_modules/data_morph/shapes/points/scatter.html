@@ -29,7 +29,7 @@
   <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/plot_directive.css" />
@@ -523,17 +523,17 @@
   <h1>Source code for data_morph.shapes.points.scatter</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Scatter shape.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Number</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">...data.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span> <span class="nn">..bases.point_collection</span> <span class="kn">import</span> <span class="n">PointCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...data.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..bases.point_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">PointCollection</span>
 
 
 <div class="viewcode-block" id="Scatter">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.Scatter">[docs]</a>
-<span class="k">class</span> <span class="nc">Scatter</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Scatter</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the scatter shape: a cloud of randomly-scattered points.</span>
 
@@ -553,7 +553,7 @@
 <span class="sd">        The starting dataset to morph into other shapes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">dataset</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
         <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">center</span><span class="p">]</span>
@@ -576,7 +576,7 @@
 
 <div class="viewcode-block" id="Scatter.distance">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.Scatter.distance">[docs]</a>
-    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        No-op that allows returns 0 so that all perturbations are accepted.</span>
 
@@ -628,7 +628,7 @@
 
   <p class="copyright">
     
-      © Copyright 2023-2024, Stefanie Molin.
+      © Copyright 2023-2025, Stefanie Molin.
       <br/>
     
   </p>

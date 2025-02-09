@@ -29,7 +29,7 @@
   <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/plot_directive.css" />
@@ -523,15 +523,15 @@
   <h1>Source code for data_morph.shapes.points.parabola</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Parabola shapes.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">...data.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span> <span class="nn">..bases.point_collection</span> <span class="kn">import</span> <span class="n">PointCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...data.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..bases.point_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">PointCollection</span>
 
 
 <div class="viewcode-block" id="DownParabola">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.points.parabola.DownParabola.html#data_morph.shapes.points.DownParabola">[docs]</a>
-<span class="k">class</span> <span class="nc">DownParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DownParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the down parabola shape.</span>
 
@@ -553,7 +553,7 @@
 
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;down_parab&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">x_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
         <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">x_bounds</span>
         <span class="n">xmid</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">2</span>
@@ -572,7 +572,7 @@
 
 <div class="viewcode-block" id="LeftParabola">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.points.parabola.LeftParabola.html#data_morph.shapes.points.LeftParabola">[docs]</a>
-<span class="k">class</span> <span class="nc">LeftParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LeftParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the left parabola shape.</span>
 
@@ -594,7 +594,7 @@
 
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;left_parab&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
         <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">y_bounds</span>
         <span class="n">ymid</span> <span class="o">=</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">2</span>
@@ -613,7 +613,7 @@
 
 <div class="viewcode-block" id="RightParabola">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.points.parabola.RightParabola.html#data_morph.shapes.points.RightParabola">[docs]</a>
-<span class="k">class</span> <span class="nc">RightParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RightParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the right parabola shape.</span>
 
@@ -635,7 +635,7 @@
 
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;right_parab&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
         <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">y_bounds</span>
         <span class="n">ymid</span> <span class="o">=</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">2</span>
@@ -654,7 +654,7 @@
 
 <div class="viewcode-block" id="UpParabola">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.points.parabola.UpParabola.html#data_morph.shapes.points.UpParabola">[docs]</a>
-<span class="k">class</span> <span class="nc">UpParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UpParabola</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the up parabola shape.</span>
 
@@ -676,7 +676,7 @@
 
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;up_parab&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">x_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
         <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">x_bounds</span>
         <span class="n">xmid</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="mi">2</span>
@@ -726,7 +726,7 @@
 
   <p class="copyright">
     
-      © Copyright 2023-2024, Stefanie Molin.
+      © Copyright 2023-2025, Stefanie Molin.
       <br/>
     
   </p>

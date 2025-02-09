@@ -29,7 +29,7 @@
   <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/plot_directive.css" />
@@ -523,18 +523,18 @@
   <h1>Source code for data_morph.shapes.points.spade</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Spade shape.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Number</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">...data.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span> <span class="nn">..bases.point_collection</span> <span class="kn">import</span> <span class="n">PointCollection</span>
-<span class="kn">from</span> <span class="nn">.heart</span> <span class="kn">import</span> <span class="n">Heart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...data.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..bases.point_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">PointCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.heart</span><span class="w"> </span><span class="kn">import</span> <span class="n">Heart</span>
 
 
 <div class="viewcode-block" id="Spade">
 <a class="viewcode-back" href="../../../../api/data_morph.shapes.points.spade.Spade.html#data_morph.shapes.points.Spade">[docs]</a>
-<span class="k">class</span> <span class="nc">Spade</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Spade</span><span class="p">(</span><span class="n">PointCollection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for the spade shape.</span>
 
@@ -554,7 +554,7 @@
 <span class="sd">        The starting dataset to morph into other shapes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">x_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
         <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
 
@@ -574,7 +574,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_get_inverted_heart</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">y_shift</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_inverted_heart</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">y_shift</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get points for an inverted heart.</span>
 
@@ -599,7 +599,7 @@
         <span class="k">return</span> <span class="n">heart_points</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_get_base</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_base</span><span class="p">(</span>
         <span class="n">xmax</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span> <span class="n">x_shift</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span> <span class="n">y_shift</span><span class="p">:</span> <span class="n">Number</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -678,7 +678,7 @@
 
   <p class="copyright">
     
-      © Copyright 2023-2024, Stefanie Molin.
+      © Copyright 2023-2025, Stefanie Molin.
       <br/>
     
   </p>

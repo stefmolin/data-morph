@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
@@ -584,11 +584,11 @@ the algorithm can move the points) or percentiles using the data itself (see
 <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.df" title="data_morph.data.dataset.Dataset.df"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.df</span></code></a>). For example, the <a class="reference internal" href="../api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines" title="data_morph.shapes.lines.XLines"><code class="xref py py-class docutils literal notranslate"><span class="pre">XLines</span></code></a> shape inherits from
 <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> and uses the morph bounds (<a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.morph_bounds" title="data_morph.data.dataset.Dataset.morph_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.morph_bounds</span></code></a>)
 to calculate its position and scale:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">XLines</span><span class="p">(</span><span class="n">LineCollection</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">XLines</span><span class="p">(</span><span class="n">LineCollection</span><span class="p">):</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
         <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
 
@@ -711,7 +711,7 @@ Be sure to change the plotting code in the docstring to use your shape.</p></li>
 
   <p class="copyright">
     
-      © Copyright 2023-2024, Stefanie Molin.
+      © Copyright 2023-2025, Stefanie Molin.
       <br/>
     
   </p>

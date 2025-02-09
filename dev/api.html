@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
@@ -734,21 +734,21 @@ and <a class="reference external" href="https://stefaniemolin.com/data-morph-tal
 <p>The <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> class performs the morphing from a <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> to a <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a>.
 Any <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with numeric columns <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> can be a <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.
 Use the <a class="reference internal" href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader" title="data_morph.data.loader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> to create the <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> from a file or use a built-in dataset:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_morph.data.loader</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.data.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;panda&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>For morphing purposes, all target shapes are placed/sized based on aspects of the <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.
 All shapes are accessible via the <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_morph.shapes.factory</span> <span class="kn">import</span> <span class="n">ShapeFactory</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.shapes.factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShapeFactory</span>
 
 <span class="n">shape_factory</span> <span class="o">=</span> <span class="n">ShapeFactory</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="n">target_shape</span> <span class="o">=</span> <span class="n">shape_factory</span><span class="o">.</span><span class="n">generate_shape</span><span class="p">(</span><span class="s1">&#39;star&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>With the <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> and <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> created, here is a minimal example of morphing:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_morph.morpher</span> <span class="kn">import</span> <span class="n">DataMorpher</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.morpher</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataMorpher</span>
 
 <span class="n">morpher</span> <span class="o">=</span> <span class="n">DataMorpher</span><span class="p">(</span>
     <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -851,7 +851,7 @@ by Justin Matejka and George Fitzmaurice (ACM CHI 2017).</p>
 
   <p class="copyright">
     
-      © Copyright 2023-2024, Stefanie Molin.
+      © Copyright 2023-2025, Stefanie Molin.
       <br/>
     
   </p>

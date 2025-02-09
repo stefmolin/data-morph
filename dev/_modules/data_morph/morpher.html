@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
@@ -523,20 +523,20 @@
   <h1>Source code for data_morph.morpher</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Module containing data morphing logic.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Number</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tqdm</span>
 
-<span class="kn">from</span> <span class="nn">.bounds.bounding_box</span> <span class="kn">import</span> <span class="n">BoundingBox</span>
-<span class="kn">from</span> <span class="nn">.data.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span> <span class="nn">.data.stats</span> <span class="kn">import</span> <span class="n">get_values</span>
-<span class="kn">from</span> <span class="nn">.plotting.animation</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.bounds.bounding_box</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.data.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.data.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_values</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.plotting.animation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">ease_in_out_quadratic</span><span class="p">,</span>
     <span class="n">ease_in_out_sine</span><span class="p">,</span>
     <span class="n">ease_in_sine</span><span class="p">,</span>
@@ -544,13 +544,13 @@
     <span class="n">linear</span><span class="p">,</span>
     <span class="n">stitch_gif_animation</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.plotting.static</span> <span class="kn">import</span> <span class="n">plot</span>
-<span class="kn">from</span> <span class="nn">.shapes.bases.shape</span> <span class="kn">import</span> <span class="n">Shape</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.plotting.static</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.shapes.bases.shape</span><span class="w"> </span><span class="kn">import</span> <span class="n">Shape</span>
 
 
 <div class="viewcode-block" id="DataMorpher">
 <a class="viewcode-back" href="../../api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher">[docs]</a>
-<span class="k">class</span> <span class="nc">DataMorpher</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataMorpher</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for morphing a dataset into a target shape, preserving summary statistics.</span>
 
@@ -579,7 +579,7 @@
 <span class="sd">        By default, the animation will play forward and then reverse.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">decimals</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -644,7 +644,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_looper</span> <span class="o">=</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tnrange</span> <span class="k">if</span> <span class="n">in_notebook</span> <span class="k">else</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">trange</span>
 
-    <span class="k">def</span> <span class="nf">_select_frames</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_select_frames</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ramp_in</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">ramp_out</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">freeze_for</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -709,7 +709,7 @@
 
         <span class="k">return</span> <span class="n">frames</span>
 
-    <span class="k">def</span> <span class="nf">_record_frames</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_record_frames</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
         <span class="n">bounds</span><span class="p">:</span> <span class="n">BoundingBox</span><span class="p">,</span>
@@ -765,7 +765,7 @@
                 <span class="n">frame_number</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">frame_number</span>
 
-    <span class="k">def</span> <span class="nf">_is_close_enough</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">df2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_close_enough</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">df2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check whether the statistics are within the acceptable bounds.</span>
 
@@ -793,7 +793,7 @@
             <span class="o">==</span> <span class="mi">0</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_perturb</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_perturb</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
         <span class="n">target_shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">,</span>
@@ -857,7 +857,7 @@
 
 <div class="viewcode-block" id="DataMorpher.morph">
 <a class="viewcode-back" href="../../api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.morph">[docs]</a>
-    <span class="k">def</span> <span class="nf">morph</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">morph</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">start_shape</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span>
         <span class="n">target_shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">,</span>
@@ -979,7 +979,7 @@
             <span class="n">frame_number</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">_tweening</span><span class="p">(</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_tweening</span><span class="p">(</span>
             <span class="n">frame</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">min_value</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="n">Number</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>  <span class="c1"># numpydoc ignore=PR01,RT01</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;Determine the next value with tweening.&quot;&quot;&quot;</span>
@@ -1072,7 +1072,7 @@
 
   <p class="copyright">
     
-      © Copyright 2023-2024, Stefanie Molin.
+      © Copyright 2023-2025, Stefanie Molin.
       <br/>
     
   </p>

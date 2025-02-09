@@ -175,7 +175,7 @@ class Dataset:
                 raise ValueError(
                     'Columns "x" and "y" are required for datasets. The provided '
                     'dataset is missing the following column(s): '
-                    f"{', '.join(sorted(missing_columns))}."
+                    f'{", ".join(sorted(missing_columns))}.'
                 )
             data = data.rename(columns={col.upper(): col for col in missing_columns})
 

@@ -95,7 +95,7 @@ class BoundingBox:
         return self.x_bounds == other.x_bounds and self.y_bounds == other.y_bounds
 
     def __repr__(self) -> str:
-        return '<BoundingBox>\n' f'  x={self.x_bounds}' '\n' f'  y={self.y_bounds}'
+        return f'<BoundingBox>\n  x={self.x_bounds}\n  y={self.y_bounds}'
 
     def adjust_bounds(self, x: Number | None = None, y: Number | None = None) -> None:
         """

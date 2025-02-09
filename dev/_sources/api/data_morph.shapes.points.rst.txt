@@ -33,4 +33,5 @@ points
    parabola
    scatter
    spade
+   spiral
 

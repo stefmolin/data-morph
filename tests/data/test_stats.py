@@ -1,7 +1,7 @@
 """Test the stats module."""
 
 from data_morph.data.loader import DataLoader
-from data_morph.data.stats import get_values
+from data_morph.data.stats import get_summary_statistics
 
 
 def test_stats():
@@ -9,7 +9,7 @@ def test_stats():
 
     data = DataLoader.load_dataset('dino').data
 
-    stats = get_values(data)
+    stats = get_summary_statistics(data)
 
     assert stats.x_mean == data.x.mean()
     assert stats.y_mean == data.y.mean()

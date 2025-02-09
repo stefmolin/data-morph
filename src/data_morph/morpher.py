@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 import tqdm
 
-from .data.stats import get_values
+from .data.stats import get_summary_statistics
 from .plotting.animation import (
     ease_in_out_quadratic,
     ease_in_out_sine,
@@ -264,7 +264,9 @@ class DataMorpher:
             np.abs(
                 np.subtract(
                     *(
-                        np.floor(np.array(get_values(data)) * 10**self.decimals)
+                        np.floor(
+                            np.array(get_summary_statistics(data)) * 10**self.decimals
+                        )
                         for data in [df1, df2]
                     )
                 )

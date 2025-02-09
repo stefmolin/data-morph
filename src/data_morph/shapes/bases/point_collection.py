@@ -2,15 +2,19 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
-from numbers import Number
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.axes import Axes
 
 from ...plotting.style import plot_with_custom_style
 from .shape import Shape
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
+
+    from matplotlib.axes import Axes
 
 
 class PointCollection(Shape):

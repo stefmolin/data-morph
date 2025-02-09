@@ -27,13 +27,13 @@ from data_morph.shapes.factory import ShapeFactory
 
 new_paths = sys.argv[1:]
 
-args = []
+args = set()
 
 # Figure out argument of datasets based on .csv filename
 for dataset, filename in DataLoader._DATASETS.items():
     for new_file in new_paths:
         if filename in new_file:
-            args.append(dataset)
+            args.add(dataset)
 
 # Figure out argument of shapes based on .py filename
 new_files = [Path(x).name for x in new_paths]
@@ -52,7 +52,7 @@ for shape, shape_cls in ShapeFactory._SHAPE_MAPPING.items():
     for new_file in new_files:
         for module in all_modules:
             if module.endswith(new_file):
-                args.append(shape)
+                args.add(shape)
                 break
 
 print(' '.join(args))

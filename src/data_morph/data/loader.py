@@ -4,18 +4,21 @@ from __future__ import annotations
 
 from importlib.resources import files
 from itertools import zip_longest
-from numbers import Number
 from pathlib import Path
-from typing import ClassVar
+from typing import TYPE_CHECKING, ClassVar
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.axes import Axes
 
 from .. import MAIN_DIR
 from ..plotting.style import plot_with_custom_style
 from .dataset import Dataset
+
+if TYPE_CHECKING:
+    from numbers import Number
+
+    from matplotlib.axes import Axes
 
 
 class DataLoader:

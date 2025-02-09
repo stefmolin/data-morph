@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
-from numbers import Number
+from typing import TYPE_CHECKING
 
 from ._utils import _validate_2d
 from .interval import Interval
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
 
 
 class BoundingBox:

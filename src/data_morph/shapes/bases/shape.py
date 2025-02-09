@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import Iterable
-from numbers import Number
+from typing import TYPE_CHECKING
 
 import numpy as np
-from matplotlib.axes import Axes
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
+
+    from matplotlib.axes import Axes
 
 
 class Shape(ABC):

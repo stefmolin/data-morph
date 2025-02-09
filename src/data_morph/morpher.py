@@ -5,13 +5,11 @@ from __future__ import annotations
 from functools import partial
 from numbers import Number
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
-import pandas as pd
 import tqdm
 
-from .bounds.bounding_box import BoundingBox
-from .data.dataset import Dataset
 from .data.stats import get_values
 from .plotting.animation import (
     ease_in_out_quadratic,
@@ -22,7 +20,13 @@ from .plotting.animation import (
     stitch_gif_animation,
 )
 from .plotting.static import plot
-from .shapes.bases.shape import Shape
+
+if TYPE_CHECKING:
+    import pandas as pd
+
+    from .bounds.bounding_box import BoundingBox
+    from .data.dataset import Dataset
+    from .shapes.bases.shape import Shape
 
 
 class DataMorpher:

@@ -179,9 +179,8 @@ def ease_in_out_quadratic(step: int | float) -> int | float:
     """
     if step < 0.5:
         return 2 * step**2
-    else:
-        step = step * 2 - 1
-        return -0.5 * (step * (step - 2) - 1)
+    step = step * 2 - 1
+    return -0.5 * (step * (step - 2) - 1)
 
 
 @check_step

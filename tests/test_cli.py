@@ -38,7 +38,7 @@ def test_cli_bad_shape():
 
 @pytest.mark.input_validation
 @pytest.mark.parametrize(
-    ['decimals', 'reason'],
+    ('decimals', 'reason'),
     [
         (-1, 'invalid choice'),
         (0.5, 'invalid int value'),
@@ -55,7 +55,7 @@ def test_cli_bad_input_decimals(decimals, reason, capsys):
 
 @pytest.mark.input_validation
 @pytest.mark.parametrize(
-    ['value', 'reason'],
+    ('value', 'reason'),
     [
         ('--', 'expected one argument'),
         ('s', 'invalid float value'),
@@ -95,8 +95,8 @@ def test_cli_bad_input_boolean(field, value, capsys):
 
 
 @pytest.mark.parametrize(
-    ['start_shape', 'scale'],
-    [['dino', 10], ['dino', 0.5], ['dino', None]],
+    ('start_shape', 'scale'),
+    [('dino', 10), ('dino', 0.5), ('dino', None)],
 )
 def test_cli_dataloader(start_shape, scale, mocker):
     """Check that the DataLoader is being used correctly."""
@@ -179,7 +179,7 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
 
 
 @pytest.mark.parametrize(
-    ['target_shape', 'patched_options'],
+    ('target_shape', 'patched_options'),
     [
         (['star', 'bullseye'], None),
         (['all'], ['dots', 'x']),

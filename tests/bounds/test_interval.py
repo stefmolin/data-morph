@@ -28,7 +28,7 @@ class TestInterval:
             _ = Interval(limits)
 
     @pytest.mark.parametrize(
-        ['limits', 'inclusive', 'value', 'expected'],
+        ('limits', 'inclusive', 'value', 'expected'),
         [
             ([0, 10], True, 0, True),
             ([0, 10], True, 10, True),
@@ -63,7 +63,7 @@ class TestInterval:
             _ = value in Interval([0, 10])
 
     @pytest.mark.parametrize(
-        ['limits', 'inclusive', 'expected'],
+        ('limits', 'inclusive', 'expected'),
         [
             ([0, 1], True, True),
             ([0, 1], False, False),
@@ -82,7 +82,7 @@ class TestInterval:
             _ = Interval([0, 1], True) == other
 
     def test_getitem(self):
-        """Test thatthe __getitem__() method is working."""
+        """Test that the __getitem__() method is working."""
         limits = [0, 1]
         bounds = Interval(limits)
         assert bounds[0] == limits[0]
@@ -95,7 +95,7 @@ class TestInterval:
             assert bound == limit
 
     @pytest.mark.parametrize(
-        ['inclusive', 'expected'],
+        ('inclusive', 'expected'),
         [
             (True, '<Interval inclusive [0, 1]>'),
             (False, '<Interval exclusive (0, 1)>'),
@@ -108,7 +108,7 @@ class TestInterval:
 
     @pytest.mark.input_validation
     @pytest.mark.parametrize(
-        ['value', 'expected_msg', 'exc_class'],
+        ('value', 'expected_msg', 'exc_class'),
         [
             (0, 'value must be non-zero', ValueError),
             (None, 'value must be a numeric value', TypeError),
@@ -136,7 +136,7 @@ class TestInterval:
         assert bounds[1] == start[1] + value / 2
 
     @pytest.mark.parametrize(
-        ['limits', 'inclusive'],
+        ('limits', 'inclusive'),
         [
             ([10, 90], True),
             ([10, 90], False),
@@ -160,7 +160,7 @@ class TestInterval:
 
     @pytest.mark.parametrize('inclusive', [True, False])
     @pytest.mark.parametrize(
-        ['limits', 'expected'],
+        ('limits', 'expected'),
         [
             ([-10, -5], 5),
             ([-1, 1], 2),

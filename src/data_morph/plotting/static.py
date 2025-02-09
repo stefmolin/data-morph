@@ -116,4 +116,4 @@ def plot(
         dirname.mkdir(parents=True, exist_ok=True)
 
     fig.savefig(save_to, bbox_inches='tight', **save_kwds)
-    plt.close(fig)
+    return plt.close(fig)

@@ -66,7 +66,7 @@ class TestDataset:
 
     @pytest.mark.bounds
     @pytest.mark.parametrize(
-        ['scale', 'data_bounds', 'morph_bounds', 'plot_bounds'],
+        ('scale', 'data_bounds', 'morph_bounds', 'plot_bounds'),
         [
             (
                 10,

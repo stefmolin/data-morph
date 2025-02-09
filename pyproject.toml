@@ -92,24 +92,29 @@ format.indent-style = "space"
 format.quote-style = "single"
 format.docstring-code-format = true
 lint.select = [
-  "ANN", # flake8-annotations
-  "B",   # flake8-bugbear
-  "C4",  # flake8-comprehensions
-  "E",   # pycodestyle error
-  "ERA", # eradicate (commented out code)
-  "F",   # pyflakes
-  "FA",  # flake8-future-annotations
-  "I",   # isort
-  "N",   # pep8-naming
-  "NPY", # numpy
-  "PD",  # pandas-vet
-  "PTH", # flake8-use-pathlib
-  "RUF", # ruff-specific rules
-  "SIM", # flake8-simplify
-  "TC",  # flake8-type-checking (performance improvements)
-  "TRY", # tryceratops
-  "UP",  # pyupgrade
-  "W",   # pycodestyle warning
+  "ANN",  # flake8-annotations
+  "B",    # flake8-bugbear
+  "C4",   # flake8-comprehensions
+  "E",    # pycodestyle error
+  "ERA",  # eradicate (commented out code)
+  "F",    # pyflakes
+  "FA",   # flake8-future-annotations
+  "I",    # isort
+  "ICN",  # flake8-import-conventions
+  "N",    # pep8-naming
+  "NPY",  # numpy
+  "PD",   # pandas-vet
+  "PERF", # perflint
+  "PT",   # flake8-pytest-style
+  "PTH",  # flake8-use-pathlib
+  "RET",  # flake8-return
+  "RSE",  # flake8-raise
+  "RUF",  # ruff-specific rules
+  "SIM",  # flake8-simplify
+  "TC",   # flake8-type-checking (performance improvements)
+  "TRY",  # tryceratops
+  "UP",   # pyupgrade
+  "W",    # pycodestyle warning
 ]
 lint.ignore = [
   "E501",   # line-too-long

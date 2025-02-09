@@ -164,3 +164,15 @@ class Interval:
             The range covered by the interval.
         """
         return abs(self._bounds[1] - self._bounds[0])
+
+    @property
+    def center(self) -> Number:
+        """
+        Calculate the center of the interval.
+
+        Returns
+        -------
+        numbers.Number
+            The center of the interval.
+        """
+        return sum(self) / 2

@@ -29,18 +29,14 @@ class Club(PointCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.data_bounds.y_bounds
-
-        x_shift = sum(x_bounds) / 2
-        y_shift = sum(y_bounds) / 2
-        scale_factor = min(x_bounds.range, y_bounds.range) / 75
+        scale_factor = min(*dataset.data_bounds.range) / 75
 
         x_lobes, y_lobes = self._get_lobes(scale_factor)
         x_stem, y_stem = self._get_stem(scale_factor)
 
-        xs = x_shift + np.concatenate(x_lobes + x_stem)
-        ys = y_shift + np.concatenate(y_lobes + y_stem)
+        x_center, y_center = dataset.data_bounds.center
+        xs = x_center + np.concatenate(x_lobes + x_stem)
+        ys = y_center + np.concatenate(y_lobes + y_stem)
 
         super().__init__(*np.stack([xs, ys], axis=1))
 

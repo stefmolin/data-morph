@@ -172,3 +172,18 @@ class TestInterval:
         """Test that the range property is working."""
         bounds = Interval(limits, inclusive)
         assert bounds.range == expected
+
+    @pytest.mark.parametrize('inclusive', [True, False])
+    @pytest.mark.parametrize(
+        ('limits', 'expected'),
+        [
+            ([-10, -5], -7.5),
+            ([-1, 1], 0),
+            ([2, 100], 51),
+        ],
+        ids=str,
+    )
+    def test_center(self, limits, inclusive, expected):
+        """Test that the center property is working."""
+        bounds = Interval(limits, inclusive)
+        assert bounds.center == expected

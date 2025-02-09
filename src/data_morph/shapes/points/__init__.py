@@ -6,6 +6,7 @@ from .heart import Heart
 from .parabola import DownParabola, LeftParabola, RightParabola, UpParabola
 from .scatter import Scatter
 from .spade import Spade
+from .spiral import Spiral
 
 __all__ = [
     'Club',
@@ -16,5 +17,6 @@ __all__ = [
     'RightParabola',
     'Scatter',
     'Spade',
+    'Spiral',
     'UpParabola',
 ]

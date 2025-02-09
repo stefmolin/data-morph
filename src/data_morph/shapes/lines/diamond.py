@@ -26,8 +26,8 @@ class Diamond(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        xmin, xmax = dataset.df.x.quantile([0.05, 0.95])
-        ymin, ymax = dataset.df.y.quantile([0.05, 0.95])
+        xmin, xmax = dataset.data.x.quantile([0.05, 0.95])
+        ymin, ymax = dataset.data.y.quantile([0.05, 0.95])
 
         xmid = (xmax + xmin) / 2
         ymid = (ymax + ymin) / 2

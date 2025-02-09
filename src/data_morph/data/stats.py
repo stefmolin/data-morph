@@ -12,13 +12,13 @@ SummaryStatistics.__doc__ = (
 )
 
 
-def get_values(df: pd.DataFrame) -> SummaryStatistics:
+def get_values(data: pd.DataFrame) -> SummaryStatistics:
     """
     Calculate the summary statistics for the given set of points.
 
     Parameters
     ----------
-    df : pandas.DataFrame
+    data : pandas.DataFrame
         A dataset with columns x and y.
 
     Returns
@@ -28,9 +28,9 @@ def get_values(df: pd.DataFrame) -> SummaryStatistics:
         along with the Pearson correlation coefficient between the two.
     """
     return SummaryStatistics(
-        df.x.mean(),
-        df.y.mean(),
-        df.x.std(),
-        df.y.std(),
-        df.corr().x.y,
+        data.x.mean(),
+        data.y.mean(),
+        data.x.std(),
+        data.y.std(),
+        data.corr().x.y,
     )

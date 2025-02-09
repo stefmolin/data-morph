@@ -170,8 +170,8 @@ class TestDataMorpher:
         )
 
         with pytest.raises(AssertionError):
-            assert_frame_equal(morphed_data, dataset.df)
-        assert morpher._is_close_enough(dataset.df, morphed_data)
+            assert_frame_equal(morphed_data, dataset.data)
+        assert morpher._is_close_enough(dataset.data, morphed_data)
 
         _, err = capsys.readouterr()
         assert f'{target_shape} pattern: 100%' in err
@@ -254,7 +254,7 @@ class TestDataMorpher:
 
         base_path = 'test-freeze'
         end_frame = morpher._record_frames(
-            dataset.df,
+            dataset.data,
             dataset.plot_bounds,
             base_path,
             freeze_for,

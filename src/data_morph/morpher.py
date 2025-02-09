@@ -274,7 +274,7 @@ class DataMorpher:
 
     def _perturb(
         self,
-        df: pd.DataFrame,
+        data: pd.DataFrame,
         target_shape: Shape,
         *,
         shake: Number,
@@ -287,7 +287,7 @@ class DataMorpher:
 
         Parameters
         ----------
-        df : pandas.DataFrame
+        data : pandas.DataFrame
             The data to perturb.
         target_shape : Shape
             The shape to morph the data into.
@@ -308,9 +308,8 @@ class DataMorpher:
         pandas.DataFrame
             The input dataset with one point perturbed.
         """
-        row = self._rng.integers(0, len(df))
-        initial_x = df.at[row, 'x']
-        initial_y = df.at[row, 'y']
+        row = self._rng.integers(0, len(data))
+        initial_x, initial_y = data.to_numpy()[row]
 
         # this is the simulated annealing step, if "do_bad", then we are willing to
         # accept a new state which is worse than the current one
@@ -329,10 +328,10 @@ class DataMorpher:
             within_bounds = [new_x, new_y] in bounds
             done = close_enough and within_bounds
 
-        df.loc[row, 'x'] = new_x
-        df.loc[row, 'y'] = new_y
+        data.loc[row, 'x'] = new_x
+        data.loc[row, 'y'] = new_y
 
-        return df
+        return data
 
     def morph(
         self,
@@ -434,7 +433,7 @@ class DataMorpher:
         ):
             raise ValueError('allowed_dist must be a non-negative numeric value.')
 
-        morphed_data = start_shape.df.copy()
+        morphed_data = start_shape.data.copy()
 
         # iteration numbers that we will end up writing to file as frames
         frame_numbers = self._select_frames(
@@ -487,7 +486,7 @@ class DataMorpher:
                 bounds=start_shape.morph_bounds,
             )
 
-            if self._is_close_enough(start_shape.df, perturbed_data):
+            if self._is_close_enough(start_shape.data, perturbed_data):
                 morphed_data = perturbed_data
 
             frame_number = record_frames(

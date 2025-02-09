@@ -26,8 +26,8 @@ class Rectangle(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        xmin, xmax = dataset.df.x.quantile([0.1, 0.9])
-        ymin, ymax = dataset.df.y.quantile([0.1, 0.9])
+        xmin, xmax = dataset.data.x.quantile([0.1, 0.9])
+        ymin, ymax = dataset.data.y.quantile([0.1, 0.9])
 
         super().__init__(
             [[xmin, ymin], [xmin, ymax]],

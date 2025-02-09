@@ -40,7 +40,7 @@ def test_frame_stitching(sample_data, tmp_path):
 
 
 @pytest.mark.parametrize(
-    ['ease_function', 'step', 'expected'],
+    ('ease_function', 'step', 'expected'),
     [
         ('linear', 0.1, 0.1),
         ('linear', 0.5, 0.5),
@@ -85,8 +85,9 @@ def test_easing_functions(ease_function, step, expected):
 )
 def test_invalid_easing_step(ease_function, invalid_step):
     """Test that an invalid step type will produce a ValueError when passed to an easing function."""
+    ease_func = getattr(animation, ease_function)
+
     with pytest.raises(
         ValueError, match='Step must be an integer or float, between 0 and 1.'
     ):
-        ease_func = getattr(animation, ease_function)
         ease_func(invalid_step)

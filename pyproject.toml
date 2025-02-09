@@ -104,6 +104,7 @@ lint.select = [
   "NPY",  # numpy
   "PD",   # pandas-vet
   "PERF", # perflint
+  "PT",   # flake8-pytest-style
   "PTH",  # flake8-use-pathlib
   "RET",  # flake8-return
   "RUF",  # ruff-specific rules

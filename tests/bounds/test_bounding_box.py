@@ -14,13 +14,13 @@ class TestBoundingBox:
 
     @pytest.mark.input_validation
     @pytest.mark.parametrize(
-        ['x_bounds', 'y_bounds'],
+        ('x_bounds', 'y_bounds'),
         [
-            [None, None],
-            [[0, 1], None],
-            [None, [0, 1]],
-            [Interval([0, 1]), None],
-            [None, Interval([0, 1])],
+            (None, None),
+            ([0, 1], None),
+            (None, [0, 1]),
+            (Interval([0, 1]), None),
+            (None, Interval([0, 1])),
         ],
         ids=[
             'neither',
@@ -43,16 +43,16 @@ class TestBoundingBox:
             _ = BoundingBox([0, 1], [0, 1], inclusive)
 
     @pytest.mark.parametrize(
-        ['x_bounds', 'y_bounds', 'inclusive', 'expected'],
+        ('x_bounds', 'y_bounds', 'inclusive', 'expected'),
         [
-            [[0, 1], [0, 1], True, (True, True)],
-            [[0, 1], [0, 1], False, (False, False)],
-            [Interval([0, 1], True), Interval([0, 1], True), True, (True, True)],
-            [Interval([0, 1], True), Interval([0, 1], True), False, (True, True)],
-            [Interval([0, 1], True), [0, 1], True, (True, True)],
-            [[0, 1], Interval([0, 1], True), True, (True, True)],
-            [Interval([0, 1], True), [0, 1], False, (True, False)],
-            [[0, 1], Interval([0, 1], True), False, (False, True)],
+            ([0, 1], [0, 1], True, (True, True)),
+            ([0, 1], [0, 1], False, (False, False)),
+            (Interval([0, 1], True), Interval([0, 1], True), True, (True, True)),
+            (Interval([0, 1], True), Interval([0, 1], True), False, (True, True)),
+            (Interval([0, 1], True), [0, 1], True, (True, True)),
+            ([0, 1], Interval([0, 1], True), True, (True, True)),
+            (Interval([0, 1], True), [0, 1], False, (True, False)),
+            ([0, 1], Interval([0, 1], True), False, (False, True)),
         ],
     )
     def test_init(self, x_bounds, y_bounds, inclusive, expected):
@@ -74,12 +74,12 @@ class TestBoundingBox:
             assert bbox.y_bounds != y_bounds
 
     @pytest.mark.parametrize(
-        ['value', 'inclusive', 'expected'],
+        ('value', 'inclusive', 'expected'),
         [
-            [[1, 1], True, True],
-            [[1, 1], False, True],
-            [[0, 0], True, True],
-            [[0, 0], False, False],
+            ([1, 1], True, True),
+            ([1, 1], False, True),
+            ([0, 0], True, True),
+            ([0, 0], False, False),
         ],
         ids=[
             'inside box - inclusive',
@@ -137,13 +137,13 @@ class TestBoundingBox:
 
     @pytest.mark.input_validation
     @pytest.mark.parametrize(
-        ['x', 'y'],
+        ('x', 'y'),
         [
-            [True, True],
-            [None, True],
-            ['s', None],
-            [None, 's'],
-            ['s', 's'],
+            (True, True),
+            (None, True),
+            ('s', None),
+            (None, 's'),
+            ('s', 's'),
         ],
     )
     def test_adjust_bounds_input_validation(self, x, y):
@@ -152,7 +152,7 @@ class TestBoundingBox:
         with pytest.raises(TypeError, match='value must be a numeric value'):
             bbox.adjust_bounds(x, y)
 
-    @pytest.mark.parametrize(['x', 'y'], [[10, 10], [0, 10], [10, 0]])
+    @pytest.mark.parametrize(('x', 'y'), [(10, 10), (0, 10), (10, 0)])
     def test_adjust_bounds(self, x, y):
         """Test that the adjust_bounds() method is working."""
         start = [10, 90]
@@ -165,7 +165,7 @@ class TestBoundingBox:
         assert new_range_y == initial_range_y + y
 
     @pytest.mark.parametrize(
-        ['x', 'y'],
+        ('x', 'y'),
         [
             ([10, 90], [500, 600]),
             ([500, 600], [10, 90]),
@@ -188,7 +188,7 @@ class TestBoundingBox:
         assert bbox1 != bbox2
 
     @pytest.mark.parametrize(
-        ['x', 'y', 'expected'],
+        ('x', 'y', 'expected'),
         [
             ([10, 90], [500, 600], 0.8),
             ([500, 600], [10, 90], 1.25),

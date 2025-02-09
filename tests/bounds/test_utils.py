@@ -8,7 +8,7 @@ from data_morph.bounds._utils import _validate_2d
 @pytest.mark.bounds
 @pytest.mark.input_validation
 @pytest.mark.parametrize(
-    ['data', 'msg'],
+    ('data', 'msg'),
     [
         (True, 'must be an iterable of 2 numeric values'),
         ({1, 2}, 'must be an iterable of 2 numeric values'),

@@ -31,7 +31,7 @@ class TestDataMorpher:
 
     @pytest.mark.input_validation
     @pytest.mark.parametrize(
-        ['write_data', 'write_images'], [[True, True], [True, False], [False, True]]
+        ('write_data', 'write_images'), [(True, True), (True, False), (False, True)]
     )
     def test_input_validation_output_dir(self, write_data, write_images):
         """Test input validation on output_dir."""
@@ -64,10 +64,11 @@ class TestDataMorpher:
     @pytest.mark.parametrize('freeze_for', [-1, 0.5, 200, True, 's'])
     def test_input_validation_freeze_for(self, freeze_for):
         """Test input validation on freeze_for."""
+        morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+
         with pytest.raises(
             ValueError, match='freeze_for must be a non-negative integer'
         ):
-            morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
             _ = morpher._select_frames(
                 iterations=100, ramp_in=True, ramp_out=True, freeze_for=freeze_for
             )
@@ -76,14 +77,15 @@ class TestDataMorpher:
     @pytest.mark.parametrize('iterations', [-1, 0.5, 's'])
     def test_input_validation_iterations(self, iterations):
         """Test input validation on iterations."""
+        morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+
         with pytest.raises(ValueError, match='iterations must be a positive integer'):
-            morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
             _ = morpher._select_frames(
                 iterations=iterations, ramp_in=True, ramp_out=True, freeze_for=0
             )
 
     @pytest.mark.parametrize(
-        ['ramp_in', 'ramp_out', 'expected_frames'],
+        ('ramp_in', 'ramp_out', 'expected_frames'),
         [
             (True, True, [0, 1, 2, 5, 8, 12, 15, 18, 19]),
             (True, False, [0, 0, 1, 3, 5, 7, 10, 13, 17]),
@@ -121,7 +123,7 @@ class TestDataMorpher:
     @pytest.mark.input_validation
     @pytest.mark.parametrize('name', ['shake', 'temp'])
     @pytest.mark.parametrize(
-        ['min_value', 'max_value'],
+        ('min_value', 'max_value'),
         [(0, 0), (1, 1), (0.5, 0.5), (0.5, 0.25)],
     )
     def test_morph_input_validation_shake_and_temp_range(

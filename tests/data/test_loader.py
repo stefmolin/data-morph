@@ -17,7 +17,7 @@ class TestDataLoader:
 
     @pytest.mark.dataset
     @pytest.mark.parametrize(
-        ['name', 'file'], [['dino', 'dino.csv'], ['sheep', 'sheep.csv']]
+        ('name', 'file'), [('dino', 'dino.csv'), ('sheep', 'sheep.csv')]
     )
     def test_load_dataset(self, name, file, starter_shapes_dir):
         """Confirm that loading the dataset by name and file works."""
@@ -37,8 +37,8 @@ class TestDataLoader:
             _ = DataLoader.load_dataset(dataset)
 
     @pytest.mark.parametrize(
-        ['provided_name', 'expected_name'],
-        [['python', 'Python'], ['Python', 'Python'], ['sds', 'SDS'], ['SDS', 'SDS']],
+        ('provided_name', 'expected_name'),
+        [('python', 'Python'), ('Python', 'Python'), ('sds', 'SDS'), ('SDS', 'SDS')],
     )
     def test_load_dataset_proper_nouns(self, provided_name, expected_name):
         """

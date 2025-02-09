@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable, MutableSequence
 from functools import partial
 from numbers import Number
 from pathlib import Path
@@ -244,16 +245,26 @@ class DataMorpher:
                 frame_number += 1
         return frame_number
 
-    def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
+    def _is_close_enough(
+        self,
+        x1: Iterable[Number],
+        y1: Iterable[Number],
+        x2: Iterable[Number],
+        y2: Iterable[Number],
+    ) -> bool:
         """
         Check whether the statistics are within the acceptable bounds.
 
         Parameters
         ----------
-        df1 : pandas.DataFrame
-            The original DataFrame.
-        df2 : pandas.DataFrame
-            The DataFrame after the latest perturbation.
+        x1 : Iterable[Number]
+            The original value of ``x``.
+        y1 : Iterable[Number]
+            The original value of ``y``.
+        x2 : Iterable[Number]
+            The perturbed  value of ``x``.
+        y2 : Iterable[Number]
+            The perturbed value of ``y``.
 
         Returns
         -------
@@ -263,10 +274,8 @@ class DataMorpher:
         return np.all(
             np.abs(
                 np.subtract(
-                    *(
-                        np.floor(np.array(get_values(data)) * 10**self.decimals)
-                        for data in [df1, df2]
-                    )
+                    np.floor(np.array(get_values(x1, y1)) * 10**self.decimals),
+                    np.floor(np.array(get_values(x2, y2)) * 10**self.decimals),
                 )
             )
             == 0
@@ -274,21 +283,24 @@ class DataMorpher:
 
     def _perturb(
         self,
-        df: pd.DataFrame,
+        x: MutableSequence[Number],
+        y: MutableSequence[Number],
         target_shape: Shape,
         *,
         shake: Number,
         allowed_dist: Number,
         temp: Number,
         bounds: BoundingBox,
-    ) -> pd.DataFrame:
+    ) -> tuple[MutableSequence[Number], MutableSequence[Number]]:
         """
         Perform one round of perturbation.
 
         Parameters
         ----------
-        df : pandas.DataFrame
-            The data to perturb.
+        x : MutableSequence[Number]
+            The ``x`` part of the dataset.
+        y : MutableSequence[Number]
+            The ``y`` part of the dataset.
         target_shape : Shape
             The shape to morph the data into.
         shake : numbers.Number
@@ -305,12 +317,12 @@ class DataMorpher:
 
         Returns
         -------
-        pandas.DataFrame
+        tuple[MutableSequence[Number], MutableSequence[Number]]
             The input dataset with one point perturbed.
         """
-        row = self._rng.integers(0, len(df))
-        initial_x = df.at[row, 'x']
-        initial_y = df.at[row, 'y']
+        row = self._rng.integers(0, len(x))
+        initial_x = x[row]
+        initial_y = y[row]
 
         # this is the simulated annealing step, if "do_bad", then we are willing to
         # accept a new state which is worse than the current one
@@ -329,10 +341,10 @@ class DataMorpher:
             within_bounds = [new_x, new_y] in bounds
             done = close_enough and within_bounds
 
-        df.loc[row, 'x'] = new_x
-        df.loc[row, 'y'] = new_y
+        x[row] = new_x
+        y[row] = new_y
 
-        return df
+        return x, y
 
     def morph(
         self,
@@ -475,11 +487,17 @@ class DataMorpher:
             max_value=max_shake,
         )
 
+        x, y = (
+            start_shape.df['x'].to_numpy(copy=True),
+            start_shape.df['y'].to_numpy(copy=True),
+        )
+
         for i in self._looper(
             iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
         ):
             perturbed_data = self._perturb(
-                morphed_data.copy(),
+                np.copy(x),
+                np.copy(y),
                 target_shape=target_shape,
                 shake=get_current_shake(i),
                 allowed_dist=allowed_dist,
@@ -487,8 +505,9 @@ class DataMorpher:
                 bounds=start_shape.morph_bounds,
             )
 
-            if self._is_close_enough(start_shape.df, perturbed_data):
-                morphed_data = perturbed_data
+            if self._is_close_enough(x, y, *perturbed_data):
+                x, y = perturbed_data
+                morphed_data = pd.DataFrame({'x': x, 'y': y})
 
             frame_number = record_frames(
                 data=morphed_data,

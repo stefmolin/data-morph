@@ -1,5 +1,7 @@
 """Test the stats module."""
 
+import numpy as np
+
 from data_morph.data.loader import DataLoader
 from data_morph.data.stats import get_values
 
@@ -9,10 +11,10 @@ def test_stats():
 
     data = DataLoader.load_dataset('dino').df
 
-    stats = get_values(data)
+    stats = get_values(data['x'], data['y'])
 
     assert stats.x_mean == data.x.mean()
     assert stats.y_mean == data.y.mean()
     assert stats.x_stdev == data.x.std()
     assert stats.y_stdev == data.y.std()
-    assert stats.correlation == data.corr().x.y
+    np.allclose(stats.correlation, data.corr().x.y)

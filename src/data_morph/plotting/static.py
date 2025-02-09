@@ -64,7 +64,7 @@ def plot(
     ax.xaxis.set_major_formatter(tick_formatter)
     ax.yaxis.set_major_formatter(tick_formatter)
 
-    res = get_values(df)
+    res = get_values(df['x'].to_numpy(), df['y'].to_numpy())
 
     labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
     locs = np.linspace(0.8, 0.2, num=len(labels))

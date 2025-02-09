@@ -2,20 +2,23 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
 from functools import partial
-from numbers import Number
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-from matplotlib.axes import Axes
 from matplotlib.ticker import EngFormatter
 
 from ..data.stats import get_values
 from .style import plot_with_custom_style
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
+
+    import pandas as pd
+    from matplotlib.axes import Axes
 
 
 @plot_with_custom_style

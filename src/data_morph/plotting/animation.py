@@ -5,11 +5,12 @@ from __future__ import annotations
 import math
 from functools import wraps
 from pathlib import Path
-from typing import Callable
+from typing import TYPE_CHECKING, Callable
 
 from PIL import Image
 
-from ..shapes.bases.shape import Shape
+if TYPE_CHECKING:
+    from ..shapes.bases.shape import Shape
 
 
 def stitch_gif_animation(

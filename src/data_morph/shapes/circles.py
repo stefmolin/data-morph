@@ -2,15 +2,20 @@
 
 from __future__ import annotations
 
-from numbers import Number
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.axes import Axes
 
-from ..data.dataset import Dataset
 from ..plotting.style import plot_with_custom_style
 from .bases.shape import Shape
+
+if TYPE_CHECKING:
+    from numbers import Number
+
+    from matplotlib.axes import Axes
+
+    from ..data.dataset import Dataset
 
 
 class Circle(Shape):

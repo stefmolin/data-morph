@@ -4,12 +4,15 @@ from __future__ import annotations
 
 import argparse
 import sys
-from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 from . import __version__
 from .data.loader import DataLoader
 from .morpher import DataMorpher
 from .shapes.factory import ShapeFactory
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 ARG_DEFAULTS = {
     'output_dir': 'morphed_data',

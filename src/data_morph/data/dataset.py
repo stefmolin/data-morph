@@ -3,14 +3,17 @@
 from __future__ import annotations
 
 from numbers import Number
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
-import pandas as pd
-from matplotlib.axes import Axes
 
 from ..bounds.bounding_box import BoundingBox
 from ..bounds.interval import Interval
 from ..plotting.style import plot_with_custom_style
+
+if TYPE_CHECKING:
+    import pandas as pd
+    from matplotlib.axes import Axes
 
 
 class Dataset:

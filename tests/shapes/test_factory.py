@@ -1,5 +1,6 @@
 """Test the factory module."""
 
+import matplotlib.pyplot as plt
 import pytest
 
 
@@ -41,3 +42,4 @@ class TestShapeFactory:
         assert {ax.get_title() for ax in populated_axs} == set(
             shape_factory.AVAILABLE_SHAPES
         )
+        plt.close()

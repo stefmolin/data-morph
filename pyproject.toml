@@ -100,6 +100,7 @@ lint.select = [
   "F",    # pyflakes
   "FA",   # flake8-future-annotations
   "I",    # isort
+  "ICN",  # flake8-import-conventions
   "N",    # pep8-naming
   "NPY",  # numpy
   "PD",   # pandas-vet
@@ -107,6 +108,7 @@ lint.select = [
   "PT",   # flake8-pytest-style
   "PTH",  # flake8-use-pathlib
   "RET",  # flake8-return
+  "RSE",  # flake8-raise
   "RUF",  # ruff-specific rules
   "SIM",  # flake8-simplify
   "TC",   # flake8-type-checking (performance improvements)

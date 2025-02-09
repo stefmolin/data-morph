@@ -205,3 +205,8 @@ class TestBoundingBox:
         """Test that the range property is working."""
         bbox = BoundingBox([0, 10], [5, 10])
         assert bbox.range == (10, 5)
+
+    def test_center(self):
+        """Test that the center property is working."""
+        bbox = BoundingBox([0, 10], [5, 10])
+        assert bbox.center == (5, 7.5)

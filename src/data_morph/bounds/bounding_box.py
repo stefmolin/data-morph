@@ -167,3 +167,15 @@ class BoundingBox:
             The range covered by the x and y bounds, respectively.
         """
         return self.x_bounds.range, self.y_bounds.range
+
+    @property
+    def center(self) -> Iterable[Number]:
+        """
+        Calculate the center of the bounding box.
+
+        Returns
+        -------
+        Iterable[numbers.Number]
+            The center of the x and y bounds, respectively.
+        """
+        return self.x_bounds.center, self.y_bounds.center

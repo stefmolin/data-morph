@@ -31,10 +31,7 @@ class Spade(PointCollection):
 
     def __init__(self, dataset: Dataset) -> None:
         x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.data_bounds.y_bounds
-
-        x_shift = sum(x_bounds) / 2
-        y_shift = sum(y_bounds) / 2
+        x_shift, y_shift = dataset.data_bounds.center
 
         # upside-down heart
         heart_points = self._get_inverted_heart(dataset, y_shift)

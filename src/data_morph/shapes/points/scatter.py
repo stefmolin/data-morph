@@ -33,18 +33,20 @@ class Scatter(PointCollection):
         center = (dataset.data.x.mean(), dataset.data.y.mean())
         points = [center]
         max_radius = max(dataset.data.x.std(), dataset.data.y.std())
-        for radius in np.linspace(max_radius // 5, max_radius, num=5):
-            for angle in np.linspace(0, 360, num=50, endpoint=False):
-                points.append(
-                    (
-                        center[0]
-                        + np.cos(angle) * radius
-                        + rng.standard_normal() * max_radius,
-                        center[1]
-                        + np.sin(angle) * radius
-                        + rng.standard_normal() * max_radius,
-                    )
+        points.extend(
+            [
+                (
+                    center[0]
+                    + np.cos(angle) * radius
+                    + rng.standard_normal() * max_radius,
+                    center[1]
+                    + np.sin(angle) * radius
+                    + rng.standard_normal() * max_radius,
                 )
+                for radius in np.linspace(max_radius // 5, max_radius, num=5)
+                for angle in np.linspace(0, 360, num=50, endpoint=False)
+            ]
+        )
         super().__init__(*points)
 
         self._alpha = 0.4

@@ -14,7 +14,7 @@ stats
    .. autosummary::
       :toctree:
    
-      get_values
+      get_summary_statistics
    
    
 

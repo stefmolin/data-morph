@@ -533,7 +533,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tqdm</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.data.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_values</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.data.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_summary_statistics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.plotting.animation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">ease_in_out_quadratic</span><span class="p">,</span>
     <span class="n">ease_in_out_sine</span><span class="p">,</span>
@@ -789,7 +789,9 @@
             <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span>
                     <span class="o">*</span><span class="p">(</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">get_values</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">decimals</span><span class="p">)</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">get_summary_statistics</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">decimals</span>
+                        <span class="p">)</span>
                         <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="p">[</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">]</span>
                     <span class="p">)</span>
                 <span class="p">)</span>

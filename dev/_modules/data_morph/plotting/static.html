@@ -533,7 +533,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">EngFormatter</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">..data.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_values</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..data.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_summary_statistics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_with_custom_style</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -589,7 +589,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
 
-    <span class="n">res</span> <span class="o">=</span> <span class="n">get_values</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">get_summary_statistics</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="n">labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;X Mean&#39;</span><span class="p">,</span> <span class="s1">&#39;Y Mean&#39;</span><span class="p">,</span> <span class="s1">&#39;X SD&#39;</span><span class="p">,</span> <span class="s1">&#39;Y SD&#39;</span><span class="p">,</span> <span class="s1">&#39;Corr.&#39;</span><span class="p">)</span>
     <span class="n">locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>

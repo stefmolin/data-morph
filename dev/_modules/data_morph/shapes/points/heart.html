@@ -561,10 +561,7 @@
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">x_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
-        <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span>
-
-        <span class="n">x_shift</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_bounds</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">y_shift</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y_bounds</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">center</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 

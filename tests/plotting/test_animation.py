@@ -15,10 +15,11 @@ def test_frame_stitching(sample_data, tmp_path):
     start_shape = 'sample'
     target_shape = 'circle'
     bounds = [-5, 105]
+    rng = np.random.default_rng()
 
     for frame in range(10):
         plot(
-            df=sample_data + np.random.randn(),
+            data=sample_data + rng.standard_normal(),
             x_bounds=bounds,
             y_bounds=bounds,
             save_to=(tmp_path / f'{start_shape}-to-{target_shape}-{frame}.png'),

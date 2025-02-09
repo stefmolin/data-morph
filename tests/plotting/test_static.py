@@ -15,7 +15,7 @@ def test_plot(sample_data, tmp_path, file_path):
         save_to = tmp_path / 'another-level' / file_path
 
         plot(
-            df=sample_data,
+            data=sample_data,
             x_bounds=bounds,
             y_bounds=bounds,
             save_to=save_to,
@@ -25,7 +25,7 @@ def test_plot(sample_data, tmp_path, file_path):
 
     else:
         ax = plot(
-            df=sample_data, x_bounds=bounds, y_bounds=bounds, save_to=None, decimals=2
+            data=sample_data, x_bounds=bounds, y_bounds=bounds, save_to=None, decimals=2
         )
 
         # confirm that the stylesheet was used

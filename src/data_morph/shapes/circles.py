@@ -41,10 +41,10 @@ class Circle(Shape):
     """
 
     def __init__(self, dataset: Dataset, radius: Number | None = None) -> None:
-        self.center: np.ndarray = dataset.df[['x', 'y']].mean().to_numpy()
+        self.center: np.ndarray = dataset.data[['x', 'y']].mean().to_numpy()
         """numpy.ndarray: The (x, y) coordinates of the circle's center."""
 
-        self.radius: Number = radius or dataset.df[['x', 'y']].std().mean() * 1.5
+        self.radius: Number = radius or dataset.data[['x', 'y']].std().mean() * 1.5
         """numbers.Number: The radius of the circle."""
 
     def __repr__(self) -> str:
@@ -125,7 +125,7 @@ class Rings(Shape):
         if num_rings <= 1:
             raise ValueError('num_rings must be greater than 1')
 
-        stdev = dataset.df.std().mean()
+        stdev = dataset.data.std().mean()
         self.circles: list[Circle] = [
             Circle(dataset, r)
             for r in np.linspace(stdev / num_rings * 2, stdev * 2, num_rings)

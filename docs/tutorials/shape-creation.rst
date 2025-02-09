@@ -53,7 +53,7 @@ various bits of information from the dataset, such as the automatically-calculat
 bounds (*e.g.*, :attr:`.Dataset.data_bounds`, which form the bounding box of the
 starting data, and :attr:`.Dataset.morph_bounds`, which define the limits of where
 the algorithm can move the points) or percentiles using the data itself (see
-:attr:`.Dataset.df`). For example, the :class:`.XLines` shape inherits from
+:attr:`.Dataset.data`). For example, the :class:`.XLines` shape inherits from
 :class:`.LineCollection` and uses the morph bounds (:attr:`.Dataset.morph_bounds`)
 to calculate its position and scale:
 

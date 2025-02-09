@@ -106,18 +106,18 @@ class DataLoader:
                 Path(cls._DATA_PATH) / cls._DATASETS[dataset]
             )
             name = dataset
-            df = pd.read_csv(filepath)
+            data = pd.read_csv(filepath)
         except KeyError:
             try:
                 name = Path(dataset).stem
-                df = pd.read_csv(dataset)
+                data = pd.read_csv(dataset)
             except FileNotFoundError as err:
                 raise ValueError(
                     f'Unknown dataset "{dataset}". '
                     'Provide a valid path to a CSV dataset or use one of '
                     f'the included datasets: {", ".join(cls.AVAILABLE_DATASETS)}.'
                 ) from err
-        return Dataset(name=name, df=df, scale=scale)
+        return Dataset(name=name, data=data, scale=scale)
 
     @classmethod
     @plot_with_custom_style
@@ -166,7 +166,7 @@ class DataLoader:
                 elif dataset == 'SDS':
                     dataset += ' logo'
 
-                ax.scatter(points.df.x, points.df.y, s=4, color='black')
+                ax.scatter(points.data.x, points.data.y, s=4, color='black')
 
                 # tight plot bounds for the grid of datasets in the docs
                 bounds = points.data_bounds.clone()
@@ -175,7 +175,7 @@ class DataLoader:
                 bounds.align_aspect_ratio()
 
                 ax.set(
-                    title=f'{dataset} ({points.df.shape[0]:,d} points)',
+                    title=f'{dataset} ({points.data.shape[0]:,d} points)',
                     xlim=bounds.x_bounds,
                     ylim=bounds.y_bounds,
                     xlabel='',

@@ -29,8 +29,8 @@ class DotsGrid(PointCollection):
     name = 'dots'
 
     def __init__(self, dataset: Dataset) -> None:
-        xlow, xhigh = dataset.df.x.quantile([0.05, 0.95]).tolist()
-        ylow, yhigh = dataset.df.y.quantile([0.05, 0.95]).tolist()
+        xlow, xhigh = dataset.data.x.quantile([0.05, 0.95]).tolist()
+        ylow, yhigh = dataset.data.y.quantile([0.05, 0.95]).tolist()
 
         xmid = (xhigh + xlow) / 2
         ymid = (yhigh + ylow) / 2

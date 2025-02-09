@@ -32,7 +32,7 @@ class Dataset:
     ----------
     name : str
         The name to use for the dataset.
-    df : pandas.DataFrame
+    data : pandas.DataFrame
         DataFrame containing columns x and y.
     scale : numbers.Number, optional
         The factor to scale the data by (can be used to speed up morphing).
@@ -49,10 +49,12 @@ class Dataset:
     def __init__(
         self,
         name: str,
-        df: pd.DataFrame,
+        data: pd.DataFrame,
         scale: Number | None = None,
     ) -> None:
-        self.df: pd.DataFrame = self._validate_data(df).pipe(self._scale_data, scale)
+        self.data: pd.DataFrame = self._validate_data(data).pipe(
+            self._scale_data, scale
+        )
         """pandas.DataFrame: DataFrame containing columns x and y."""
 
         self.name: str = name
@@ -81,7 +83,7 @@ class Dataset:
         """
         return BoundingBox(
             *[
-                Interval([self.df[dim].min(), self.df[dim].max()], inclusive=False)
+                Interval([self.data[dim].min(), self.data[dim].max()], inclusive=False)
                 for dim in self._REQUIRED_COLUMNS
             ]
         )
@@ -122,13 +124,13 @@ class Dataset:
         plot_bounds.align_aspect_ratio()
         return plot_bounds
 
-    def _scale_data(self, df: pd.DataFrame, scale: Number) -> pd.DataFrame:
+    def _scale_data(self, data: pd.DataFrame, scale: Number) -> pd.DataFrame:
         """
         Apply scaling to the data.
 
         Parameters
         ----------
-        df : pandas.DataFrame
+        data : pandas.DataFrame
             The data to scale.
         scale : numbers.Number, optional
             The factor to scale the data by (can be used to speed up morphing).
@@ -141,7 +143,7 @@ class Dataset:
         """
         if scale is None:
             self._scaled = False
-            return df
+            return data
 
         if isinstance(scale, bool) or not isinstance(scale, Number):
             raise TypeError('scale must be a numeric value.')
@@ -149,9 +151,9 @@ class Dataset:
         if not scale:
             raise ValueError('scale must be non-zero.')
 
-        scaled_df = df.assign(x=df.x.div(scale), y=df.y.div(scale))
+        scaled_data = data.assign(x=data.x.div(scale), y=data.y.div(scale))
         self._scaled = True
-        return scaled_df
+        return scaled_data
 
     def _validate_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
@@ -211,7 +213,7 @@ class Dataset:
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
         ax.axis('equal')
-        ax.scatter(self.df.x, self.df.y, s=2, color='black')
+        ax.scatter(self.data.x, self.data.y, s=2, color='black')
         ax.set(xlabel='', ylabel='', title=self if title == 'default' else title)
 
         if show_bounds:
@@ -236,8 +238,8 @@ class Dataset:
                 )
             )
             ax.text(
-                (self.df.x.max() + self.df.x.min()) / 2,
-                self.df.y.max() + self.data_bounds.y_bounds.range / scale_base,
+                (self.data.x.max() + self.data.x.min()) / 2,
+                self.data.y.max() + self.data_bounds.y_bounds.range / scale_base,
                 'DATA BOUNDS',
                 color='blue',
                 va='bottom',

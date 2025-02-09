@@ -7,7 +7,7 @@ from data_morph.data.stats import get_values
 def test_stats():
     """Test that summary statistics tuple is correct."""
 
-    data = DataLoader.load_dataset('dino').df
+    data = DataLoader.load_dataset('dino').data
 
     stats = get_values(data)
 

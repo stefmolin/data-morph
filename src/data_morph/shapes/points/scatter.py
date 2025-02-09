@@ -30,9 +30,9 @@ class Scatter(PointCollection):
 
     def __init__(self, dataset: Dataset) -> None:
         rng = np.random.default_rng(1)
-        center = (dataset.df.x.mean(), dataset.df.y.mean())
+        center = (dataset.data.x.mean(), dataset.data.y.mean())
         points = [center]
-        max_radius = max(dataset.df.x.std(), dataset.df.y.std())
+        max_radius = max(dataset.data.x.std(), dataset.data.y.std())
         for radius in np.linspace(max_radius // 5, max_radius, num=5):
             for angle in np.linspace(0, 360, num=50, endpoint=False):
                 points.append(

@@ -33,6 +33,7 @@ from .points import (
     RightParabola,
     Scatter,
     Spade,
+    Spiral,
     UpParabola,
 )
 
@@ -75,6 +76,7 @@ class ShapeFactory:
         SlantDownLines,
         SlantUpLines,
         Spade,
+        Spiral,
         Star,
         UpParabola,
         VerticalLines,

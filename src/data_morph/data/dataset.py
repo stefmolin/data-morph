@@ -220,8 +220,9 @@ class Dataset:
             scale_base = 85
 
             # data bounds
-            x_offset = self.data_bounds.x_bounds.range / scale_base
-            y_offset = self.data_bounds.y_bounds.range / scale_base
+            x_range, y_range = self.data_bounds.range
+            x_offset = x_range / scale_base
+            y_offset = y_range / scale_base
             data_rectangle = [
                 self.data_bounds.x_bounds[0] - x_offset,
                 self.data_bounds.y_bounds[0] - y_offset,
@@ -230,8 +231,8 @@ class Dataset:
             ax.add_patch(
                 plt.Rectangle(
                     data_rectangle,
-                    width=self.data_bounds.x_bounds.range + x_offset * 2,
-                    height=self.data_bounds.y_bounds.range + y_offset * 2,
+                    width=x_range + x_offset * 2,
+                    height=y_range + y_offset * 2,
                     ec='blue',
                     linewidth=2,
                     fill=False,
@@ -239,7 +240,7 @@ class Dataset:
             )
             ax.text(
                 (self.data.x.max() + self.data.x.min()) / 2,
-                self.data.y.max() + self.data_bounds.y_bounds.range / scale_base,
+                self.data.y.max() + y_offset,
                 'DATA BOUNDS',
                 color='blue',
                 va='bottom',

@@ -27,7 +27,6 @@ class XLines(LineCollection):
     name = 'x'
 
     def __init__(self, dataset: Dataset) -> None:
-        xmin, xmax = dataset.morph_bounds.x_bounds
-        ymin, ymax = dataset.morph_bounds.y_bounds
+        (xmin, xmax), (ymin, ymax) = dataset.morph_bounds
 
         super().__init__([[xmin, ymin], [xmax, ymax]], [[xmin, ymax], [xmax, ymin]])

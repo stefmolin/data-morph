@@ -30,14 +30,14 @@ class Spade(PointCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.data_bounds.x_bounds
+        _, xmax = dataset.data_bounds.x_bounds
         x_shift, y_shift = dataset.data_bounds.center
 
         # upside-down heart
         heart_points = self._get_inverted_heart(dataset, y_shift)
 
         # base of the spade
-        base_x, base_y = self._get_base(x_bounds[1], x_shift, y_shift)
+        base_x, base_y = self._get_base(xmax, x_shift, y_shift)
 
         # combine all points
         x = np.concatenate((heart_points[:, 0], base_x), axis=0)

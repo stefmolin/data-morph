@@ -27,8 +27,7 @@ class HighLines(LineCollection):
     name = 'high_lines'
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.data_bounds.y_bounds
+        x_bounds, y_bounds = dataset.data_bounds
 
         offset = y_bounds.range / 5
         lower = y_bounds[0] + offset

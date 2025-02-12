@@ -27,8 +27,7 @@ class WideLines(LineCollection):
     name = 'wide_lines'
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.data_bounds.y_bounds
+        x_bounds, y_bounds = dataset.data_bounds
 
         offset = x_bounds.range / 5
         lower = x_bounds[0] + offset

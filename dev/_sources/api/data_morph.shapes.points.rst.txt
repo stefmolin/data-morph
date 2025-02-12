@@ -29,6 +29,7 @@ points
 
    club
    dots_grid
+   figure_eight
    heart
    parabola
    scatter

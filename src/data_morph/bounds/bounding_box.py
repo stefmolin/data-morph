@@ -61,6 +61,19 @@ class BoundingBox:
         )
         """Interval: The bounds for the y direction."""
 
+        self._bounds = (self.x_bounds, self.y_bounds)
+
+    def __iter__(self) -> Interval:
+        """
+        Iterate over the bounds in the bounding box.
+
+        Returns
+        -------
+        Interval
+            The next set of bounds.
+        """
+        return iter(self._bounds)
+
     def __contains__(self, value: Iterable[Number]) -> bool:
         """
         Add support for using the ``in`` operator to check whether
@@ -95,7 +108,7 @@ class BoundingBox:
         """
         if not isinstance(other, BoundingBox):
             raise TypeError('Equality is only defined between BoundingBox objects.')
-        return self.x_bounds == other.x_bounds and self.y_bounds == other.y_bounds
+        return self._bounds == other._bounds
 
     def __repr__(self) -> str:
         return f'<BoundingBox>\n  x={self.x_bounds}\n  y={self.y_bounds}'

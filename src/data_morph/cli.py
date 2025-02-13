@@ -153,6 +153,7 @@ def generate_parser() -> argparse.ArgumentParser:
         ),
     )
     file_group.add_argument(
+        '-o',
         '--output-dir',
         default=ARG_DEFAULTS['output_dir'],
         metavar='DIRECTORY',

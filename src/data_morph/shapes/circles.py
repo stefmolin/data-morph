@@ -111,7 +111,7 @@ class Rings(Shape):
     ----------
     dataset : Dataset
         The starting dataset to morph into other shapes.
-    num_rings : int, default 4
+    num_rings : int, default ``4``
         The number of rings to include. Must be greater than 1.
 
     See Also

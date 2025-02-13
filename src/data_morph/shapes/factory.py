@@ -136,7 +136,7 @@ class ShapeFactory:
         AVAILABLE_SHAPES
             The list of available shapes.
         """
-        num_cols = 5
+        num_cols = 6
         num_plots = len(self.AVAILABLE_SHAPES)
         num_rows = int(np.ceil(num_plots / num_cols))
 
@@ -144,7 +144,7 @@ class ShapeFactory:
             num_rows,
             num_cols,
             layout='constrained',
-            figsize=(10, 2 * num_rows),
+            figsize=(12, 2 * num_rows),
         )
         fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 

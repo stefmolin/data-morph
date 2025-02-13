@@ -48,7 +48,7 @@ class DataMorpher:
         Whether to write data files to :attr:`output_dir`.
     seed : int, optional
         Provide an integer seed to the random number generator.
-    num_frames : int, default 100
+    num_frames : int, default ``100``
         The number of frames to record out of the morphing process.
     keep_frames : bool, default ``False``
         Whether to keep image files written to :attr:`output_dir` after
@@ -382,7 +382,7 @@ class DataMorpher:
         ramp_out : bool, default ``False``
             Whether to slow down the transition at the end.
             This only affects the frames, not the algorithm.
-        freeze_for : int, default 0
+        freeze_for : int, default ``0``
             The number of frames to freeze at the beginning and end.
             This only affects the frames, not the algorithm. Must be in the
             interval [0, 50].

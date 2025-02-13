@@ -29,8 +29,7 @@ class HorizontalLines(LineCollection):
     name = 'h_lines'
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.data_bounds.x_bounds
-        y_bounds = dataset.data_bounds.y_bounds
+        x_bounds, y_bounds = dataset.data_bounds
 
         super().__init__(
             *[

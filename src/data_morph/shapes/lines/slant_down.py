@@ -27,8 +27,7 @@ class SlantDownLines(LineCollection):
     name = 'slant_down'
 
     def __init__(self, dataset: Dataset) -> None:
-        x_bounds = dataset.morph_bounds.x_bounds
-        y_bounds = dataset.morph_bounds.y_bounds
+        x_bounds, y_bounds = dataset.morph_bounds
 
         xmin, xmax = x_bounds
         xmid = xmin + x_bounds.range / 2

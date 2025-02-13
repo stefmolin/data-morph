@@ -188,7 +188,10 @@ class Dataset:
 
     @plot_with_custom_style
     def plot(
-        self, ax: Axes | None = None, show_bounds: bool = True, title: str = 'default'
+        self,
+        ax: Axes | None = None,
+        show_bounds: bool = True,
+        title: str | None = 'default',
     ) -> Axes:
         """
         Plot the dataset and its bounds.
@@ -199,7 +202,7 @@ class Dataset:
             An optional :class:`~matplotlib.axes.Axes` object to plot on.
         show_bounds : bool, default ``True``
             Whether to plot the bounds of the dataset.
-        title : str, optional
+        title : str | ``None``, optional
             Title to use for the plot. The default will call ``str()`` on the
             Dataset. Pass ``None`` to leave the plot untitled.
 

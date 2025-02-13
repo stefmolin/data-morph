@@ -56,7 +56,9 @@ def generate_parser() -> argparse.ArgumentParser:
         description='Specify the start and target shapes.',
     )
     shape_config_group.add_argument(
+        '--start',
         '--start-shape',
+        dest='start_shape',
         required=True,
         nargs='+',
         help=(
@@ -67,7 +69,9 @@ def generate_parser() -> argparse.ArgumentParser:
         ),
     )
     shape_config_group.add_argument(
+        '--target',
         '--target-shape',
+        dest='target_shape',
         required=True,
         nargs='+',
         help=(

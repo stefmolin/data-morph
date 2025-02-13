@@ -80,18 +80,18 @@
 <path fill="none" stroke="black" d="M446.59,-220.77C433.73,-234.77 419.24,-250.54 405.92,-265.05"/>
 <polygon fill="none" stroke="black" points="403.26,-262.77 399.07,-272.5 408.41,-267.5 403.26,-262.77"/>
 </g>
-<!-- data_morph.shapes.polygons.Diamond -->
+<!-- data_morph.shapes.lines.diamond.Diamond -->
 <g id="node5" class="node">
-<title>data_morph.shapes.polygons.Diamond</title>
+<title>data_morph.shapes.lines.diamond.Diamond</title>
 <polygon fill="none" stroke="black" points="261.5,-7.1 261.5,-77.9 329.5,-77.9 329.5,-7.1 261.5,-7.1"/>
 <text text-anchor="start" x="269.5" y="-62.7" font-family="Times,serif" font-size="14.00">Diamond</text>
 <polyline fill="none" stroke="black" points="261.5,-54.9 329.5,-54.9 "/>
 <polyline fill="none" stroke="black" points="261.5,-30.1 329.5,-30.1 "/>
 <text text-anchor="start" x="293.5" y="-14.9" font-family="Times,serif" font-size="14.00"> </text>
 </g>
-<!-- data_morph.shapes.polygons.Diamond&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection -->
+<!-- data_morph.shapes.lines.diamond.Diamond&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection -->
 <g id="edge5" class="edge">
-<title>data_morph.shapes.polygons.Diamond&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection</title>
+<title>data_morph.shapes.lines.diamond.Diamond&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection</title>
 <path fill="none" stroke="black" d="M329.68,-77.65C332.6,-80.21 335.56,-82.69 338.5,-85 359.01,-101.13 382.44,-116.97 404.43,-130.86"/>
 <polygon fill="none" stroke="black" points="402.76,-133.95 413.1,-136.29 406.48,-128.01 402.76,-133.95"/>
 </g>
@@ -110,18 +110,18 @@
 <path fill="none" stroke="black" d="M416.93,-78.01C427.25,-93.2 439.56,-111.32 450.83,-127.92"/>
 <polygon fill="none" stroke="black" points="448.1,-130.13 456.61,-136.43 453.89,-126.19 448.1,-130.13"/>
 </g>
-<!-- data_morph.shapes.polygons.Star -->
+<!-- data_morph.shapes.lines.star.Star -->
 <g id="node7" class="node">
-<title>data_morph.shapes.polygons.Star</title>
+<title>data_morph.shapes.lines.star.Star</title>
 <polygon fill="none" stroke="black" points="457.5,-7.1 457.5,-77.9 511.5,-77.9 511.5,-7.1 457.5,-7.1"/>
 <text text-anchor="start" x="473.5" y="-62.7" font-family="Times,serif" font-size="14.00">Star</text>
 <polyline fill="none" stroke="black" points="457.5,-54.9 511.5,-54.9 "/>
 <polyline fill="none" stroke="black" points="457.5,-30.1 511.5,-30.1 "/>
 <text text-anchor="start" x="482.5" y="-14.9" font-family="Times,serif" font-size="14.00"> </text>
 </g>
-<!-- data_morph.shapes.polygons.Star&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection -->
+<!-- data_morph.shapes.lines.star.Star&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection -->
 <g id="edge7" class="edge">
-<title>data_morph.shapes.polygons.Star&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection</title>
+<title>data_morph.shapes.lines.star.Star&#45;&gt;data_morph.shapes.bases.line_collection.LineCollection</title>
 <path fill="none" stroke="black" d="M484.5,-78.01C484.5,-92.64 484.5,-110 484.5,-126.09"/>
 <polygon fill="none" stroke="black" points="481,-126.43 484.5,-136.43 488,-126.43 481,-126.43"/>
 </g>

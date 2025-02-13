@@ -15,7 +15,7 @@ class Diamond(LineCollection):
 
         import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.polygons import Diamond
+        from data_morph.shapes.lines import Diamond
 
         _ = Diamond(DataLoader.load_dataset('panda')).plot()
 

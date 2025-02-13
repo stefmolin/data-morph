@@ -15,7 +15,7 @@ class Rectangle(LineCollection):
 
         import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.polygons import Rectangle
+        from data_morph.shapes.lines import Rectangle
 
         _ = Rectangle(DataLoader.load_dataset('panda')).plot()
 

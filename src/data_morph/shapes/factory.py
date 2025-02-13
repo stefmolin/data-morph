@@ -144,7 +144,7 @@ class ShapeFactory:
             num_rows,
             num_cols,
             layout='constrained',
-            figsize=(12, 2 * num_rows),
+            figsize=(2 * num_cols, 2 * num_rows),
         )
         fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 

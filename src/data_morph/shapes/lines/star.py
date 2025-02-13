@@ -15,7 +15,7 @@ class Star(LineCollection):
 
         import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
-        from data_morph.shapes.polygons import Star
+        from data_morph.shapes.lines import Star
 
         _ = Star(DataLoader.load_dataset('panda')).plot()
 

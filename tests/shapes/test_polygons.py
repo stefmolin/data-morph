@@ -1,4 +1,4 @@
-"""Test polygons module."""
+"""Test polygons in the lines module."""
 
 from numbers import Number
 
@@ -8,7 +8,7 @@ import pytest
 pytestmark = [pytest.mark.shapes, pytest.mark.lines, pytest.mark.polygons]
 
 
-class PolygonsModuleTestBase:
+class PolygonsLineModuleTestBase:
     """Base for testing polygon shapes."""
 
     shape_name: str
@@ -47,7 +47,7 @@ class PolygonsModuleTestBase:
         assert np.unique(endpoints, axis=0).shape[0] == self.expected_line_count
 
 
-class TestDiamond(PolygonsModuleTestBase):
+class TestDiamond(PolygonsLineModuleTestBase):
     """Test the Diamond class."""
 
     shape_name = 'diamond'
@@ -59,7 +59,7 @@ class TestDiamond(PolygonsModuleTestBase):
         np.testing.assert_array_equal(np.sort(slopes).flatten(), [-1.5, -1.5, 1.5, 1.5])
 
 
-class TestRectangle(PolygonsModuleTestBase):
+class TestRectangle(PolygonsLineModuleTestBase):
     """Test the Rectangle class."""
 
     shape_name = 'rectangle'
@@ -71,7 +71,7 @@ class TestRectangle(PolygonsModuleTestBase):
         np.testing.assert_array_equal(np.sort(slopes).flatten(), [0, 0, np.inf, np.inf])
 
 
-class TestStar(PolygonsModuleTestBase):
+class TestStar(PolygonsLineModuleTestBase):
     """Test the Star class."""
 
     shape_name = 'star'

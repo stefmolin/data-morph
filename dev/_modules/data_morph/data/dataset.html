@@ -747,8 +747,9 @@
             <span class="n">scale_base</span> <span class="o">=</span> <span class="mi">85</span>
 
             <span class="c1"># data bounds</span>
-            <span class="n">x_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span>
-            <span class="n">y_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span>
+            <span class="n">x_range</span><span class="p">,</span> <span class="n">y_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">range</span>
+            <span class="n">x_offset</span> <span class="o">=</span> <span class="n">x_range</span> <span class="o">/</span> <span class="n">scale_base</span>
+            <span class="n">y_offset</span> <span class="o">=</span> <span class="n">y_range</span> <span class="o">/</span> <span class="n">scale_base</span>
             <span class="n">data_rectangle</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_offset</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">,</span>
@@ -757,8 +758,8 @@
             <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
                     <span class="n">data_rectangle</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">+</span> <span class="n">x_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
-                    <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">+</span> <span class="n">y_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">x_range</span> <span class="o">+</span> <span class="n">x_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="n">height</span><span class="o">=</span><span class="n">y_range</span> <span class="o">+</span> <span class="n">y_offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
                     <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
                     <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                     <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -766,7 +767,7 @@
             <span class="p">)</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span> <span class="o">/</span> <span class="n">scale_base</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">y_offset</span><span class="p">,</span>
                 <span class="s1">&#39;DATA BOUNDS&#39;</span><span class="p">,</span>
                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
                 <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>

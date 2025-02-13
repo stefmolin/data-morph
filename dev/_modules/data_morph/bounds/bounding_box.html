@@ -586,6 +586,19 @@
         <span class="p">)</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Interval: The bounds for the y direction.&quot;&quot;&quot;</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bounds</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Interval</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate over the bounds in the bounding box.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Interval</span>
+<span class="sd">            The next set of bounds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bounds</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Number</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add support for using the ``in`` operator to check whether</span>
@@ -620,7 +633,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">BoundingBox</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Equality is only defined between BoundingBox objects.&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_bounds</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">x_bounds</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_bounds</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">y_bounds</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounds</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_bounds</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;BoundingBox&gt;</span><span class="se">\n</span><span class="s1">  x=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x_bounds</span><span class="si">}</span><span class="se">\n</span><span class="s1">  y=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">y_bounds</span><span class="si">}</span><span class="s1">&#39;</span>

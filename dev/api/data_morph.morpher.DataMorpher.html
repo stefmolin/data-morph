@@ -718,7 +718,7 @@
 This must be <code class="docutils literal notranslate"><span class="pre">True</span></code> for animation.</p></li>
 <li><p><strong>write_data</strong> (bool, default <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to write data files to <a class="reference internal" href="#data_morph.morpher.DataMorpher.output_dir" title="data_morph.morpher.DataMorpher.output_dir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">output_dir</span></code></a>.</p></li>
 <li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Provide an integer seed to the random number generator.</p></li>
-<li><p><strong>num_frames</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>default 100</em>) – The number of frames to record out of the morphing process.</p></li>
+<li><p><strong>num_frames</strong> (int, default <code class="docutils literal notranslate"><span class="pre">100</span></code>) – The number of frames to record out of the morphing process.</p></li>
 <li><p><strong>keep_frames</strong> (bool, default <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to keep image files written to <a class="reference internal" href="#data_morph.morpher.DataMorpher.output_dir" title="data_morph.morpher.DataMorpher.output_dir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">output_dir</span></code></a> after
 stitching the GIF animation.</p></li>
 <li><p><strong>forward_only_animation</strong> (bool, default <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to generate the animation in the forward direction only.
@@ -787,7 +787,7 @@ at <code class="docutils literal notranslate"><span class="pre">max_shake</span>
 This only affects the frames, not the algorithm.</p></li>
 <li><p><strong>ramp_out</strong> (bool, default <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to slow down the transition at the end.
 This only affects the frames, not the algorithm.</p></li>
-<li><p><strong>freeze_for</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>default 0</em>) – The number of frames to freeze at the beginning and end.
+<li><p><strong>freeze_for</strong> (int, default <code class="docutils literal notranslate"><span class="pre">0</span></code>) – The number of frames to freeze at the beginning and end.
 This only affects the frames, not the algorithm. Must be in the
 interval [0, 50].</p></li>
 </ul>

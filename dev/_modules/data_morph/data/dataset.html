@@ -715,7 +715,10 @@
 <a class="viewcode-back" href="../../../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.plot">[docs]</a>
     <span class="nd">@plot_with_custom_style</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">show_bounds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ax</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">show_bounds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot the dataset and its bounds.</span>
@@ -726,7 +729,7 @@
 <span class="sd">            An optional :class:`~matplotlib.axes.Axes` object to plot on.</span>
 <span class="sd">        show_bounds : bool, default ``True``</span>
 <span class="sd">            Whether to plot the bounds of the dataset.</span>
-<span class="sd">        title : str, optional</span>
+<span class="sd">        title : str | ``None``, optional</span>
 <span class="sd">            Title to use for the plot. The default will call ``str()`` on the</span>
 <span class="sd">            Dataset. Pass ``None`` to leave the plot untitled.</span>
 

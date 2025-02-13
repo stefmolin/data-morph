@@ -49,12 +49,13 @@ within your current working directory:
 
    Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
 
-You can smooth the transition with the ``--ramp-in`` and ``--ramp-out`` flags. The ``--freeze``
-flag allows you to start the animation with the specified number of frames of the initial shape:
+You can smooth the transition with the ``--ease`` or ``--ease-in`` and ``--ease-out`` flags.
+The ``--freeze`` flag allows you to start the animation with the specified number of frames
+of the initial shape:
 
 .. code:: console
 
-   $ data-morph --start-shape panda --target-shape star --freeze 50 --ramp-in --ramp-out
+   $ data-morph --start-shape panda --target-shape star --freeze 50 --ease
 
 Here is the resulting animation:
 
@@ -115,8 +116,8 @@ With the :class:`.Dataset` and :class:`.Shape` created, here is a minimal exampl
        start_shape=dataset,
        target_shape=target_shape,
        freeze_for=50,
-       ramp_in=True,
-       ramp_out=True,
+       ease_in=True,
+       ease_out=True,
    )
 
 .. note::

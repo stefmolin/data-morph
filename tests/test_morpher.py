@@ -70,7 +70,7 @@ class TestDataMorpher:
             ValueError, match='freeze_for must be a non-negative integer'
         ):
             _ = morpher._select_frames(
-                iterations=100, ramp_in=True, ramp_out=True, freeze_for=freeze_for
+                iterations=100, ease_in=True, ease_out=True, freeze_for=freeze_for
             )
 
     @pytest.mark.input_validation
@@ -81,11 +81,11 @@ class TestDataMorpher:
 
         with pytest.raises(ValueError, match='iterations must be a positive integer'):
             _ = morpher._select_frames(
-                iterations=iterations, ramp_in=True, ramp_out=True, freeze_for=0
+                iterations=iterations, ease_in=True, ease_out=True, freeze_for=0
             )
 
     @pytest.mark.parametrize(
-        ('ramp_in', 'ramp_out', 'expected_frames'),
+        ('ease_in', 'ease_out', 'expected_frames'),
         [
             (True, True, [0, 1, 2, 5, 8, 12, 15, 18, 19]),
             (True, False, [0, 0, 1, 3, 5, 7, 10, 13, 17]),
@@ -93,7 +93,7 @@ class TestDataMorpher:
             (False, False, [0, 2, 4, 7, 9, 11, 13, 16, 18]),
         ],
     )
-    def test_frames(self, ramp_in, ramp_out, expected_frames):
+    def test_frames(self, ease_in, ease_out, expected_frames):
         """Confirm that frames produced by the _select_frames() method are correct."""
         freeze_for = 2
         iterations = 20
@@ -103,8 +103,8 @@ class TestDataMorpher:
         )
         frames = morpher._select_frames(
             iterations=iterations,
-            ramp_in=ramp_in,
-            ramp_out=ramp_out,
+            ease_in=ease_in,
+            ease_out=ease_out,
             freeze_for=freeze_for,
         )
 
@@ -166,8 +166,8 @@ class TestDataMorpher:
             start_shape=dataset,
             target_shape=shape_factory.generate_shape(target_shape),
             iterations=iterations,
-            ramp_in=False,
-            ramp_out=False,
+            ease_in=False,
+            ease_out=False,
             freeze_for=0,
         )
 
@@ -205,8 +205,8 @@ class TestDataMorpher:
             start_shape=dataset,
             target_shape=shape_factory.generate_shape(target_shape),
             iterations=iterations,
-            ramp_in=False,
-            ramp_out=False,
+            ease_in=False,
+            ease_out=False,
             freeze_for=0,
         )
 

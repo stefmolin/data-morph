@@ -49,8 +49,8 @@ Examples
 
     $ data-morph --start-shape music --target-shape bullseye --output-dir path/to/dir
 
-7. Morph the sheep shape into vertical lines, slowly ramping in and out for the animation:
+7. Morph the sheep shape into vertical lines, slowly easing in and out for the animation:
 
    .. code-block:: console
 
-    $ data-morph --start-shape sheep --target-shape v_lines --ramp-in --ramp-out
+    $ data-morph --start-shape sheep --target-shape v_lines --ease

@@ -82,7 +82,7 @@ def test_cli_bad_input_integers(field, value, capsys):
 @pytest.mark.input_validation
 @pytest.mark.parametrize('value', [1, 0, 's', -1, 0.5, True, False])
 @pytest.mark.parametrize(
-    'field', ['ramp-in', 'ramp-out', 'forward-only', 'keep-frames']
+    'field', ['ease-in', 'ease-out', 'forward-only', 'keep-frames']
 )
 def test_cli_bad_input_boolean(field, value, capsys):
     """Test that invalid input for Boolean switches are handled correctly."""
@@ -133,8 +133,9 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
         'min_shake': 0.5 if flag else None,
         'iterations': 1000,
         'freeze': 3 if flag else None,
-        'ramp_in': flag,
-        'ramp_out': flag,
+        'ease_in': flag,
+        'ease_out': flag,
+        'ease': not flag,
     }
 
     morpher_init = mocker.patch.object(cli.DataMorpher, '__init__', autospec=True)
@@ -153,8 +154,9 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
         '--forward-only' if init_args['forward_only_animation'] else '',
         f'--shake={morph_args["min_shake"]}' if morph_args['min_shake'] else '',
         f'--freeze={morph_args["freeze"]}' if morph_args['freeze'] else '',
-        '--ramp-in' if morph_args['ramp_in'] else '',
-        '--ramp-out' if morph_args['ramp_out'] else '',
+        '--ease-in' if morph_args['ease_in'] else '',
+        '--ease-out' if morph_args['ease_out'] else '',
+        '--ease' if morph_args['ease'] else '',
     ]
     cli.main([arg for arg in argv if arg])
 
@@ -171,6 +173,8 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
         elif arg == 'start_shape':
             assert isinstance(value, Dataset)
             assert value.name == Path(morph_args['start_shape_name']).stem
+        elif morph_args['ease'] and arg.startswith('ease_'):
+            assert value
         elif arg in ['freeze_for', 'min_shake']:
             arg = 'freeze' if arg == 'freeze_for' else arg
             assert value == (morph_args[arg] or cli.ARG_DEFAULTS[arg])

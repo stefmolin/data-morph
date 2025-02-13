@@ -168,12 +168,40 @@ def generate_parser() -> argparse.ArgumentParser:
         'Animation Configuration', description='Customize aspects of the animation.'
     )
     frame_group.add_argument(
+        '--ease',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to slow down the transition near the start and end of the '
+            'transformation. This is a shortcut for --ease-in --ease-out. This only '
+            'affects the frames selected, not the algorithm.'
+        ),
+    )
+    frame_group.add_argument(
+        '--ease-in',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to slowly start the transition from input to target in the '
+            'animation. This only affects the frames selected, not the algorithm.'
+        ),
+    )
+    frame_group.add_argument(
+        '--ease-out',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to slow down the transition from input to target towards the end '
+            'of the animation. This only affects the frames selected, not the algorithm.'
+        ),
+    )
+    frame_group.add_argument(
         '--forward-only',
         default=False,
         action='store_true',
         help=(
             'By default, this module will create an animation that plays '
-            'first forward (applying the transformation) and then unwinds, '
+            'first forward (applying the transformation) and then rewinds, '
             'playing backward to undo the transformation. Pass this argument '
             'to only play the animation in the forward direction before looping.'
         ),
@@ -187,24 +215,6 @@ def generate_parser() -> argparse.ArgumentParser:
             'Number of frames to freeze at the first and final frame of the transition '
             'in the animation. This only affects the frames selected, not the algorithm. '
             f'Defaults to {ARG_DEFAULTS["freeze"]}.'
-        ),
-    )
-    frame_group.add_argument(
-        '--ramp-in',
-        default=False,
-        action='store_true',
-        help=(
-            'Whether to slowly start the transition from input to target in the '
-            'animation. This only affects the frames selected, not the algorithm.'
-        ),
-    )
-    frame_group.add_argument(
-        '--ramp-out',
-        default=False,
-        action='store_true',
-        help=(
-            'Whether to slow down the transition from input to target towards the end '
-            'of the animation. This only affects the frames selected, not the algorithm.'
         ),
     )
 
@@ -260,7 +270,7 @@ def main(argv: Sequence[str] | None = None) -> None:
                 target_shape=shape_factory.generate_shape(target_shape),
                 iterations=args.iterations,
                 min_shake=args.shake,
-                ramp_in=args.ramp_in,
-                ramp_out=args.ramp_out,
+                ease_in=args.ease_in or args.ease,
+                ease_out=args.ease_out or args.ease,
                 freeze_for=args.freeze,
             )

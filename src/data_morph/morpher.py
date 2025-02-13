@@ -124,7 +124,7 @@ class DataMorpher:
         self._looper = tqdm.tnrange if in_notebook else tqdm.trange
 
     def _select_frames(
-        self, iterations: int, ramp_in: bool, ramp_out: bool, freeze_for: int
+        self, iterations: int, ease_in: bool, ease_out: bool, freeze_for: int
     ) -> list:
         """
         Identify the frames to capture for the animation.
@@ -133,9 +133,9 @@ class DataMorpher:
         ----------
         iterations : int
             The number of iterations.
-        ramp_in : bool
+        ease_in : bool
             Whether to more slowly transition in the beginning.
-        ramp_out : bool
+        ease_out : bool
             Whether to slow down the transition at the end.
         freeze_for : int
             The number of frames to freeze at the beginning and end. Must be in the
@@ -166,11 +166,11 @@ class DataMorpher:
         # freeze initial frame
         frames = [0] * freeze_for
 
-        if ramp_in and not ramp_out:
+        if ease_in and not ease_out:
             easing_function = ease_in_sine
-        elif ramp_out and not ramp_in:
+        elif ease_out and not ease_in:
             easing_function = ease_out_sine
-        elif ramp_out and ramp_in:
+        elif ease_out and ease_in:
             easing_function = ease_in_out_sine
         else:
             easing_function = linear
@@ -346,8 +346,8 @@ class DataMorpher:
         min_shake: Number = 0.3,
         max_shake: Number = 1,
         allowed_dist: Number = 2,
-        ramp_in: bool = False,
-        ramp_out: bool = False,
+        ease_in: bool = False,
+        ease_out: bool = False,
         freeze_for: int = 0,
     ) -> pd.DataFrame:
         """
@@ -376,10 +376,10 @@ class DataMorpher:
             at ``max_shake`` and move toward ``min_shake``.
         allowed_dist : numbers.Number
             The farthest apart the perturbed points can be from the target shape.
-        ramp_in : bool, default ``False``
+        ease_in : bool, default ``False``
             Whether to more slowly transition in the beginning.
             This only affects the frames, not the algorithm.
-        ramp_out : bool, default ``False``
+        ease_out : bool, default ``False``
             Whether to slow down the transition at the end.
             This only affects the frames, not the algorithm.
         freeze_for : int, default ``0``
@@ -440,8 +440,8 @@ class DataMorpher:
         # iteration numbers that we will end up writing to file as frames
         frame_numbers = self._select_frames(
             iterations=iterations,
-            ramp_in=ramp_in,
-            ramp_out=ramp_out,
+            ease_in=ease_in,
+            ease_out=ease_out,
             freeze_for=freeze_for,
         )
 

@@ -984,21 +984,21 @@
             <span class="n">frame_number</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">_tweening</span><span class="p">(</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_easing</span><span class="p">(</span>
             <span class="n">frame</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">min_value</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="n">Number</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>  <span class="c1"># numpydoc ignore=PR01,RT01</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Determine the next value with tweening.&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Determine the next value with easing.&quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">max_value</span> <span class="o">-</span> <span class="n">min_value</span><span class="p">)</span> <span class="o">*</span> <span class="n">ease_in_out_quadratic</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">iterations</span> <span class="o">-</span> <span class="n">frame</span><span class="p">)</span> <span class="o">/</span> <span class="n">iterations</span>
             <span class="p">)</span> <span class="o">+</span> <span class="n">min_value</span>
 
         <span class="n">get_current_temp</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
-            <span class="n">_tweening</span><span class="p">,</span>
+            <span class="n">_easing</span><span class="p">,</span>
             <span class="n">min_value</span><span class="o">=</span><span class="n">min_temp</span><span class="p">,</span>
             <span class="n">max_value</span><span class="o">=</span><span class="n">max_temp</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">get_current_shake</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
-            <span class="n">_tweening</span><span class="p">,</span>
+            <span class="n">_easing</span><span class="p">,</span>
             <span class="n">min_value</span><span class="o">=</span><span class="n">min_shake</span><span class="p">,</span>
             <span class="n">max_value</span><span class="o">=</span><span class="n">max_shake</span><span class="p">,</span>
         <span class="p">)</span>

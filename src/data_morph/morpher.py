@@ -457,21 +457,21 @@ class DataMorpher:
             frame_number=0,
         )
 
-        def _tweening(
+        def _easing(
             frame: int, *, min_value: Number, max_value: Number
         ) -> Number:  # numpydoc ignore=PR01,RT01
-            """Determine the next value with tweening."""
+            """Determine the next value with easing."""
             return (max_value - min_value) * ease_in_out_quadratic(
                 (iterations - frame) / iterations
             ) + min_value
 
         get_current_temp = partial(
-            _tweening,
+            _easing,
             min_value=min_temp,
             max_value=max_temp,
         )
         get_current_shake = partial(
-            _tweening,
+            _easing,
             min_value=min_shake,
             max_value=max_shake,
         )

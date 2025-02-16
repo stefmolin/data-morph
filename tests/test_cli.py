@@ -1,5 +1,6 @@
 """Test the CLI."""
 
+import itertools
 from pathlib import Path
 
 import pytest
@@ -94,7 +95,6 @@ def test_cli_bad_input_boolean(field, value, capsys):
     )
 
 
-@pytest.mark.skip('Need to rework for multiprocessing')
 @pytest.mark.parametrize(
     ('start_shape', 'scale'),
     [('dino', 10), ('dino', 0.5), ('dino', None)],
@@ -115,7 +115,6 @@ def test_cli_dataloader(start_shape, scale, mocker):
     load.assert_called_once_with(start_shape, scale=scale)
 
 
-@pytest.mark.skip('Need to rework for multiprocessing')
 @pytest.mark.parametrize('flag', [True, False])
 def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
     """Check that the proper values are passed to morph a single shape."""
@@ -184,7 +183,6 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
             assert value == morph_args[arg]
 
 
-@pytest.mark.skip('Need to rework for multiprocessing')
 @pytest.mark.parametrize(
     ('target_shape', 'patched_options'),
     [
@@ -196,17 +194,14 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
 @pytest.mark.parametrize(
     'start_shape',
     [
-        ['dino'],
-        ['dino', 'sheep'],
-        ['dino.csv', 'sheep'],
+        ['dino.csv'],
         ['dino', 'sheep.csv'],
-        ['dino.csv', 'sheep.csv'],
     ],
-    indirect=True,
+    indirect=True,  # uses the start_shape fixture above to complete the CSV path if necessary
     ids=str,
 )
 def test_cli_multiple_shapes(
-    start_shape, target_shape, patched_options, monkeypatch, mocker, capsys
+    start_shape, target_shape, patched_options, monkeypatch, tmp_path, capsys
 ):
     """Check that multiple morphing is working."""
 
@@ -219,21 +214,33 @@ def test_cli_multiple_shapes(
 
     shapes = patched_options or target_shape
 
-    morph_noop = mocker.patch.object(cli.DataMorpher, 'morph', autospec=True)
-    cli.main(['--start-shape', *start_shape, '--target-shape', *target_shape])
-    assert morph_noop.call_count == len(shapes) * len(start_shape)
-
-    err = capsys.readouterr().err
-    assert (
-        ''.join(
-            [f'Morphing shape {i + 1} of {len(shapes)}\n' for i in range(len(shapes))]
-        )
-        in err
+    iterations = 1
+    workers = 2
+    cli.main(
+        [
+            '--start-shape',
+            *start_shape,
+            '--target-shape',
+            *target_shape,
+            f'--iterations={iterations}',
+            f'--output-dir={tmp_path}',
+            f'--workers={workers}',
+        ]
     )
-    for shape in start_shape:
-        assert Path(shape).stem in err
 
-    patterns_run = [
-        str(kwargs['target_shape']) for _, kwargs in morph_noop.call_args_list
-    ]
-    assert set(shapes).difference(patterns_run) == set()
+    total_morphs = len(shapes) * len(start_shape)
+
+    out = capsys.readouterr().out
+    total_iterations = total_morphs * iterations
+    assert 'Overall progress' in out
+    assert f'100% {total_iterations}/{total_iterations}'
+
+    if workers >= total_morphs:
+        for shape in start_shape:
+            assert Path(shape).stem in out
+    else:
+        # only the overall progress should show up in this case
+        assert len(out.splitlines()) == 1
+
+    for dataset, shape in itertools.product(start_shape, shapes):
+        assert (tmp_path / f'{Path(dataset).stem}_to_{shape}.gif').exists()

@@ -56,6 +56,7 @@ optional-dependencies.dev = [
   "pytest-cov",
   "pytest-mock",
   "pytest-randomly",
+  "pytest-xdist",
 ]
 optional-dependencies.docs = [
   "pydata-sphinx-theme>=0.15.3",
@@ -140,6 +141,7 @@ addopts = [
   "-ra",
   "-l",
   "-v",
+  "-n=auto",                   # use as many workers as possible with pytest-xdist
   "--tb=short",
   "--import-mode=importlib",
   "--strict-markers",

@@ -525,6 +525,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">nullcontext</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Number</span>
@@ -748,31 +749,44 @@
 <span class="sd">        int</span>
 <span class="sd">            The next frame number available for recording.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_images</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">write_images</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_data</span><span class="p">)</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">is_start</span> <span class="o">=</span> <span class="n">frame_number</span> <span class="o">==</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_images</span><span class="p">:</span>
-                    <span class="n">plot</span><span class="p">(</span>
-                        <span class="n">data</span><span class="p">,</span>
-                        <span class="n">save_to</span><span class="o">=</span><span class="p">(</span>
+            <span class="n">img_file</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_file_name</span><span class="si">}</span><span class="s1">-image-</span><span class="si">{</span><span class="n">frame_number</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">.png&#39;</span>
+            <span class="p">)</span>
+            <span class="n">data_file</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_file_name</span><span class="si">}</span><span class="s1">-data-</span><span class="si">{</span><span class="n">frame_number</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">.csv&#39;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_images</span><span class="p">:</span>
+                <span class="n">plot</span><span class="p">(</span>
+                    <span class="n">data</span><span class="p">,</span>
+                    <span class="n">save_to</span><span class="o">=</span><span class="n">img_file</span><span class="p">,</span>
+                    <span class="n">decimals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decimals</span><span class="p">,</span>
+                    <span class="n">x_bounds</span><span class="o">=</span><span class="n">bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">,</span>
+                    <span class="n">y_bounds</span><span class="o">=</span><span class="n">bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">,</span>
+                    <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_data</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_start</span>
+            <span class="p">):</span>  <span class="c1"># don&#39;t write data for the initial frame (input data)</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">frame_number</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">duplicate_count</span> <span class="o">:=</span> <span class="n">count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">duplicate_count</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">data_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
+                            <span class="n">data_file</span><span class="p">,</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span>
-                            <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_file_name</span><span class="si">}</span><span class="s1">-image-</span><span class="si">{</span><span class="n">frame_number</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">.png&#39;</span>
-                        <span class="p">),</span>
-                        <span class="n">decimals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decimals</span><span class="p">,</span>
-                        <span class="n">x_bounds</span><span class="o">=</span><span class="n">bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">,</span>
-                        <span class="n">y_bounds</span><span class="o">=</span><span class="n">bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">,</span>
-                        <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="k">if</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">write_data</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_start</span>
-                <span class="p">):</span>  <span class="c1"># don&#39;t write data for the initial frame (input data)</span>
-                    <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span>
-                        <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_file_name</span><span class="si">}</span><span class="s1">-data-</span><span class="si">{</span><span class="n">frame_number</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">,</span>
-                        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="p">)</span>
+                            <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_file_name</span><span class="si">}</span><span class="s1">-data-</span><span class="si">{</span><span class="n">frame_number</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">img_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
+                            <span class="n">img_file</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span>
+                            <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_file_name</span><span class="si">}</span><span class="s1">-image-</span><span class="si">{</span><span class="n">frame_number</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="n">frame_number</span> <span class="o">+=</span> <span class="mi">1</span>
 
-                <span class="n">frame_number</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">frame_number</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_is_close_enough</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">df2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>

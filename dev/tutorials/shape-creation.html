@@ -532,27 +532,17 @@ for use as a target in the morphing process.</p>
 <nav class="contents local" id="steps">
 <p class="topic-title">Steps</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#create-a-class-for-the-shape" id="id1">Create a class for the shape</a></p>
-<ul>
-<li><p><a class="reference internal" href="#select-the-appropriate-base-class" id="id2">Select the appropriate base class</a></p></li>
-<li><p><a class="reference internal" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset" id="id3">Define the scale and placement of the shape based on the dataset</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#register-the-shape" id="id4">Register the shape</a></p></li>
-<li><p><a class="reference internal" href="#test-out-the-shape" id="id5">Test out the shape</a></p></li>
-<li><p><a class="reference internal" href="#optional-contribute-the-shape" id="id6">(Optional) Contribute the shape</a></p></li>
+<li><p><a class="reference internal" href="#select-the-appropriate-base-class" id="id1">Select the appropriate base class</a></p></li>
+<li><p><a class="reference internal" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset" id="id2">Define the scale and placement of the shape based on the dataset</a></p></li>
+<li><p><a class="reference internal" href="#test-out-the-shape" id="id3">Test out the shape</a></p></li>
+<li><p><a class="reference internal" href="#optional-contribute-the-shape" id="id4">(Optional) Contribute the shape</a></p></li>
 </ul>
 </nav>
 <hr class="docutils" />
-<section id="create-a-class-for-the-shape">
-<h2>Create a class for the shape<a class="headerlink" href="#create-a-class-for-the-shape" title="Link to this heading">#</a></h2>
-<p>All Data Morph shapes are defined as classes inside the <a class="reference internal" href="../api/data_morph.shapes.html#module-data_morph.shapes" title="data_morph.shapes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">shapes</span></code></a> subpackage.
-In order to register a new target shape for the CLI, you will need to fork and clone
-<a class="reference external" href="https://github.com/stefmolin/data-morph">the Data Morph repository</a>, and then add
-a class defining your shape.</p>
 <section id="select-the-appropriate-base-class">
-<h3>Select the appropriate base class<a class="headerlink" href="#select-the-appropriate-base-class" title="Link to this heading">#</a></h3>
-<p>Data Morph uses a hierarchy of shapes that all descend from an abstract
+<h2>Select the appropriate base class<a class="headerlink" href="#select-the-appropriate-base-class" title="Link to this heading">#</a></h2>
+<p>All Data Morph shapes are defined as classes inside the <a class="reference internal" href="../api/data_morph.shapes.html#module-data_morph.shapes" title="data_morph.shapes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">shapes</span></code></a> subpackage.
+Data Morph uses a hierarchy of shapes that all descend from an abstract
 base class (<a class="reference internal" href="../api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a>), which defines the basics of how a shape
 needs to behave (<em>i.e.</em>, it must have a <code class="docutils literal notranslate"><span class="pre">distance()</span></code> method and a
 <code class="docutils literal notranslate"><span class="pre">plot()</span></code> method).</p>
@@ -567,61 +557,54 @@ child classes:</p>
 <li><p>If your shape is composed of points, inherit from <a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a>
 (<em>e.g.</em>, <a class="reference internal" href="../api/data_morph.shapes.points.html#data_morph.shapes.points.Heart" title="data_morph.shapes.points.Heart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Heart</span></code></a>).</p></li>
 <li><p>If your shape isn’t composed of lines or points you can inherit directly from
-<a class="reference internal" href="../api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> (<em>e.g.</em>, <a class="reference internal" href="../api/data_morph.shapes.circles.Circle.html#data_morph.shapes.circles.Circle" title="data_morph.shapes.circles.Circle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circle</span></code></a>). Note that in this case you must
-define both the <code class="docutils literal notranslate"><span class="pre">distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> methods (this is done for your
+<a class="reference internal" href="../api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> (<em>e.g.</em>, <a class="reference internal" href="../api/data_morph.shapes.circles.Circle.html#data_morph.shapes.circles.Circle" title="data_morph.shapes.circles.Circle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circle</span></code></a>). Note that, in this case, you must
+define both the <code class="docutils literal notranslate"><span class="pre">distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> methods (this is done for you
 if you inherit from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> or <a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a>).</p></li>
 </ul>
 </section>
 <section id="define-the-scale-and-placement-of-the-shape-based-on-the-dataset">
-<h3>Define the scale and placement of the shape based on the dataset<a class="headerlink" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset" title="Link to this heading">#</a></h3>
+<h2>Define the scale and placement of the shape based on the dataset<a class="headerlink" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset" title="Link to this heading">#</a></h2>
 <p>Each shape will be initialized with a <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> instance. Use the dataset
 to determine where in the <em>xy</em>-plane the shape should be placed and also to scale it
-to the data. If you take a look at the existing shapes, you will see that they use
-various bits of information from the dataset, such as the automatically-calculated
-bounds (<em>e.g.</em>, <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.data_bounds" title="data_morph.data.dataset.Dataset.data_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.data_bounds</span></code></a>, which form the bounding box of the
-starting data, and <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.morph_bounds" title="data_morph.data.dataset.Dataset.morph_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.morph_bounds</span></code></a>, which define the limits of where
-the algorithm can move the points) or percentiles using the data itself (see
-<a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.data" title="data_morph.data.dataset.Dataset.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.data</span></code></a>). For example, the <a class="reference internal" href="../api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines" title="data_morph.shapes.lines.XLines"><code class="xref py py-class docutils literal notranslate"><span class="pre">XLines</span></code></a> shape inherits from
-<a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> and uses the morph bounds (<a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.morph_bounds" title="data_morph.data.dataset.Dataset.morph_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.morph_bounds</span></code></a>)
-to calculate its position and scale:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">XLines</span><span class="p">(</span><span class="n">LineCollection</span><span class="p">):</span>
+to the data. If you take a look at the code for the existing shapes, you will see
+that they use various bits of information from the dataset, such as the
+automatically-calculated bounds (<em>e.g.</em>, <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.data_bounds" title="data_morph.data.dataset.Dataset.data_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.data_bounds</span></code></a>, which form
+the bounding box of the starting data, and <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.morph_bounds" title="data_morph.data.dataset.Dataset.morph_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.morph_bounds</span></code></a>, which
+define the limits of where the algorithm can move the points) or percentiles using
+the data itself (see <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.data" title="data_morph.data.dataset.Dataset.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.data</span></code></a>). For example, the <a class="reference internal" href="../api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines" title="data_morph.shapes.lines.XLines"><code class="xref py py-class docutils literal notranslate"><span class="pre">XLines</span></code></a>
+shape inherits from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> and uses the morph bounds
+(<a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.morph_bounds" title="data_morph.data.dataset.Dataset.morph_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.morph_bounds</span></code></a>) to calculate its position and scale:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.data.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.shapes.bases.line_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineCollection</span>
 
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">XLines</span><span class="p">(</span><span class="n">LineCollection</span><span class="p">):</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">),</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+     <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">),</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]],</span> <span class="p">[[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]])</span>
+     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]],</span> <span class="p">[[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]])</span>
 </pre></div>
 </div>
 <p>Since we inherit from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> here, we don’t need to define
-the <code class="docutils literal notranslate"><span class="pre">distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> methods (unless we want to override them).
-We do set the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute here since the default will result in
-a value of <code class="docutils literal notranslate"><span class="pre">xlines</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> makes more sense for use in the documentation
-(see <a class="reference internal" href="../api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a>).</p>
-</section>
-</section>
-<section id="register-the-shape">
-<h2>Register the shape<a class="headerlink" href="#register-the-shape" title="Link to this heading">#</a></h2>
-<p>For the <code class="docutils literal notranslate"><span class="pre">data-morph</span></code> CLI to find your shape, you need to register it with the
-<a class="reference internal" href="../api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a>:</p>
-<ol class="arabic simple">
-<li><p>Add your shape class to the appropriate module inside the <code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/</span></code>
-directory. Note that these correspond to the type of shape (<em>e.g.</em>, use
-<code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/points/&lt;your_shape&gt;.py</span></code> for a new shape inheriting from
-<a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a>).</p></li>
-<li><p>Add your shape to <code class="docutils literal notranslate"><span class="pre">__all__</span></code> in that module’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> (<em>e.g.</em>, use
-<code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/points/__init__.py</span></code> for a new shape inheriting from
-<a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a>).</p></li>
-<li><p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">ShapeFactory._SHAPE_CLASSES</span></code> tuple in
-<code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/factory.py</span></code>, preserving alphabetical order.</p></li>
-</ol>
+the <code class="docutils literal notranslate"><span class="pre">distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> methods (unless we want to override them).</p>
 </section>
 <section id="test-out-the-shape">
 <h2>Test out the shape<a class="headerlink" href="#test-out-the-shape" title="Link to this heading">#</a></h2>
 <p>Defining how your shape should be generated from the input dataset will require
 a few iterations. Be sure to test out your shape on different datasets:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target-shape<span class="w"> </span>&lt;your<span class="w"> </span>shape&gt;
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.data.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.morpher</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataMorpher</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;panda&#39;</span><span class="p">)</span>
+<span class="n">target_shape</span> <span class="o">=</span> <span class="n">YourShape</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="c1"># TODO replace with your class</span>
+
+<span class="n">morpher</span> <span class="o">=</span> <span class="n">DataMorpher</span><span class="p">(</span>
+    <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">in_notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># whether you are running in a Jupyter Notebook</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s1">&#39;data_morph/output&#39;</span><span class="p">,</span>  <span class="c1"># where you want the output to go</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">morpher</span><span class="o">.</span><span class="n">morph</span><span class="p">(</span><span class="n">start_shape</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">target_shape</span><span class="o">=</span><span class="n">target_shape</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Some shapes will work better on certain datasets, and that’s fine. However,
@@ -632,13 +615,173 @@ if your shape only works well on one of the built-in datasets (see the
 <h2>(Optional) Contribute the shape<a class="headerlink" href="#optional-contribute-the-shape" title="Link to this heading">#</a></h2>
 <p>If you think that your shape would be a good addition to Data Morph, <a class="reference external" href="https://github.com/stefmolin/data-morph/issues">create an issue</a> in the Data Morph repository proposing
 its inclusion. Be sure to consult the <a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a> before doing so.</p>
-<p>If and only if you are given the go ahead:</p>
+<p>If and only if you are given the go ahead, work through this section to contribute your
+shape.</p>
+<section id="create-a-new-module-for-your-shape">
+<h3>1. Create a new module for your shape<a class="headerlink" href="#create-a-new-module-for-your-shape" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you haven’t already, fork and clone <a class="reference external" href="https://github.com/stefmolin/data-morph">the Data Morph repository</a> and follow the instructions in the
+<a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a> to install Data Morph in editable mode and configure <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>.</p>
+</div>
+<p>Save your shape in <code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/&lt;base&gt;/&lt;your_shape&gt;.py</span></code>. In the case of
+the example in this tutorial (<a class="reference internal" href="../api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines" title="data_morph.shapes.lines.XLines"><code class="xref py py-class docutils literal notranslate"><span class="pre">XLines</span></code></a>), it inherits from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a>,
+and its module is called <code class="docutils literal notranslate"><span class="pre">x_lines</span></code>, so the file is <code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/lines/x_lines.py</span></code>.</p>
+<p>Add type annotations and prepare a docstring for your shape following what the other
+shapes have. Be sure to change the plotting code in the docstring (in the
+<code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">plot::</span></code> block) to use your shape. Here’s how the <a class="reference internal" href="../api/data_morph.shapes.lines.x_lines.html#module-data_morph.shapes.lines.x_lines" title="data_morph.shapes.lines.x_lines"><code class="xref py py-mod docutils literal notranslate"><span class="pre">x_lines</span></code></a> module looks
+in the package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;X lines shape.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">...data.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..bases.line_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineCollection</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">XLines</span><span class="p">(</span><span class="n">LineCollection</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for the X shape consisting of two crossing, perpendicular lines.</span>
+
+<span class="sd">    .. plot::</span>
+<span class="sd">       :scale: 75</span>
+<span class="sd">       :caption:</span>
+<span class="sd">            This shape is generated using the panda dataset.</span>
+
+<span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.shapes.lines import XLines</span>
+
+<span class="sd">        _ = XLines(DataLoader.load_dataset(&#39;panda&#39;)).plot()</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset : Dataset</span>
+<span class="sd">        The starting dataset to morph into other shapes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">),</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]],</span> <span class="p">[[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>Notice that we set the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute here since the default will result in
+a value of <code class="docutils literal notranslate"><span class="pre">xlines</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> makes more sense for use in the documentation
+(see <a class="reference internal" href="../api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a>). Check out some of the other modules inheriting from
+the same base as your shape to make sure you are following the project’s conventions,
+such as using relative imports within the package.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your shape inherits from <a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a>, try to create your shape with
+as few points as possible because each additional point requires another calculation
+per iteration of the morphing algorithm. Take a look at how many points existing
+shapes in the <a class="reference internal" href="../api/data_morph.shapes.points.html#module-data_morph.shapes.points" title="data_morph.shapes.points"><code class="xref py py-mod docutils literal notranslate"><span class="pre">points</span></code></a> module use as a guideline.</p>
+</div>
+<p>At this point, your shape should pass all the <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> checks. If you haven’t set up
+your development environment for Data Morph or aren’t sure how to run these checks, please
+consult the <a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a>.</p>
+</section>
+<section id="register-the-shape">
+<h3>2. Register the shape<a class="headerlink" href="#register-the-shape" title="Link to this heading">#</a></h3>
+<p>For the <a class="reference internal" href="../cli.html"><span class="doc">Data Morph CLI</span></a> to find your shape, you need to register it with the
+<a class="reference internal" href="../api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a>:</p>
 <ol class="arabic simple">
-<li><p>Prepare a docstring for your shape following what the other shapes have.
-Be sure to change the plotting code in the docstring to use your shape.</p></li>
-<li><p>Add test cases for your shape to the <code class="docutils literal notranslate"><span class="pre">tests/shapes/</span></code> directory.</p></li>
-<li><p>Submit your pull request.</p></li>
+<li><p>Add your shape to <code class="docutils literal notranslate"><span class="pre">__all__</span></code> in the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> closest to the module you
+created in the previous step (<em>e.g.</em>, use <code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/lines/__init__.py</span></code>
+for a new shape inheriting from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a>).</p></li>
+<li><p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">ShapeFactory._SHAPE_CLASSES</span></code> tuple in
+<code class="docutils literal notranslate"><span class="pre">src/data_morph/shapes/factory.py</span></code>, preserving alphabetical order.</p></li>
 </ol>
+</section>
+<section id="create-test-cases-for-the-shape">
+<h3>3. Create test cases for the shape<a class="headerlink" href="#create-test-cases-for-the-shape" title="Link to this heading">#</a></h3>
+<p>Data Morph uses <code class="docutils literal notranslate"><span class="pre">pytest</span></code> for the test suite, and all tests are located in the <code class="docutils literal notranslate"><span class="pre">tests/</span></code>
+directory, with a folder structure that mirrors the actual package. The test cases for
+your shape will go in <code class="docutils literal notranslate"><span class="pre">tests/shapes/&lt;base&gt;/test_&lt;your_shape&gt;.py</span></code>. In the case of
+the example in this tutorial (<a class="reference internal" href="../api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines" title="data_morph.shapes.lines.XLines"><code class="xref py py-class docutils literal notranslate"><span class="pre">XLines</span></code></a>), it inherits from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a>,
+and its module is called <code class="docutils literal notranslate"><span class="pre">x_lines</span></code>, so the test file is <code class="docutils literal notranslate"><span class="pre">tests/shapes/lines/test_x_lines.py</span></code>.</p>
+<p>There are test bases for each type of shape in <code class="docutils literal notranslate"><span class="pre">tests/shapes/&lt;base&gt;/bases.py</span></code>, which
+handle most of the logic for running the tests. For shapes inheriting from
+<a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a>, this base is <code class="docutils literal notranslate"><span class="pre">LinesModuleTestBase</span></code>, which can be used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Test the x_lines module.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.bases</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinesModuleTestBase</span>
+
+<span class="n">pytestmark</span> <span class="o">=</span> <span class="p">[</span><span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">shapes</span><span class="p">,</span> <span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">lines</span><span class="p">]</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestXLines</span><span class="p">(</span><span class="n">LinesModuleTestBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test the XLines class.&quot;&quot;&quot;</span>
+
+    <span class="n">shape_name</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span>
+    <span class="n">distance_test_cases</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">83</span><span class="p">),</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># edge of X line</span>
+        <span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># middle of X (intersection point)</span>
+        <span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span> <span class="mf">0.277350</span><span class="p">),</span>  <span class="c1"># off the X</span>
+        <span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="mf">27.073973</span><span class="p">),</span>  <span class="c1"># off the X</span>
+    <span class="p">)</span>
+    <span class="n">expected_line_count</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">expected_slopes</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_lines_form_an_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test that the lines form an X.&quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span>
+
+        <span class="c1"># check perpendicular</span>
+        <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">runs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">rises</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rises</span><span class="p">,</span> <span class="n">runs</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+        <span class="c1"># check that the lines intersect in the middle</span>
+        <span class="n">midpoints</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">lines</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">midpoints</span><span class="p">)</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Note that the class variables provide the test cases for <code class="docutils literal notranslate"><span class="pre">LinesModuleTestBase</span></code> to use.
+To get <code class="docutils literal notranslate"><span class="pre">distance_test_cases</span></code>, which is a tuple of test cases of the form
+<code class="docutils literal notranslate"><span class="pre">((x,</span> <span class="pre">y),</span> <span class="pre">expected_distance)</span></code>, for example, you will need to come up with a few points
+that have distance zero to the shape, and a few points that have a non-zero distance.
+You can come up with these by using the instantiated shape’s <code class="docutils literal notranslate"><span class="pre">distance()</span></code> method, or
+by inspecting the instantiated shape’s attributes like <a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.points" title="data_morph.shapes.bases.point_collection.PointCollection.points"><code class="xref py py-attr docutils literal notranslate"><span class="pre">PointCollection.points</span></code></a>
+on shapes inheriting from <a class="reference internal" href="../api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection" title="data_morph.shapes.bases.point_collection.PointCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCollection</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference internal" href="../api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines" title="data_morph.shapes.lines.XLines"><code class="xref py py-class docutils literal notranslate"><span class="pre">XLines</span></code></a> shape also defines its own test case to make sure that the lines
+form an X. It’s only necessary to add additional test methods like this to test
+aspects not covered by the base class.</p>
+</div>
+<p>You should now be able to run the test suite with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>. Make sure your test cases pass
+before moving on. If you haven’t set up your development environment for Data Morph or aren’t
+sure how to run these checks, please consult the <a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a>.</p>
+</section>
+<section id="confirm-that-your-shape-works-via-the-cli">
+<h3>4. Confirm that your shape works via the CLI<a class="headerlink" href="#confirm-that-your-shape-works-via-the-cli" title="Link to this heading">#</a></h3>
+<p>Run the following on the command line replacing <code class="docutils literal notranslate"><span class="pre">&lt;your</span> <span class="pre">shape&gt;</span></code> with the value you set
+for the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute of your shape class to generate three animations:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target-shape<span class="w"> </span>&lt;your<span class="w"> </span>shape&gt;<span class="w"> </span>--workers<span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<p>Review the animations. Remember, some shapes will work better on certain datasets,
+and that’s fine. However, if your shape only works well on one of the built-in datasets
+(see the <a class="reference internal" href="../api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader" title="data_morph.data.loader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>), then you need to keep tweaking your implementation.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you decide to run with multiple datasets, you can set <code class="docutils literal notranslate"><span class="pre">--workers</span> <span class="pre">0</span></code> to run as
+many transformations in parallel as possible on your computer. In the above example,
+we only have three transformations, so <code class="docutils literal notranslate"><span class="pre">--workers</span> <span class="pre">3</span></code> will run all three in parallel,
+assuming your machine has at least three CPU cores.</p>
+</div>
+</section>
+<section id="submit-your-pull-request">
+<h3>5. Submit your pull request<a class="headerlink" href="#submit-your-pull-request" title="Link to this heading">#</a></h3>
+<p>If your shape works well on different datasets and your code passes all the checks and
+tests cases, you are ready to <a class="reference external" href="https://github.com/stefmolin/data-morph/pulls">make a pull request</a>.
+If you aren’t sure how to do this, please consult the <a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a>.</p>
+</section>
 </section>
 </section>
 
@@ -665,14 +808,17 @@ Be sure to change the plotting code in the docstring to use your shape.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-class-for-the-shape">Create a class for the shape</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-appropriate-base-class">Select the appropriate base class</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset">Define the scale and placement of the shape based on the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-appropriate-base-class">Select the appropriate base class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset">Define the scale and placement of the shape based on the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-out-the-shape">Test out the shape</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-contribute-the-shape">(Optional) Contribute the shape</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-module-for-your-shape">1. Create a new module for your shape</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-shape">2. Register the shape</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-test-cases-for-the-shape">3. Create test cases for the shape</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-that-your-shape-works-via-the-cli">4. Confirm that your shape works via the CLI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-your-pull-request">5. Submit your pull request</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-shape">Register the shape</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-out-the-shape">Test out the shape</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-contribute-the-shape">(Optional) Contribute the shape</a></li>
 </ul>
   </nav></div>
 

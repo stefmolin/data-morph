@@ -8,11 +8,10 @@ import multiprocessing
 from concurrent.futures import ProcessPoolExecutor
 from typing import TYPE_CHECKING
 
-from rich import progress
-
 from . import __version__
 from .data.loader import DataLoader
 from .morpher import DataMorpher
+from .progress import DataMorphProgress
 from .shapes.factory import ShapeFactory
 
 if TYPE_CHECKING:
@@ -241,9 +240,17 @@ def generate_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def morph(dataset, shape, args, progress, task_id):
+def morph(
+    data: str,
+    shape: str,
+    args: argparse.Namespace,
+    progress: multiprocessing.DictProxy,
+    task_id: int,
+) -> None:
     progress[task_id] = {'progress': 0, 'total': args.iterations}
-    # dataset = DataLoader.load_dataset(data, scale=args.scale)
+
+    dataset = DataLoader.load_dataset(data, scale=args.scale)
+    shape = ShapeFactory(dataset).generate_shape(shape)
 
     morpher = DataMorpher(
         decimals=args.decimals,
@@ -293,73 +300,48 @@ def main(argv: Sequence[str] | None = None) -> None:
             f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'."""
         )
 
-    datasets = {}
-    shapes = {}
-    for data in args.start_shape:
-        if data not in datasets:
-            dataset = DataLoader.load_dataset(data, scale=args.scale)
-            datasets[data] = dataset
-            factory = ShapeFactory(dataset)
-            for shape in target_shapes:
-                shapes[(data, shape)] = factory.generate_shape(shape)
-
-    morphs = list(itertools.product(args.start_shape, target_shapes))
-    total_jobs = len(morphs)
+    total_jobs = len(args.start_shape) * len(target_shapes)
 
     max_workers = multiprocessing.cpu_count()
     workers = max_workers if not args.workers else min(args.workers, max_workers)
-    only_show_running = total_jobs > workers
+    only_show_running = total_jobs > 1 and total_jobs > workers
 
-    futures = []
-    with (
-        progress.Progress(
-            '[progress.description]{task.description}',
-            progress.BarColumn(),
-            '[progress.percentage]{task.percentage:>3.0f}%',
-            progress.MofNCompleteColumn(),
-            progress.TimeElapsedColumn(),
-        ) as progress_tracker,
-        multiprocessing.Manager() as manager,
-    ):
-        # this is the key - we share some state between our
-        # main process and our worker functions
-        _progress = manager.dict()
+    with DataMorphProgress() as progress_tracker, multiprocessing.Manager() as manager:
+        task_progress = manager.dict()
         overall_progress_task = progress_tracker.add_task(
             '[green]Overall progress', visible=total_jobs > 1
         )
-
+        # TODO: when there is only one morph to perform (or one worker) this adds overhead
+        # in that case we should do the old code (or call the morph() function above)
         with ProcessPoolExecutor(max_workers=workers) as executor:
-            for dataset, shape in morphs:
-                task_id = progress_tracker.add_task(
-                    f'{dataset} to {shape}',
-                    visible=False,
-                    start=False,
+            futures = [
+                executor.submit(
+                    morph,
+                    dataset,
+                    shape,
+                    args,
+                    task_progress,
+                    progress_tracker.add_task(
+                        f'{dataset} to {shape}', visible=False, start=False
+                    ),
                 )
-                futures.append(
-                    executor.submit(
-                        morph,
-                        datasets[dataset],
-                        shapes[(dataset, shape)],
-                        args,
-                        _progress,
-                        task_id,
-                    )
-                )
+                for dataset, shape in itertools.product(args.start_shape, target_shapes)
+            ]
 
             while True:
                 finished_jobs = sum(future.done() for future in futures)
                 progress_tracker.update(
                     overall_progress_task,
-                    completed=sum(task['progress'] for task in _progress.values()),
+                    completed=sum(task['progress'] for task in task_progress.values()),
                     total=total_jobs * args.iterations,
                 )
-                for task_id, update_data in _progress.items():
+                for task_id, update_data in task_progress.items():
                     latest = update_data['progress']
                     total = update_data['total']
 
                     if not latest:
                         # hack to make the elapsed time accurate for ones that start later on
-                        # this is necessary because Progress is not pickleable
+                        # this is necessary because rich.progress.Progress is not pickleable
                         progress_tracker.start_task(task_id)
 
                     progress_tracker.update(

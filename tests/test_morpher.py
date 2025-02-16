@@ -175,9 +175,9 @@ class TestDataMorpher:
             assert_frame_equal(morphed_data, dataset.data)
         assert morpher._is_close_enough(dataset.data, morphed_data)
 
-        _, err = capsys.readouterr()
-        assert f'{target_shape} pattern: 100%' in err
-        assert f' {iterations}/{iterations} ' in err
+        out, _ = capsys.readouterr()
+        assert f'{dataset.name} to {target_shape}' in out
+        assert f' {iterations}/{iterations} ' in out
 
     def test_saving_data(self, tmp_path):
         """Test that writing files to disk in the morph() method is working."""

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
+from contextlib import nullcontext
 from functools import partial
 from numbers import Number
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 import numpy as np
-import tqdm
 
 from .data.stats import get_summary_statistics
 from .plotting.animation import (
@@ -20,9 +20,13 @@ from .plotting.animation import (
     stitch_gif_animation,
 )
 from .plotting.static import plot
+from .progress import DataMorphProgress
 
 if TYPE_CHECKING:
+    import multiprocessing
+
     import pandas as pd
+    from rich.progress import TaskID
 
     from .bounds.bounding_box import BoundingBox
     from .data.dataset import Dataset
@@ -121,7 +125,9 @@ class DataMorpher:
         self.num_frames = num_frames
         """int: The number of frames to capture. Must be > 0 and <= 100."""
 
-        self._looper = tqdm.tnrange if in_notebook else tqdm.trange
+        self._in_notebook = in_notebook
+
+        self._ProgressTracker = partial(DataMorphProgress, not self._in_notebook)
 
     def _select_frames(
         self, iterations: int, ease_in: bool, ease_out: bool, freeze_for: int
@@ -349,6 +355,8 @@ class DataMorpher:
         ease_in: bool = False,
         ease_out: bool = False,
         freeze_for: int = 0,
+        progress: multiprocessing.DictProxy | None = None,
+        task_id: TaskID | None = None,
     ) -> pd.DataFrame:
         """
         Morph a dataset into a target shape by perturbing it
@@ -385,7 +393,11 @@ class DataMorpher:
         freeze_for : int, default ``0``
             The number of frames to freeze at the beginning and end.
             This only affects the frames, not the algorithm. Must be in the
-            interval [0, 50].
+            interval ``[0, 50]``.
+        progress : multiprocessing.DictProxy | ``None``, optional
+            The state of all task progresses when parallelizing work (for use by the CLI).
+        task_id : TaskID | ``None``, optional
+            The task ID assigned by the progress tracker (for use by the CLI).
 
         Returns
         -------
@@ -476,26 +488,39 @@ class DataMorpher:
             max_value=max_shake,
         )
 
-        for i in self._looper(
-            iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
-        ):
-            perturbed_data = self._perturb(
-                morphed_data.copy(),
-                target_shape=target_shape,
-                shake=get_current_shake(i),
-                allowed_dist=allowed_dist,
-                temp=get_current_temp(i),
-                bounds=start_shape.morph_bounds,
-            )
+        with (nullcontext if progress else self._ProgressTracker)() as progress_tracker:
+            if progress_tracker:
+                task_id = progress_tracker.add_task(
+                    f'{start_shape.name} to {target_shape}'
+                )
+            for i in range(iterations):
+                perturbed_data = self._perturb(
+                    morphed_data.copy(),
+                    target_shape=target_shape,
+                    shake=get_current_shake(i),
+                    allowed_dist=allowed_dist,
+                    temp=get_current_temp(i),
+                    bounds=start_shape.morph_bounds,
+                )
 
-            if self._is_close_enough(start_shape.data, perturbed_data):
-                morphed_data = perturbed_data
+                if self._is_close_enough(start_shape.data, perturbed_data):
+                    morphed_data = perturbed_data
 
-            frame_number = record_frames(
-                data=morphed_data,
-                count=frame_numbers.count(i),
-                frame_number=frame_number,
-            )
+                frame_number = record_frames(
+                    data=morphed_data,
+                    count=frame_numbers.count(i),
+                    frame_number=frame_number,
+                )
+
+                if progress_tracker:
+                    progress_tracker.update(
+                        task_id,
+                        total=iterations,
+                        completed=i + 1,
+                        refresh=self._in_notebook and (i + 1) % 500 == 0,
+                    )
+                else:
+                    progress[task_id] = {'progress': i + 1, 'total': iterations}
 
         if self.write_images:
             stitch_gif_animation(

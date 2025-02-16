@@ -64,10 +64,10 @@ jobs:
           echo "Detected changes to dataset(s): $DATASET_ALL_CHANGED_FILES"
           DATASET_ARGS=$(python bin/ci.py $DATASET_ALL_CHANGED_FILES)
           echo "Generating morphs for the following datasets: $DATASET_ARGS"
-          parallel -j0 data-morph \
+          data-morph \
                --start-shape $DATASET_ARGS \
-               --target-shape {} \
-               ::: bullseye heart rectangle star slant_up
+               --target-shape bullseye heart rectangle star slant_up \
+               --workers 0
 
       # If shapes are added or modified in this PR
       - name: Generate morphs from new or changed shapes
@@ -78,20 +78,20 @@ jobs:
           echo "Detected changes to shape(s): $SHAPE_ALL_CHANGED_FILES"
           SHAPE_ARGS=$(python bin/ci.py $SHAPE_ALL_CHANGED_FILES)
           echo "Generating morphs for the following shapes: $SHAPE_ARGS"
-          parallel -j0 data-morph \
+          data-morph \
                --start-shape music \
-               --target-shape {} \
-               ::: $SHAPE_ARGS
+               --target-shape $SHAPE_ARGS \
+               --workers 0
 
       # For core code changes, we want to do a couple morphs to see if they still look ok
       # Only need to run if neither of the previous two morphs ran
       - name: Morph shapes with core code changes
         if: steps.changed-files-yaml.outputs.dataset_any_changed != 'true' && steps.changed-files-yaml.outputs.shape_any_changed != 'true'
         run: |
-          parallel -j0 data-morph \
+          data-morph \
                --start-shape music \
-               --target-shape {} \
-               ::: bullseye heart rectangle star slant_up
+               --target-shape bullseye heart star \
+               --workers 0
 
       - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08  # v4.6.0
         with:

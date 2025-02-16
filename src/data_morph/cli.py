@@ -256,7 +256,7 @@ def _morph(
     Parameters
     ----------
     data : str
-        The dataset to use. This can be the name of a built-in dataset, or a path to a
+        The dataset to use. This can be the name of a built-in dataset or a path to a
         CSV file containing the data.
     shape : str
         The name of the target shape.
@@ -265,7 +265,7 @@ def _morph(
     progress : multiprocessing.DictProxy
         The state of all task progresses.
     task_id : TaskID
-        The task ID assigned from the progress tracker.
+        The task ID assigned by the progress tracker.
 
     Notes
     -----

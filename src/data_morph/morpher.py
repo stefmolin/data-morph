@@ -397,7 +397,7 @@ class DataMorpher:
         progress : multiprocessing.DictProxy | ``None``, optional
             The state of all task progresses when parallelizing work (for use by the CLI).
         task_id : TaskID | ``None``, optional
-            The task ID assigned from the progress tracker (for use by the CLI).
+            The task ID assigned by the progress tracker (for use by the CLI).
 
         Returns
         -------

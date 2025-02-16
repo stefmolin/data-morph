@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import shutil
 from contextlib import nullcontext
 from functools import partial
 from numbers import Number
@@ -223,31 +224,44 @@ class DataMorpher:
         int
             The next frame number available for recording.
         """
-        if self.write_images or self.write_data:
+        if (self.write_images or self.write_data) and count > 0:
             is_start = frame_number == 0
-            for _ in range(count):
-                if self.write_images:
-                    plot(
-                        data,
-                        save_to=(
+            img_file = (
+                self.output_dir / f'{base_file_name}-image-{frame_number:03d}.png'
+            )
+            data_file = (
+                self.output_dir / f'{base_file_name}-data-{frame_number:03d}.csv'
+            )
+            if self.write_images:
+                plot(
+                    data,
+                    save_to=img_file,
+                    decimals=self.decimals,
+                    x_bounds=bounds.x_bounds,
+                    y_bounds=bounds.y_bounds,
+                    dpi=150,
+                )
+            if (
+                self.write_data and not is_start
+            ):  # don't write data for the initial frame (input data)
+                data.to_csv(data_file, index=False)
+            frame_number += 1
+            if (duplicate_count := count - 1) > 0:
+                for _ in range(duplicate_count):
+                    if data_file.exists():
+                        shutil.copy(
+                            data_file,
                             self.output_dir
-                            / f'{base_file_name}-image-{frame_number:03d}.png'
-                        ),
-                        decimals=self.decimals,
-                        x_bounds=bounds.x_bounds,
-                        y_bounds=bounds.y_bounds,
-                        dpi=150,
-                    )
-                if (
-                    self.write_data and not is_start
-                ):  # don't write data for the initial frame (input data)
-                    data.to_csv(
-                        self.output_dir
-                        / f'{base_file_name}-data-{frame_number:03d}.csv',
-                        index=False,
-                    )
+                            / f'{base_file_name}-data-{frame_number:03d}.csv',
+                        )
+                    if img_file.exists():
+                        shutil.copy(
+                            img_file,
+                            self.output_dir
+                            / f'{base_file_name}-image-{frame_number:03d}.png',
+                        )
+                    frame_number += 1
 
-                frame_number += 1
         return frame_number
 
     def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:

@@ -355,8 +355,8 @@ class DataMorpher:
         ease_in: bool = False,
         ease_out: bool = False,
         freeze_for: int = 0,
-        progress: multiprocessing.DictProxy | None = None,  # TODO: docstring
-        task_id: TaskID | None = None,  # TODO: docstring
+        progress: multiprocessing.DictProxy | None = None,
+        task_id: TaskID | None = None,
     ) -> pd.DataFrame:
         """
         Morph a dataset into a target shape by perturbing it
@@ -393,7 +393,11 @@ class DataMorpher:
         freeze_for : int, default ``0``
             The number of frames to freeze at the beginning and end.
             This only affects the frames, not the algorithm. Must be in the
-            interval [0, 50].
+            interval ``[0, 50]``.
+        progress : multiprocessing.DictProxy | ``None``, optional
+            The state of all task progresses when parallelizing work (for use by the CLI).
+        task_id : TaskID | ``None``, optional
+            The task ID assigned from the progress tracker (for use by the CLI).
 
         Returns
         -------

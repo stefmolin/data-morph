@@ -13,6 +13,7 @@ API
    data_morph.data
    data_morph.morpher
    data_morph.plotting
+   data_morph.progress
    data_morph.shapes
 
 ----

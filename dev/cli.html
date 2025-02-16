@@ -527,7 +527,7 @@
 <section id="data-morph---CLI-interface">
 <h2>data-morph - CLI interface<a class="headerlink" href="#data-morph---CLI-interface" title="Link to this heading">#</a></h2>
 <p>Morph an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing.</p>
-<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">data-morph [-h] [--version] --start START_SHAPE [START_SHAPE ...]</span>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">data-morph [-h] [--version] [-w WORKERS] --start START_SHAPE [START_SHAPE ...]</span>
 <span class="go">           --target TARGET_SHAPE [TARGET_SHAPE ...] [--decimals {0,1,2,3,4,5}]</span>
 <span class="go">           [--iterations ITERATIONS] [--scale SCALE] [--seed SEED] [--shake SHAKE]</span>
 <span class="go">           [--keep-frames] [-o DIRECTORY] [--write-data] [--ease] [--ease-in] [--ease-out]</span>
@@ -539,6 +539,7 @@
 <ul class="simple">
 <li><p id="data-morph--h"><span id="data-morph---help"></span><a class="reference internal" href="#data-morph--h" title="data-morph -h"><strong><code class="docutils literal notranslate"><span class="pre">-h</span></code></strong></a>, <a class="reference internal" href="#data-morph---help" title="data-morph --help"><strong><code class="docutils literal notranslate"><span class="pre">--help</span></code></strong></a> - show this help message and exit</p></li>
 <li><p id="data-morph---version"><a class="reference internal" href="#data-morph---version" title="data-morph --version"><strong><code class="docutils literal notranslate"><span class="pre">--version</span></code></strong></a> - show program’s version number and exit</p></li>
+<li><p id="data-morph--w"><span id="data-morph---workers"></span><a class="reference internal" href="#data-morph--w" title="data-morph -w"><strong><code class="docutils literal notranslate"><span class="pre">-w</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">WORKERS</span></code>, <a class="reference internal" href="#data-morph---workers" title="data-morph --workers"><strong><code class="docutils literal notranslate"><span class="pre">--workers</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">WORKERS</span></code> - The number of workers. Default 2. Pass 0 to use as many as possible. (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>)</p></li>
 </ul>
 </section>
 <section id="data-morph-Shape-Configuration-(required)">
@@ -591,8 +592,9 @@
 </pre></div>
 </div>
 </li>
-<li><p>Morph the panda shape into all available target shapes:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>--target-shape<span class="w"> </span>all
+<li><p>Morph the panda shape into all available target shapes distributing the work
+to as many worker processes as possible:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>--target-shape<span class="w"> </span>all<span class="w"> </span>--workers<span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 </li>

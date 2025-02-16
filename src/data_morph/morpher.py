@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import numpy as np
-import tqdm
 
 from .data.stats import get_summary_statistics
 from .plotting.animation import (
@@ -121,7 +120,7 @@ class DataMorpher:
         self.num_frames = num_frames
         """int: The number of frames to capture. Must be > 0 and <= 100."""
 
-        self._looper = tqdm.tnrange if in_notebook else tqdm.trange
+        self._auto_refresh_progress_bar = not in_notebook
 
     def _select_frames(
         self, iterations: int, ease_in: bool, ease_out: bool, freeze_for: int
@@ -339,6 +338,8 @@ class DataMorpher:
         self,
         start_shape: Dataset,
         target_shape: Shape,
+        progress,  # TODO:
+        task_id,  # TODO
         *,
         iterations: int = 100_000,
         max_temp: Number = 0.4,
@@ -476,9 +477,13 @@ class DataMorpher:
             max_value=max_shake,
         )
 
-        for i in self._looper(
-            iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
-        ):
+        # for i in track(
+        #     range(iterations),
+        #     description=f'{start_shape.name} to {target_shape} pattern',
+        #     auto_refresh=self._auto_refresh_progress_bar,
+        # ):
+
+        for i in range(iterations):
             perturbed_data = self._perturb(
                 morphed_data.copy(),
                 target_shape=target_shape,
@@ -496,6 +501,7 @@ class DataMorpher:
                 count=frame_numbers.count(i),
                 frame_number=frame_number,
             )
+            progress[task_id] = {'progress': i + 1, 'total': iterations}
 
         if self.write_images:
             stitch_gif_animation(

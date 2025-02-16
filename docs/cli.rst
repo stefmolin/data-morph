@@ -19,11 +19,12 @@ Examples
 
     $ data-morph --start-shape panda --target-shape star
 
-2. Morph the panda shape into all available target shapes:
+2. Morph the panda shape into all available target shapes distributing the work
+   to as many worker processes as possible:
 
    .. code-block:: console
 
-    $ data-morph --start-shape panda --target-shape all
+    $ data-morph --start-shape panda --target-shape all --workers 0
 
 3. Morph the cat, dog, and panda shapes into the circle and slant_down shapes:
 

@@ -6,6 +6,7 @@ import argparse
 import itertools
 import multiprocessing
 from concurrent.futures import ProcessPoolExecutor
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from . import __version__
@@ -16,6 +17,8 @@ from .shapes.factory import ShapeFactory
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from rich.progress import TaskID
 
 ARG_DEFAULTS = {
     'output_dir': 'morphed_data',
@@ -240,13 +243,34 @@ def generate_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def morph(
+def _morph(
     data: str,
     shape: str,
     args: argparse.Namespace,
     progress: multiprocessing.DictProxy,
-    task_id: int,
+    task_id: TaskID,
 ) -> None:
+    """
+    Run the morphing algorithm.
+
+    Parameters
+    ----------
+    data : str
+        The dataset to use. This can be the name of a built-in dataset, or a path to a
+        CSV file containing the data.
+    shape : str
+        The name of the target shape.
+    args : argparse.Namespace
+        Command line arguments.
+    progress : multiprocessing.DictProxy
+        The state of all task progresses.
+    task_id : TaskID
+        The task ID assigned from the progress tracker.
+
+    Notes
+    -----
+    This should only be used with :func:`._parallelize`.
+    """
     progress[task_id] = {'progress': 0, 'total': args.iterations}
 
     dataset = DataLoader.load_dataset(data, scale=args.scale)
@@ -276,53 +300,45 @@ def morph(
     )
 
 
-def main(argv: Sequence[str] | None = None) -> None:
+def _parallelize(
+    total_jobs: int,
+    workers: int,
+    args: argparse.Namespace,
+    target_shapes: Sequence[str],
+) -> None:
     """
-    Run Data Morph as a script.
+    Run morphing algorithm in parallel.
 
     Parameters
     ----------
-    argv : Sequence[str] | None, optional
-        Makes it possible to pass in options without running on
-        the command line.
+    total_jobs : int
+        The total number of morphing jobs that need to be run.
+    workers : int
+        The number of worker processes to use.
+    args : argparse.Namespace
+        The command line arguments.
+    target_shapes : Sequence[str]
+        The target shapes for morphing (datasets are in ``args.start_shape``).
     """
+    only_show_running = total_jobs > workers
 
-    args = generate_parser().parse_args(argv)
-
-    target_shapes = (
-        ShapeFactory.AVAILABLE_SHAPES
-        if args.target_shape == 'all' or 'all' in args.target_shape
-        else set(args.target_shape).intersection(ShapeFactory.AVAILABLE_SHAPES)
-    )
-    if not target_shapes:
-        raise ValueError(
-            'No valid target shapes were provided. Valid options are '
-            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'."""
-        )
-
-    total_jobs = len(args.start_shape) * len(target_shapes)
-
-    max_workers = multiprocessing.cpu_count()
-    workers = max_workers if not args.workers else min(args.workers, max_workers)
-    only_show_running = total_jobs > 1 and total_jobs > workers
-
-    with DataMorphProgress() as progress_tracker, multiprocessing.Manager() as manager:
+    with (
+        DataMorphProgress() as progress_tracker,
+        multiprocessing.Manager() as manager,
+    ):
         task_progress = manager.dict()
-        overall_progress_task = progress_tracker.add_task(
-            '[green]Overall progress', visible=total_jobs > 1
-        )
-        # TODO: when there is only one morph to perform (or one worker) this adds overhead
-        # in that case we should do the old code (or call the morph() function above)
+        overall_progress_task = progress_tracker.add_task('[green]Overall progress')
+
         with ProcessPoolExecutor(max_workers=workers) as executor:
             futures = [
                 executor.submit(
-                    morph,
+                    _morph,
                     dataset,
                     shape,
                     args,
                     task_progress,
                     progress_tracker.add_task(
-                        f'{dataset} to {shape}', visible=False, start=False
+                        f'{Path(dataset).stem} to {shape}', visible=False, start=False
                     ),
                 )
                 for dataset, shape in itertools.product(args.start_shape, target_shapes)
@@ -357,3 +373,76 @@ def main(argv: Sequence[str] | None = None) -> None:
 
             for future in futures:
                 future.result()
+
+
+def _serialize(args: argparse.Namespace, target_shapes: Sequence[str]) -> None:
+    """
+    Run the morphing algorithm serially.
+
+    Parameters
+    ----------
+    args : argparse.Namespace
+        The command line arguments.
+    target_shapes : Sequence[str]
+        The target shapes for morphing (datasets are in ``args.start_shape``).
+    """
+    for start_shape in args.start_shape:
+        dataset = DataLoader.load_dataset(start_shape, scale=args.scale)
+
+        shape_factory = ShapeFactory(dataset)
+        morpher = DataMorpher(
+            decimals=args.decimals,
+            output_dir=args.output_dir,
+            write_data=args.write_data,
+            seed=args.seed,
+            keep_frames=args.keep_frames,
+            forward_only_animation=args.forward_only,
+            num_frames=100,
+            in_notebook=False,
+        )
+
+        for target_shape in target_shapes:
+            _ = morpher.morph(
+                start_shape=dataset,
+                target_shape=shape_factory.generate_shape(target_shape),
+                iterations=args.iterations,
+                min_shake=args.shake,
+                ease_in=args.ease_in or args.ease,
+                ease_out=args.ease_out or args.ease,
+                freeze_for=args.freeze,
+            )
+
+
+def main(argv: Sequence[str] | None = None) -> None:
+    """
+    Run Data Morph as a script.
+
+    Parameters
+    ----------
+    argv : Sequence[str] | None, optional
+        Makes it possible to pass in options without running on
+        the command line.
+    """
+
+    args = generate_parser().parse_args(argv)
+
+    target_shapes = (
+        ShapeFactory.AVAILABLE_SHAPES
+        if args.target_shape == 'all' or 'all' in args.target_shape
+        else set(args.target_shape).intersection(ShapeFactory.AVAILABLE_SHAPES)
+    )
+    if not target_shapes:
+        raise ValueError(
+            'No valid target shapes were provided. Valid options are '
+            f"""'{"', '".join(ShapeFactory.AVAILABLE_SHAPES)}'."""
+        )
+
+    total_jobs = len(args.start_shape) * len(target_shapes)
+
+    max_workers = multiprocessing.cpu_count()
+    workers = max_workers if not args.workers else min(args.workers, max_workers)
+
+    if total_jobs > 1 and workers > 1:
+        _parallelize(total_jobs, workers, args, target_shapes)
+    else:
+        _serialize(args, target_shapes)

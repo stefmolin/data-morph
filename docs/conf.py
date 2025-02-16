@@ -59,12 +59,13 @@ autosectionlabel_prefix_document = True
 # -- intersphinx -------------------------------------------------------------
 
 intersphinx_mapping = {
-    'matplotlib': ('https://matplotlib.org/stable/', None),
-    'numpy': ('https://numpy.org/doc/stable/', None),
-    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
-    'Pillow': ('https://pillow.readthedocs.io/en/stable/', None),
-    'pytest': ('https://pytest.org/en/stable/', None),
-    'python': ('https://docs.python.org/3/', None),
+    'matplotlib': ('https://matplotlib.org/stable', None),
+    'numpy': ('https://numpy.org/doc/stable', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable', None),
+    'Pillow': ('https://pillow.readthedocs.io/en/stable', None),
+    'pytest': ('https://pytest.org/en/stable', None),
+    'python': ('https://docs.python.org/3', None),
+    'rich': ('https://rich.readthedocs.io/en/stable', None),
 }
 
 

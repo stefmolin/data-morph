@@ -215,25 +215,22 @@ class DataMorpher:
         frame_number : str
             The frame number with padding zeros added already.
         """
-        if self.write_images or self.write_data:
-            is_start = int(frame_number) == 0
-            if self.write_images:
-                plot(
-                    data,
-                    save_to=self.output_dir
-                    / f'{base_file_name}-image-{frame_number}.png',
-                    decimals=self.decimals,
-                    x_bounds=bounds.x_bounds,
-                    y_bounds=bounds.y_bounds,
-                    dpi=150,
-                )
-            if (
-                self.write_data and not is_start
-            ):  # don't write data for the initial frame (input data)
-                data.to_csv(
-                    self.output_dir / f'{base_file_name}-data-{frame_number}.csv',
-                    index=False,
-                )
+        if self.write_images:
+            plot(
+                data,
+                save_to=self.output_dir / f'{base_file_name}-image-{frame_number}.png',
+                decimals=self.decimals,
+                x_bounds=bounds.x_bounds,
+                y_bounds=bounds.y_bounds,
+                dpi=150,
+            )
+        if (
+            self.write_data and int(frame_number) > 0
+        ):  # don't write data for the initial frame (input data)
+            data.to_csv(
+                self.output_dir / f'{base_file_name}-data-{frame_number}.csv',
+                index=False,
+            )
 
     def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
         """

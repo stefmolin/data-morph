@@ -28,5 +28,5 @@ Read more about the creation of Data Morph in `this article
 and `this slide deck <https://stefaniemolin.com/data-morph-talk/#/>`_.
 """
 
-__version__ = '0.3.0.dev0'
+__version__ = '0.3.0'
 MAIN_DIR = __name__

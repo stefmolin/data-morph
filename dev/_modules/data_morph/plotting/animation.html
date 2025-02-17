@@ -526,6 +526,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Callable</span>
@@ -542,6 +543,7 @@
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">start_shape</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">target_shape</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Shape</span><span class="p">,</span>
+    <span class="n">frame_numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">keep_frames</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">forward_only_animation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -557,6 +559,10 @@
 <span class="sd">        The starting shape.</span>
 <span class="sd">    target_shape : str or Shape</span>
 <span class="sd">        The target shape for the morphing.</span>
+<span class="sd">    frame_numbers : list[int]</span>
+<span class="sd">        The saved frames to use in the GIF. Repeated consecutive frames will be shown</span>
+<span class="sd">        as a single frame for a longer duration (i.e., x repeats, means x times longer</span>
+<span class="sd">        than the default duration of 5 milliseconds).</span>
 <span class="sd">    keep_frames : bool, default ``False``</span>
 <span class="sd">        Whether to keep the individual frames after creating the animation.</span>
 <span class="sd">    forward_only_animation : bool, default ``False``</span>
@@ -569,22 +575,30 @@
 <span class="sd">        Frames are stitched together with Pillow.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+    <span class="n">iteration_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">)</span>
+    <span class="n">default_frame_duration</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># milliseconds</span>
 
     <span class="c1"># find the frames and sort them</span>
     <span class="n">imgs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">output_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">start_shape</span><span class="si">}</span><span class="s1">-to-</span><span class="si">{</span><span class="n">target_shape</span><span class="si">}</span><span class="s1">*.png&#39;</span><span class="p">))</span>
 
-    <span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">]</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">durations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">img_file</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span>
+        <span class="n">iteration_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">iteration_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">img_file</span><span class="o">.</span><span class="n">stem</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_file</span><span class="p">))</span>
+        <span class="n">durations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame_numbers</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">iteration_number</span><span class="p">)</span> <span class="o">*</span> <span class="n">default_frame_duration</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">forward_only_animation</span><span class="p">:</span>
         <span class="c1"># add the animation in reverse</span>
         <span class="n">frames</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">frames</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">durations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">durations</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
         <span class="n">output_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">start_shape</span><span class="si">}</span><span class="s1">_to_</span><span class="si">{</span><span class="n">target_shape</span><span class="si">}</span><span class="s1">.gif&#39;</span><span class="p">,</span>
         <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;GIF&#39;</span><span class="p">,</span>
         <span class="n">append_images</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
         <span class="n">save_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">duration</span><span class="o">=</span><span class="n">durations</span><span class="p">,</span>
         <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span>
 

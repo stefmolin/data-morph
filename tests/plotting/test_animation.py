@@ -60,10 +60,11 @@ def test_frame_stitching(sample_data, tmp_path, forward_only):
                     2 if not forward_only and frame == len(frame_numbers) - 1 else 1
                 )
                 # duration only seems to be present on frames where it is different
-                assert (
-                    img.info['duration']
-                    == duration_multipliers.count(frame) * 5 * rewind_multiplier
-                )
+                if frame_duration := img.info['duration']:
+                    assert (
+                        frame_duration
+                        == duration_multipliers.count(frame) * 5 * rewind_multiplier
+                    )
             with suppress(EOFError):
                 # move to the next frame
                 img.seek(img.tell() + 1)

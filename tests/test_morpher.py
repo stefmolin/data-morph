@@ -1,7 +1,6 @@
 """Test the data_morph.morpher module."""
 
-import hashlib
-from collections import Counter
+import re
 from functools import partial
 
 import pandas as pd
@@ -181,7 +180,7 @@ class TestDataMorpher:
 
     def test_saving_data(self, tmp_path):
         """Test that writing files to disk in the morph() method is working."""
-        num_frames = 20
+        num_frames = 5
         iterations = 10
         start_shape = 'dino'
         target_shape = 'circle'
@@ -210,8 +209,12 @@ class TestDataMorpher:
             freeze_for=0,
         )
 
+        frame_number_format = f'{{:0{len(str(iterations))}d}}'.format
+
         # we don't save the data for the first frame since it is in the input data
-        assert not (tmp_path / f'{base_file_name}-data-000.csv').is_file()
+        assert not (
+            tmp_path / f'{base_file_name}-data-{frame_number_format(0)}.csv'
+        ).is_file()
 
         # make sure we have the correct number of files
         for kind in ['png', 'csv']:
@@ -219,7 +222,10 @@ class TestDataMorpher:
 
         # at the final frame, we have the output data
         assert_frame_equal(
-            pd.read_csv(tmp_path / f'{base_file_name}-data-{num_frames - 1:03d}.csv'),
+            pd.read_csv(
+                tmp_path
+                / f'{base_file_name}-data-{frame_number_format(iterations)}.csv'
+            ),
             morphed_data,
         )
 
@@ -227,7 +233,7 @@ class TestDataMorpher:
         with pytest.raises(AssertionError):
             assert_frame_equal(
                 pd.read_csv(
-                    tmp_path / f'{base_file_name}-data-{num_frames // 2:03d}.csv'
+                    tmp_path / f'{base_file_name}-data-{frame_number_format(8)}.csv'
                 ),
                 morphed_data,
             )
@@ -237,16 +243,13 @@ class TestDataMorpher:
 
     @pytest.mark.parametrize('write_images', [True, False])
     @pytest.mark.parametrize('start_frame', [0, 1, 20])
-    @pytest.mark.parametrize('freeze_for', [0, 2, 10])
-    def test_freeze_animation_frames(
-        self, write_images, start_frame, freeze_for, tmp_path
-    ):
-        """Confirm that freezing frames in the animation is working."""
+    def test_record_frames(self, write_images, start_frame, tmp_path):
+        """Confirm that _record_frames() is working."""
         dataset = DataLoader.load_dataset('dino')
         morpher = DataMorpher(
             decimals=2,
             write_images=write_images,
-            write_data=True,
+            write_data=False,
             output_dir=tmp_path,
             seed=21,
             keep_frames=True,
@@ -254,30 +257,18 @@ class TestDataMorpher:
             in_notebook=False,
         )
 
+        frame_number = f'{start_frame:03d}'
+
         base_path = 'test-freeze'
-        end_frame = morpher._record_frames(
+        morpher._record_frames(
             dataset.data,
             dataset.plot_bounds,
             base_path,
-            freeze_for,
-            start_frame,
+            frame_number,
         )
 
-        # get image hashes
-        image_hashes = Counter()
-        for frame_image in tmp_path.glob(f'{base_path}*.png'):
-            with frame_image.open('rb') as img:
-                image_hashes.update({hashlib.sha256(img.read()).hexdigest(): 1})
+        images = list(tmp_path.glob(f'{base_path}*.png'))
 
-        if not write_images:
-            assert not image_hashes
-        else:
-            # check that the number of frames is correct
-            assert end_frame - start_frame == freeze_for
-
-            # check that the images are indeed the same
-            if write_images and freeze_for:
-                assert len(image_hashes.keys()) == 1
-                assert next(iter(image_hashes.values())) == freeze_for
-            else:
-                assert not image_hashes
+        assert len(images) == int(write_images)
+        if write_images:
+            assert re.search(r'\d{3}', images[0].stem).group(0) == frame_number

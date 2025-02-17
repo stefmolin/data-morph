@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import re
 from functools import wraps
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable
@@ -17,6 +18,7 @@ def stitch_gif_animation(
     output_dir: str | Path,
     start_shape: str,
     target_shape: str | Shape,
+    frame_numbers: list[int],
     keep_frames: bool = False,
     forward_only_animation: bool = False,
 ) -> None:
@@ -32,6 +34,10 @@ def stitch_gif_animation(
         The starting shape.
     target_shape : str or Shape
         The target shape for the morphing.
+    frame_numbers : list[int]
+        The saved frames to use in the GIF. Repeated consecutive frames will be shown
+        as a single frame for a longer duration (i.e., x repeats, means x times longer
+        than the default duration of 5 milliseconds).
     keep_frames : bool, default ``False``
         Whether to keep the individual frames after creating the animation.
     forward_only_animation : bool, default ``False``
@@ -44,22 +50,30 @@ def stitch_gif_animation(
         Frames are stitched together with Pillow.
     """
     output_dir = Path(output_dir)
+    iteration_pattern = re.compile(r'\d+')
+    default_frame_duration = 5  # milliseconds
 
     # find the frames and sort them
     imgs = sorted(output_dir.glob(f'{start_shape}-to-{target_shape}*.png'))
 
-    frames = [Image.open(img) for img in imgs]
+    frames = []
+    durations = []
+    for img_file in imgs:
+        iteration_number = int(iteration_pattern.search(img_file.stem).group(0))
+        frames.append(Image.open(img_file))
+        durations.append(frame_numbers.count(iteration_number) * default_frame_duration)
 
     if not forward_only_animation:
         # add the animation in reverse
         frames.extend(frames[::-1])
+        durations.extend(durations[::-1])
 
     frames[0].save(
         output_dir / f'{start_shape}_to_{target_shape}.gif',
         format='GIF',
         append_images=frames[1:],
         save_all=True,
-        duration=5,
+        duration=durations,
         loop=0,
     )
 

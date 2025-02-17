@@ -1,3 +1,7 @@
+ci:
+  autofix_prs: false
+  autoupdate_schedule: quarterly
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -25,7 +29,7 @@ repos:
         exclude: (\.(svg|png|pdf)$)|(CODE_OF_CONDUCT.md)
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.5
+    rev: v0.9.6
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]

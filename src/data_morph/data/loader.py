@@ -136,14 +136,15 @@ class DataLoader:
             The list of available datasets built into Data Morph.
         """
         num_plots = len(cls.AVAILABLE_DATASETS)
-        num_cols = 3
+        num_cols = 4
         num_rows = int(np.ceil(num_plots / num_cols))
+        scale = 4
 
         fig, axs = plt.subplots(
             num_rows,
             num_cols,
             layout='constrained',
-            figsize=(12, 4 * num_rows),
+            figsize=(scale * num_cols, scale * num_rows),
             subplot_kw={'aspect': 'equal'},
         )
         fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)

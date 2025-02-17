@@ -73,3 +73,4 @@ class TestDataLoader:
             assert subplot_title.endswith(' points)')
             if dataset in ['Python', 'SDS']:
                 assert 'logo' in subplot_title
+            assert ax.get_aspect() == 1

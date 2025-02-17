@@ -1,8 +1,8 @@
 [
     {
-        "name": "0.1",
-        "version": "0.1",
-        "url": "https://stefaniemolin.com/data-morph/0.1/"
+        "name": "0.3 (stable)",
+        "version": "stable",
+        "url": "https://stefaniemolin.com/data-morph/stable/"
     },
     {
         "name": "0.2",
@@ -10,8 +10,8 @@
         "url": "https://stefaniemolin.com/data-morph/0.2/"
     },
     {
-        "name": "0.3 (stable)",
-        "version": "stable",
-        "url": "https://stefaniemolin.com/data-morph/stable/"
+        "name": "0.1",
+        "version": "0.1",
+        "url": "https://stefaniemolin.com/data-morph/0.1/"
     }
 ]

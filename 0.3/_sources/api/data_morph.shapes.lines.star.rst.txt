@@ -1,0 +1,30 @@
+star
+====
+
+.. automodule:: data_morph.shapes.lines.star
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Star
+   
+   
+
+   
+   
+   
+
+
+

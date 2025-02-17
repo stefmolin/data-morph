@@ -1,0 +1,30 @@
+spade
+=====
+
+.. automodule:: data_morph.shapes.points.spade
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Spade
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,30 @@
+point\_collection
+=================
+
+.. automodule:: data_morph.shapes.bases.point_collection
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      PointCollection
+   
+   
+
+   
+   
+   
+
+
+

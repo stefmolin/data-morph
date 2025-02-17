@@ -1,0 +1,30 @@
+dots\_grid
+==========
+
+.. automodule:: data_morph.shapes.points.dots_grid
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      DotsGrid
+   
+   
+
+   
+   
+   
+
+
+

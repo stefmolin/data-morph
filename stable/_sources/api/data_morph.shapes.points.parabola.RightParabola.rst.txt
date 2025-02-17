@@ -1,0 +1,6 @@
+RightParabola
+=============
+
+.. currentmodule:: data_morph.shapes.points.parabola
+
+.. autoclass:: RightParabola

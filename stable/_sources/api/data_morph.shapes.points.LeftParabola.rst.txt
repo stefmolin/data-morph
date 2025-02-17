@@ -1,6 +1,0 @@
-LeftParabola
-============
-
-.. currentmodule:: data_morph.shapes.points
-
-.. autoclass:: LeftParabola

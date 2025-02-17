@@ -1,0 +1,30 @@
+wide\_lines
+===========
+
+.. automodule:: data_morph.shapes.lines.wide_lines
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      WideLines
+   
+   
+
+   
+   
+   
+
+
+

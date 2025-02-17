@@ -1,0 +1,6 @@
+XLines
+======
+
+.. currentmodule:: data_morph.shapes.lines.x_lines
+
+.. autoclass:: XLines

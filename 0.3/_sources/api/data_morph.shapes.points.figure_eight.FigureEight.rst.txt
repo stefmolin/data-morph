@@ -1,0 +1,6 @@
+FigureEight
+===========
+
+.. currentmodule:: data_morph.shapes.points.figure_eight
+
+.. autoclass:: FigureEight

@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Release Notes &#8212; Data Morph 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/tutorials/style.css?v=61399967" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=e259d695"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=c677161f"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-FMNM78QSKK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-FMNM78QSKK');
+            </script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-FMNM78QSKK');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'release-notes';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="canonical" href="https://stefaniemolin.com/data-morph/stable/release-notes.html" />
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Spiral" href="api/data_morph.shapes.points.spiral.Spiral.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Data Morph 0.3.0 documentation - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Data Morph 0.3.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="quickstart.html">
+    Quick Start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="cli.html">
+    CLI Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Release Notes
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">
+    Article about Data Morph
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/data-morph-talk/#/">
+    Conference Talk Slides on Data Morph
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com">
+    Stefanie Molin's Website
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="quickstart.html">
+    Quick Start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="cli.html">
+    CLI Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Release Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">
+    Article about Data Morph
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://stefaniemolin.com/data-morph-talk/#/">
+    Conference Talk Slides on Data Morph
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://stefaniemolin.com">
+    Stefanie Molin's Website
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Release Notes</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="release-notes">
+<h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
+<section id="february-17-2025">
+<h2>0.3.0 (February 17, 2025)<a class="headerlink" href="#february-17-2025" title="Link to this heading">#</a></h2>
+<section id="what-s-new">
+<h3>What’s New<a class="headerlink" href="#what-s-new" title="Link to this heading">#</a></h3>
+<section id="cli">
+<h4>CLI<a class="headerlink" href="#cli" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">--workers</span></code> option to the CLI for running multiple morphs in parallel.</p></li>
+<li><p>Renamed <code class="docutils literal notranslate"><span class="pre">--ramp-in</span></code> and <code class="docutils literal notranslate"><span class="pre">--ramp-out</span></code> as <code class="docutils literal notranslate"><span class="pre">--ease-in</span></code> and <code class="docutils literal notranslate"><span class="pre">--ease-out</span></code>.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">--ease</span></code> option to the CLI, which is shorthand for <code class="docutils literal notranslate"><span class="pre">--ease-in</span> <span class="pre">--ease-out</span></code>.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h4>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Added <a class="reference internal" href="tutorials/index.html"><span class="doc">Tutorials</span></a> page to the documentation.</p></li>
+<li><p>Added <a class="reference internal" href="tutorials/shape-creation.html"><span class="doc">Shape Creation</span></a> tutorial.</p></li>
+<li><p>Added section to the documentation with ideas of how to use <a class="reference internal" href="index.html#classroom-ideas"><span class="std std-ref">Data Morph in the classroom</span></a>.</p></li>
+<li><p>Updated contribution instructions in <a class="reference internal" href="tutorials/custom-datasets.html"><span class="doc">Custom Datasets</span></a> tutorial.</p></li>
+<li><p>Included reference to <a class="reference external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">article on the creation of Data Morph</a>
+in the documentation header.</p></li>
+<li><p>Included reference to <a class="reference external" href="https://stefaniemolin.com/data-morph-talk/">Data Morph: A Cautionary Tale of Summary Statistics</a>
+(conference talk) in the documentation header.</p></li>
+<li><p>Added <a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CONTRIBUTING.md">contributing guidelines</a>
+and <a class="reference external" href="https://github.com/stefmolin/data-morph/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p></li>
+<li><p>Configured canonical URL.</p></li>
+</ul>
+</section>
+<section id="morphing">
+<h4>Morphing<a class="headerlink" href="#morphing" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Reworked GIF creation logic to write only one PNG for distinct frames in the
+animation and use frequency counts to determine frame duration for speed
+improvements and less I/O.</p></li>
+<li><p>Added three new datasets: soccer, pi, and gorilla. See the <a class="reference internal" href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader" title="data_morph.data.loader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> for visuals.</p></li>
+<li><p>Added four new shapes: <a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.Club" title="data_morph.shapes.points.Club"><code class="xref py py-class docutils literal notranslate"><span class="pre">Club</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.FigureEight" title="data_morph.shapes.points.FigureEight"><code class="xref py py-class docutils literal notranslate"><span class="pre">FigureEight</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spade" title="data_morph.shapes.points.Spade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Spade</span></code></a>,
+and <a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spiral" title="data_morph.shapes.points.Spiral"><code class="xref py py-class docutils literal notranslate"><span class="pre">Spiral</span></code></a>.</p></li>
+<li><p>Refactored some shape logic to use more <code class="docutils literal notranslate"><span class="pre">numpy</span></code> for speed improvements.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">center</span></code> property to <a class="reference internal" href="api/data_morph.bounds.interval.Interval.html#data_morph.bounds.interval.Interval" title="data_morph.bounds.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interval</span></code></a> and <a class="reference internal" href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox" title="data_morph.bounds.bounding_box.BoundingBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundingBox</span></code></a> to simplify shape calculations.</p></li>
+<li><p>Made it possible to unpack the bounds from the <a class="reference internal" href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox" title="data_morph.bounds.bounding_box.BoundingBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundingBox</span></code></a>.</p></li>
+<li><p>Switched from <code class="docutils literal notranslate"><span class="pre">tqdm</span></code> to progress bars powered by <code class="docutils literal notranslate"><span class="pre">rich</span></code>.</p></li>
+<li><p>Renamed the <code class="docutils literal notranslate"><span class="pre">ramp_in</span></code> and <code class="docutils literal notranslate"><span class="pre">ramp_out</span></code> arguments to <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.morph" title="data_morph.morpher.DataMorpher.morph"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DataMorpher.morph()</span></code></a>
+as <code class="docutils literal notranslate"><span class="pre">ease_in</span></code> and <code class="docutils literal notranslate"><span class="pre">ease_out</span></code>.</p></li>
+<li><p>Added <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape.get_name" title="data_morph.shapes.bases.shape.Shape.get_name"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Shape.get_name()</span></code></a> method and <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape.name" title="data_morph.shapes.bases.shape.Shape.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Shape.name</span></code></a> attribute to replace
+<code class="docutils literal notranslate"><span class="pre">__str__()</span></code> shape naming logic, which removed some redundancies in
+<a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a>.</p></li>
+<li><p>Refactored the shape code into separate modules per shape.</p></li>
+<li><p>Renamed <code class="docutils literal notranslate"><span class="pre">get_values()</span></code> as <a class="reference internal" href="api/data_morph.data.stats.get_summary_statistics.html#data_morph.data.stats.get_summary_statistics" title="data_morph.data.stats.get_summary_statistics"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_summary_statistics()</span></code></a>.</p></li>
+<li><p>Improved variable names in several spots for more readable code.</p></li>
+</ul>
+</section>
+<section id="plotting">
+<h4>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">show_bounds</span></code> parameter to <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.plot" title="data_morph.data.dataset.Dataset.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Dataset.plot()</span></code></a> to visualize the automatically-calculated bounds.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">title</span></code> parameter to <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.plot" title="data_morph.data.dataset.Dataset.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Dataset.plot()</span></code></a> with default showing the name and number of points.</p></li>
+<li><p>Switched from using Matplotlib’s <code class="docutils literal notranslate"><span class="pre">tight_layout()</span></code> to constrained layout.</p></li>
+<li><p>Added <a class="reference internal" href="api/data_morph.plotting.style.style_context.html#data_morph.plotting.style.style_context" title="data_morph.plotting.style.style_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">style_context()</span></code></a> context manager for plotting in a Data Morph style.</p></li>
+<li><p>Added test suite for <a class="reference internal" href="api/data_morph.plotting.style.html#module-data_morph.plotting.style" title="data_morph.plotting.style"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plotting.style</span></code></a> module.</p></li>
+<li><p>Changed plot layouts for <code class="xref py py-meth docutils literal notranslate"><span class="pre">DataLoader.plot()</span></code> and <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory.plot_available_shapes" title="data_morph.shapes.factory.ShapeFactory.plot_available_shapes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShapeFactory.plot_available_shapes()</span></code></a>.</p></li>
+<li><p>Adjusted grid of datasets in the documentation to use tighter plot bounds.</p></li>
+</ul>
+</section>
+<section id="tooling">
+<h4>Tooling<a class="headerlink" href="#tooling" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Added new GitHub Actions workflow to run Data Morph on new/altered datasets, shapes,
+or core logic.</p></li>
+<li><p>Switched to trusted publishing on PyPI via GitHub Actions.</p></li>
+<li><p>Added PR and issue templates.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">pytest-xdist</span></code> to dev dependencies and reworked the test suite to make it faster.</p></li>
+<li><p>Switched from <code class="docutils literal notranslate"><span class="pre">black</span></code> to <code class="docutils literal notranslate"><span class="pre">ruff</span></code> formatting in pre-commit setup and included additional rulesets.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">pyproject-fmt</span></code> pre-commit hook.</p></li>
+<li><p>Refactored shape tests.</p></li>
+</ul>
+</section>
+</section>
+<section id="bug-fixes">
+<h3>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Addressed compatibility issues with <code class="docutils literal notranslate"><span class="pre">numpy&gt;=2.0.0</span></code>.</p></li>
+<li><p>Assorted performance and code quality improvements after running additional
+<code class="docutils literal notranslate"><span class="pre">ruff</span></code> rules.</p></li>
+<li><p>Fixed some incorrect return types.</p></li>
+</ul>
+</section>
+<section id="dependency-updates">
+<h3>Dependency Updates<a class="headerlink" href="#dependency-updates" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Replaced <code class="docutils literal notranslate"><span class="pre">tqdm</span></code> dependency with <code class="docutils literal notranslate"><span class="pre">rich</span></code>.</p></li>
+<li><p>Replaced <code class="docutils literal notranslate"><span class="pre">pytweening</span></code> dependency with functions in <a class="reference internal" href="api/data_morph.plotting.animation.html#module-data_morph.plotting.animation" title="data_morph.plotting.animation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plotting.animation</span></code></a>.</p></li>
+<li><p>Replaced <code class="docutils literal notranslate"><span class="pre">sphinxarg.ext</span></code> Sphinx extension with <code class="docutils literal notranslate"><span class="pre">sphinx_argparse_cli</span></code>.</p></li>
+<li><p>Changed the minimum Sphinx version to 7.2.6.</p></li>
+<li><p>Changed the minimum <code class="docutils literal notranslate"><span class="pre">pydata-sphinx-theme</span></code> version to 0.15.3.</p></li>
+<li><p>Updated pre-commit hooks to the latest versions.</p></li>
+<li><p>Factored out <code class="docutils literal notranslate"><span class="pre">scipy</span></code> dependency.</p></li>
+<li><p>Updated GitHub Actions workflows for Node 16 deprecation.</p></li>
+<li><p>Enabled Dependabot on GitHub Actions and switched to use commit hashes for versioning.</p></li>
+<li><p>Updated Python testing matrix to include Python 3.9 through 3.13.</p></li>
+</ul>
+</section>
+</section>
+<section id="september-24-2023">
+<h2>0.2.0 (September 24, 2023)<a class="headerlink" href="#september-24-2023" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>What’s New<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Created 5 new target shapes: <a class="reference internal" href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Diamond" title="data_morph.shapes.lines.Diamond"><code class="xref py py-class docutils literal notranslate"><span class="pre">Diamond</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.Heart" title="data_morph.shapes.points.Heart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Heart</span></code></a>,
+<a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.LeftParabola" title="data_morph.shapes.points.LeftParabola"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeftParabola</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.RightParabola" title="data_morph.shapes.points.RightParabola"><code class="xref py py-class docutils literal notranslate"><span class="pre">RightParabola</span></code></a>, <a class="reference internal" href="api/data_morph.shapes.circles.Rings.html#data_morph.shapes.circles.Rings" title="data_morph.shapes.circles.Rings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rings</span></code></a>.</p></li>
+<li><p>Created 3 new datasets: bunny, Python logo (TM), SuperDataScience logo.
+Logos are used with permission.</p></li>
+<li><p>Made it possible to install via <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
+<li><p>Configured versioned documentation hosted in GitHub Pages.</p></li>
+<li><p>Generated a <a class="reference internal" href="cli.html"><span class="doc">CLI reference</span></a> page in the documentation.</p></li>
+<li><p>Provided a <a class="reference internal" href="tutorials/custom-datasets.html"><span class="doc">custom dataset creation tutorial</span></a> to the documentation.</p></li>
+<li><p>Included logo and badges in README.</p></li>
+<li><p>Included an example using easing for the animation to the documentation.</p></li>
+<li><p>Included reference to <a class="reference external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">article on the creation of Data Morph</a>
+in the documentation.</p></li>
+<li><p>Configured codecov reporting on test coverage with actions to validate the
+config both periodically and upon change.</p></li>
+<li><p>Incorporated metavar indicators for some CLI options.</p></li>
+<li><p>Added a test of the frame freezing functionality in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a>.</p></li>
+<li><p>Added a test for the <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory.plot_available_shapes" title="data_morph.shapes.factory.ShapeFactory.plot_available_shapes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShapeFactory.plot_available_shapes()</span></code></a> method used in the documentation.</p></li>
+<li><p>Added a test for the <a class="reference internal" href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.plot" title="data_morph.shapes.bases.point_collection.PointCollection.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PointCollection.plot()</span></code></a> method used in the documentation.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>Bug Fixes<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fixed links to Autodesk assets after change to their website.</p></li>
+<li><p>Corrected missing type references in the documentation.</p></li>
+<li><p>Addressed a bug in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> that caused frame recording to miss first frame (initial dataset).</p></li>
+<li><p>Fixed a bug in the <a class="reference internal" href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher" title="data_morph.morpher.DataMorpher"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataMorpher</span></code></a> that wasn’t properly decreasing
+the temperature in the simulated annealing process.</p></li>
+<li><p>Reduced point size for datasets displayed in the documentation so points
+appear with some separation and stay true to their subjects.</p></li>
+<li><p>Fixed bug in logic for padding statistics in plots that would use incorrect spacing in some cases.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Dependency Updates<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Changed the minimum Sphinx version to 7.2.1.</p></li>
+<li><p>Changed the minimum <code class="docutils literal notranslate"><span class="pre">pytweening</span></code> version to 1.0.5.</p></li>
+<li><p>Switched from <code class="docutils literal notranslate"><span class="pre">isort</span></code> and <code class="docutils literal notranslate"><span class="pre">flake8</span></code> to <code class="docutils literal notranslate"><span class="pre">ruff</span></code> in pre-commit setup.</p></li>
+<li><p>Updated pre-commit hooks to the latest versions and to use the new upstream <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> validation hook.</p></li>
+</ul>
+</section>
+</section>
+<section id="april-1-2023">
+<h2>0.1.0 (April 1, 2023)<a class="headerlink" href="#april-1-2023" title="Link to this heading">#</a></h2>
+<p>This is the first release of Data Morph, which is a spinoff of
+<a class="reference external" href="https://github.com/jmatejka/same-stats-different-graphs">jmatejka/same-stats-different-graphs</a>.
+Data Morph extends the original premise from
+<a class="reference external" href="https://www.autodeskresearch.com/publications/samestats">the Autodesk Research paper</a> to be more general.
+The core improvements include:</p>
+<ul class="simple">
+<li><p>Created a modular package, moving away from functional programming to object-oriented programming.</p></li>
+<li><p>Introduction of <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> classes both for resuability of the code and to decouple the shapes from
+the original “datasaurus” dataset and its hardcoded values. Morphing is now possible from any input dataset
+to the target shapes. See the <a class="reference internal" href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory" title="data_morph.shapes.factory.ShapeFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeFactory</span></code></a> documentation for visuals.</p></li>
+<li><p>Creation of <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> to hold the data along with bounds needed for morphing and plotting and the name.</p></li>
+<li><p>Morph and plot bounding logic for automatic calculation of values needed for simulated annealing and plot limits.</p></li>
+<li><p>Fun new starter datasets: cat, dog, music, panda, and sheep. See the <a class="reference internal" href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader" title="data_morph.data.loader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> documentation for visuals.</p></li>
+<li><p>Easier application of plotting theme.</p></li>
+<li><p>Documentation with Sphinx.</p></li>
+<li><p>Testing suite with pytest.</p></li>
+<li><p>Replaced center shape with <a class="reference internal" href="api/data_morph.shapes.points.html#data_morph.shapes.points.Scatter" title="data_morph.shapes.points.Scatter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scatter</span></code></a> and included a new <a class="reference internal" href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Rectangle" title="data_morph.shapes.lines.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a> shape.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#february-17-2025">0.3.0 (February 17, 2025)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-new">What’s New</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#morphing">Morphing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tooling">Tooling</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-updates">Dependency Updates</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#september-24-2023">0.2.0 (September 24, 2023)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">What’s New</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Bug Fixes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Dependency Updates</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#april-1-2023">0.1.0 (April 1, 2023)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023-2025, Stefanie Molin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

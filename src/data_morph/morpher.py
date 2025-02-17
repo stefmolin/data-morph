@@ -200,7 +200,7 @@ class DataMorpher:
         bounds: BoundingBox,
         base_file_name: str,
         frame_number: str,
-    ) -> int:
+    ) -> None:
         """
         Record frame data as a plot and, when :attr:`write_data` is ``True``, as a CSV file.
 

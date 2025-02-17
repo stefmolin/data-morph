@@ -68,9 +68,9 @@ Here is the resulting animation:
 ----
 
 The CLI generates animations for the Cartesian product of the datasets and shapes
-provided. For example, if you wanted to
-morph both the music and soccer datasets into both the heart and diamond shapes
-(i.e., four animations), you could run the command below:
+provided. For example, if you wanted to morph both the music and soccer datasets
+into both the heart and diamond shapes (i.e., four animations), you could run
+the command below:
 
 .. code:: console
 

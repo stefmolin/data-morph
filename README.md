@@ -101,11 +101,11 @@ Run `data-morph` on the command line:
 $ data-morph --start-shape panda --target-shape star
 ```
 
-This produces the animation in the newly-created `morphed_data` directory within your current working directory (shown above).
+This produces the animation in the newly-created `morphed_data` directory within your current working directory (shown above). More examples, including how to run multiple transformations in parallel, can be found in the [documentation](https://stefaniemolin.com/data-morph/).
 
 ----
 
-See all available CLI options by passing in `--help`:
+See all available CLI options by passing in `--help` or consulting the [CLI reference](https://stefaniemolin.com/data-morph/stable/cli.html) in the documentation:
 
 ```console
 $ data-morph --help

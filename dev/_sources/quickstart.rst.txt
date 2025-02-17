@@ -67,6 +67,40 @@ Here is the resulting animation:
 
 ----
 
+The CLI generates animations for the Cartesian product of the datasets and shapes
+provided. For example, if you wanted to morph both the music and soccer datasets
+into both the heart and diamond shapes (i.e., four animations), you could run
+the command below:
+
+.. code:: console
+
+   $ data-morph --start-shape music soccer --target-shape heart diamond
+
+.. tip::
+
+   When doing generating multiple animations, it is recommended that you also specify
+   the number of jobs you want to run in parallel (limited by the number of CPU cores
+   on your machine). If you pass ``0``, Data Morph will run as many as possible:
+
+   .. code:: console
+
+      $ data-morph --start-shape music soccer --target-shape heart diamond --workers 0
+
+   If you have the GNU ``parallel`` command on your machine, you can use it to run
+   a slightly faster parallelized Data Morph (since it incurs less Python overhead),
+   in which case you don't need to provide the worker count:
+
+   .. code:: console
+
+      $ parallel --progress -j0 \
+      >     data-morph --start-shape {1} --target-shape {2} \
+      >     ::: music soccer ::: heart diamond
+
+   Check out the `GNU parallel documentation <https://www.gnu.org/software/parallel/sphinx.html>`_
+   for more options.
+
+----
+
 See all available CLI options by passing in ``--help`` or consulting the :doc:`cli`:
 
 .. code:: console

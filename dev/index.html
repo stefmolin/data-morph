@@ -47,7 +47,7 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=30646c52"></script>
+    <script src="_static/copybutton.js?v=c677161f"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-FMNM78QSKK"></script>
     <script>
@@ -563,6 +563,33 @@ of the initial shape:</p>
 <p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> with easing.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<hr class="docutils" />
+<p>The CLI generates animations for the Cartesian product of the datasets and shapes
+provided. For example, if you wanted to morph both the music and soccer datasets
+into both the heart and diamond shapes (i.e., four animations), you could run
+the command below:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target-shape<span class="w"> </span>heart<span class="w"> </span>diamond
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When doing generating multiple animations, it is recommended that you also specify
+the number of jobs you want to run in parallel (limited by the number of CPU cores
+on your machine). If you pass <code class="docutils literal notranslate"><span class="pre">0</span></code>, Data Morph will run as many as possible:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target-shape<span class="w"> </span>heart<span class="w"> </span>diamond<span class="w"> </span>--workers<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>If you have the GNU <code class="docutils literal notranslate"><span class="pre">parallel</span></code> command on your machine, you can use it to run
+a slightly faster parallelized Data Morph (since it incurs less Python overhead),
+in which case you don’t need to provide the worker count:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>parallel<span class="w"> </span>--progress<span class="w"> </span>-j0<span class="w"> </span><span class="se">\</span>
+<span class="gp">&gt; </span><span class="w">    </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span><span class="o">{</span><span class="m">1</span><span class="o">}</span><span class="w"> </span>--target-shape<span class="w"> </span><span class="o">{</span><span class="m">2</span><span class="o">}</span><span class="w"> </span><span class="se">\</span>
+<span class="gp">&gt; </span><span class="w">    </span>:::<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>:::<span class="w"> </span>heart<span class="w"> </span>diamond
+</pre></div>
+</div>
+<p>Check out the <a class="reference external" href="https://www.gnu.org/software/parallel/sphinx.html">GNU parallel documentation</a>
+for more options.</p>
+</div>
 <hr class="docutils" />
 <p>See all available CLI options by passing in <code class="docutils literal notranslate"><span class="pre">--help</span></code> or consulting the <a class="reference internal" href="cli.html"><span class="doc">CLI Reference</span></a>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--help

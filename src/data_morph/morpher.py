@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import shutil
 from contextlib import nullcontext
 from functools import partial
 from numbers import Number
@@ -200,8 +199,7 @@ class DataMorpher:
         data: pd.DataFrame,
         bounds: BoundingBox,
         base_file_name: str,
-        count: int,
-        frame_number: int,
+        frame_number: str,
     ) -> int:
         """
         Record frame data as a plot and, when :attr:`write_data` is ``True``, as a CSV file.
@@ -214,28 +212,16 @@ class DataMorpher:
             The plotting limits.
         base_file_name : str
             The prefix to the file names for both the PNG and GIF files.
-        count : int
-            The number of frames to record with the data.
-        frame_number : int
-            The starting frame number.
-
-        Returns
-        -------
-        int
-            The next frame number available for recording.
+        frame_number : str
+            The frame number with padding zeros added already.
         """
-        if (self.write_images or self.write_data) and count > 0:
-            is_start = frame_number == 0
-            img_file = (
-                self.output_dir / f'{base_file_name}-image-{frame_number:03d}.png'
-            )
-            data_file = (
-                self.output_dir / f'{base_file_name}-data-{frame_number:03d}.csv'
-            )
+        if self.write_images or self.write_data:
+            is_start = int(frame_number) == 0
             if self.write_images:
                 plot(
                     data,
-                    save_to=img_file,
+                    save_to=self.output_dir
+                    / f'{base_file_name}-image-{frame_number}.png',
                     decimals=self.decimals,
                     x_bounds=bounds.x_bounds,
                     y_bounds=bounds.y_bounds,
@@ -244,25 +230,10 @@ class DataMorpher:
             if (
                 self.write_data and not is_start
             ):  # don't write data for the initial frame (input data)
-                data.to_csv(data_file, index=False)
-            frame_number += 1
-            if (duplicate_count := count - 1) > 0:
-                for _ in range(duplicate_count):
-                    if data_file.exists():
-                        shutil.copy(
-                            data_file,
-                            self.output_dir
-                            / f'{base_file_name}-data-{frame_number:03d}.csv',
-                        )
-                    if img_file.exists():
-                        shutil.copy(
-                            img_file,
-                            self.output_dir
-                            / f'{base_file_name}-image-{frame_number:03d}.png',
-                        )
-                    frame_number += 1
-
-        return frame_number
+                data.to_csv(
+                    self.output_dir / f'{base_file_name}-data-{frame_number}.csv',
+                    index=False,
+                )
 
     def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
         """
@@ -477,11 +448,9 @@ class DataMorpher:
             base_file_name=base_file_name,
             bounds=start_shape.plot_bounds,
         )
-        frame_number = record_frames(
-            data=morphed_data,
-            count=max(freeze_for, 1),
-            frame_number=0,
-        )
+
+        frame_number_format = f'{{:0{len(str(iterations))}d}}'.format
+        record_frames(data=morphed_data, frame_number=frame_number_format(0))
 
         def _easing(
             frame: int, *, min_value: Number, max_value: Number
@@ -507,7 +476,7 @@ class DataMorpher:
                 task_id = progress_tracker.add_task(
                     f'{start_shape.name} to {target_shape}'
                 )
-            for i in range(iterations):
+            for i in range(1, iterations + 1):
                 perturbed_data = self._perturb(
                     morphed_data.copy(),
                     target_shape=target_shape,
@@ -520,26 +489,26 @@ class DataMorpher:
                 if self._is_close_enough(start_shape.data, perturbed_data):
                     morphed_data = perturbed_data
 
-                frame_number = record_frames(
-                    data=morphed_data,
-                    count=frame_numbers.count(i),
-                    frame_number=frame_number,
-                )
+                if frame_numbers.count(i):
+                    record_frames(
+                        data=morphed_data, frame_number=frame_number_format(i)
+                    )
 
                 if progress_tracker:
                     progress_tracker.update(
                         task_id,
                         total=iterations,
-                        completed=i + 1,
-                        refresh=self._in_notebook and (i + 1) % 500 == 0,
+                        completed=i,
+                        refresh=self._in_notebook and (i) % 500 == 0,
                     )
                 else:
-                    progress[task_id] = {'progress': i + 1, 'total': iterations}
+                    progress[task_id] = {'progress': i, 'total': iterations}
 
         if self.write_images:
             stitch_gif_animation(
                 self.output_dir,
                 start_shape.name,
+                frame_numbers=frame_numbers,
                 target_shape=target_shape,
                 keep_frames=self.keep_frames,
                 forward_only_animation=self.forward_only_animation,
@@ -547,7 +516,8 @@ class DataMorpher:
 
         if self.write_data:
             morphed_data.to_csv(
-                self.output_dir / f'{base_file_name}-data-{frame_number:03d}.csv',
+                self.output_dir
+                / f'{base_file_name}-data-{frame_number_format(iterations)}.csv',
                 index=False,
             )
 

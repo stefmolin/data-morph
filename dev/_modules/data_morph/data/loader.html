@@ -666,14 +666,15 @@
 <span class="sd">            The list of available datasets built into Data Morph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">num_plots</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">AVAILABLE_DATASETS</span><span class="p">)</span>
-        <span class="n">num_cols</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">num_cols</span> <span class="o">=</span> <span class="mi">4</span>
         <span class="n">num_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">num_plots</span> <span class="o">/</span> <span class="n">num_cols</span><span class="p">))</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="mi">4</span>
 
         <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
             <span class="n">num_rows</span><span class="p">,</span>
             <span class="n">num_cols</span><span class="p">,</span>
             <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;constrained&#39;</span><span class="p">,</span>
-            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">num_rows</span><span class="p">),</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">scale</span> <span class="o">*</span> <span class="n">num_cols</span><span class="p">,</span> <span class="n">scale</span> <span class="o">*</span> <span class="n">num_rows</span><span class="p">),</span>
             <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">},</span>
         <span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">get_layout_engine</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">w_pad</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">h_pad</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>

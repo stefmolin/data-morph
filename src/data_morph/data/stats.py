@@ -31,6 +31,8 @@ def get_summary_statistics(data: pd.DataFrame) -> SummaryStatistics:
     return SummaryStatistics(
         data.x.mean(),
         data.y.mean(),
+        data.x.median(),
+        data.y.median(),
         data.x.std(),
         data.y.std(),
         data.corr().x.y,

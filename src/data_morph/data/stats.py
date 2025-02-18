@@ -25,7 +25,7 @@ def get_summary_statistics(data: pd.DataFrame) -> SummaryStatistics:
     Returns
     -------
     SummaryStatistics
-        Named tuple consisting of mean, median and standard deviations of x and y,
+        Named tuple consisting of mean, median, and standard deviations of x and y,
         along with the Pearson correlation coefficient between the two.
     """
     return SummaryStatistics(

@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
     - name: Set up Python
-      uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b  # v5.3.0
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38  # v5.4.0
       with:
         python-version: "3.x"
     - name: Install pypa/build
@@ -24,7 +24,7 @@ jobs:
     - name: Build a binary wheel and a source tarball
       run: python3 -m build
     - name: Store the distribution packages
-      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882  # v4.4.3
+      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08  # v4.6.0
       with:
         name: python-package-distributions
         path: dist/
@@ -49,7 +49,7 @@ jobs:
         name: python-package-distributions
         path: dist/
     - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@f7600683efdcb7656dec5b29656edb7bc586e597  # v1.10.3
+      uses: pypa/gh-action-pypi-publish@61da13deb5f5124fb1536194f82ed3d9bbc7e8f3  # v1.12.0
 
   github-release:
     name: >-
@@ -82,7 +82,7 @@ jobs:
         gh release create
         '${{ github.ref_name }}'
         --repo '${{ github.repository }}'
-        --notes ""
+        --generate-notes
     - name: Upload artifact signatures to GitHub Release
       env:
         GITHUB_TOKEN: ${{ github.token }}
@@ -115,6 +115,6 @@ jobs:
         name: python-package-distributions
         path: dist/
     - name: Publish distribution 📦 to TestPyPI
-      uses: pypa/gh-action-pypi-publish@f7600683efdcb7656dec5b29656edb7bc586e597  # v1.10.3
+      uses: pypa/gh-action-pypi-publish@61da13deb5f5124fb1536194f82ed3d9bbc7e8f3  # v1.12.0
       with:
         repository-url: https://test.pypi.org/legacy/

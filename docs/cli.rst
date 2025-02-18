@@ -19,11 +19,12 @@ Examples
 
     $ data-morph --start-shape panda --target-shape star
 
-2. Morph the panda shape into all available target shapes:
+2. Morph the panda shape into all available target shapes distributing the work
+   to as many worker processes as possible:
 
    .. code-block:: console
 
-    $ data-morph --start-shape panda --target-shape all
+    $ data-morph --start-shape panda --target-shape all --workers 0
 
 3. Morph the cat, dog, and panda shapes into the circle and slant_down shapes:
 
@@ -49,8 +50,8 @@ Examples
 
     $ data-morph --start-shape music --target-shape bullseye --output-dir path/to/dir
 
-7. Morph the sheep shape into vertical lines, slowly ramping in and out for the animation:
+7. Morph the sheep shape into vertical lines, slowly easing in and out for the animation:
 
    .. code-block:: console
 
-    $ data-morph --start-shape sheep --target-shape v_lines --ramp-in --ramp-out
+    $ data-morph --start-shape sheep --target-shape v_lines --ease

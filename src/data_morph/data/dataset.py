@@ -1,14 +1,19 @@
 """Class representing a dataset for morphing."""
 
+from __future__ import annotations
+
 from numbers import Number
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
-import pandas as pd
-from matplotlib.axes import Axes
 
 from ..bounds.bounding_box import BoundingBox
 from ..bounds.interval import Interval
 from ..plotting.style import plot_with_custom_style
+
+if TYPE_CHECKING:
+    import pandas as pd
+    from matplotlib.axes import Axes
 
 
 class Dataset:
@@ -27,7 +32,7 @@ class Dataset:
     ----------
     name : str
         The name to use for the dataset.
-    df : pandas.DataFrame
+    data : pandas.DataFrame
         DataFrame containing columns x and y.
     scale : numbers.Number, optional
         The factor to scale the data by (can be used to speed up morphing).
@@ -39,15 +44,17 @@ class Dataset:
         Utility for creating :class:`Dataset` objects from CSV files.
     """
 
-    _REQUIRED_COLUMNS = ['x', 'y']
+    _REQUIRED_COLUMNS = ('x', 'y')
 
     def __init__(
         self,
         name: str,
-        df: pd.DataFrame,
-        scale: Number = None,
+        data: pd.DataFrame,
+        scale: Number | None = None,
     ) -> None:
-        self.df: pd.DataFrame = self._validate_data(df).pipe(self._scale_data, scale)
+        self.data: pd.DataFrame = self._validate_data(data).pipe(
+            self._scale_data, scale
+        )
         """pandas.DataFrame: DataFrame containing columns x and y."""
 
         self.name: str = name
@@ -76,7 +83,7 @@ class Dataset:
         """
         return BoundingBox(
             *[
-                Interval([self.df[dim].min(), self.df[dim].max()], inclusive=False)
+                Interval([self.data[dim].min(), self.data[dim].max()], inclusive=False)
                 for dim in self._REQUIRED_COLUMNS
             ]
         )
@@ -117,13 +124,13 @@ class Dataset:
         plot_bounds.align_aspect_ratio()
         return plot_bounds
 
-    def _scale_data(self, df: pd.DataFrame, scale: Number) -> pd.DataFrame:
+    def _scale_data(self, data: pd.DataFrame, scale: Number) -> pd.DataFrame:
         """
         Apply scaling to the data.
 
         Parameters
         ----------
-        df : pandas.DataFrame
+        data : pandas.DataFrame
             The data to scale.
         scale : numbers.Number, optional
             The factor to scale the data by (can be used to speed up morphing).
@@ -136,7 +143,7 @@ class Dataset:
         """
         if scale is None:
             self._scaled = False
-            return df
+            return data
 
         if isinstance(scale, bool) or not isinstance(scale, Number):
             raise TypeError('scale must be a numeric value.')
@@ -144,9 +151,9 @@ class Dataset:
         if not scale:
             raise ValueError('scale must be non-zero.')
 
-        scaled_df = df.assign(x=df.x.div(scale), y=df.y.div(scale))
+        scaled_data = data.assign(x=data.x.div(scale), y=data.y.div(scale))
         self._scaled = True
-        return scaled_df
+        return scaled_data
 
     def _validate_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
@@ -173,7 +180,7 @@ class Dataset:
                 raise ValueError(
                     'Columns "x" and "y" are required for datasets. The provided '
                     'dataset is missing the following column(s): '
-                    f"{', '.join(sorted(missing_columns))}."
+                    f'{", ".join(sorted(missing_columns))}.'
                 )
             data = data.rename(columns={col.upper(): col for col in missing_columns})
 
@@ -181,7 +188,10 @@ class Dataset:
 
     @plot_with_custom_style
     def plot(
-        self, ax: Axes = None, show_bounds: bool = True, title: str = 'default'
+        self,
+        ax: Axes | None = None,
+        show_bounds: bool = True,
+        title: str | None = 'default',
     ) -> Axes:
         """
         Plot the dataset and its bounds.
@@ -192,7 +202,7 @@ class Dataset:
             An optional :class:`~matplotlib.axes.Axes` object to plot on.
         show_bounds : bool, default ``True``
             Whether to plot the bounds of the dataset.
-        title : str, optional
+        title : str | ``None``, optional
             Title to use for the plot. The default will call ``str()`` on the
             Dataset. Pass ``None`` to leave the plot untitled.
 
@@ -206,15 +216,16 @@ class Dataset:
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
         ax.axis('equal')
-        ax.scatter(self.df.x, self.df.y, s=2, color='black')
+        ax.scatter(self.data.x, self.data.y, s=2, color='black')
         ax.set(xlabel='', ylabel='', title=self if title == 'default' else title)
 
         if show_bounds:
             scale_base = 85
 
             # data bounds
-            x_offset = self.data_bounds.x_bounds.range / scale_base
-            y_offset = self.data_bounds.y_bounds.range / scale_base
+            x_range, y_range = self.data_bounds.range
+            x_offset = x_range / scale_base
+            y_offset = y_range / scale_base
             data_rectangle = [
                 self.data_bounds.x_bounds[0] - x_offset,
                 self.data_bounds.y_bounds[0] - y_offset,
@@ -223,16 +234,16 @@ class Dataset:
             ax.add_patch(
                 plt.Rectangle(
                     data_rectangle,
-                    width=self.data_bounds.x_bounds.range + x_offset * 2,
-                    height=self.data_bounds.y_bounds.range + y_offset * 2,
+                    width=x_range + x_offset * 2,
+                    height=y_range + y_offset * 2,
                     ec='blue',
                     linewidth=2,
                     fill=False,
                 )
             )
             ax.text(
-                (self.df.x.max() + self.df.x.min()) / 2,
-                self.df.y.max() + self.data_bounds.y_bounds.range / scale_base,
+                (self.data.x.max() + self.data.x.min()) / 2,
+                self.data.y.max() + y_offset,
                 'DATA BOUNDS',
                 color='blue',
                 va='bottom',

@@ -1,7 +1,6 @@
 """Test the data_morph.morpher module."""
 
-import hashlib
-from collections import Counter
+import re
 from functools import partial
 
 import pandas as pd
@@ -31,7 +30,7 @@ class TestDataMorpher:
 
     @pytest.mark.input_validation
     @pytest.mark.parametrize(
-        ['write_data', 'write_images'], [[True, True], [True, False], [False, True]]
+        ('write_data', 'write_images'), [(True, True), (True, False), (False, True)]
     )
     def test_input_validation_output_dir(self, write_data, write_images):
         """Test input validation on output_dir."""
@@ -64,26 +63,28 @@ class TestDataMorpher:
     @pytest.mark.parametrize('freeze_for', [-1, 0.5, 200, True, 's'])
     def test_input_validation_freeze_for(self, freeze_for):
         """Test input validation on freeze_for."""
+        morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+
         with pytest.raises(
             ValueError, match='freeze_for must be a non-negative integer'
         ):
-            morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
             _ = morpher._select_frames(
-                iterations=100, ramp_in=True, ramp_out=True, freeze_for=freeze_for
+                iterations=100, ease_in=True, ease_out=True, freeze_for=freeze_for
             )
 
     @pytest.mark.input_validation
     @pytest.mark.parametrize('iterations', [-1, 0.5, 's'])
     def test_input_validation_iterations(self, iterations):
         """Test input validation on iterations."""
+        morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
+
         with pytest.raises(ValueError, match='iterations must be a positive integer'):
-            morpher = DataMorpher(decimals=2, in_notebook=False, output_dir='')
             _ = morpher._select_frames(
-                iterations=iterations, ramp_in=True, ramp_out=True, freeze_for=0
+                iterations=iterations, ease_in=True, ease_out=True, freeze_for=0
             )
 
     @pytest.mark.parametrize(
-        ['ramp_in', 'ramp_out', 'expected_frames'],
+        ('ease_in', 'ease_out', 'expected_frames'),
         [
             (True, True, [0, 1, 2, 5, 8, 12, 15, 18, 19]),
             (True, False, [0, 0, 1, 3, 5, 7, 10, 13, 17]),
@@ -91,7 +92,7 @@ class TestDataMorpher:
             (False, False, [0, 2, 4, 7, 9, 11, 13, 16, 18]),
         ],
     )
-    def test_frames(self, ramp_in, ramp_out, expected_frames):
+    def test_frames(self, ease_in, ease_out, expected_frames):
         """Confirm that frames produced by the _select_frames() method are correct."""
         freeze_for = 2
         iterations = 20
@@ -101,8 +102,8 @@ class TestDataMorpher:
         )
         frames = morpher._select_frames(
             iterations=iterations,
-            ramp_in=ramp_in,
-            ramp_out=ramp_out,
+            ease_in=ease_in,
+            ease_out=ease_out,
             freeze_for=freeze_for,
         )
 
@@ -121,7 +122,7 @@ class TestDataMorpher:
     @pytest.mark.input_validation
     @pytest.mark.parametrize('name', ['shake', 'temp'])
     @pytest.mark.parametrize(
-        ['min_value', 'max_value'],
+        ('min_value', 'max_value'),
         [(0, 0), (1, 1), (0.5, 0.5), (0.5, 0.25)],
     )
     def test_morph_input_validation_shake_and_temp_range(
@@ -164,22 +165,22 @@ class TestDataMorpher:
             start_shape=dataset,
             target_shape=shape_factory.generate_shape(target_shape),
             iterations=iterations,
-            ramp_in=False,
-            ramp_out=False,
+            ease_in=False,
+            ease_out=False,
             freeze_for=0,
         )
 
         with pytest.raises(AssertionError):
-            assert_frame_equal(morphed_data, dataset.df)
-        assert morpher._is_close_enough(dataset.df, morphed_data)
+            assert_frame_equal(morphed_data, dataset.data)
+        assert morpher._is_close_enough(dataset.data, morphed_data)
 
-        _, err = capsys.readouterr()
-        assert f'{target_shape} pattern: 100%' in err
-        assert f' {iterations}/{iterations} ' in err
+        out, _ = capsys.readouterr()
+        assert f'{dataset.name} to {target_shape}' in out
+        assert f' {iterations}/{iterations} ' in out
 
     def test_saving_data(self, tmp_path):
         """Test that writing files to disk in the morph() method is working."""
-        num_frames = 20
+        num_frames = 5
         iterations = 10
         start_shape = 'dino'
         target_shape = 'circle'
@@ -203,13 +204,17 @@ class TestDataMorpher:
             start_shape=dataset,
             target_shape=shape_factory.generate_shape(target_shape),
             iterations=iterations,
-            ramp_in=False,
-            ramp_out=False,
+            ease_in=False,
+            ease_out=False,
             freeze_for=0,
         )
 
+        frame_number_format = f'{{:0{len(str(iterations))}d}}'.format
+
         # we don't save the data for the first frame since it is in the input data
-        assert not (tmp_path / f'{base_file_name}-data-000.csv').is_file()
+        assert not (
+            tmp_path / f'{base_file_name}-data-{frame_number_format(0)}.csv'
+        ).is_file()
 
         # make sure we have the correct number of files
         for kind in ['png', 'csv']:
@@ -217,7 +222,10 @@ class TestDataMorpher:
 
         # at the final frame, we have the output data
         assert_frame_equal(
-            pd.read_csv(tmp_path / f'{base_file_name}-data-{num_frames - 1:03d}.csv'),
+            pd.read_csv(
+                tmp_path
+                / f'{base_file_name}-data-{frame_number_format(iterations)}.csv'
+            ),
             morphed_data,
         )
 
@@ -225,7 +233,7 @@ class TestDataMorpher:
         with pytest.raises(AssertionError):
             assert_frame_equal(
                 pd.read_csv(
-                    tmp_path / f'{base_file_name}-data-{num_frames//2:03d}.csv'
+                    tmp_path / f'{base_file_name}-data-{frame_number_format(8)}.csv'
                 ),
                 morphed_data,
             )
@@ -235,16 +243,13 @@ class TestDataMorpher:
 
     @pytest.mark.parametrize('write_images', [True, False])
     @pytest.mark.parametrize('start_frame', [0, 1, 20])
-    @pytest.mark.parametrize('freeze_for', [0, 2, 10])
-    def test_freeze_animation_frames(
-        self, write_images, start_frame, freeze_for, tmp_path
-    ):
-        """Confirm that freezing frames in the animation is working."""
+    def test_record_frames(self, write_images, start_frame, tmp_path):
+        """Confirm that _record_frames() is working."""
         dataset = DataLoader.load_dataset('dino')
         morpher = DataMorpher(
             decimals=2,
             write_images=write_images,
-            write_data=True,
+            write_data=False,
             output_dir=tmp_path,
             seed=21,
             keep_frames=True,
@@ -252,30 +257,18 @@ class TestDataMorpher:
             in_notebook=False,
         )
 
+        frame_number = f'{start_frame:03d}'
+
         base_path = 'test-freeze'
-        end_frame = morpher._record_frames(
-            dataset.df,
+        morpher._record_frames(
+            dataset.data,
             dataset.plot_bounds,
             base_path,
-            freeze_for,
-            start_frame,
+            frame_number,
         )
 
-        # get image hashes
-        image_hashes = Counter()
-        for frame_image in tmp_path.glob(f'{base_path}*.png'):
-            with frame_image.open('rb') as img:
-                image_hashes.update({hashlib.sha256(img.read()).hexdigest(): 1})
+        images = list(tmp_path.glob(f'{base_path}*.png'))
 
-        if not write_images:
-            assert not image_hashes
-        else:
-            # check that the number of frames is correct
-            assert end_frame - start_frame == freeze_for
-
-            # check that the images are indeed the same
-            if write_images and freeze_for:
-                assert len(image_hashes.keys()) == 1
-                assert list(image_hashes.values())[0] == freeze_for
-            else:
-                assert not image_hashes
+        assert len(images) == int(write_images)
+        if write_images:
+            assert re.search(r'\d{3}', images[0].stem).group(0) == frame_number

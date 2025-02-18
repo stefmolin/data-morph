@@ -18,17 +18,17 @@ class TestDataset:
     def test_scale_data(self, scale, starter_shapes_dir):
         """Confirm that data scaling is working by checking min and max."""
 
-        original_df = pd.read_csv(starter_shapes_dir / 'dino.csv')
-        original_min = original_df.min()
-        original_max = original_df.max()
+        original_data = pd.read_csv(starter_shapes_dir / 'dino.csv')
+        original_min = original_data.min()
+        original_max = original_data.max()
 
         dataset = DataLoader.load_dataset('dino', scale=scale)
 
         if scale:
-            assert_equal(dataset.df.min().to_numpy(), original_min / scale)
-            assert_equal(dataset.df.max().to_numpy(), original_max / scale)
+            assert_equal(dataset.data.min().to_numpy(), original_min / scale)
+            assert_equal(dataset.data.max().to_numpy(), original_max / scale)
         else:
-            assert_frame_equal(dataset.df, original_df)
+            assert_frame_equal(dataset.data, original_data)
 
     @pytest.mark.input_validation
     @pytest.mark.parametrize(
@@ -52,21 +52,21 @@ class TestDataset:
     def test_validate_data_missing_columns(self, starter_shapes_dir):
         """Confirm that creation of a Dataset validates the DataFrame columns."""
 
-        df = pd.read_csv(starter_shapes_dir / 'dino.csv').rename(columns={'x': 'a'})
+        data = pd.read_csv(starter_shapes_dir / 'dino.csv').rename(columns={'x': 'a'})
 
         with pytest.raises(ValueError, match='Columns "x" and "y" are required.'):
-            _ = Dataset('dino', df)
+            _ = Dataset('dino', data)
 
     def test_validate_data_fix_column_casing(self, starter_shapes_dir):
         """Confirm that creating a Dataset with correct names but in wrong casing works."""
 
-        df = pd.read_csv(starter_shapes_dir / 'dino.csv').rename(columns={'x': 'X'})
-        dataset = Dataset('dino', df)
-        assert not dataset.df[dataset._REQUIRED_COLUMNS].empty
+        data = pd.read_csv(starter_shapes_dir / 'dino.csv').rename(columns={'x': 'X'})
+        dataset = Dataset('dino', data)
+        assert not dataset.data[list(dataset._REQUIRED_COLUMNS)].empty
 
     @pytest.mark.bounds
     @pytest.mark.parametrize(
-        ['scale', 'data_bounds', 'morph_bounds', 'plot_bounds'],
+        ('scale', 'data_bounds', 'morph_bounds', 'plot_bounds'),
         [
             (
                 10,

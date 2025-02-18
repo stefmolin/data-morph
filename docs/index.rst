@@ -7,17 +7,18 @@ Data Morph
    :hidden:
 
    quickstart
-   custom_datasets
-   shape_creation
+   tutorials/index
    cli
    api
-   release_notes
+   release-notes
 
 .. automodule:: data_morph
    :noindex:
 
 .. include:: quickstart.rst
    :start-after: .. INSTALLATION
+
+.. _classroom ideas:
 
 .. include:: classroom-ideas.rst
 

@@ -2,6 +2,7 @@
 
 from itertools import zip_longest
 from numbers import Number
+from typing import ClassVar
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -9,8 +10,33 @@ from matplotlib.axes import Axes
 
 from ..data.dataset import Dataset
 from ..plotting.style import plot_with_custom_style
-from . import circles, lines, points, polygons
 from .bases.shape import Shape
+from .circles import Bullseye, Circle, Rings
+from .lines import (
+    Diamond,
+    HighLines,
+    HorizontalLines,
+    Rectangle,
+    SlantDownLines,
+    SlantUpLines,
+    Star,
+    VerticalLines,
+    WideLines,
+    XLines,
+)
+from .points import (
+    Club,
+    DotsGrid,
+    DownParabola,
+    FigureEight,
+    Heart,
+    LeftParabola,
+    RightParabola,
+    Scatter,
+    Spade,
+    Spiral,
+    UpParabola,
+)
 
 
 class ShapeFactory:
@@ -33,33 +59,41 @@ class ShapeFactory:
         The starting dataset to morph into other shapes.
     """
 
-    _SHAPE_MAPPING: dict = {
-        'bullseye': circles.Bullseye,
-        'circle': circles.Circle,
-        'high_lines': lines.HighLines,
-        'h_lines': lines.HorizontalLines,
-        'slant_down': lines.SlantDownLines,
-        'slant_up': lines.SlantUpLines,
-        'v_lines': lines.VerticalLines,
-        'wide_lines': lines.WideLines,
-        'x': lines.XLines,
-        'dots': points.DotsGrid,
-        'down_parab': points.DownParabola,
-        'heart': points.Heart,
-        'left_parab': points.LeftParabola,
-        'scatter': points.Scatter,
-        'right_parab': points.RightParabola,
-        'up_parab': points.UpParabola,
-        'diamond': polygons.Diamond,
-        'rectangle': polygons.Rectangle,
-        'rings': circles.Rings,
-        'star': polygons.Star,
-        'club': points.Club,
-        'spade': points.Spade,
+    _SHAPE_CLASSES: tuple[type[Shape]] = (
+        Bullseye,
+        Circle,
+        Club,
+        Diamond,
+        DotsGrid,
+        DownParabola,
+        FigureEight,
+        Heart,
+        HighLines,
+        HorizontalLines,
+        LeftParabola,
+        Rectangle,
+        RightParabola,
+        Rings,
+        Scatter,
+        SlantDownLines,
+        SlantUpLines,
+        Spade,
+        Spiral,
+        Star,
+        UpParabola,
+        VerticalLines,
+        WideLines,
+        XLines,
+    )
+    """New shape classes must be registered here."""
+
+    _SHAPE_MAPPING: ClassVar[dict[str, type[Shape]]] = {
+        shape_cls.get_name(): shape_cls for shape_cls in _SHAPE_CLASSES
     }
+    """Mapping of shape display names to classes."""
 
     AVAILABLE_SHAPES: list[str] = sorted(_SHAPE_MAPPING.keys())
-    """list[str]: The list of available shapes, which can be visualized with
+    """The list of available shapes, which can be visualized with
     :meth:`.plot_available_shapes`."""
 
     def __init__(self, dataset: Dataset) -> None:
@@ -102,7 +136,7 @@ class ShapeFactory:
         AVAILABLE_SHAPES
             The list of available shapes.
         """
-        num_cols = 5
+        num_cols = 6
         num_plots = len(self.AVAILABLE_SHAPES)
         num_rows = int(np.ceil(num_plots / num_cols))
 
@@ -110,7 +144,7 @@ class ShapeFactory:
             num_rows,
             num_cols,
             layout='constrained',
-            figsize=(10, 2 * num_rows),
+            figsize=(2 * num_cols, 2 * num_rows),
         )
         fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 

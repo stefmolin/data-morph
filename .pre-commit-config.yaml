@@ -1,3 +1,7 @@
+ci:
+  autofix_prs: false
+  autoupdate_schedule: quarterly
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -17,7 +21,7 @@ repos:
       - id: rst-inline-touching-normal
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
+    rev: v2.4.1
     hooks:
       - id: codespell
         additional_dependencies:
@@ -25,7 +29,7 @@ repos:
         exclude: (\.(svg|png|pdf)$)|(CODE_OF_CONDUCT.md)
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.1
+    rev: v0.9.6
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
@@ -44,7 +48,7 @@ repos:
         files: tests/.*
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.4.3
+    rev: v2.5.0
     hooks:
       - id: pyproject-fmt
         args: [--keep-full-version, --no-print-diff]

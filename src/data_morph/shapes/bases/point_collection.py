@@ -1,14 +1,20 @@
 """Base class for shapes that are composed of points."""
 
-from collections.abc import Iterable
-from numbers import Number
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.axes import Axes
 
 from ...plotting.style import plot_with_custom_style
 from .shape import Shape
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
+
+    from matplotlib.axes import Axes
 
 
 class PointCollection(Shape):
@@ -52,7 +58,7 @@ class PointCollection(Shape):
         )
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 

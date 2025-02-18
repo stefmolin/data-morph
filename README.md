@@ -67,7 +67,7 @@
   <hr/>
 </div>
 
-Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing. It is intended to be used as a teaching tool to illustrate the importance of data visualization (see the [Data Morph in the Classroom](https://github.com/stefmolin/data-morph/#data-morph-in-the-classroom) section for ideas).
+Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing. It is intended to be used as a teaching tool to illustrate the importance of data visualization (see the [Data Morph in the Classroom](https://stefaniemolin.com/data-morph/stable/index.html#classroom-ideas) section for ideas).
 
 <div align="center">
   <img alt="Morphing the panda dataset into the star shape." src="https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif">
@@ -101,11 +101,11 @@ Run `data-morph` on the command line:
 $ data-morph --start-shape panda --target-shape star
 ```
 
-This produces the animation in the newly-created `morphed_data` directory within your current working directory (shown above).
+This produces the animation in the newly-created `morphed_data` directory within your current working directory (shown above). More examples, including how to run multiple transformations in parallel, can be found in the [documentation](https://stefaniemolin.com/data-morph/).
 
 ----
 
-See all available CLI options by passing in `--help`:
+See all available CLI options by passing in `--help` or consulting the [CLI reference](https://stefaniemolin.com/data-morph/stable/cli.html) in the documentation:
 
 ```console
 $ data-morph --help
@@ -161,8 +161,8 @@ In this example, we morphed the built-in panda `Dataset` into the star `Shape`. 
 Data Morph is intended to be used as a teaching tool to illustrate the importance of data visualization. Here are some potential classroom activities for instructors:
 
 - **Statistics Focus**: Have students pick one of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader), and morph it into all available [target shapes](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory). Ask students to comment on which transformations worked best and why.
-- **Creativity Focus**: Have students [create a new dataset](https://stefaniemolin.com/data-morph/stable/custom_datasets.html) (*e.g.*, your school logo or something that the student designs), and morph that into multiple [target shapes](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory). Ask students to comment on which transformations worked best and why.
-- **Math and Coding Focus**: Have students [create a custom shape](https://stefaniemolin.com/data-morph/dev/shape_creation.html) by inheriting from `LineCollection` or `PointCollection`, and try morphing a couple of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader) into that shape. Ask students to explain how they chose to calculate the shape, and comment on which transformations worked best and why.
+- **Creativity Focus**: Have students [create a new dataset](https://stefaniemolin.com/data-morph/stable/tutorials/custom-datasets.html) (*e.g.*, your school logo or something that the student designs), and morph that into multiple [target shapes](https://stefaniemolin.com/data-morph/stable/api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory). Ask students to comment on which transformations worked best and why.
+- **Math and Coding Focus**: Have students [create a custom shape](https://stefaniemolin.com/data-morph/stable/tutorials/shape-creation.html) by inheriting from `LineCollection` or `PointCollection`, and try morphing a couple of the [built-in datasets](https://stefaniemolin.com/data-morph/stable/api/data_morph.data.loader.html#data_morph.data.loader.DataLoader) into that shape. Ask students to explain how they chose to calculate the shape, and comment on which transformations worked best and why.
 
 If you end up using Data Morph in your classroom, I would love to hear about it. Please [send me a message](https://stefaniemolin.com/contact/) detailing how you used it and how it went.
 

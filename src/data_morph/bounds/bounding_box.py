@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
-from numbers import Number
+from typing import TYPE_CHECKING
 
 from ._utils import _validate_2d
 from .interval import Interval
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
 
 
 class BoundingBox:
@@ -58,6 +61,19 @@ class BoundingBox:
         )
         """Interval: The bounds for the y direction."""
 
+        self._bounds = (self.x_bounds, self.y_bounds)
+
+    def __iter__(self) -> Interval:
+        """
+        Iterate over the bounds in the bounding box.
+
+        Returns
+        -------
+        Interval
+            The next set of bounds.
+        """
+        return iter(self._bounds)
+
     def __contains__(self, value: Iterable[Number]) -> bool:
         """
         Add support for using the ``in`` operator to check whether
@@ -92,12 +108,12 @@ class BoundingBox:
         """
         if not isinstance(other, BoundingBox):
             raise TypeError('Equality is only defined between BoundingBox objects.')
-        return self.x_bounds == other.x_bounds and self.y_bounds == other.y_bounds
+        return self._bounds == other._bounds
 
     def __repr__(self) -> str:
-        return '<BoundingBox>\n' f'  x={self.x_bounds}' '\n' f'  y={self.y_bounds}'
+        return f'<BoundingBox>\n  x={self.x_bounds}\n  y={self.y_bounds}'
 
-    def adjust_bounds(self, x: Number = None, y: Number = None) -> None:
+    def adjust_bounds(self, x: Number | None = None, y: Number | None = None) -> None:
         """
         Adjust bounding box range.
 
@@ -164,3 +180,15 @@ class BoundingBox:
             The range covered by the x and y bounds, respectively.
         """
         return self.x_bounds.range, self.y_bounds.range
+
+    @property
+    def center(self) -> Iterable[Number]:
+        """
+        Calculate the center of the bounding box.
+
+        Returns
+        -------
+        Iterable[numbers.Number]
+            The center of the x and y bounds, respectively.
+        """
+        return self.x_bounds.center, self.y_bounds.center

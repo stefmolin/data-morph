@@ -1,14 +1,21 @@
 """Shapes that are circular in nature."""
 
-from numbers import Number
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.axes import Axes
 
-from ..data.dataset import Dataset
 from ..plotting.style import plot_with_custom_style
 from .bases.shape import Shape
+
+if TYPE_CHECKING:
+    from numbers import Number
+
+    from matplotlib.axes import Axes
+
+    from ..data.dataset import Dataset
 
 
 class Circle(Shape):
@@ -33,11 +40,11 @@ class Circle(Shape):
         The radius of the circle.
     """
 
-    def __init__(self, dataset: Dataset, radius: Number = None) -> None:
-        self.center: np.ndarray = dataset.df[['x', 'y']].mean().to_numpy()
+    def __init__(self, dataset: Dataset, radius: Number | None = None) -> None:
+        self.center: np.ndarray = dataset.data[['x', 'y']].mean().to_numpy()
         """numpy.ndarray: The (x, y) coordinates of the circle's center."""
 
-        self.radius: Number = radius or dataset.df[['x', 'y']].std().mean() * 1.5
+        self.radius: Number = radius or dataset.data[['x', 'y']].std().mean() * 1.5
         """numbers.Number: The radius of the circle."""
 
     def __repr__(self) -> str:
@@ -63,7 +70,7 @@ class Circle(Shape):
         )
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 
@@ -104,7 +111,7 @@ class Rings(Shape):
     ----------
     dataset : Dataset
         The starting dataset to morph into other shapes.
-    num_rings : int, default 4
+    num_rings : int, default ``4``
         The number of rings to include. Must be greater than 1.
 
     See Also
@@ -118,7 +125,7 @@ class Rings(Shape):
         if num_rings <= 1:
             raise ValueError('num_rings must be greater than 1')
 
-        stdev = dataset.df.std().mean()
+        stdev = dataset.data.std().mean()
         self.circles: list[Circle] = [
             Circle(dataset, r)
             for r in np.linspace(stdev / num_rings * 2, stdev * 2, num_rings)
@@ -159,7 +166,7 @@ class Rings(Shape):
         )
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 

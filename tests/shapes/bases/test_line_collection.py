@@ -28,7 +28,7 @@ class TestLineCollection:
             assert line_collection.distance(*point) == 0
 
     @pytest.mark.parametrize(
-        ['point', 'expected_distance'], [[(-1, 0), 1], [(-1, -1), 1.414214]], ids=str
+        ('point', 'expected_distance'), [((-1, 0), 1), ((-1, -1), 1.414214)], ids=str
     )
     def test_distance_nonzero(self, line_collection, point, expected_distance):
         """Test the distance() method on points not on lines in the collection."""
@@ -37,7 +37,7 @@ class TestLineCollection:
     @pytest.mark.parametrize('line', [[(0, 0), (0, 0)], [(-1, -1), (-1, -1)]], ids=str)
     def test_line_as_point(self, line):
         """Test LineCollection raises a ValueError for small line magnitudes."""
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match='same start and end'):
             LineCollection(line)
 
     def test_repr(self, line_collection):

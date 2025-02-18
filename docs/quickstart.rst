@@ -49,12 +49,13 @@ within your current working directory:
 
    Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
 
-You can smooth the transition with the ``--ramp-in`` and ``--ramp-out`` flags. The ``--freeze``
-flag allows you to start the animation with the specified number of frames of the initial shape:
+You can smooth the transition with the ``--ease`` or ``--ease-in`` and ``--ease-out`` flags.
+The ``--freeze`` flag allows you to start the animation with the specified number of frames
+of the initial shape:
 
 .. code:: console
 
-   $ data-morph --start-shape panda --target-shape star --freeze 50 --ramp-in --ramp-out
+   $ data-morph --start-shape panda --target-shape star --freeze 50 --ease
 
 Here is the resulting animation:
 
@@ -63,6 +64,40 @@ Here is the resulting animation:
    :align: center
 
    Morphing the panda :class:`.Dataset` into the star :class:`.Shape` with easing.
+
+----
+
+The CLI generates animations for the Cartesian product of the datasets and shapes
+provided. For example, if you wanted to morph both the music and soccer datasets
+into both the heart and diamond shapes (i.e., four animations), you could run
+the command below:
+
+.. code:: console
+
+   $ data-morph --start-shape music soccer --target-shape heart diamond
+
+.. tip::
+
+   When doing generating multiple animations, it is recommended that you also specify
+   the number of jobs you want to run in parallel (limited by the number of CPU cores
+   on your machine). If you pass ``0``, Data Morph will run as many as possible:
+
+   .. code:: console
+
+      $ data-morph --start-shape music soccer --target-shape heart diamond --workers 0
+
+   If you have the GNU ``parallel`` command on your machine, you can use it to run
+   a slightly faster parallelized Data Morph (since it incurs less Python overhead),
+   in which case you don't need to provide the worker count:
+
+   .. code:: console
+
+      $ parallel --progress -j0 \
+      >     data-morph --start-shape {1} --target-shape {2} \
+      >     ::: music soccer ::: heart diamond
+
+   Check out the `GNU parallel documentation <https://www.gnu.org/software/parallel/sphinx.html>`_
+   for more options.
 
 ----
 
@@ -115,8 +150,8 @@ With the :class:`.Dataset` and :class:`.Shape` created, here is a minimal exampl
        start_shape=dataset,
        target_shape=target_shape,
        freeze_for=50,
-       ramp_in=True,
-       ramp_out=True,
+       ease_in=True,
+       ease_out=True,
    )
 
 .. note::
@@ -141,5 +176,5 @@ out the other built-in options:
 * The :attr:`.ShapeFactory.AVAILABLE_SHAPES` attribute contains a list of available shapes, which
   are also visualized in the :class:`.ShapeFactory` documentation.
 
-For further customization, the :doc:`custom_datasets` tutorial discusses how to generate custom input datasets,
-and the :doc:`shape_creation` tutorial discusses how to generate custom target shapes.
+For further customization, the :doc:`tutorials/custom-datasets` tutorial discusses how to generate custom
+input datasets, and the :doc:`tutorials/shape-creation` tutorial discusses how to generate custom target shapes.

@@ -2,25 +2,28 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
 from functools import partial
-from numbers import Number
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-from matplotlib.axes import Axes
 from matplotlib.ticker import EngFormatter
 
-from ..data.stats import get_values
+from ..data.stats import get_summary_statistics
 from .style import plot_with_custom_style
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
+
+    import pandas as pd
+    from matplotlib.axes import Axes
 
 
 @plot_with_custom_style
 def plot(
-    df: pd.DataFrame,
+    data: pd.DataFrame,
     x_bounds: Iterable[Number],
     y_bounds: Iterable[Number],
     save_to: str | Path,
@@ -32,7 +35,7 @@ def plot(
 
     Parameters
     ----------
-    df : pandas.DataFrame
+    data : pandas.DataFrame
         The dataset to plot.
     x_bounds, y_bounds : Iterable[numbers.Number]
         The plotting limits.
@@ -54,14 +57,14 @@ def plot(
     )
     fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
-    ax.scatter(df.x, df.y, s=1, alpha=0.7, color='black')
+    ax.scatter(data.x, data.y, s=1, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
 
     tick_formatter = EngFormatter()
     ax.xaxis.set_major_formatter(tick_formatter)
     ax.yaxis.set_major_formatter(tick_formatter)
 
-    res = get_values(df)
+    res = get_summary_statistics(data)
 
     labels = ('X Mean', 'Y Mean', 'X Med.', 'Y Med.', 'X SD', 'Y SD', 'Corr.')
     locs = np.linspace(0.8, 0.2, num=len(labels))
@@ -113,4 +116,4 @@ def plot(
         dirname.mkdir(parents=True, exist_ok=True)
 
     fig.savefig(save_to, bbox_inches='tight', **save_kwds)
-    plt.close(fig)
+    return plt.close(fig)

@@ -15,6 +15,7 @@ def save_plot(filepath):
     fig, ax = plt.subplots()
     ax.plot([0, 1])
     fig.savefig(filepath)
+    plt.close()
 
 
 @pytest.mark.parametrize('as_decorator', [False, True])

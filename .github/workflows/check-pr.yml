@@ -1,4 +1,4 @@
-# This workflow runs pre-commit hooks on the files in the PR only.
+# This workflow runs the pre-commit hooks on all files and confirms the docs can be built.
 #
 # Author: Stefanie Molin
 
@@ -6,40 +6,12 @@ name: Check PR
 
 on:
   pull_request:
-    paths:
-      - 'docs/**'
-      - 'src/**'
-      - 'tests/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
-  # Run pre-commit checks on all files
-  linting:
-    runs-on: ubuntu-latest
-    name: Lint
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b  # v5.3.0
-        with:
-          python-version: "3.11"
-
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install pre-commit
-          pre-commit install
-
-      - name: Run Checks
-        run: |
-          pre-commit run --all-files --show-diff-on-failure
 
   # Check that docs can be built
   docs:
@@ -51,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b  # v5.3.0
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38  # v5.4.0
         with:
           python-version: "3.x"
 

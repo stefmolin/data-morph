@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
+from contextlib import nullcontext
 from functools import partial
 from numbers import Number
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
-import pandas as pd
-import tqdm
 
-from .bounds.bounding_box import BoundingBox
-from .data.dataset import Dataset
-from .data.stats import get_values
+from .data.stats import get_summary_statistics
 from .plotting.animation import (
     ease_in_out_quadratic,
     ease_in_out_sine,
@@ -22,7 +20,17 @@ from .plotting.animation import (
     stitch_gif_animation,
 )
 from .plotting.static import plot
-from .shapes.bases.shape import Shape
+from .progress import DataMorphProgress
+
+if TYPE_CHECKING:
+    import multiprocessing
+
+    import pandas as pd
+    from rich.progress import TaskID
+
+    from .bounds.bounding_box import BoundingBox
+    from .data.dataset import Dataset
+    from .shapes.bases.shape import Shape
 
 
 class DataMorpher:
@@ -44,7 +52,7 @@ class DataMorpher:
         Whether to write data files to :attr:`output_dir`.
     seed : int, optional
         Provide an integer seed to the random number generator.
-    num_frames : int, default 100
+    num_frames : int, default ``100``
         The number of frames to record out of the morphing process.
     keep_frames : bool, default ``False``
         Whether to keep image files written to :attr:`output_dir` after
@@ -117,10 +125,12 @@ class DataMorpher:
         self.num_frames = num_frames
         """int: The number of frames to capture. Must be > 0 and <= 100."""
 
-        self._looper = tqdm.tnrange if in_notebook else tqdm.trange
+        self._in_notebook = in_notebook
+
+        self._ProgressTracker = partial(DataMorphProgress, not self._in_notebook)
 
     def _select_frames(
-        self, iterations: int, ramp_in: bool, ramp_out: bool, freeze_for: int
+        self, iterations: int, ease_in: bool, ease_out: bool, freeze_for: int
     ) -> list:
         """
         Identify the frames to capture for the animation.
@@ -129,9 +139,9 @@ class DataMorpher:
         ----------
         iterations : int
             The number of iterations.
-        ramp_in : bool
+        ease_in : bool
             Whether to more slowly transition in the beginning.
-        ramp_out : bool
+        ease_out : bool
             Whether to slow down the transition at the end.
         freeze_for : int
             The number of frames to freeze at the beginning and end. Must be in the
@@ -162,11 +172,11 @@ class DataMorpher:
         # freeze initial frame
         frames = [0] * freeze_for
 
-        if ramp_in and not ramp_out:
+        if ease_in and not ease_out:
             easing_function = ease_in_sine
-        elif ramp_out and not ramp_in:
+        elif ease_out and not ease_in:
             easing_function = ease_out_sine
-        elif ramp_out and ramp_in:
+        elif ease_out and ease_in:
             easing_function = ease_in_out_sine
         else:
             easing_function = linear
@@ -189,9 +199,8 @@ class DataMorpher:
         data: pd.DataFrame,
         bounds: BoundingBox,
         base_file_name: str,
-        count: int,
-        frame_number: int,
-    ) -> int:
+        frame_number: str,
+    ) -> None:
         """
         Record frame data as a plot and, when :attr:`write_data` is ``True``, as a CSV file.
 
@@ -203,42 +212,25 @@ class DataMorpher:
             The plotting limits.
         base_file_name : str
             The prefix to the file names for both the PNG and GIF files.
-        count : int
-            The number of frames to record with the data.
-        frame_number : int
-            The starting frame number.
-
-        Returns
-        -------
-        int
-            The next frame number available for recording.
+        frame_number : str
+            The frame number with padding zeros added already.
         """
-        if self.write_images or self.write_data:
-            is_start = frame_number == 0
-            for _ in range(count):
-                if self.write_images:
-                    plot(
-                        data,
-                        save_to=(
-                            self.output_dir
-                            / f'{base_file_name}-image-{frame_number:03d}.png'
-                        ),
-                        decimals=self.decimals,
-                        x_bounds=bounds.x_bounds,
-                        y_bounds=bounds.y_bounds,
-                        dpi=150,
-                    )
-                if (
-                    self.write_data and not is_start
-                ):  # don't write data for the initial frame (input data)
-                    data.to_csv(
-                        self.output_dir
-                        / f'{base_file_name}-data-{frame_number:03d}.csv',
-                        index=False,
-                    )
-
-                frame_number += 1
-        return frame_number
+        if self.write_images:
+            plot(
+                data,
+                save_to=self.output_dir / f'{base_file_name}-image-{frame_number}.png',
+                decimals=self.decimals,
+                x_bounds=bounds.x_bounds,
+                y_bounds=bounds.y_bounds,
+                dpi=150,
+            )
+        if (
+            self.write_data and int(frame_number) > 0
+        ):  # don't write data for the initial frame (input data)
+            data.to_csv(
+                self.output_dir / f'{base_file_name}-data-{frame_number}.csv',
+                index=False,
+            )
 
     def _is_close_enough(self, df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
         """
@@ -260,7 +252,9 @@ class DataMorpher:
             np.abs(
                 np.subtract(
                     *(
-                        np.floor(np.array(get_values(data)) * 10**self.decimals)
+                        np.floor(
+                            np.array(get_summary_statistics(data)) * 10**self.decimals
+                        )
                         for data in [df1, df2]
                     )
                 )
@@ -270,7 +264,7 @@ class DataMorpher:
 
     def _perturb(
         self,
-        df: pd.DataFrame,
+        data: pd.DataFrame,
         target_shape: Shape,
         *,
         shake: Number,
@@ -283,7 +277,7 @@ class DataMorpher:
 
         Parameters
         ----------
-        df : pandas.DataFrame
+        data : pandas.DataFrame
             The data to perturb.
         target_shape : Shape
             The shape to morph the data into.
@@ -304,9 +298,8 @@ class DataMorpher:
         pandas.DataFrame
             The input dataset with one point perturbed.
         """
-        row = self._rng.integers(0, len(df))
-        initial_x = df.at[row, 'x']
-        initial_y = df.at[row, 'y']
+        row = self._rng.integers(0, len(data))
+        initial_x, initial_y = data.to_numpy()[row]
 
         # this is the simulated annealing step, if "do_bad", then we are willing to
         # accept a new state which is worse than the current one
@@ -325,10 +318,10 @@ class DataMorpher:
             within_bounds = [new_x, new_y] in bounds
             done = close_enough and within_bounds
 
-        df.loc[row, 'x'] = new_x
-        df.loc[row, 'y'] = new_y
+        data.loc[row, 'x'] = new_x
+        data.loc[row, 'y'] = new_y
 
-        return df
+        return data
 
     def morph(
         self,
@@ -341,9 +334,11 @@ class DataMorpher:
         min_shake: Number = 0.3,
         max_shake: Number = 1,
         allowed_dist: Number = 2,
-        ramp_in: bool = False,
-        ramp_out: bool = False,
+        ease_in: bool = False,
+        ease_out: bool = False,
         freeze_for: int = 0,
+        progress: multiprocessing.DictProxy | None = None,
+        task_id: TaskID | None = None,
     ) -> pd.DataFrame:
         """
         Morph a dataset into a target shape by perturbing it
@@ -371,16 +366,20 @@ class DataMorpher:
             at ``max_shake`` and move toward ``min_shake``.
         allowed_dist : numbers.Number
             The farthest apart the perturbed points can be from the target shape.
-        ramp_in : bool, default ``False``
+        ease_in : bool, default ``False``
             Whether to more slowly transition in the beginning.
             This only affects the frames, not the algorithm.
-        ramp_out : bool, default ``False``
+        ease_out : bool, default ``False``
             Whether to slow down the transition at the end.
             This only affects the frames, not the algorithm.
-        freeze_for : int, default 0
+        freeze_for : int, default ``0``
             The number of frames to freeze at the beginning and end.
             This only affects the frames, not the algorithm. Must be in the
-            interval [0, 50].
+            interval ``[0, 50]``.
+        progress : multiprocessing.DictProxy | ``None``, optional
+            The state of all task progresses when parallelizing work (for use by the CLI).
+        task_id : TaskID | ``None``, optional
+            The task ID assigned by the progress tracker (for use by the CLI).
 
         Returns
         -------
@@ -430,13 +429,13 @@ class DataMorpher:
         ):
             raise ValueError('allowed_dist must be a non-negative numeric value.')
 
-        morphed_data = start_shape.df.copy()
+        morphed_data = start_shape.data.copy()
 
         # iteration numbers that we will end up writing to file as frames
         frame_numbers = self._select_frames(
             iterations=iterations,
-            ramp_in=ramp_in,
-            ramp_out=ramp_out,
+            ease_in=ease_in,
+            ease_out=ease_out,
             freeze_for=freeze_for,
         )
 
@@ -446,56 +445,67 @@ class DataMorpher:
             base_file_name=base_file_name,
             bounds=start_shape.plot_bounds,
         )
-        frame_number = record_frames(
-            data=morphed_data,
-            count=max(freeze_for, 1),
-            frame_number=0,
-        )
 
-        def _tweening(
+        frame_number_format = f'{{:0{len(str(iterations))}d}}'.format
+        record_frames(data=morphed_data, frame_number=frame_number_format(0))
+
+        def _easing(
             frame: int, *, min_value: Number, max_value: Number
         ) -> Number:  # numpydoc ignore=PR01,RT01
-            """Determine the next value with tweening."""
+            """Determine the next value with easing."""
             return (max_value - min_value) * ease_in_out_quadratic(
                 (iterations - frame) / iterations
             ) + min_value
 
         get_current_temp = partial(
-            _tweening,
+            _easing,
             min_value=min_temp,
             max_value=max_temp,
         )
         get_current_shake = partial(
-            _tweening,
+            _easing,
             min_value=min_shake,
             max_value=max_shake,
         )
 
-        for i in self._looper(
-            iterations, leave=True, ascii=True, desc=f'{target_shape} pattern'
-        ):
-            perturbed_data = self._perturb(
-                morphed_data.copy(),
-                target_shape=target_shape,
-                shake=get_current_shake(i),
-                allowed_dist=allowed_dist,
-                temp=get_current_temp(i),
-                bounds=start_shape.morph_bounds,
-            )
+        with (nullcontext if progress else self._ProgressTracker)() as progress_tracker:
+            if progress_tracker:
+                task_id = progress_tracker.add_task(
+                    f'{start_shape.name} to {target_shape}'
+                )
+            for i in range(1, iterations + 1):
+                perturbed_data = self._perturb(
+                    morphed_data.copy(),
+                    target_shape=target_shape,
+                    shake=get_current_shake(i),
+                    allowed_dist=allowed_dist,
+                    temp=get_current_temp(i),
+                    bounds=start_shape.morph_bounds,
+                )
 
-            if self._is_close_enough(start_shape.df, perturbed_data):
-                morphed_data = perturbed_data
+                if self._is_close_enough(start_shape.data, perturbed_data):
+                    morphed_data = perturbed_data
 
-            frame_number = record_frames(
-                data=morphed_data,
-                count=frame_numbers.count(i),
-                frame_number=frame_number,
-            )
+                if frame_numbers.count(i):
+                    record_frames(
+                        data=morphed_data, frame_number=frame_number_format(i)
+                    )
+
+                if progress_tracker:
+                    progress_tracker.update(
+                        task_id,
+                        total=iterations,
+                        completed=i,
+                        refresh=self._in_notebook and (i) % 500 == 0,
+                    )
+                else:
+                    progress[task_id] = {'progress': i, 'total': iterations}
 
         if self.write_images:
             stitch_gif_animation(
                 self.output_dir,
                 start_shape.name,
+                frame_numbers=frame_numbers,
                 target_shape=target_shape,
                 keep_frames=self.keep_frames,
                 forward_only_animation=self.forward_only_animation,
@@ -503,7 +513,8 @@ class DataMorpher:
 
         if self.write_data:
             morphed_data.to_csv(
-                self.output_dir / f'{base_file_name}-data-{frame_number:03d}.csv',
+                self.output_dir
+                / f'{base_file_name}-data-{frame_number_format(iterations)}.csv',
                 index=False,
             )
 

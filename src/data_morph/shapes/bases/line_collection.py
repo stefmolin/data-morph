@@ -1,14 +1,20 @@
 """Base class for shapes that are composed of lines."""
 
-from collections.abc import Iterable
-from numbers import Number
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.axes import Axes
 
 from ...plotting.style import plot_with_custom_style
 from .shape import Shape
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from numbers import Number
+
+    from matplotlib.axes import Axes
 
 
 class LineCollection(Shape):
@@ -25,8 +31,7 @@ class LineCollection(Shape):
     def __init__(self, *lines: Iterable[Iterable[Number]]) -> None:
         # check that lines with the same starting and ending points raise an error
         for line in lines:
-            start, end = line
-            if np.allclose(start, end):
+            if np.allclose(*line):
                 raise ValueError(f'Line {line} has the same start and end point')
 
         self.lines = np.array(lines)
@@ -97,7 +102,7 @@ class LineCollection(Shape):
         )
 
     @plot_with_custom_style
-    def plot(self, ax: Axes = None) -> Axes:
+    def plot(self, ax: Axes | None = None) -> Axes:
         """
         Plot the shape.
 

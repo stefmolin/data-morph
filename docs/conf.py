@@ -13,7 +13,7 @@ from pathlib import Path
 import data_morph
 
 sys.path.insert(0, str(Path().absolute()))
-from post_build import determine_versions  # noqa: E402
+from post_build import determine_versions
 
 project = 'Data Morph'
 current_year = dt.date.today().year
@@ -42,11 +42,13 @@ extensions = [
     'sphinx_copybutton',
     'sphinx_argparse_cli',
     'matplotlib.sphinxext.plot_directive',
+    'sphinx_design',
 ]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+html_show_sourcelink = False
 
 # -- autosectionlabel ---------------------------------------------------------
 
@@ -57,12 +59,13 @@ autosectionlabel_prefix_document = True
 # -- intersphinx -------------------------------------------------------------
 
 intersphinx_mapping = {
-    'matplotlib': ('https://matplotlib.org/stable/', None),
-    'numpy': ('https://numpy.org/doc/stable/', None),
-    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
-    'Pillow': ('https://pillow.readthedocs.io/en/stable/', None),
-    'pytest': ('https://pytest.org/en/stable/', None),
-    'python': ('https://docs.python.org/3/', None),
+    'matplotlib': ('https://matplotlib.org/stable', None),
+    'numpy': ('https://numpy.org/doc/stable', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable', None),
+    'Pillow': ('https://pillow.readthedocs.io/en/stable', None),
+    'pytest': ('https://pytest.org/en/stable', None),
+    'python': ('https://docs.python.org/3', None),
+    'rich': ('https://rich.readthedocs.io/en/stable', None),
 }
 
 
@@ -86,7 +89,7 @@ language = 'en'
 
 
 # -- copybutton config -------------------------------------------------------
-copybutton_prompt_text = r'>>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: '
+copybutton_prompt_text = r'>>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: |>'
 copybutton_prompt_is_regexp = True
 
 
@@ -98,8 +101,10 @@ plot_html_show_formats = False
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
+html_baseurl = f'https://stefaniemolin.com/data-morph/{version_match}/'
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
+html_css_files = ['tutorials/style.css']
 html_logo = '_static/logo.png'
 html_favicon = '_static/favicon.ico'
 
@@ -130,6 +135,7 @@ html_theme_options = {
     'analytics': {
         'google_analytics_id': 'G-FMNM78QSKK',
     },
+    'show_prev_next': False,
 }
 
 html_context = {
@@ -144,10 +150,9 @@ html_context = {
 # https://github.com/pydata/pydata-sphinx-theme/pull/1682
 html_sidebars = {
     'cli': [],
-    'custom_datasets': [],
     'quickstart': [],
-    'release_notes': [],
-    'shape_creation': [],
+    'release-notes': [],
+    'tutorials/*': [],
 }
 
 

@@ -24,7 +24,7 @@ class TestPointCollection:
             assert point_collection.distance(*point) == 0
 
     @pytest.mark.parametrize(
-        ['point', 'expected_distance'], [[(-1, 0), 1], [(-1, -1), 1.414214]], ids=str
+        ('point', 'expected_distance'), [((-1, 0), 1), ((-1, -1), 1.414214)], ids=str
     )
     def test_distance_nonzero(self, point_collection, point, expected_distance):
         """Test the distance() method on points not in the collection."""

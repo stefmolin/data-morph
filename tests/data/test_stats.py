@@ -13,8 +13,8 @@ def test_stats():
 
     assert stats.x_mean == data.x.mean()
     assert stats.y_mean == data.y.mean()
-    assert stats.x_med == data.x.median()
-    assert stats.y_med == data.y.median()
+    assert stats.x_median == data.x.median()
+    assert stats.y_median == data.y.median()
     assert stats.x_stdev == data.x.std()
     assert stats.y_stdev == data.y.std()
     assert stats.correlation == data.corr().x.y

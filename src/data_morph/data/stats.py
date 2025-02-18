@@ -6,7 +6,7 @@ import pandas as pd
 
 SummaryStatistics = namedtuple(
     'SummaryStatistics',
-    ['x_mean', 'y_mean', 'x_med', 'y_med', 'x_stdev', 'y_stdev', 'correlation'],
+    ['x_mean', 'y_mean', 'x_median', 'y_median', 'x_stdev', 'y_stdev', 'correlation'],
 )
 SummaryStatistics.__doc__ = (
     'Named tuple containing the summary statistics for plotting/analysis.'

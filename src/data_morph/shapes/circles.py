@@ -41,11 +41,11 @@ class Circle(Shape):
     """
 
     def __init__(self, dataset: Dataset, radius: Number | None = None) -> None:
-        self.center: np.ndarray = dataset.data[['x', 'y']].mean().to_numpy()
-        """numpy.ndarray: The (x, y) coordinates of the circle's center."""
+        self.center: tuple[Number, Number] = dataset.data_bounds.center
+        """The (x, y) coordinates of the circle's center."""
 
         self.radius: Number = radius or dataset.data[['x', 'y']].std().mean() * 1.5
-        """numbers.Number: The radius of the circle."""
+        """The radius of the circle."""
 
     def __repr__(self) -> str:
         x, y = self.center
@@ -130,7 +130,7 @@ class Rings(Shape):
             Circle(dataset, r)
             for r in np.linspace(stdev / num_rings * 2, stdev * 2, num_rings)
         ]
-        """list[Circle]: The individual rings represented by :class:`Circle` objects."""
+        """The individual rings represented by :class:`Circle` objects."""
 
         self._centers = np.array([circle.center for circle in self.circles])
         self._radii = np.array([circle.radius for circle in self.circles])

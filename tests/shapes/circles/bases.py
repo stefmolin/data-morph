@@ -30,7 +30,8 @@ class CirclesModuleTestBase:
         Test the distance() method parametrized by distance_test_cases
         (see conftest.py).
         """
-        assert pytest.approx(shape.distance(*test_point)) == expected_distance
+        actual_distance = shape.distance(*test_point)
+        assert pytest.approx(actual_distance) == expected_distance
 
     def test_repr(self, shape):
         """Test that the __repr__() method is working."""

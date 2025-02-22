@@ -1,6 +1,0 @@
-Rings
-=====
-
-.. currentmodule:: data_morph.shapes.circles
-
-.. autoclass:: Rings

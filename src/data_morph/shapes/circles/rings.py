@@ -44,7 +44,7 @@ class Rings(Shape):
 
     def __init__(self, dataset: Dataset) -> None:
         self.circles: list[Circle] = [
-            Circle(dataset, r) for r in self._derive_radii(dataset)
+            Circle(dataset, radius) for radius in self._derive_radii(dataset)
         ]
         """The individual rings represented by :class:`Circle` objects."""
 
@@ -87,12 +87,6 @@ class Rings(Shape):
         float
             The minimum absolute distance between any of this shape's
             circles' edges and the point (x, y).
-
-        See Also
-        --------
-        Circle.distance :
-            Rings consists of multiple circles, so we use the minimum
-            distance to one of the circles.
         """
         point = np.array([x, y])
         return np.min(

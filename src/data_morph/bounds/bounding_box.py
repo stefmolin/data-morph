@@ -170,25 +170,25 @@ class BoundingBox:
         )
 
     @property
-    def range(self) -> Iterable[Number]:
+    def range(self) -> tuple[Number, Number]:
         """
         Calculate the range (width) of the bounding box in each direction.
 
         Returns
         -------
-        Iterable[numbers.Number]
+        tuple[Number, Number]
             The range covered by the x and y bounds, respectively.
         """
         return self.x_bounds.range, self.y_bounds.range
 
     @property
-    def center(self) -> Iterable[Number]:
+    def center(self) -> tuple[Number, Number]:
         """
         Calculate the center of the bounding box.
 
         Returns
         -------
-        Iterable[numbers.Number]
+        tuple[Number, Number]
             The center of the x and y bounds, respectively.
         """
         return self.x_bounds.center, self.y_bounds.center

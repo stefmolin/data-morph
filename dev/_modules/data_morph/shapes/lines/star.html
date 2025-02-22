@@ -552,17 +552,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
-        <span class="n">bounds</span><span class="o">.</span><span class="n">align_aspect_ratio</span><span class="p">()</span>
+        <span class="n">bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">morph_bounds</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">bounds</span><span class="o">.</span><span class="n">align_aspect_ratio</span><span class="p">(</span><span class="n">shrink</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">x_bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">x_bounds</span>
-        <span class="n">y_bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">y_bounds</span>
-
-        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">x_bounds</span>
-        <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">y_bounds</span>
-
-        <span class="n">x_range</span> <span class="o">=</span> <span class="n">x_bounds</span><span class="o">.</span><span class="n">range</span>
-        <span class="n">y_range</span> <span class="o">=</span> <span class="n">y_bounds</span><span class="o">.</span><span class="n">range</span>
+        <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">),</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">=</span> <span class="n">bounds</span>
+        <span class="n">x_range</span><span class="p">,</span> <span class="n">y_range</span> <span class="o">=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">range</span>
 
         <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">y_range</span> <span class="o">*</span> <span class="mf">0.625</span><span class="p">],</span>

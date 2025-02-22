@@ -44,6 +44,9 @@ class CirclesModuleTestBase:
     @pytest.mark.parametrize('ax', [None, plt.subplots()[1]])
     def test_plot(self, shape, ax):
         """Test that the plot() method is working."""
+        if ax:
+            ax.clear()
+
         plot_ax = shape.plot(ax)
         if ax:
             assert plot_ax is ax
@@ -51,17 +54,18 @@ class CirclesModuleTestBase:
             assert plot_ax is not ax
 
         plotted_circles = plot_ax.patches
-        plotted_centers = [plotted_circle._center for plotted_circle in plotted_circles]
-        plotted_radii = [
+        plotted_centers = {plotted_circle._center for plotted_circle in plotted_circles}
+        plotted_radii = {
             plotted_circle._width / 2 for plotted_circle in plotted_circles
-        ]
+        }
+
         if isinstance(shape, Circle):
             assert len(plotted_circles) == 1
-            assert plotted_centers[0] == shape.center
-            assert plotted_radii[0] == shape.radius
+            assert plotted_centers == {shape.center}
+            assert plotted_radii == {shape.radius}
         else:
             assert len(plotted_circles) == len(shape.circles)
-            assert np.setdiff1d(shape._centers, plotted_centers).size == 0
-            assert np.setdiff1d(shape._radii, plotted_radii).size == 0
+            assert plotted_centers == {tuple(np.unique(shape._centers))}
+            assert plotted_radii.difference(shape._radii) == set()
 
         plt.close()

@@ -165,18 +165,19 @@ class TestBoundingBox:
         assert new_range_y == initial_range_y + y
 
     @pytest.mark.parametrize(
-        ('x', 'y'),
+        ('x', 'y', 'shrink', 'expected_range'),
         [
-            ([10, 90], [500, 600]),
-            ([500, 600], [10, 90]),
-            ([10, 90], [10, 90]),
+            ([10, 90], [500, 600], False, 100),
+            ([500, 600], [10, 90], True, 80),
+            ([10, 90], [10, 90], False, 80),
         ],
     )
-    def test_align_aspect_ratio(self, x, y):
+    def test_align_aspect_ratio(self, x, y, shrink, expected_range):
         """Test that the align_aspect_ratio() method is working."""
         bbox = BoundingBox(x, y)
-        bbox.align_aspect_ratio()
+        bbox.align_aspect_ratio(shrink)
         assert pytest.approx(bbox.aspect_ratio) == 1
+        assert bbox.x_bounds.range == bbox.y_bounds.range == expected_range
 
     def test_clone(self):
         """Test that the clone() method is working."""

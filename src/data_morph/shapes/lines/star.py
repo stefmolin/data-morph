@@ -26,17 +26,11 @@ class Star(LineCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        bounds = dataset.data_bounds.clone()
-        bounds.align_aspect_ratio()
+        bounds = dataset.morph_bounds.clone()
+        bounds.align_aspect_ratio(shrink=True)
 
-        x_bounds = bounds.x_bounds
-        y_bounds = bounds.y_bounds
-
-        xmin, xmax = x_bounds
-        ymin, ymax = y_bounds
-
-        x_range = x_bounds.range
-        y_range = y_bounds.range
+        (xmin, xmax), (ymin, ymax) = bounds
+        x_range, y_range = bounds.range
 
         pts = [
             [xmin, ymin + y_range * 0.625],

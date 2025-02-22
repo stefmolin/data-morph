@@ -5,7 +5,11 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
+import matplotlib.pyplot as plt
+import numpy as np
 import pytest
+
+from data_morph.shapes.circles import Circle
 
 if TYPE_CHECKING:
     from numbers import Number
@@ -36,3 +40,28 @@ class CirclesModuleTestBase:
     def test_repr(self, shape):
         """Test that the __repr__() method is working."""
         assert re.match(self.repr_regex, repr(shape)) is not None
+
+    @pytest.mark.parametrize('ax', [None, plt.subplots()[1]])
+    def test_plot(self, shape, ax):
+        """Test that the plot() method is working."""
+        plot_ax = shape.plot(ax)
+        if ax:
+            assert plot_ax is ax
+        else:
+            assert plot_ax is not ax
+
+        plotted_circles = plot_ax.patches
+        plotted_centers = [plotted_circle._center for plotted_circle in plotted_circles]
+        plotted_radii = [
+            plotted_circle._width / 2 for plotted_circle in plotted_circles
+        ]
+        if isinstance(shape, Circle):
+            assert len(plotted_circles) == 1
+            assert plotted_centers[0] == shape.center
+            assert plotted_radii[0] == shape.radius
+        else:
+            assert len(plotted_circles) == len(shape.circles)
+            assert np.setdiff1d(shape._centers, plotted_centers).size == 0
+            assert np.setdiff1d(shape._radii, plotted_radii).size == 0
+
+        plt.close()

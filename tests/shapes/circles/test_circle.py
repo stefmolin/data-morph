@@ -19,7 +19,7 @@ class TestCircle(CirclesModuleTestBase):
         ((center_x, center_y - radius), 0),  # south
         ((center_x + radius, center_y), 0),  # east
         ((center_x - radius, center_y), 0),  # west
-        ((center_x, center_y), radius),  # center of circle, radius is distance
+        ((center_x, center_y), radius),  # center of circle
         ((10, 25), 20.740675199410028),  # inside the circle
         ((-20, 0), 55.831306555602154),  # outside the circle
     )

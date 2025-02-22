@@ -61,7 +61,7 @@ class TestRings(CirclesModuleTestBase):
             (center_x - mid_radii[1], center_y),
             radii[0] / 2,
         ),  # between the outer circles (west)
-        ((center_x, center_y + radii[2] * 2), radii[2]),  # north of all circles (north)
+        ((center_x, center_y + radii[2] * 2), radii[2]),  # north of all circles
         ((center_x - radii[2] * 1.5, center_y), radii[2] / 2),  # west of all circles
     )
     repr_regex = (

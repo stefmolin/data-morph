@@ -44,7 +44,7 @@ class TestBullseye(CirclesModuleTestBase):
         (
             (center_x, center_y + outer_radius * 2),
             outer_radius,
-        ),  # north of both circles (north)
+        ),  # north of both circles
         (
             (center_x - outer_radius * 1.5, center_y),
             inner_radius,

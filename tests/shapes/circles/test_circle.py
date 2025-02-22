@@ -11,9 +11,9 @@ pytestmark = [pytest.mark.shapes, pytest.mark.circles]
 class TestCircle(CirclesModuleTestBase):
     """Test the Circle class."""
 
+    shape_name = 'circle'
     center_x, center_y = (20, 65)
     radius = 20.49038105676658
-    shape_name = 'circle'
     distance_test_cases = (
         ((center_x, center_y + radius), 0),  # north
         ((center_x, center_y - radius), 0),  # south

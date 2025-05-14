@@ -13,15 +13,6 @@ circles
 
    
    
-   .. rubric:: Classes
-
-   .. autosummary::
-      :toctree:
-   
-      Bullseye
-      Circle
-      Rings
-   
    
 
    
@@ -29,4 +20,14 @@ circles
    
 
 
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   bullseye
+   circle
+   rings
 

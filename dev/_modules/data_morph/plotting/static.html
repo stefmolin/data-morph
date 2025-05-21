@@ -538,6 +538,16 @@
     <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.axes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes</span>
 
+<span class="n">_STATISTIC_DISPLAY_NAME_MAPPING</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;x_mean&#39;</span><span class="p">:</span> <span class="s1">&#39;X Mean&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;y_mean&#39;</span><span class="p">:</span> <span class="s1">&#39;Y Mean&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;x_stdev&#39;</span><span class="p">:</span> <span class="s1">&#39;X SD&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;y_stdev&#39;</span><span class="p">:</span> <span class="s1">&#39;Y SD&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;x_median&#39;</span><span class="p">:</span> <span class="s1">&#39;X Med.&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;y_median&#39;</span><span class="p">:</span> <span class="s1">&#39;Y Med.&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;correlation&#39;</span><span class="p">:</span> <span class="s1">&#39;Corr.&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
 
 <div class="viewcode-block" id="plot">
 <a class="viewcode-back" href="../../../api/data_morph.plotting.static.plot.html#data_morph.plotting.static.plot">[docs]</a>
@@ -548,6 +558,7 @@
     <span class="n">y_bounds</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
     <span class="n">save_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">decimals</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">with_median</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="o">**</span><span class="n">save_kwds</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># noqa: ANN401</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -563,6 +574,8 @@
 <span class="sd">        Path to save the plot frame to.</span>
 <span class="sd">    decimals : int</span>
 <span class="sd">        The number of integers to highlight as preserved.</span>
+<span class="sd">    with_median : bool</span>
+<span class="sd">        Whether to include the median.</span>
 <span class="sd">    **save_kwds</span>
 <span class="sd">        Additional keyword arguments that will be passed down to</span>
 <span class="sd">        :meth:`matplotlib.figure.Figure.savefig`.</span>
@@ -584,10 +597,24 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
 
-    <span class="n">res</span> <span class="o">=</span> <span class="n">get_summary_statistics</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">get_summary_statistics</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">with_median</span><span class="o">=</span><span class="n">with_median</span><span class="p">)</span>
 
-    <span class="n">labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;X Mean&#39;</span><span class="p">,</span> <span class="s1">&#39;Y Mean&#39;</span><span class="p">,</span> <span class="s1">&#39;X SD&#39;</span><span class="p">,</span> <span class="s1">&#39;Y SD&#39;</span><span class="p">,</span> <span class="s1">&#39;Corr.&#39;</span><span class="p">)</span>
-    <span class="n">locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">with_median</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s1">&#39;x_mean&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;x_median&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;x_stdev&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;y_mean&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;y_median&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;y_stdev&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">locs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.78</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;x_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;y_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;x_stdev&#39;</span><span class="p">,</span> <span class="s1">&#39;y_stdev&#39;</span><span class="p">,</span> <span class="s1">&#39;correlation&#39;</span><span class="p">)</span>
+        <span class="n">locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">))</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">_STATISTIC_DISPLAY_NAME_MAPPING</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]</span>
     <span class="n">max_label_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">])</span>
     <span class="n">max_stat</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">))))</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">mean_x_digits</span><span class="p">,</span> <span class="n">mean_y_digits</span> <span class="o">=</span> <span class="p">(</span>
@@ -615,17 +642,23 @@
         <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
         <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">stat</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">locs</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
-        <span class="n">add_stat_text</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">stat</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-        <span class="n">add_stat_text</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">stat</span><span class="p">)[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">_STATISTIC_DISPLAY_NAME_MAPPING</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
 
-    <span class="n">correlation_str</span> <span class="o">=</span> <span class="n">corr_formatter</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">correlation</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">correlation_str</span><span class="p">,</span> <span class="n">correlation_str</span><span class="p">[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">]]):</span>
-        <span class="n">add_stat_text</span><span class="p">(</span>
-            <span class="n">locs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-            <span class="n">text</span><span class="p">,</span>
-            <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s1">&#39;correlation&#39;</span><span class="p">:</span>
+            <span class="n">correlation_str</span> <span class="o">=</span> <span class="n">corr_formatter</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">correlation</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">correlation_str</span><span class="p">,</span> <span class="n">correlation_str</span><span class="p">[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">]]</span>
+            <span class="p">):</span>
+                <span class="n">add_stat_text</span><span class="p">(</span>
+                    <span class="n">locs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">text</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">add_stat_text</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">stat</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+            <span class="n">add_stat_text</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">stat</span><span class="p">)[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">save_to</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ax</span>

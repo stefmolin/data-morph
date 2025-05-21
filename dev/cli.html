@@ -525,8 +525,8 @@
 <div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">data-morph [-h] [--version] [-w WORKERS] --start START_SHAPE [START_SHAPE ...]</span>
 <span class="go">           --target TARGET_SHAPE [TARGET_SHAPE ...] [--decimals {0,1,2,3,4,5}]</span>
 <span class="go">           [--iterations ITERATIONS] [--scale SCALE] [--seed SEED] [--shake SHAKE]</span>
-<span class="go">           [--keep-frames] [-o DIRECTORY] [--write-data] [--ease] [--ease-in] [--ease-out]</span>
-<span class="go">           [--forward-only] [--freeze NUM_FRAMES]</span>
+<span class="go">           [--with-median] [--keep-frames] [-o DIRECTORY] [--write-data] [--ease] [--ease-in]</span>
+<span class="go">           [--ease-out] [--forward-only] [--freeze NUM_FRAMES]</span>
 </pre></div>
 </div>
 <section id="data-morph-options">
@@ -554,6 +554,7 @@
 <li><p id="data-morph---scale"><a class="reference internal" href="#data-morph---scale" title="data-morph --scale"><strong><code class="docutils literal notranslate"><span class="pre">--scale</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SCALE</span></code> - Scale the data on both x and y by dividing by a scale factor. For example, <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">10</span></code> divides all x and y values by 10. Datasets with large values will morph faster after scaling down. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
 <li><p id="data-morph---seed"><a class="reference internal" href="#data-morph---seed" title="data-morph --seed"><strong><code class="docutils literal notranslate"><span class="pre">--seed</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SEED</span></code> - Provide a seed for reproducible results. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
 <li><p id="data-morph---shake"><a class="reference internal" href="#data-morph---shake" title="data-morph --shake"><strong><code class="docutils literal notranslate"><span class="pre">--shake</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SHAKE</span></code> - The standard deviation for the random movement applied in each direction, which will be sampled from a normal distribution with a mean of zero. Note that morphing initially sets the shake to 1, and then decreases the shake value over time toward the minimum value defined here, which defaults to 0.3. Datasets with large values may benefit from scaling (see <code class="docutils literal notranslate"><span class="pre">--scale</span></code>) or increasing this towards 1, along with increasing the number of iterations (see <code class="docutils literal notranslate"><span class="pre">--iterations</span></code>).</p></li>
+<li><p id="data-morph---with-median"><a class="reference internal" href="#data-morph---with-median" title="data-morph --with-median"><strong><code class="docutils literal notranslate"><span class="pre">--with-median</span></code></strong></a> - Whether to require the median to be preserved. Note that this will be a little slower.</p></li>
 </ul>
 </section>
 <section id="data-morph-Output-File-Configuration">

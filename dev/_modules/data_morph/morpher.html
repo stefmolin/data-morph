@@ -580,6 +580,9 @@
 <span class="sd">    forward_only_animation : bool, default ``False``</span>
 <span class="sd">        Whether to generate the animation in the forward direction only.</span>
 <span class="sd">        By default, the animation will play forward and then reverse.</span>
+<span class="sd">    with_median : bool, default ``False``</span>
+<span class="sd">        Whether to preserve the median in addition to the other summary statistics.</span>
+<span class="sd">        Note that this will be a little slower.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -594,6 +597,7 @@
         <span class="n">num_frames</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
         <span class="n">keep_frames</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">forward_only_animation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">with_median</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
@@ -648,6 +652,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_in_notebook</span> <span class="o">=</span> <span class="n">in_notebook</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ProgressTracker</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">DataMorphProgress</span><span class="p">,</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_in_notebook</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_with_median</span> <span class="o">=</span> <span class="n">with_median</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_select_frames</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ease_in</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">ease_out</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">freeze_for</span><span class="p">:</span> <span class="nb">int</span>
@@ -742,6 +748,7 @@
                 <span class="n">decimals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decimals</span><span class="p">,</span>
                 <span class="n">x_bounds</span><span class="o">=</span><span class="n">bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">,</span>
                 <span class="n">y_bounds</span><span class="o">=</span><span class="n">bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">,</span>
+                <span class="n">with_median</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_with_median</span><span class="p">,</span>
                 <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
@@ -773,7 +780,12 @@
                 <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span>
                     <span class="o">*</span><span class="p">(</span>
                         <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
-                            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">get_summary_statistics</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">decimals</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                                <span class="n">get_summary_statistics</span><span class="p">(</span>
+                                    <span class="n">data</span><span class="p">,</span> <span class="n">with_median</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_with_median</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+                            <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">decimals</span>
                         <span class="p">)</span>
                         <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="p">[</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">]</span>
                     <span class="p">)</span>

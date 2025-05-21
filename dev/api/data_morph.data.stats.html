@@ -715,7 +715,7 @@
 <p class="rubric">Functions</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="data_morph.data.stats.get_summary_statistics.html#data_morph.data.stats.get_summary_statistics" title="data_morph.data.stats.get_summary_statistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_summary_statistics</span></code></a>(data)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data_morph.data.stats.get_summary_statistics.html#data_morph.data.stats.get_summary_statistics" title="data_morph.data.stats.get_summary_statistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_summary_statistics</span></code></a>(data, with_median)</p></td>
 <td><p>Calculate the summary statistics for the given set of points.</p></td>
 </tr>
 </tbody>
@@ -732,12 +732,12 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.data.stats.</span></span><span class="sig-name descname"><span class="pre">SummaryStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_stdev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_stdev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_morph.data.stats.</span></span><span class="sig-name descname"><span class="pre">SummaryStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_median</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_median</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/data/stats.html#SummaryStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></a></p>
 <p>Named tuple containing the summary statistics for plotting/analysis.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics.correlation">
-<span class="sig-name descname"><span class="pre">correlation</span></span><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.correlation" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">correlation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></em><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.correlation" title="Link to this definition">#</a></dt>
 <dd><p>Alias for field number 4</p>
 </dd></dl>
 
@@ -756,25 +756,37 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics.x_mean">
-<span class="sig-name descname"><span class="pre">x_mean</span></span><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.x_mean" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">x_mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></em><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.x_mean" title="Link to this definition">#</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics.x_median">
+<span class="sig-name descname"><span class="pre">x_median</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></em><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.x_median" title="Link to this definition">#</a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics.x_stdev">
-<span class="sig-name descname"><span class="pre">x_stdev</span></span><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.x_stdev" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">x_stdev</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></em><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.x_stdev" title="Link to this definition">#</a></dt>
 <dd><p>Alias for field number 2</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics.y_mean">
-<span class="sig-name descname"><span class="pre">y_mean</span></span><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.y_mean" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">y_mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></em><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.y_mean" title="Link to this definition">#</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics.y_median">
+<span class="sig-name descname"><span class="pre">y_median</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></em><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.y_median" title="Link to this definition">#</a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="data_morph.data.stats.SummaryStatistics.y_stdev">
-<span class="sig-name descname"><span class="pre">y_stdev</span></span><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.y_stdev" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">y_stdev</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></em><a class="headerlink" href="#data_morph.data.stats.SummaryStatistics.y_stdev" title="Link to this definition">#</a></dt>
 <dd><p>Alias for field number 3</p>
 </dd></dl>
 
@@ -782,15 +794,19 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="data_morph.data.stats.get_summary_statistics">
-<span class="sig-prename descclassname"><span class="pre">data_morph.data.stats.</span></span><span class="sig-name descname"><span class="pre">get_summary_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><span class="pre">DataFrame</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics" title="data_morph.data.stats.SummaryStatistics"><span class="pre">SummaryStatistics</span></a></span></span><a class="reference internal" href="../_modules/data_morph/data/stats.html#get_summary_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.data.stats.get_summary_statistics" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">data_morph.data.stats.</span></span><span class="sig-name descname"><span class="pre">get_summary_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pd.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_median</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics" title="data_morph.data.stats.SummaryStatistics"><span class="pre">SummaryStatistics</span></a></span></span><a class="reference internal" href="../_modules/data_morph/data/stats.html#get_summary_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.data.stats.get_summary_statistics" title="Link to this definition">#</a></dt>
 <dd><p>Calculate the summary statistics for the given set of points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><em>pandas.DataFrame</em></a>) – A dataset with columns x and y.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><em>pandas.DataFrame</em></a>) – A dataset with columns <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p><strong>with_median</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to include the median of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Named tuple consisting of mean and standard deviations of x and y,
-along with the Pearson correlation coefficient between the two.</p>
+<dd class="field-even"><p>Named tuple consisting of mean and standard deviations of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>,
+along with the Pearson correlation coefficient between the two, and optionally,
+the median of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics" title="data_morph.data.stats.SummaryStatistics">SummaryStatistics</a></p>
@@ -828,8 +844,10 @@ along with the Pearson correlation coefficient between the two.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.count"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.count()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.index"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.index()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.x_mean"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.x_mean</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.x_median"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.x_median</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.x_stdev"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.x_stdev</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.y_mean"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.y_mean</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.y_median"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.y_median</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data_morph.data.stats.SummaryStatistics.y_stdev"><code class="docutils literal notranslate"><span class="pre">SummaryStatistics.y_stdev</span></code></a></li>
 </ul>
 </li>

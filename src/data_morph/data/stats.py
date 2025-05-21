@@ -44,7 +44,7 @@ def get_summary_statistics(data: pd.DataFrame, with_median: bool) -> SummaryStat
     Returns
     -------
     SummaryStatistics
-        Dataclass consisting of mean and standard deviations of ``x`` and ``y``,
+        Named tuple consisting of mean and standard deviations of ``x`` and ``y``,
         along with the Pearson correlation coefficient between the two, and optionally,
         the median of ``x`` and ``y``.
     """

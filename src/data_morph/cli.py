@@ -154,6 +154,15 @@ def generate_parser() -> argparse.ArgumentParser:
             'iterations (see ``--iterations``).'
         ),
     )
+    morph_config_group.add_argument(
+        '--with-median',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to require the median to be preserved. Note that this will be a '
+            'little slower.'
+        ),
+    )
 
     file_group = parser.add_argument_group(
         'Output File Configuration',
@@ -285,6 +294,7 @@ def _morph(
         forward_only_animation=args.forward_only,
         num_frames=100,
         in_notebook=False,
+        with_median=args.with_median,
     )
 
     _ = morpher.morph(
@@ -399,6 +409,7 @@ def _serialize(args: argparse.Namespace, target_shapes: Sequence[str]) -> None:
             forward_only_animation=args.forward_only,
             num_frames=100,
             in_notebook=False,
+            with_median=args.with_median,
         )
 
         for target_shape in target_shapes:

@@ -20,6 +20,16 @@ if TYPE_CHECKING:
     import pandas as pd
     from matplotlib.axes import Axes
 
+_STATISTIC_DISPLAY_NAME_MAPPING: dict[str, str] = {
+    'x_mean': 'X Mean',
+    'y_mean': 'Y Mean',
+    'x_stdev': 'X SD',
+    'y_stdev': 'Y SD',
+    'x_median': 'X Med.',
+    'y_median': 'Y Med.',
+    'correlation': 'Corr.',
+}
+
 
 @plot_with_custom_style
 def plot(
@@ -28,6 +38,7 @@ def plot(
     y_bounds: Iterable[Number],
     save_to: str | Path,
     decimals: int,
+    with_median: bool,
     **save_kwds: Any,  # noqa: ANN401
 ) -> Axes | None:
     """
@@ -43,6 +54,8 @@ def plot(
         Path to save the plot frame to.
     decimals : int
         The number of integers to highlight as preserved.
+    with_median : bool
+        Whether to include the median.
     **save_kwds
         Additional keyword arguments that will be passed down to
         :meth:`matplotlib.figure.Figure.savefig`.
@@ -64,10 +77,24 @@ def plot(
     ax.xaxis.set_major_formatter(tick_formatter)
     ax.yaxis.set_major_formatter(tick_formatter)
 
-    res = get_summary_statistics(data)
+    res = get_summary_statistics(data, with_median=with_median)
 
-    labels = ('X Mean', 'Y Mean', 'X Med.', 'Y Med.', 'X SD', 'Y SD', 'Corr.')
-    locs = np.linspace(0.8, 0.2, num=len(labels))
+    if with_median:
+        fields = (
+            'x_mean',
+            'x_median',
+            'x_stdev',
+            'y_mean',
+            'y_median',
+            'y_stdev',
+            'correlation',
+        )
+        locs = [0.9, 0.78, 0.66, 0.5, 0.38, 0.26, 0.1]
+    else:
+        fields = ('x_mean', 'y_mean', 'x_stdev', 'y_stdev', 'correlation')
+        locs = np.linspace(0.8, 0.2, num=len(fields))
+
+    labels = [_STATISTIC_DISPLAY_NAME_MAPPING[field] for field in fields]
     max_label_length = max([len(label) for label in labels])
     max_stat = int(np.log10(np.max(np.abs(res)))) + 1
     mean_x_digits, mean_y_digits = (
@@ -95,17 +122,23 @@ def plot(
         transform=ax.transAxes,
         va='center',
     )
-    for label, loc, stat in zip(labels[:-1], locs, res):
-        add_stat_text(loc, formatter(label, stat), alpha=0.3)
-        add_stat_text(loc, formatter(label, stat)[:-stat_clip])
+    for loc, field in zip(locs, fields):
+        label = _STATISTIC_DISPLAY_NAME_MAPPING[field]
+        stat = getattr(res, field)
 
-    correlation_str = corr_formatter(labels[-1], res.correlation)
-    for alpha, text in zip([0.3, 1], [correlation_str, correlation_str[:-stat_clip]]):
-        add_stat_text(
-            locs[-1],
-            text,
-            alpha=alpha,
-        )
+        if field == 'correlation':
+            correlation_str = corr_formatter(labels[-1], res.correlation)
+            for alpha, text in zip(
+                [0.3, 1], [correlation_str, correlation_str[:-stat_clip]]
+            ):
+                add_stat_text(
+                    locs[-1],
+                    text,
+                    alpha=alpha,
+                )
+        else:
+            add_stat_text(loc, formatter(label, stat), alpha=0.3)
+            add_stat_text(loc, formatter(label, stat)[:-stat_clip])
 
     if not save_to:
         return ax

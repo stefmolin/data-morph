@@ -12,7 +12,14 @@ class TestRectangle(PolygonsLineModuleTestBase):
     """Test the Rectangle class."""
 
     shape_name = 'rectangle'
-    distance_test_cases = (((20, 50), 0.0), ((30, 60), 2.0))
+    distance_test_cases = (
+        ((12, 60), 0),
+        ((28, 60), 0),
+        ((20, 50), 0),
+        ((20, 74), 0),
+        ((20, 75), 1),
+        ((30, 80), 6.324555320336759),
+    )
     expected_line_count = 4
 
     def test_slopes(self, slopes):

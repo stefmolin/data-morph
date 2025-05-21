@@ -133,14 +133,28 @@ class BoundingBox:
         if y:
             self.y_bounds.adjust_bounds(y)
 
-    def align_aspect_ratio(self) -> None:
-        """Align the aspect ratio to 1:1."""
+    def align_aspect_ratio(self, shrink: bool = False) -> None:
+        """
+        Align the aspect ratio to 1:1.
+
+        Parameters
+        ----------
+        shrink : bool, default ``False``
+            Whether to shrink the larger bound (``True``), or
+            expand the smaller bound (``False``).
+        """
         x_range, y_range = self.range
         diff = x_range - y_range
         if diff < 0:
-            self.adjust_bounds(x=-diff)
+            if shrink:
+                self.adjust_bounds(y=diff)
+            else:
+                self.adjust_bounds(x=-diff)
         elif diff > 0:
-            self.adjust_bounds(y=diff)
+            if shrink:
+                self.adjust_bounds(x=-diff)
+            else:
+                self.adjust_bounds(y=diff)
 
     @property
     def aspect_ratio(self) -> Number:
@@ -170,25 +184,25 @@ class BoundingBox:
         )
 
     @property
-    def range(self) -> Iterable[Number]:
+    def range(self) -> tuple[Number, Number]:
         """
         Calculate the range (width) of the bounding box in each direction.
 
         Returns
         -------
-        Iterable[numbers.Number]
+        tuple[Number, Number]
             The range covered by the x and y bounds, respectively.
         """
         return self.x_bounds.range, self.y_bounds.range
 
     @property
-    def center(self) -> Iterable[Number]:
+    def center(self) -> tuple[Number, Number]:
         """
         Calculate the center of the bounding box.
 
         Returns
         -------
-        Iterable[numbers.Number]
+        tuple[Number, Number]
             The center of the x and y bounds, respectively.
         """
         return self.x_bounds.center, self.y_bounds.center

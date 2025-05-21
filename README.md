@@ -22,7 +22,7 @@
         <img alt="Supported Python Versions" src="https://img.shields.io/pypi/pyversions/data-morph-ai">
       </a>
       <a href="https://github.com/stefmolin/data-morph/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">
-         <img alt="License" src="https://img.shields.io/pypi/l/data-morph-ai.svg?color=blueviolet">
+         <img alt="License" src="https://img.shields.io/github/license/stefmolin/data-morph?color=blueviolet">
       </a>
      </td>
    </tr>

@@ -12,7 +12,17 @@ class TestCircle(CirclesModuleTestBase):
     """Test the Circle class."""
 
     shape_name = 'circle'
-    distance_test_cases = (((20, 50), 10.490381), ((10, 25), 15.910168))
+    center_x, center_y = (20, 65)
+    radius = 20.49038105676658
+    distance_test_cases = (
+        ((center_x, center_y + radius), 0),  # north
+        ((center_x, center_y - radius), 0),  # south
+        ((center_x + radius, center_y), 0),  # east
+        ((center_x - radius, center_y), 0),  # west
+        ((center_x, center_y), radius),  # center of circle
+        ((10, 25), 20.740675199410028),  # inside the circle
+        ((-20, 0), 55.831306555602154),  # outside the circle
+    )
     repr_regex = '^' + CIRCLE_REPR + '$'
 
     def test_is_circle(self, shape):

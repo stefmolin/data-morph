@@ -184,7 +184,7 @@ class DataMorpher:
         # add transition frames
         frames.extend(
             [
-                int(round(easing_function(x) * iterations))
+                round(easing_function(x) * iterations)
                 for x in np.arange(0, 1, 1 / (self.num_frames - freeze_for // 2))
             ]
         )

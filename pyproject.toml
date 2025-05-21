@@ -2,7 +2,7 @@
 build-backend = "setuptools.build_meta"
 
 requires = [
-  "setuptools",
+  "setuptools==76.1.0",
   "setuptools-scm",
 ]
 
@@ -29,7 +29,6 @@ classifiers = [
   "Development Status :: 4 - Beta",
   "Framework :: Matplotlib",
   "Intended Audience :: Education",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.9",
@@ -45,7 +44,7 @@ dynamic = [
 ]
 
 dependencies = [
-  "matplotlib>=3.3",
+  "matplotlib>=3.7",
   "numpy>=1.20",
   "pandas>=1.2",
   "rich>=13.9.4",

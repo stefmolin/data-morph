@@ -6,6 +6,7 @@ from numbers import Number
 from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ..bounds.bounding_box import BoundingBox
 from ..bounds.interval import Interval
@@ -68,6 +69,13 @@ class Dataset:
 
         self.plot_bounds: BoundingBox = self._derive_plotting_bounds()
         """BoundingBox: The bounds to use when plotting the morphed data."""
+
+        self.x_marginal: tuple[np.ndarray, np.ndarray] = np.histogram(
+            self.data.x, bins=30, range=self.plot_bounds.x_bounds
+        )
+        self.y_marginal: tuple[np.ndarray, np.ndarray] = np.histogram(
+            self.data.y, bins=30, range=self.plot_bounds.y_bounds
+        )
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} name={self.name} scaled={self._scaled}>'

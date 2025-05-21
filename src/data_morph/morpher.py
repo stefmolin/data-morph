@@ -198,6 +198,8 @@ class DataMorpher:
         self,
         data: pd.DataFrame,
         bounds: BoundingBox,
+        x_marginal,
+        y_marginal,
         base_file_name: str,
         frame_number: str,
     ) -> None:
@@ -222,6 +224,8 @@ class DataMorpher:
                 decimals=self.decimals,
                 x_bounds=bounds.x_bounds,
                 y_bounds=bounds.y_bounds,
+                x_marginal=x_marginal,
+                y_marginal=y_marginal,
                 dpi=150,
             )
         if (
@@ -442,6 +446,8 @@ class DataMorpher:
         base_file_name = f'{start_shape.name}-to-{target_shape}'
         record_frames = partial(
             self._record_frames,
+            x_marginal=start_shape.x_marginal,
+            y_marginal=start_shape.y_marginal,
             base_file_name=base_file_name,
             bounds=start_shape.plot_bounds,
         )

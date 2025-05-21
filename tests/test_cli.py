@@ -127,6 +127,7 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
         'forward_only_animation': flag,
         'num_frames': 100,
         'in_notebook': False,
+        'with_median': flag,
     }
     morph_args = {
         'start_shape_name': start_shape,
@@ -153,6 +154,7 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
         '--write-data' if init_args['write_data'] else '',
         '--keep-frames' if init_args['keep_frames'] else '',
         '--forward-only' if init_args['forward_only_animation'] else '',
+        '--with-median' if init_args['with_median'] else '',
         f'--shake={morph_args["min_shake"]}' if morph_args['min_shake'] else '',
         f'--freeze={morph_args["freeze"]}' if morph_args['freeze'] else '',
         '--ease-in' if morph_args['ease_in'] else '',

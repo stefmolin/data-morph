@@ -28,10 +28,24 @@ repos:
           - tomli
         exclude: (\.(svg|png|pdf)$)|(CODE_OF_CONDUCT.md)
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.4
+  - repo: https://github.com/stefmolin/docstringify
+    rev: 1.0.0
     hooks:
-      - id: ruff
+      - id: docstringify
+        args: [--make-changes-inplace=numpydoc]
+        files: src/.*
+
+  - repo: https://github.com/stefmolin/docstringify
+    rev: 1.0.0
+    hooks:
+      - id: docstringify
+        args: [--make-changes-inplace=stub]
+        files: tests/.*
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.10
+    hooks:
+      - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
       - id: ruff-format
 
@@ -41,14 +55,8 @@ repos:
       - id: numpydoc-validation
         exclude: (tests|docs)/.*
 
-  - repo: https://github.com/econchick/interrogate
-    rev: 1.7.0
-    hooks:
-      - id: interrogate
-        files: tests/.*
-
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.5.1
+    rev: v2.6.0
     hooks:
       - id: pyproject-fmt
         args: [--keep-full-version, --no-print-diff]

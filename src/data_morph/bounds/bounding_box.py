@@ -38,7 +38,7 @@ class BoundingBox:
         if isinstance(inclusive, bool):
             inclusive = [inclusive] * 2
         if not (
-            isinstance(inclusive, (tuple, list))
+            isinstance(inclusive, tuple | list)
             and len(inclusive) == 2
             and all(isinstance(x, bool) for x in inclusive)
         ):
@@ -47,19 +47,19 @@ class BoundingBox:
                 ' or a single Boolean value'
             )
 
-        self.x_bounds = (
+        self.x_bounds: Interval = (
             x_bounds.clone()
             if isinstance(x_bounds, Interval)
             else Interval(x_bounds, inclusive[0])
         )
-        """Interval: The bounds for the x direction."""
+        """The bounds for the x direction."""
 
-        self.y_bounds = (
+        self.y_bounds: Interval = (
             y_bounds.clone()
             if isinstance(y_bounds, Interval)
             else Interval(y_bounds, inclusive[1])
         )
-        """Interval: The bounds for the y direction."""
+        """The bounds for the y direction."""
 
         self._bounds = (self.x_bounds, self.y_bounds)
 

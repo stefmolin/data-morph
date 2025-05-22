@@ -21,7 +21,7 @@ def _validate_2d(data: Iterable[Number], name: str) -> Iterable[Number]:
         The validated data.
     """
     if not (
-        isinstance(data, (tuple, list))
+        isinstance(data, tuple | list)
         and len(data) == 2
         and all(isinstance(x, Number) and not isinstance(x, bool) for x in data)
     ):

@@ -20,16 +20,27 @@ if TYPE_CHECKING:
     import pandas as pd
     from matplotlib.axes import Axes
 
+_STATISTIC_DISPLAY_NAME_MAPPING: dict[str, str] = {
+    'x_mean': 'X Mean',
+    'y_mean': 'Y Mean',
+    'x_stdev': 'X SD',
+    'y_stdev': 'Y SD',
+    'x_median': 'X Med.',
+    'y_median': 'Y Med.',
+    'correlation': 'Corr.',
+}
+
 
 @plot_with_custom_style
 def plot(
     data: pd.DataFrame,
     x_bounds: Iterable[Number],
     y_bounds: Iterable[Number],
-    x_marginal,
-    y_marginal,
+    marginals: tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]
+    | None,
     save_to: str | Path,
     decimals: int,
+    with_median: bool,
     **save_kwds: Any,  # noqa: ANN401
 ) -> Axes | None:
     """
@@ -41,10 +52,14 @@ def plot(
         The dataset to plot.
     x_bounds, y_bounds : Iterable[numbers.Number]
         The plotting limits.
+    marginals : tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]] | None
+        The counts per bin and bin boundaries for generating marginal plots.
     save_to : str or pathlib.Path
         Path to save the plot frame to.
     decimals : int
         The number of integers to highlight as preserved.
+    with_median : bool
+        Whether to include the median.
     **save_kwds
         Additional keyword arguments that will be passed down to
         :meth:`matplotlib.figure.Figure.savefig`.
@@ -54,53 +69,93 @@ def plot(
     matplotlib.axes.Axes or None
         When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.
     """
+    add_marginals = marginals is not None
+
     fig, ax = plt.subplots(
-        figsize=(9, 3), layout='constrained', subplot_kw={'aspect': 'equal'}
+        figsize=(9 if add_marginals else 7, 3),
+        layout='constrained',
+        subplot_kw={'aspect': 'equal'},
     )
     fig.get_layout_engine().set(w_pad=1.4, h_pad=0.2, wspace=0)
 
     ax.scatter(data.x, data.y, s=1, alpha=0.7, color='black')
     ax.set(xlim=x_bounds, ylim=y_bounds)
 
-    ax_histx = ax.inset_axes([0, 1.05, 1, 0.25], sharex=ax)
-    ax_histy = ax.inset_axes([1.05, 0, 0.25, 1], sharey=ax)
-
-    x_marginal_counts, x_marginal_bins = x_marginal
-    y_marginal_counts, y_marginal_bins = y_marginal
-
-    ax_histx.set(xlim=x_bounds, ylim=(0, np.ceil(x_marginal_counts.max() * 2)))
-    ax_histy.set(xlim=(0, np.ceil(y_marginal_counts.max() * 2)), ylim=y_bounds)
-
-    # no labels on marginal axis that shares with scatter plot
-    ax_histx.tick_params(axis='x', labelbottom=False)
-    ax_histy.tick_params(axis='y', labelleft=False)
-
-    # move marginal axis ticks that are visible to the corner and only show the non-zero label
-    locator = MaxNLocator(2, integer=True, prune='lower')
-    ax_histx.tick_params(axis='y', labelleft=False, labelright=True)
-    ax_histx.yaxis.set_major_locator(locator)
-    ax_histy.tick_params(axis='x', labelbottom=False, labeltop=True)
-    ax_histy.xaxis.set_major_locator(locator)
-
-    ax_histx.hist(data.x, bins=x_marginal_bins, color='gray', ec='black')
-    ax_histy.hist(
-        data.y, bins=y_marginal_bins, orientation='horizontal', color='gray', ec='black'
-    )
-
     tick_formatter = EngFormatter()
     ax.xaxis.set_major_formatter(tick_formatter)
-    ax_histy.xaxis.set_major_formatter(tick_formatter)
     ax.yaxis.set_major_formatter(tick_formatter)
-    ax_histx.yaxis.set_major_formatter(tick_formatter)
 
-    res = get_summary_statistics(data)
+    if add_marginals:
+        ax_histx = ax.inset_axes([0, 1.05, 1, 0.25], sharex=ax)
+        ax_histy = ax.inset_axes([1.05, 0, 0.25, 1], sharey=ax)
 
-    labels = ('X Mean', 'Y Mean', 'X SD', 'Y SD', 'Corr.')
-    locs = np.linspace(1.15, 0.1, num=len(labels))
+        ax_histy.xaxis.set_major_formatter(tick_formatter)
+        ax_histx.yaxis.set_major_formatter(tick_formatter)
+
+        (x_marginal_counts, x_marginal_bins), (y_marginal_counts, y_marginal_bins) = (
+            marginals
+        )
+
+        ax_histx.set(xlim=x_bounds, ylim=(0, np.ceil(x_marginal_counts.max() * 2)))
+        ax_histy.set(xlim=(0, np.ceil(y_marginal_counts.max() * 2)), ylim=y_bounds)
+
+        # no labels on marginal axis that shares with scatter plot
+        ax_histx.tick_params(axis='x', labelbottom=False)
+        ax_histy.tick_params(axis='y', labelleft=False)
+
+        # move marginal axis ticks that are visible to the corner and only show the non-zero label
+        locator = MaxNLocator(2, integer=True, prune='lower')
+        ax_histx.tick_params(axis='y', labelleft=False, labelright=True)
+        ax_histx.yaxis.set_major_locator(locator)
+        ax_histy.tick_params(axis='x', labelbottom=False, labeltop=True)
+        ax_histy.xaxis.set_major_locator(locator)
+
+        ax_histx.hist(data.x, bins=x_marginal_bins, color='gray', ec='black')
+        ax_histy.hist(
+            data.y,
+            bins=y_marginal_bins,
+            orientation='horizontal',
+            color='gray',
+            ec='black',
+        )
+
+    res = get_summary_statistics(data, with_median=with_median)
+
+    if with_median:
+        fields = (
+            'x_mean',
+            'x_median',
+            'x_stdev',
+            'y_mean',
+            'y_median',
+            'y_stdev',
+            'correlation',
+        )
+        locs = (
+            [0.94, 0.8, 0.66, 0.49, 0.35, 0.21, 0.04]
+            if add_marginals
+            else [0.9, 0.78, 0.66, 0.5, 0.38, 0.26, 0.1]
+        )
+    else:
+        fields = ('x_mean', 'y_mean', 'x_stdev', 'y_stdev', 'correlation')
+        locs = (
+            np.linspace(0.85, 0.15, num=len(fields))
+            if add_marginals
+            else np.linspace(0.8, 0.2, num=len(fields))
+        )
+
+    labels = [_STATISTIC_DISPLAY_NAME_MAPPING[field] for field in fields]
     max_label_length = max([len(label) for label in labels])
     max_stat = int(np.log10(np.max(np.abs(res)))) + 1
     mean_x_digits, mean_y_digits = (
-        int(x) + 1 for x in np.log10(np.abs([res.x_mean, res.y_mean]))
+        int(x) + 1
+        for x in np.log10(
+            np.abs(
+                [max(res.x_mean, res.x_median), max(res.y_mean, res.y_median)]
+                if with_median
+                else [res.x_mean, res.y_mean]
+            )
+        )
     )
 
     # If `max_label_length = 10`, this string will be "{:<10}: {:0.7f}", then we
@@ -119,24 +174,24 @@ def plot(
 
     add_stat_text = partial(
         ax.text,
-        1.4,
+        1.4 if add_marginals else 1.05,
         fontsize=15,
         transform=ax.transAxes,
         va='center',
     )
-    for label, loc, stat in zip(labels[:-1], locs, res, strict=False):
-        add_stat_text(loc, formatter(label, stat), alpha=0.3)
-        add_stat_text(loc, formatter(label, stat)[:-stat_clip])
+    for loc, field in zip(locs, fields, strict=False):
+        label = _STATISTIC_DISPLAY_NAME_MAPPING[field]
+        stat = getattr(res, field)
 
-    correlation_str = corr_formatter(labels[-1], res.correlation)
-    for alpha, text in zip(
-        [0.3, 1], [correlation_str, correlation_str[:-stat_clip]], strict=False
-    ):
-        add_stat_text(
-            locs[-1],
-            text,
-            alpha=alpha,
-        )
+        if field == 'correlation':
+            correlation_str = corr_formatter(label, res.correlation)
+            for alpha, text in zip(
+                [0.3, 1], [correlation_str, correlation_str[:-stat_clip]], strict=False
+            ):
+                add_stat_text(loc, text, alpha=alpha)
+        else:
+            add_stat_text(loc, formatter(label, stat), alpha=0.3)
+            add_stat_text(loc, formatter(label, stat)[:-stat_clip])
 
     if not save_to:
         return ax

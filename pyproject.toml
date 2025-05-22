@@ -202,6 +202,7 @@ checks = [
 ]
 exclude = [ # don't report on checks for these
   '\.__init__$',
+  '\.__iter__$',
   '\.__repr__$',
   '\.__str__$',
 ]

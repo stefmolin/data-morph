@@ -44,8 +44,8 @@ dynamic = [
 
 dependencies = [
   "matplotlib>=3.10",
-  "numpy>=1.20",
-  "pandas>=1.2",
+  "numpy>=1.23.0",
+  "pandas>=2.1",
   "rich>=13.9.4",
 ]
 optional-dependencies.dev = [

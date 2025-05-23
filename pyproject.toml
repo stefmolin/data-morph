@@ -168,31 +168,6 @@ markers = [
   "shapes: Run tests related to shapes.",
 ]
 
-[tool.interrogate]
-ignore-init-method = true
-ignore-init-module = false
-ignore-magic = false
-ignore-semiprivate = false
-ignore-private = false
-ignore-property-decorators = false
-ignore-module = false
-ignore-nested-functions = false
-ignore-nested-classes = true
-ignore-setters = false
-fail-under = 100
-exclude = [
-  "setup.py",
-  "docs",
-  "build",
-]
-verbose = 2
-quiet = false
-color = true
-omit-covered-files = false
-# TODO: revisit this later when I add badges to the README
-# generate-badge = "."
-# badge-format = "svg"
-
 [tool.numpydoc_validation]
 checks = [
   "all",  # report on all checks

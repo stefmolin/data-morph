@@ -196,6 +196,7 @@ omit-covered-files = false
 [tool.numpydoc_validation]
 checks = [
   "all",  # report on all checks
+  "GL08", # use Docstringify to test for docstring presence instead
   "ES01", # but don't require an extended summary
   "EX01", # or examples
   "SA01", # or a see also section

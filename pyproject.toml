@@ -49,26 +49,31 @@ dependencies = [
   "pandas>=1.2",
   "rich>=13.9.4",
 ]
-optional-dependencies.dev = [
-  "pre-commit",
-  "pytest",
-  "pytest-cov",
-  "pytest-mock",
-  "pytest-randomly",
-  "pytest-xdist",
+
+urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
+urls."Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
+urls."Homepage" = "https://stefaniemolin.com/data-morph"
+urls."Source" = "https://github.com/stefmolin/data-morph"
+scripts.data-morph = "data_morph.cli:main"
+
+[dependency-groups]
+dev = [ "pre-commit", { include-group = "docs" }, { include-group = "test" } ]
+
+test = [
+  "pytest>=8.3.4",
+  "pytest-cov>=4.1.0",
+  "pytest-mock>=3.10.0",
+  "pytest-randomly>=3.12.0",
+  "pytest-xdist>=3.6.1",
 ]
-optional-dependencies.docs = [
+
+docs = [
   "pydata-sphinx-theme>=0.15.3",
   "sphinx>=7.2.6",
   "sphinx-argparse-cli>=1.16.0",
   "sphinx-copybutton>=0.5.1",
   "sphinx-design>=0.6.1",
 ]
-urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
-urls."Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
-urls."Homepage" = "https://stefaniemolin.com/data-morph"
-urls."Source" = "https://github.com/stefmolin/data-morph"
-scripts.data-morph = "data_morph.cli:main"
 
 [tool.setuptools.packages.find]
 where = [

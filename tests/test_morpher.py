@@ -263,8 +263,9 @@ class TestDataMorpher:
         morpher._record_frames(
             dataset.data,
             dataset.plot_bounds,
-            base_path,
-            frame_number,
+            marginals=None,
+            base_file_name=base_path,
+            frame_number=frame_number,
         )
 
         images = list(tmp_path.glob(f'{base_path}*.png'))

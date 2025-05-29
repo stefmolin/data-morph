@@ -41,10 +41,6 @@ repos:
         name: docstringify source code with numpydoc
         args: [--make-changes-inplace=numpydoc]
         files: src/.*
-
-  - repo: https://github.com/stefmolin/docstringify
-    rev: 1.0.0
-    hooks:
       - id: docstringify
         name: docstringify tests with stubs
         args: [--make-changes-inplace=stub]

@@ -110,12 +110,12 @@ def plot(
         ax_histy.tick_params(axis='x', labelbottom=False, labeltop=True)
         ax_histy.xaxis.set_major_locator(locator)
 
-        ax_histx.hist(data.x, bins=x_marginal_bins, color='gray', ec='black')
+        ax_histx.hist(data.x, bins=x_marginal_bins, color='slategray', ec='black')
         ax_histy.hist(
             data.y,
             bins=y_marginal_bins,
             orientation='horizontal',
-            color='gray',
+            color='slategray',
             ec='black',
         )
 

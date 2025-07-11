@@ -193,9 +193,6 @@ verbose = 2
 quiet = false
 color = true
 omit-covered-files = false
-# TODO: revisit this later when I add badges to the README
-# generate-badge = "."
-# badge-format = "svg"
 
 [tool.numpydoc_validation]
 checks = [

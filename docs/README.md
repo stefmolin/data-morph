@@ -1,6 +1,6 @@
 # Docs
 
-1. Install the docs dependencies: `pip install '.[docs]'`.
+1. Install the docs dependencies: `pip install --group docs`.
 2. From this directory, run `make html`.
 
 ## Managing versions

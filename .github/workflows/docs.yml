@@ -38,7 +38,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install '.[docs]'
+          pip install . --group docs
       - name: Sphinx build
         run: |
           git worktree add docs/_build/html gh-pages

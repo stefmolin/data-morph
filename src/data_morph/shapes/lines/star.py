@@ -1,5 +1,7 @@
 """Star shape."""
 
+import itertools
+
 from ...data.dataset import Dataset
 from ..bases.line_collection import LineCollection
 
@@ -46,4 +48,4 @@ class Star(LineCollection):
             [xmin, ymin + y_range * 0.625],
         ]
 
-        super().__init__(*list(zip(pts[:-1], pts[1:])))
+        super().__init__(*list(itertools.pairwise(pts)))

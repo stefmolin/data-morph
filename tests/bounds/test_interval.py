@@ -91,7 +91,7 @@ class TestInterval:
     def test_iter(self):
         """Test that the __iter__() method is working."""
         limits = [0, 1]
-        for bound, limit in zip(Interval(limits), limits):
+        for bound, limit in zip(Interval(limits), limits, strict=False):
             assert bound == limit
 
     @pytest.mark.parametrize(

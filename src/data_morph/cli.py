@@ -199,6 +199,16 @@ def generate_parser() -> argparse.ArgumentParser:
         'Animation Configuration', description='Customize aspects of the animation.'
     )
     frame_group.add_argument(
+        '--classic',
+        default=False,
+        action='store_true',
+        help=(
+            'Whether to plot the original visualization, which consists of a scatter plot '
+            'and the summary statistics. Otherwise, marginal plots will be included in '
+            'addition to the classic plot.'
+        ),
+    )
+    frame_group.add_argument(
         '--ease',
         default=False,
         action='store_true',
@@ -294,6 +304,7 @@ def _morph(
         forward_only_animation=args.forward_only,
         num_frames=100,
         in_notebook=False,
+        classic=args.classic,
         with_median=args.with_median,
     )
 
@@ -409,6 +420,7 @@ def _serialize(args: argparse.Namespace, target_shapes: Sequence[str]) -> None:
             forward_only_animation=args.forward_only,
             num_frames=100,
             in_notebook=False,
+            classic=args.classic,
             with_median=args.with_median,
         )
 

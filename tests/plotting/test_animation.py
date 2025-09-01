@@ -30,6 +30,7 @@ def test_frame_stitching(sample_data, tmp_path, forward_only):
             save_to=(tmp_path / f'{start_shape}-to-{target_shape}-{frame}.png'),
             decimals=2,
             with_median=False,
+            marginals=None,
         )
 
     duration_multipliers = [0, 0, 0, 0, 1, 1, *frame_numbers[2:], frame_numbers[-1]]

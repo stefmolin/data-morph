@@ -6,11 +6,13 @@ import math
 import re
 from functools import wraps
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable
+from typing import TYPE_CHECKING
 
 from PIL import Image
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from ..shapes.bases.shape import Shape
 
 
@@ -115,7 +117,7 @@ def check_step(
         int or float
             The eased value at the current step, from 0.0 to 1.0.
         """
-        if not (isinstance(step, (int, float)) and 0 <= step <= 1):
+        if not (isinstance(step, int | float) and 0 <= step <= 1):
             raise ValueError('Step must be an integer or float, between 0 and 1.')
         return easing_function(step)
 

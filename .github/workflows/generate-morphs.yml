@@ -65,8 +65,8 @@ jobs:
           DATASET_ARGS=$(python bin/ci.py $DATASET_ALL_CHANGED_FILES)
           echo "Generating morphs for the following datasets: $DATASET_ARGS"
           data-morph \
-               --start-shape $DATASET_ARGS \
-               --target-shape bullseye heart rectangle star slant_up \
+               --start $DATASET_ARGS \
+               --target bullseye heart rectangle star slant_up \
                --workers 0
 
       # If shapes are added or modified in this PR
@@ -79,8 +79,8 @@ jobs:
           SHAPE_ARGS=$(python bin/ci.py $SHAPE_ALL_CHANGED_FILES)
           echo "Generating morphs for the following shapes: $SHAPE_ARGS"
           data-morph \
-               --start-shape music \
-               --target-shape $SHAPE_ARGS \
+               --start music \
+               --target $SHAPE_ARGS \
                --workers 0
 
       # For core code changes, we want to do a couple morphs to see if they still look ok
@@ -89,8 +89,8 @@ jobs:
         if: steps.changed-files-yaml.outputs.dataset_any_changed != 'true' && steps.changed-files-yaml.outputs.shape_any_changed != 'true'
         run: |
           data-morph \
-               --start-shape music \
-               --target-shape bullseye heart star \
+               --start music \
+               --target bullseye heart star \
                --workers 0
 
       - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08  # v4.6.0

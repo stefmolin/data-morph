@@ -38,7 +38,7 @@ Run ``data-morph`` on the command line:
 
 .. code:: console
 
-   $ data-morph --start-shape panda --target-shape star
+   $ data-morph --start panda --target star
 
 This produces the following animation in the newly-created ``morphed_data`` directory
 within your current working directory:
@@ -53,7 +53,7 @@ If you don't want the marginal plots (the histograms on the sides), you can use 
 
 .. code:: console
 
-   $ data-morph --start-shape panda --target-shape star --classic
+   $ data-morph --start panda --target star --classic
 
 Animations generated in classic mode include only the scatter plot and the summary statistics:
 
@@ -69,7 +69,7 @@ of the initial shape:
 
 .. code:: console
 
-   $ data-morph --start-shape panda --target-shape star --freeze 50 --ease
+   $ data-morph --start panda --target star --freeze 50 --ease
 
 Here is the resulting animation:
 
@@ -88,7 +88,7 @@ the command below:
 
 .. code:: console
 
-   $ data-morph --start-shape music soccer --target-shape heart diamond
+   $ data-morph --start music soccer --target heart diamond
 
 .. tip::
 
@@ -98,7 +98,7 @@ the command below:
 
    .. code:: console
 
-      $ data-morph --start-shape music soccer --target-shape heart diamond --workers 0
+      $ data-morph --start music soccer --target heart diamond --workers 0
 
    If you have the GNU ``parallel`` command on your machine, you can use it to run
    a slightly faster parallelized Data Morph (since it incurs less Python overhead),
@@ -107,7 +107,7 @@ the command below:
    .. code:: console
 
       $ parallel --progress -j0 \
-      >     data-morph --start-shape {1} --target-shape {2} \
+      >     data-morph --start {1} --target {2} \
       >     ::: music soccer ::: heart diamond
 
    Check out the `GNU parallel documentation <https://www.gnu.org/software/parallel/sphinx.html>`_

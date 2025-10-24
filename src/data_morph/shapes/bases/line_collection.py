@@ -121,5 +121,5 @@ class LineCollection(Shape):
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
         _ = ax.axis('equal')
         for start, end in self.lines:
-            ax.plot(*list(zip(start, end, strict=False)), 'k-')
+            ax.plot(*list(zip(start, end, strict=True)), 'k-')
         return ax

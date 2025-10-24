@@ -70,7 +70,7 @@
 Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing. It is intended to be used as a teaching tool to illustrate the importance of data visualization (see the [Data Morph in the Classroom](https://stefaniemolin.com/data-morph/stable/index.html#classroom-ideas) section for ideas).
 
 <div align="center">
-  <img alt="Morphing the panda dataset into the star shape." src="https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif">
+  <img alt="Morphing the panda dataset into the star shape." src="https://stefaniemolin.com/data-morph/stable/_images/panda-to-star-eased.gif">
   <br/>
 </div>
 

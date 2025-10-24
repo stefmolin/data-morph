@@ -538,7 +538,7 @@
 <section id="command-line-usage">
 <h3>Command line usage<a class="headerlink" href="#command-line-usage" title="Link to this heading">#</a></h3>
 <p>Run <code class="docutils literal notranslate"><span class="pre">data-morph</span></code> on the command line:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>--target-shape<span class="w"> </span>star
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start<span class="w"> </span>panda<span class="w"> </span>--target<span class="w"> </span>star
 </pre></div>
 </div>
 <p>This produces the following animation in the newly-created <code class="docutils literal notranslate"><span class="pre">morphed_data</span></code> directory
@@ -550,7 +550,7 @@ within your current working directory:</p>
 </figcaption>
 </figure>
 <p>If you don’t want the marginal plots (the histograms on the sides), you can use classic mode:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>--target-shape<span class="w"> </span>star<span class="w"> </span>--classic
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start<span class="w"> </span>panda<span class="w"> </span>--target<span class="w"> </span>star<span class="w"> </span>--classic
 </pre></div>
 </div>
 <p>Animations generated in classic mode include only the scatter plot and the summary statistics:</p>
@@ -563,7 +563,7 @@ within your current working directory:</p>
 <p>You can smooth the transition with the <code class="docutils literal notranslate"><span class="pre">--ease</span></code> or <code class="docutils literal notranslate"><span class="pre">--ease-in</span></code> and <code class="docutils literal notranslate"><span class="pre">--ease-out</span></code> flags.
 The <code class="docutils literal notranslate"><span class="pre">--freeze</span></code> flag allows you to start the animation with the specified number of frames
 of the initial shape:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>--target-shape<span class="w"> </span>star<span class="w"> </span>--freeze<span class="w"> </span><span class="m">50</span><span class="w"> </span>--ease
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start<span class="w"> </span>panda<span class="w"> </span>--target<span class="w"> </span>star<span class="w"> </span>--freeze<span class="w"> </span><span class="m">50</span><span class="w"> </span>--ease
 </pre></div>
 </div>
 <p>Here is the resulting animation:</p>
@@ -578,7 +578,7 @@ of the initial shape:</p>
 provided. For example, if you wanted to morph both the music and soccer datasets
 into both the heart and diamond shapes (i.e., four animations), you could run
 the command below:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target-shape<span class="w"> </span>heart<span class="w"> </span>diamond
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target<span class="w"> </span>heart<span class="w"> </span>diamond
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -586,14 +586,14 @@ the command below:</p>
 <p>When doing generating multiple animations, it is recommended that you also specify
 the number of jobs you want to run in parallel (limited by the number of CPU cores
 on your machine). If you pass <code class="docutils literal notranslate"><span class="pre">0</span></code>, Data Morph will run as many as possible:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target-shape<span class="w"> </span>heart<span class="w"> </span>diamond<span class="w"> </span>--workers<span class="w"> </span><span class="m">0</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>--target<span class="w"> </span>heart<span class="w"> </span>diamond<span class="w"> </span>--workers<span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 <p>If you have the GNU <code class="docutils literal notranslate"><span class="pre">parallel</span></code> command on your machine, you can use it to run
 a slightly faster parallelized Data Morph (since it incurs less Python overhead),
 in which case you don’t need to provide the worker count:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>parallel<span class="w"> </span>--progress<span class="w"> </span>-j0<span class="w"> </span><span class="se">\</span>
-<span class="gp">&gt; </span><span class="w">    </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span><span class="o">{</span><span class="m">1</span><span class="o">}</span><span class="w"> </span>--target-shape<span class="w"> </span><span class="o">{</span><span class="m">2</span><span class="o">}</span><span class="w"> </span><span class="se">\</span>
+<span class="gp">&gt; </span><span class="w">    </span>data-morph<span class="w"> </span>--start<span class="w"> </span><span class="o">{</span><span class="m">1</span><span class="o">}</span><span class="w"> </span>--target<span class="w"> </span><span class="o">{</span><span class="m">2</span><span class="o">}</span><span class="w"> </span><span class="se">\</span>
 <span class="gp">&gt; </span><span class="w">    </span>:::<span class="w"> </span>music<span class="w"> </span>soccer<span class="w"> </span>:::<span class="w"> </span>heart<span class="w"> </span>diamond
 </pre></div>
 </div>

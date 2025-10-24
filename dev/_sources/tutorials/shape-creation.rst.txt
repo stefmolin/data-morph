@@ -191,7 +191,7 @@ for the ``name`` attribute of your shape class to generate three animations:
 
 .. code:: console
 
-   $ data-morph --start-shape panda music soccer --target-shape <your shape> --workers 3
+   $ data-morph --start panda music soccer --target <your shape> --workers 3
 
 Review the animations. Remember, some shapes will work better on certain datasets,
 and that's fine. However, if your shape only works well on one of the built-in datasets

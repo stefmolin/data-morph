@@ -32,5 +32,6 @@ class TestCircle(CirclesModuleTestBase):
         for x, y in zip(
             cx + shape.radius * np.cos(angles),
             cy + shape.radius * np.sin(angles),
+            strict=True,
         ):
             assert pytest.approx(shape.distance(x, y)) == 0

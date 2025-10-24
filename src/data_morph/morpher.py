@@ -60,6 +60,10 @@ class DataMorpher:
     forward_only_animation : bool, default ``False``
         Whether to generate the animation in the forward direction only.
         By default, the animation will play forward and then reverse.
+    classic : bool, default ``False``
+        Whether to plot the original visualization, which consists of a scatter plot
+        and the summary statistics. When this is ``False``, marginal plots will be
+        included in addition to the classic plot.
     with_median : bool, default ``False``
         Whether to preserve the median in addition to the other summary statistics.
         Note that this will be a little slower.
@@ -77,6 +81,7 @@ class DataMorpher:
         num_frames: int = 100,
         keep_frames: bool = False,
         forward_only_animation: bool = False,
+        classic: bool = False,
         with_median: bool = False,
     ) -> None:
         self._rng = np.random.default_rng(seed)
@@ -133,6 +138,7 @@ class DataMorpher:
 
         self._ProgressTracker = partial(DataMorphProgress, not self._in_notebook)
 
+        self._classic = classic
         self._with_median = with_median
 
     def _select_frames(
@@ -204,6 +210,8 @@ class DataMorpher:
         self,
         data: pd.DataFrame,
         bounds: BoundingBox,
+        marginals: tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]
+        | None,
         base_file_name: str,
         frame_number: str,
     ) -> None:
@@ -216,6 +224,8 @@ class DataMorpher:
             The DataFrame of the data for morphing.
         bounds : BoundingBox
             The plotting limits.
+        marginals : tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]] | None
+            The counts per bin and bin boundaries for generating marginal plots.
         base_file_name : str
             The prefix to the file names for both the PNG and GIF files.
         frame_number : str
@@ -228,6 +238,7 @@ class DataMorpher:
                 decimals=self.decimals,
                 x_bounds=bounds.x_bounds,
                 y_bounds=bounds.y_bounds,
+                marginals=marginals,
                 with_median=self._with_median,
                 dpi=150,
             )
@@ -456,6 +467,7 @@ class DataMorpher:
             self._record_frames,
             base_file_name=base_file_name,
             bounds=start_shape.plot_bounds,
+            marginals=None if self._classic else start_shape.marginals,
         )
 
         frame_number_format = f'{{:0{len(str(iterations))}d}}'.format

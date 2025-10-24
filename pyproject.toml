@@ -24,14 +24,13 @@ authors = [
   { name = "Aaron Stevens", email = "bheklilr2@gmail.com" },
   { name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com" },
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Framework :: Matplotlib",
   "Intended Audience :: Education",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -45,9 +44,9 @@ dynamic = [
 ]
 
 dependencies = [
-  "matplotlib>=3.7",
-  "numpy>=1.20",
-  "pandas>=1.2",
+  "matplotlib>=3.10",
+  "numpy>=1.23.0",
+  "pandas>=2.1",
   "rich>=13.9.4",
 ]
 

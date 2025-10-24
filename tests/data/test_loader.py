@@ -67,7 +67,9 @@ class TestDataLoader:
         assert len(populated_axs) == len(DataLoader.AVAILABLE_DATASETS)
         assert all(ax.get_xlabel() == ax.get_ylabel() == '' for ax in populated_axs)
 
-        for dataset, ax in zip(DataLoader.AVAILABLE_DATASETS, populated_axs):
+        for dataset, ax in zip(
+            DataLoader.AVAILABLE_DATASETS, populated_axs, strict=True
+        ):
             subplot_title = ax.get_title()
             assert subplot_title.startswith(dataset)
             assert subplot_title.endswith(' points)')

@@ -1,11 +1,11 @@
 """Utility functions for styling Matplotlib plots."""
 
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from functools import wraps
 from importlib.resources import as_file, files
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 import matplotlib.pyplot as plt
 

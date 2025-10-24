@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Data Morph" src="https://github.com/stefmolin/data-morph/raw/main/docs/_static/logo.png">
+  <img alt="Data Morph" src="https://stefaniemolin.com/data-morph/stable/_static/logo.png">
 
   <hr>
 

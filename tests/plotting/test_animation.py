@@ -120,6 +120,6 @@ def test_invalid_easing_step(ease_function, invalid_step):
     ease_func = getattr(animation, ease_function)
 
     with pytest.raises(
-        ValueError, match='Step must be an integer or float, between 0 and 1.'
+        ValueError, match='Step must be an integer or float, between 0 and 1'
     ):
         ease_func(invalid_step)

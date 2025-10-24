@@ -15,10 +15,14 @@ class TestShapeABC:
             _ = Shape()
 
         class NewShape(Shape):
+            """A test shape."""
+
             def distance(self, x, y):
+                """Calculate the distance from the shape to the point."""
                 return super().distance(x, y)
 
             def plot(self, ax=None):
+                """Plot the shape."""
                 return super().plot(ax)
 
         with pytest.raises(NotImplementedError):
@@ -31,10 +35,14 @@ class TestShapeABC:
         """Test that the __repr__() method is working."""
 
         class NewShape(Shape):
+            """A test shape."""
+
             def distance(self, x, y):  # pragma: no cover
+                """Calculate the distance from the shape to the point."""
                 return x, y
 
             def plot(self, ax):  # pragma: no cover
+                """Plot the shape."""
                 return ax
 
         new_shape = NewShape()

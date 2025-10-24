@@ -33,7 +33,7 @@ def test_cli_version(capsys):
 
 def test_cli_bad_shape():
     """Test that invalid target shapes raise a ValueError."""
-    with pytest.raises(ValueError, match='No valid target shapes were provided.'):
+    with pytest.raises(ValueError, match='No valid target shapes were provided'):
         cli.main(['--start-shape=dino', '--target-shape=does-not-exist'])
 
 

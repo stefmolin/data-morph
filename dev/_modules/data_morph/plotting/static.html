@@ -526,7 +526,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">EngFormatter</span><span class="p">,</span> <span class="n">MaxNLocator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">EngFormatter</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">..data.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_summary_statistics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_with_custom_style</span>
@@ -609,35 +609,24 @@
         <span class="n">ax_histx</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">inset_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
         <span class="n">ax_histy</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">inset_axes</span><span class="p">([</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
-        <span class="n">ax_histy</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
-        <span class="n">ax_histx</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
-
-        <span class="p">(</span><span class="n">x_marginal_counts</span><span class="p">,</span> <span class="n">x_marginal_bins</span><span class="p">),</span> <span class="p">(</span><span class="n">y_marginal_counts</span><span class="p">,</span> <span class="n">y_marginal_bins</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">marginals</span>
-        <span class="p">)</span>
-
-        <span class="n">ax_histx</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="n">x_bounds</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x_marginal_counts</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)))</span>
-        <span class="n">ax_histy</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">y_marginal_counts</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">ylim</span><span class="o">=</span><span class="n">y_bounds</span><span class="p">)</span>
-
-        <span class="c1"># no labels on marginal axis that shares with scatter plot</span>
-        <span class="n">ax_histx</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">ax_histy</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-        <span class="c1"># move marginal axis ticks that are visible to the corner and only show the non-zero label</span>
-        <span class="n">locator</span> <span class="o">=</span> <span class="n">MaxNLocator</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prune</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
-        <span class="n">ax_histx</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelright</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">ax_histx</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
-        <span class="n">ax_histy</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labeltop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">ax_histy</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
-
-        <span class="n">ax_histx</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">x_marginal_bins</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;slategray&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-        <span class="n">ax_histy</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
-            <span class="n">bins</span><span class="o">=</span><span class="n">y_marginal_bins</span><span class="p">,</span>
-            <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;slategray&#39;</span><span class="p">,</span>
-            <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">marginal_ax</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">bins</span><span class="p">),</span> <span class="n">orientation</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">ax_histx</span><span class="p">,</span> <span class="n">ax_histy</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">],</span>
+            <span class="n">marginals</span><span class="p">,</span>
+            <span class="p">[</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">],</span>
+            <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">marginal_ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">marginal_ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">marginal_ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+                <span class="n">values</span><span class="p">,</span>
+                <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span>
+                <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;#EAEAF2&#39;</span><span class="p">,</span>
+                <span class="n">orientation</span><span class="o">=</span><span class="n">orientation</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="n">res</span> <span class="o">=</span> <span class="n">get_summary_statistics</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">with_median</span><span class="o">=</span><span class="n">with_median</span><span class="p">)</span>
 

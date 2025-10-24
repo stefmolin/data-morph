@@ -49,7 +49,8 @@ within your current working directory:
 
    Morphing the panda :class:`.Dataset` into the star :class:`.Shape` with marginal plots.
 
-If you don't want the marginal plots (the histograms on the sides), you can use classic mode:
+If you don't want the marginal plots (the probability density histograms on the sides),
+you can use classic mode:
 
 .. code:: console
 

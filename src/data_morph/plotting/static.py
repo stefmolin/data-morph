@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Any
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import EngFormatter, MaxNLocator
+from matplotlib.ticker import EngFormatter
 
 from ..data.stats import get_summary_statistics
 from .style import plot_with_custom_style
@@ -89,35 +89,24 @@ def plot(
         ax_histx = ax.inset_axes([0, 1.05, 1, 0.25], sharex=ax)
         ax_histy = ax.inset_axes([1.05, 0, 0.25, 1], sharey=ax)
 
-        ax_histy.xaxis.set_major_formatter(tick_formatter)
-        ax_histx.yaxis.set_major_formatter(tick_formatter)
-
-        (x_marginal_counts, x_marginal_bins), (y_marginal_counts, y_marginal_bins) = (
-            marginals
-        )
-
-        ax_histx.set(xlim=x_bounds, ylim=(0, np.ceil(x_marginal_counts.max() * 2)))
-        ax_histy.set(xlim=(0, np.ceil(y_marginal_counts.max() * 2)), ylim=y_bounds)
-
-        # no labels on marginal axis that shares with scatter plot
-        ax_histx.tick_params(axis='x', labelbottom=False)
-        ax_histy.tick_params(axis='y', labelleft=False)
-
-        # move marginal axis ticks that are visible to the corner and only show the non-zero label
-        locator = MaxNLocator(2, integer=True, prune='lower')
-        ax_histx.tick_params(axis='y', labelleft=False, labelright=True)
-        ax_histx.yaxis.set_major_locator(locator)
-        ax_histy.tick_params(axis='x', labelbottom=False, labeltop=True)
-        ax_histy.xaxis.set_major_locator(locator)
-
-        ax_histx.hist(data.x, bins=x_marginal_bins, color='slategray', ec='black')
-        ax_histy.hist(
-            data.y,
-            bins=y_marginal_bins,
-            orientation='horizontal',
-            color='slategray',
-            ec='black',
-        )
+        for marginal_ax, values, (_, bins), orientation in zip(
+            [ax_histx, ax_histy],
+            [data.x, data.y],
+            marginals,
+            ['vertical', 'horizontal'],
+            strict=True,
+        ):
+            marginal_ax.xaxis.set_visible(False)
+            marginal_ax.yaxis.set_visible(False)
+            marginal_ax.hist(
+                values,
+                bins=bins,
+                density=True,
+                color='black',
+                alpha=0.7,
+                ec='#EAEAF2',
+                orientation=orientation,
+            )
 
     res = get_summary_statistics(data, with_median=with_median)
 

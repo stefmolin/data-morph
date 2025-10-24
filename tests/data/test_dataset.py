@@ -54,7 +54,7 @@ class TestDataset:
 
         data = pd.read_csv(starter_shapes_dir / 'dino.csv').rename(columns={'x': 'a'})
 
-        with pytest.raises(ValueError, match='Columns "x" and "y" are required.'):
+        with pytest.raises(ValueError, match='Columns "x" and "y" are required'):
             _ = Dataset('dino', data)
 
     def test_validate_data_fix_column_casing(self, starter_shapes_dir):

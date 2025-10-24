@@ -4,7 +4,7 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-merge-conflict
@@ -29,7 +29,7 @@ repos:
         exclude: (\.(svg|png|pdf)$)|(CODE_OF_CONDUCT.md)
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.2
+    rev: v0.14.2
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
@@ -41,14 +41,14 @@ repos:
       - id: numpydoc-validation
         exclude: (tests|docs)/.*
 
-  - repo: https://github.com/econchick/interrogate
-    rev: 1.7.0
+  - repo: https://github.com/stefmolin/docstringify
+    rev: 1.1.1
     hooks:
-      - id: interrogate
+      - id: docstringify
         files: tests/.*
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.6.0
+    rev: v2.11.0
     hooks:
       - id: pyproject-fmt
         args: [--keep-full-version, --no-print-diff]

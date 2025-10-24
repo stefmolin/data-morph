@@ -98,7 +98,7 @@ Once installed, Data Morph can be used on the command line or as an importable P
 Run `data-morph` on the command line:
 
 ```console
-$ data-morph --start-shape panda --target-shape star
+$ data-morph --start panda --target star
 ```
 
 This produces the animation in the newly-created `morphed_data` directory within your current working directory (shown above). More examples, including how to run multiple transformations in parallel, can be found in the [documentation](https://stefaniemolin.com/data-morph/).

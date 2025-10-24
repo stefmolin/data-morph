@@ -34,7 +34,7 @@ def test_cli_version(capsys):
 def test_cli_bad_shape():
     """Test that invalid target shapes raise a ValueError."""
     with pytest.raises(ValueError, match='No valid target shapes were provided'):
-        cli.main(['--start-shape=dino', '--target-shape=does-not-exist'])
+        cli.main(['--start=dino', '--target=does-not-exist'])
 
 
 @pytest.mark.input_validation
@@ -50,7 +50,7 @@ def test_cli_bad_shape():
 def test_cli_bad_input_decimals(decimals, reason, capsys):
     """Test that invalid input for decimals is handled correctly."""
     with pytest.raises(SystemExit):
-        cli.main(['--start-shape=dino', f'--decimals={decimals}'])
+        cli.main(['--start=dino', f'--decimals={decimals}'])
     assert f'error: argument --decimals: {reason}:' in capsys.readouterr().err
 
 
@@ -66,7 +66,7 @@ def test_cli_bad_input_decimals(decimals, reason, capsys):
 def test_cli_bad_input_floats(field, value, reason, capsys):
     """Test that invalid input for floats is handled correctly."""
     with pytest.raises(SystemExit):
-        cli.main([f'--{field}', value, '--start-shape=dino'])
+        cli.main([f'--{field}', value, '--start=dino'])
     assert f'error: argument --{field}: {reason}' in capsys.readouterr().err
 
 
@@ -76,7 +76,7 @@ def test_cli_bad_input_floats(field, value, reason, capsys):
 def test_cli_bad_input_integers(field, value, capsys):
     """Test that invalid input for integers is handled correctly."""
     with pytest.raises(SystemExit):
-        cli.main(['--start-shape=dino', f'--{field}={value}'])
+        cli.main(['--start=dino', f'--{field}={value}'])
     assert f'error: argument --{field}: invalid int value:' in capsys.readouterr().err
 
 
@@ -88,7 +88,7 @@ def test_cli_bad_input_integers(field, value, capsys):
 def test_cli_bad_input_boolean(field, value, capsys):
     """Test that invalid input for Boolean switches are handled correctly."""
     with pytest.raises(SystemExit):
-        cli.main(['--start-shape=dino', f'--{field}={value}'])
+        cli.main(['--start=dino', f'--{field}={value}'])
     assert (
         f'error: argument --{field}: ignored explicit argument'
         in capsys.readouterr().err
@@ -107,8 +107,8 @@ def test_cli_dataloader(start_shape, scale, mocker):
     load = mocker.patch.object(cli.DataLoader, 'load_dataset', autospec=True)
     _ = mocker.patch.object(cli.DataMorpher, 'morph')
     argv = [
-        f'--start-shape={start_shape}',
-        '--target-shape=circle',
+        f'--start={start_shape}',
+        '--target=circle',
         *bound_args,
     ]
     cli.main([arg for arg in argv if arg])
@@ -145,8 +145,8 @@ def test_cli_one_shape(start_shape, flag, mocker, tmp_path):
     morph_mock = mocker.patch.object(cli.DataMorpher, 'morph', autospec=True)
 
     argv = [
-        f'--start-shape={morph_args["start_shape_name"]}',
-        f'--target-shape={morph_args["target_shape"]}',
+        f'--start={morph_args["start_shape_name"]}',
+        f'--target={morph_args["target_shape"]}',
         f'--iterations={morph_args["iterations"]}',
         f'--decimals={init_args["decimals"]}' if init_args['decimals'] else '',
         f'--seed={init_args["seed"]}',
@@ -220,9 +220,9 @@ def test_cli_multiple_shapes(
     workers = 2
     cli.main(
         [
-            '--start-shape',
+            '--start',
             *start_shape,
-            '--target-shape',
+            '--target',
             *target_shape,
             f'--iterations={iterations}',
             f'--output-dir={tmp_path}',

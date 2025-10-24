@@ -44,10 +44,24 @@ This produces the following animation in the newly-created ``morphed_data`` dire
 within your current working directory:
 
 .. figure:: _static/panda-to-star.gif
-   :alt: Morphing the panda dataset into the star shape.
+   :alt: Morphing the panda dataset into the star shape with marginal plots.
    :align: center
 
-   Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape` with marginal plots.
+
+If you don't want the marginal plots (the histograms on the sides), you can use classic mode:
+
+.. code:: console
+
+   $ data-morph --start-shape panda --target-shape star --classic
+
+Animations generated in classic mode include only the scatter plot and the summary statistics:
+
+.. figure:: _static/panda-to-star-classic.gif
+   :alt: Morphing the panda dataset into the star shape using classic mode.
+   :align: center
+
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape` using classic mode.
 
 You can smooth the transition with the ``--ease`` or ``--ease-in`` and ``--ease-out`` flags.
 The ``--freeze`` flag allows you to start the animation with the specified number of frames

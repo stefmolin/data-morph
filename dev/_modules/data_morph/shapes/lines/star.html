@@ -518,6 +518,8 @@
   <h1>Source code for data_morph.shapes.lines.star</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Star shape.&quot;&quot;&quot;</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">...data.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..bases.line_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineCollection</span>
 
@@ -566,7 +568,7 @@
             <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">y_range</span> <span class="o">*</span> <span class="mf">0.625</span><span class="p">],</span>
         <span class="p">]</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:])))</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="n">pts</span><span class="p">)))</span></div>
 
 </pre></div>
 

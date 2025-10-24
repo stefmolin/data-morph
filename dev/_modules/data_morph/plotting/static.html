@@ -526,7 +526,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">EngFormatter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">EngFormatter</span><span class="p">,</span> <span class="n">MaxNLocator</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">..data.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_summary_statistics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_with_custom_style</span>
@@ -556,6 +556,8 @@
     <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
     <span class="n">x_bounds</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
     <span class="n">y_bounds</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
+    <span class="n">marginals</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span>
+    <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">save_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">decimals</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">with_median</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
@@ -570,6 +572,8 @@
 <span class="sd">        The dataset to plot.</span>
 <span class="sd">    x_bounds, y_bounds : Iterable[numbers.Number]</span>
 <span class="sd">        The plotting limits.</span>
+<span class="sd">    marginals : tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]] | None</span>
+<span class="sd">        The counts per bin and bin boundaries for generating marginal plots.</span>
 <span class="sd">    save_to : str or pathlib.Path</span>
 <span class="sd">        Path to save the plot frame to.</span>
 <span class="sd">    decimals : int</span>
@@ -585,8 +589,12 @@
 <span class="sd">    matplotlib.axes.Axes or None</span>
 <span class="sd">        When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">add_marginals</span> <span class="o">=</span> <span class="n">marginals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
-        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;constrained&#39;</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">}</span>
+        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span> <span class="k">if</span> <span class="n">add_marginals</span> <span class="k">else</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;constrained&#39;</span><span class="p">,</span>
+        <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">},</span>
     <span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">get_layout_engine</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">w_pad</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">h_pad</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
@@ -596,6 +604,40 @@
     <span class="n">tick_formatter</span> <span class="o">=</span> <span class="n">EngFormatter</span><span class="p">()</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">add_marginals</span><span class="p">:</span>
+        <span class="n">ax_histx</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">inset_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">ax_histy</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">inset_axes</span><span class="p">([</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">ax_histy</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
+        <span class="n">ax_histx</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">tick_formatter</span><span class="p">)</span>
+
+        <span class="p">(</span><span class="n">x_marginal_counts</span><span class="p">,</span> <span class="n">x_marginal_bins</span><span class="p">),</span> <span class="p">(</span><span class="n">y_marginal_counts</span><span class="p">,</span> <span class="n">y_marginal_bins</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">marginals</span>
+        <span class="p">)</span>
+
+        <span class="n">ax_histx</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="n">x_bounds</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x_marginal_counts</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">ax_histy</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">y_marginal_counts</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">ylim</span><span class="o">=</span><span class="n">y_bounds</span><span class="p">)</span>
+
+        <span class="c1"># no labels on marginal axis that shares with scatter plot</span>
+        <span class="n">ax_histx</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">ax_histy</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># move marginal axis ticks that are visible to the corner and only show the non-zero label</span>
+        <span class="n">locator</span> <span class="o">=</span> <span class="n">MaxNLocator</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prune</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+        <span class="n">ax_histx</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelright</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax_histx</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="n">ax_histy</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labeltop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax_histy</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+
+        <span class="n">ax_histx</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">x_marginal_bins</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;slategray&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">ax_histy</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">bins</span><span class="o">=</span><span class="n">y_marginal_bins</span><span class="p">,</span>
+            <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;slategray&#39;</span><span class="p">,</span>
+            <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="n">res</span> <span class="o">=</span> <span class="n">get_summary_statistics</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">with_median</span><span class="o">=</span><span class="n">with_median</span><span class="p">)</span>
 
@@ -609,16 +651,31 @@
             <span class="s1">&#39;y_stdev&#39;</span><span class="p">,</span>
             <span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">locs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.78</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+        <span class="n">locs</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[</span><span class="mf">0.94</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.49</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.21</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">add_marginals</span>
+            <span class="k">else</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.78</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+        <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;x_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;y_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;x_stdev&#39;</span><span class="p">,</span> <span class="s1">&#39;y_stdev&#39;</span><span class="p">,</span> <span class="s1">&#39;correlation&#39;</span><span class="p">)</span>
-        <span class="n">locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">))</span>
+        <span class="n">locs</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">add_marginals</span>
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">))</span>
+        <span class="p">)</span>
 
     <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">_STATISTIC_DISPLAY_NAME_MAPPING</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]</span>
     <span class="n">max_label_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">])</span>
     <span class="n">max_stat</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">))))</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">mean_x_digits</span><span class="p">,</span> <span class="n">mean_y_digits</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">x_mean</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">y_mean</span><span class="p">]))</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+                <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x_mean</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">x_median</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">y_mean</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">y_median</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="n">with_median</span>
+                <span class="k">else</span> <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">x_mean</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">y_mean</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
     <span class="p">)</span>
 
     <span class="c1"># If `max_label_length = 10`, this string will be &quot;{:&lt;10}: {:0.7f}&quot;, then we</span>
@@ -637,25 +694,21 @@
 
     <span class="n">add_stat_text</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
-        <span class="mf">1.05</span><span class="p">,</span>
+        <span class="mf">1.4</span> <span class="k">if</span> <span class="n">add_marginals</span> <span class="k">else</span> <span class="mf">1.05</span><span class="p">,</span>
         <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
         <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
         <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">label</span> <span class="o">=</span> <span class="n">_STATISTIC_DISPLAY_NAME_MAPPING</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
         <span class="n">stat</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s1">&#39;correlation&#39;</span><span class="p">:</span>
-            <span class="n">correlation_str</span> <span class="o">=</span> <span class="n">corr_formatter</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">correlation</span><span class="p">)</span>
+            <span class="n">correlation_str</span> <span class="o">=</span> <span class="n">corr_formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">correlation</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-                <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">correlation_str</span><span class="p">,</span> <span class="n">correlation_str</span><span class="p">[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">]]</span>
+                <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">correlation_str</span><span class="p">,</span> <span class="n">correlation_str</span><span class="p">[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">]],</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">):</span>
-                <span class="n">add_stat_text</span><span class="p">(</span>
-                    <span class="n">locs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                    <span class="n">text</span><span class="p">,</span>
-                    <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="n">add_stat_text</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">add_stat_text</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">stat</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
             <span class="n">add_stat_text</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">stat</span><span class="p">)[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">])</span>

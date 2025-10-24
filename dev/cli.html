@@ -525,8 +525,8 @@
 <div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">data-morph [-h] [--version] [-w WORKERS] --start START_SHAPE [START_SHAPE ...]</span>
 <span class="go">           --target TARGET_SHAPE [TARGET_SHAPE ...] [--decimals {0,1,2,3,4,5}]</span>
 <span class="go">           [--iterations ITERATIONS] [--scale SCALE] [--seed SEED] [--shake SHAKE]</span>
-<span class="go">           [--with-median] [--keep-frames] [-o DIRECTORY] [--write-data] [--ease] [--ease-in]</span>
-<span class="go">           [--ease-out] [--forward-only] [--freeze NUM_FRAMES]</span>
+<span class="go">           [--with-median] [--keep-frames] [-o DIRECTORY] [--write-data] [--classic] [--ease]</span>
+<span class="go">           [--ease-in] [--ease-out] [--forward-only] [--freeze NUM_FRAMES]</span>
 </pre></div>
 </div>
 <section id="data-morph-options">
@@ -570,6 +570,7 @@
 <h3>Animation Configuration<a class="headerlink" href="#data-morph-Animation-Configuration" title="Link to this heading">#</a></h3>
 <p>Customize aspects of the animation.</p>
 <ul class="simple">
+<li><p id="data-morph---classic"><a class="reference internal" href="#data-morph---classic" title="data-morph --classic"><strong><code class="docutils literal notranslate"><span class="pre">--classic</span></code></strong></a> - Whether to plot the original visualization, which consists of a scatter plot and the summary statistics. Otherwise, marginal plots will be included in addition to the classic plot.</p></li>
 <li><p id="data-morph---ease"><a class="reference internal" href="#data-morph---ease" title="data-morph --ease"><strong><code class="docutils literal notranslate"><span class="pre">--ease</span></code></strong></a> - Whether to slow down the transition near the start and end of the transformation. This is a shortcut for –ease-in –ease-out. This only affects the frames selected, not the algorithm.</p></li>
 <li><p id="data-morph---ease-in"><a class="reference internal" href="#data-morph---ease-in" title="data-morph --ease-in"><strong><code class="docutils literal notranslate"><span class="pre">--ease-in</span></code></strong></a> - Whether to slowly start the transition from input to target in the animation. This only affects the frames selected, not the algorithm.</p></li>
 <li><p id="data-morph---ease-out"><a class="reference internal" href="#data-morph---ease-out" title="data-morph --ease-out"><strong><code class="docutils literal notranslate"><span class="pre">--ease-out</span></code></strong></a> - Whether to slow down the transition from input to target towards the end of the animation. This only affects the frames selected, not the algorithm.</p></li>

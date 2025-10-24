@@ -540,9 +540,20 @@ and <a class="reference external" href="https://stefaniemolin.com/data-morph-tal
 <p>This produces the following animation in the newly-created <code class="docutils literal notranslate"><span class="pre">morphed_data</span></code> directory
 within your current working directory:</p>
 <figure class="align-center" id="id4">
-<img alt="Morphing the panda dataset into the star shape." src="_images/panda-to-star.gif" />
+<img alt="Morphing the panda dataset into the star shape with marginal plots." src="_images/panda-to-star.gif" />
 <figcaption>
-<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a>.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> with marginal plots.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>If you don’t want the marginal plots (the histograms on the sides), you can use classic mode:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>data-morph<span class="w"> </span>--start-shape<span class="w"> </span>panda<span class="w"> </span>--target-shape<span class="w"> </span>star<span class="w"> </span>--classic
+</pre></div>
+</div>
+<p>Animations generated in classic mode include only the scatter plot and the summary statistics:</p>
+<figure class="align-center" id="id5">
+<img alt="Morphing the panda dataset into the star shape using classic mode." src="_images/panda-to-star-classic.gif" />
+<figcaption>
+<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> using classic mode.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can smooth the transition with the <code class="docutils literal notranslate"><span class="pre">--ease</span></code> or <code class="docutils literal notranslate"><span class="pre">--ease-in</span></code> and <code class="docutils literal notranslate"><span class="pre">--ease-out</span></code> flags.
@@ -552,10 +563,10 @@ of the initial shape:</p>
 </pre></div>
 </div>
 <p>Here is the resulting animation:</p>
-<figure class="align-center" id="id5">
+<figure class="align-center" id="id6">
 <img alt="Morphing the panda dataset into the star shape with easing." src="_images/panda-to-star-eased.gif" />
 <figcaption>
-<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> with easing.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+<p><span class="caption-text">Morphing the panda <a class="reference internal" href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> into the star <a class="reference internal" href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shape</span></code></a> with easing.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <hr class="docutils" />

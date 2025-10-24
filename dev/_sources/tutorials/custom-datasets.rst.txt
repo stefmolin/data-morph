@@ -99,7 +99,7 @@ Pass the path to the CSV file to use those points as the starting shape:
 
 .. code:: console
 
-   $ data-morph --start-shape path/to/points.csv --target-shape wide_lines
+   $ data-morph --start-shape path/to/points.csv --target-shape wide_lines --classic
 
 Here is an example animation generated from a custom dataset:
 

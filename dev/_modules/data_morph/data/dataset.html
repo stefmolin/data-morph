@@ -524,6 +524,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">..bounds.bounding_box</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBox</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..bounds.interval</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interval</span>
@@ -575,19 +576,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_scale_data</span><span class="p">,</span> <span class="n">scale</span>
         <span class="p">)</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;pandas.DataFrame: DataFrame containing columns x and y.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataFrame containing columns x and y.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: The name to use for the dataset.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The name to use for the dataset.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data_bounds</span><span class="p">:</span> <span class="n">BoundingBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_derive_data_bounds</span><span class="p">()</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;BoundingBox: The bounds of the data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The bounds of the data.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">morph_bounds</span><span class="p">:</span> <span class="n">BoundingBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_derive_morphing_bounds</span><span class="p">()</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;BoundingBox: The limits for the morphing process.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The limits for the morphing process.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="p">:</span> <span class="n">BoundingBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_derive_plotting_bounds</span><span class="p">()</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;BoundingBox: The bounds to use when plotting the morphed data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The bounds to use when plotting the morphed data.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">marginals</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span>
+            <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_bounds</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">),</span>
+        <span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The counts per bin and bin boundaries for generating marginal plots.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> scaled=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_scaled</span><span class="si">}</span><span class="s1">&gt;&#39;</span>

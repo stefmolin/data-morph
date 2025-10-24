@@ -115,7 +115,7 @@ html_theme_options = {
     'navbar_align': 'left',
     'navbar_end': ['version-switcher', 'theme-switcher', 'navbar-icon-links'],
     'switcher': {
-        'json_url': 'https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/switcher.json',
+        'json_url': 'https://stefaniemolin.com/data-morph/stable/_static/switcher.json',
         'version_match': version_match,
     },
     'external_links': [

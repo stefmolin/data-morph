@@ -35,7 +35,7 @@ class Heart(PointCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        _, xmax = dataset.data_bounds.x_bounds
+        (_, xmax), (_, ymax) = dataset.data_bounds
         x_shift, y_shift = dataset.data_bounds.center
 
         t = np.linspace(-3, 3, num=80)
@@ -44,8 +44,14 @@ class Heart(PointCollection):
         y = 13 * np.cos(t) - 5 * np.cos(2 * t) - 2 * np.cos(3 * t) - np.cos(4 * t)
 
         # scale by the half the widest width of the heart
-        scale_factor = (xmax - x_shift) / 16
+        scale_factor = min((xmax - x_shift), (ymax - y_shift)) / 16
 
-        super().__init__(
-            *np.stack([x * scale_factor + x_shift, y * scale_factor + y_shift], axis=1)
-        )
+        points = np.stack([x * scale_factor, y * scale_factor], axis=1)
+
+        # center the heart within the data bounds
+        maxes = points.max(axis=0)
+        span = maxes - points.min(axis=0)
+        gap = (np.array(dataset.data_bounds.range) - span) / 2
+        shift = np.array([xmax, ymax]) - maxes - gap
+
+        super().__init__(*(points + shift))

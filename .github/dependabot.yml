@@ -8,6 +8,9 @@ updates:
     directory: "/"
     schedule:
       interval: "semiannually"
+    ignore: # only update minor or major version changes
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
     groups:
       actions:
         patterns:

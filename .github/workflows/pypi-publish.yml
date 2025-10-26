@@ -24,7 +24,7 @@ jobs:
     - name: Build a binary wheel and a source tarball
       run: python3 -m build
     - name: Store the distribution packages
-      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08  # v4.6.0
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4  # v5.0.0
       with:
         name: python-package-distributions
         path: dist/
@@ -44,7 +44,7 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0  # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53  # v6.0.0
       with:
         name: python-package-distributions
         path: dist/
@@ -65,12 +65,12 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0  # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53  # v6.0.0
       with:
         name: python-package-distributions
         path: dist/
     - name: Sign the dists with Sigstore
-      uses: sigstore/gh-action-sigstore-python@f514d46b907ebcd5bedc05145c03b69c1edd8b46  # v3.0.0
+      uses: sigstore/gh-action-sigstore-python@f832326173235dcb00dd5d92cd3f353de3188e6c  # v3.1.0
       with:
         inputs: >-
           ./dist/*.tar.gz
@@ -110,7 +110,7 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0  # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53  # v6.0.0
       with:
         name: python-package-distributions
         path: dist/

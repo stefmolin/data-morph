@@ -555,8 +555,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">x_bounds</span>
-        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span><span class="o">.</span><span class="n">center</span>
+        <span class="n">data_bounds</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data_bounds</span>
+        <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">xmax</span><span class="p">),</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">=</span> <span class="n">data_bounds</span>
+        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="n">data_bounds</span><span class="o">.</span><span class="n">center</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 
@@ -564,10 +565,12 @@
         <span class="n">y</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
 
         <span class="c1"># scale by the half the widest width of the heart</span>
-        <span class="n">scale_factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">)</span> <span class="o">/</span> <span class="mi">16</span>
+        <span class="n">scale_factor</span> <span class="o">=</span> <span class="nb">min</span><span class="p">((</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">),</span> <span class="p">(</span><span class="n">ymax</span> <span class="o">-</span> <span class="n">y_shift</span><span class="p">))</span> <span class="o">/</span> <span class="mi">16</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">scale_factor</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">scale_factor</span> <span class="o">+</span> <span class="n">y_shift</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_center</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">scale_factor</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">data_bounds</span>
+            <span class="p">)</span>
         <span class="p">)</span></div>
 
 </pre></div>

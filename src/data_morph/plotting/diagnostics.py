@@ -48,7 +48,7 @@ def plot_shape_on_dataset(
        :scale: 75
        :include-source:
        :caption:
-            Visualization of the :class:`.Star` when calculated based on the
+            Visualization of the :class:`.Star` shape when calculated based on the
             music :class:`.Dataset`, with the dataset's bounds.
 
         from data_morph.data.loader import DataLoader
@@ -63,7 +63,7 @@ def plot_shape_on_dataset(
        :scale: 75
        :include-source:
        :caption:
-            Visualization of the :class:`.Heart` when calculated based on the
+            Visualization of the :class:`.Heart` shape when calculated based on the
             music :class:`.Dataset`, without the dataset's bounds.
 
         from data_morph.data.loader import DataLoader

@@ -76,7 +76,7 @@ the ``distance()`` and ``plot()`` methods (unless we want to override them).
       :scale: 75
       :include-source:
       :caption:
-         Visualization of how the :class:`.XLines` looks when calculated based on the
+         Visualization of the :class:`.XLines` shape when calculated based on the
          music :class:`.Dataset`, with the dataset's bounds.
 
       from data_morph.data.loader import DataLoader

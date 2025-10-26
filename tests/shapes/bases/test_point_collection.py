@@ -3,8 +3,10 @@
 import re
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pytest
 
+from data_morph.bounds.bounding_box import BoundingBox
 from data_morph.shapes.bases.point_collection import PointCollection
 
 
@@ -17,6 +19,19 @@ class TestPointCollection:
     def point_collection(self):
         """An instance of PointCollection."""
         return PointCollection([0, 0], [20, 50])
+
+    @pytest.mark.parametrize(
+        'bounding_box',
+        [BoundingBox([0, 100], [-50, 50]), BoundingBox([0, 20], [0, 50])],
+    )
+    def test_center(self, point_collection, bounding_box):
+        """Test that points are centered within the bounding box."""
+        points = point_collection._center(point_collection.points, bounding_box)
+
+        (xmin, xmax), (ymin, ymax) = bounding_box
+        upper = np.array([xmax, ymax]) - points.max(axis=0)
+        lower = points.min(axis=0) - np.array([xmin, ymin])
+        assert np.array_equal(upper, lower)
 
     def test_distance_zero(self, point_collection):
         """Test the distance() method on points in the collection."""

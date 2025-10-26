@@ -7,8 +7,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      # Check for updates to GitHub Actions every month
-      interval: "monthly"
+      interval: "semiannually"
     groups:
       actions:
         patterns:

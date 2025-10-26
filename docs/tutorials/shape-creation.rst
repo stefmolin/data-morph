@@ -67,8 +67,10 @@ Since we inherit from :class:`.LineCollection` here, we don't need to define
 the ``distance()`` and ``plot()`` methods (unless we want to override them).
 
 .. tip::
-   You can use the :func:`.plot_shape_on_dataset` function to visualize your shape's
-   positioning relative to a given dataset:
+   You can use the :func:`.plot_shape_on_dataset` function to visualize your
+   shape's positioning relative to a given dataset. Your shape can exceed the data
+   bounds (:attr:`.Dataset.data_bounds`); however, it should not exceed the morph
+   bounds (:attr:`.Dataset.morph_bounds`):
 
    .. plot::
       :scale: 75

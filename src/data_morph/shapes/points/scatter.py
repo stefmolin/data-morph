@@ -18,9 +18,12 @@ class Scatter(PointCollection):
             This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
+        from data_morph.plotting.diagnostics import plot_shape_on_dataset
         from data_morph.shapes.points import Scatter
 
-        _ = Scatter(DataLoader.load_dataset('panda')).plot()
+        dataset = DataLoader.load_dataset('panda')
+        shape = Scatter(dataset)
+        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.1)
 
     Parameters
     ----------

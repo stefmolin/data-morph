@@ -187,3 +187,6 @@ exclude = [ # don't report on checks for these
   '\.__repr__$',
   '\.__str__$',
 ]
+override_SS05 = [ # allow docstrings to start with these words
+  '^Unambiguous ',
+]

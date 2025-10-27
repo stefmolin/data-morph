@@ -1,7 +1,10 @@
 """Test the dataset module."""
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
+from matplotlib.axes import Axes
+from matplotlib.patches import Rectangle
 from numpy.testing import assert_equal
 from pandas.testing import assert_frame_equal
 
@@ -108,3 +111,41 @@ class TestDataset:
 
         dataset = DataLoader.load_dataset('dino', scale=scale)
         assert repr(dataset) == (f'<Dataset name=dino scaled={scale is not None}>')
+
+    @pytest.mark.parametrize(
+        ('ax', 'show_bounds', 'title', 'alpha'),
+        [
+            (None, True, None, 1),
+            (None, True, 'Custom title', 0.75),
+            (plt.subplots()[1], False, 'default', 0.5),
+        ],
+    )
+    def test_plot(self, ax, show_bounds, title, alpha):
+        """Test the plot() method."""
+        dataset = DataLoader.load_dataset('dino')
+        ax = dataset.plot(ax=ax, show_bounds=show_bounds, title=title, alpha=alpha)
+
+        assert isinstance(ax, Axes)
+        assert pytest.approx(ax.get_aspect()) == 1.0
+
+        if title is None:
+            assert not ax.get_title()
+        elif title == 'default':
+            assert ax.get_title() == repr(dataset)
+        else:
+            assert ax.get_title() == title
+
+        assert ax.collections[0].get_alpha() == alpha
+
+        points_expected = dataset.data.shape[0]
+        points_plotted = sum(
+            collection.get_offsets().data.shape[0] for collection in ax.collections
+        )
+        assert points_expected == points_plotted
+
+        if show_bounds:
+            assert sum(isinstance(patch, Rectangle) for patch in ax.patches) == 3
+            assert ax.patches[0] != ax.patches[1] != ax.patches[2]
+
+            assert len(labels := ax.texts) == 3
+            assert all(label.get_text().endswith('BOUNDS') for label in labels)

@@ -201,6 +201,7 @@ class Dataset:
         ax: Axes | None = None,
         show_bounds: bool = True,
         title: str | None = 'default',
+        alpha: Number = 1,
     ) -> Axes:
         """
         Plot the dataset and its bounds.
@@ -214,6 +215,8 @@ class Dataset:
         title : str | ``None``, optional
             Title to use for the plot. The default will call ``str()`` on the
             Dataset. Pass ``None`` to leave the plot untitled.
+        alpha : Number, default ``1``
+            The transparency to use for the points in the plot.
 
         Returns
         -------
@@ -225,7 +228,7 @@ class Dataset:
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
         ax.axis('equal')
-        ax.scatter(self.data.x, self.data.y, s=2, color='black')
+        ax.scatter(self.data.x, self.data.y, s=2, color='black', alpha=alpha)
         ax.set(xlabel='', ylabel='', title=self if title == 'default' else title)
 
         if show_bounds:

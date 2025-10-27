@@ -66,6 +66,28 @@ shape inherits from :class:`.LineCollection` and uses the morph bounds
 Since we inherit from :class:`.LineCollection` here, we don't need to define
 the ``distance()`` and ``plot()`` methods (unless we want to override them).
 
+.. tip::
+   You can use the :func:`.plot_shape_on_dataset` function to visualize your
+   shape's positioning relative to a given dataset. Your shape can exceed the data
+   bounds (:attr:`.Dataset.data_bounds`); however, it should not exceed the morph
+   bounds (:attr:`.Dataset.morph_bounds`):
+
+   .. plot::
+      :scale: 75
+      :include-source:
+      :caption:
+         Visualization of the :class:`.XLines` shape when calculated based on the
+         music :class:`.Dataset`, with the dataset's bounds.
+
+      from data_morph.data.loader import DataLoader
+      from data_morph.plotting.diagnostics import plot_shape_on_dataset
+      from data_morph.shapes.lines import XLines
+
+
+      dataset = DataLoader.load_dataset('music')
+      shape = XLines(dataset)
+      plot_shape_on_dataset(dataset, shape, show_bounds=True, alpha=0.1)
+
 Test out the shape
 ------------------
 

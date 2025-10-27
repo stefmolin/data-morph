@@ -536,9 +536,12 @@
 <span class="sd">            This shape is generated using the panda dataset.</span>
 
 <span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.plotting.diagnostics import plot_shape_on_dataset</span>
 <span class="sd">        from data_morph.shapes.points import FigureEight</span>
 
-<span class="sd">        _ = FigureEight(DataLoader.load_dataset(&#39;panda&#39;)).plot()</span>
+<span class="sd">        dataset = DataLoader.load_dataset(&#39;panda&#39;)</span>
+<span class="sd">        shape = FigureEight(dataset)</span>
+<span class="sd">        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.25)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -550,7 +553,23 @@
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    This shape uses the formula for the `Lemniscate of Bernoulli</span>
-<span class="sd">    &lt;https://en.wikipedia.org/wiki/Lemniscate_of_Bernoulli&gt;`_.</span>
+<span class="sd">    &lt;https://en.wikipedia.org/wiki/Lemniscate_of_Bernoulli&gt;`_. It will orient itself</span>
+<span class="sd">    vertically or horizontally depending on which direction has a larger range in the</span>
+<span class="sd">    input dataset. For example, the panda dataset used above resulted in a horizontal</span>
+<span class="sd">    orientation, but the music dataset results in a vertical orientation:</span>
+
+<span class="sd">    .. plot::</span>
+<span class="sd">       :scale: 75</span>
+<span class="sd">       :caption:</span>
+<span class="sd">            This shape is generated using the music dataset.</span>
+
+<span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.plotting.diagnostics import plot_shape_on_dataset</span>
+<span class="sd">        from data_morph.shapes.points import FigureEight</span>
+
+<span class="sd">        dataset = DataLoader.load_dataset(&#39;music&#39;)</span>
+<span class="sd">        shape = FigureEight(dataset)</span>
+<span class="sd">        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.1)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;figure_eight&#39;</span>

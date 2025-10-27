@@ -28,6 +28,7 @@
    :recursive:
 
    animation
+   diagnostics
    static
    style
 

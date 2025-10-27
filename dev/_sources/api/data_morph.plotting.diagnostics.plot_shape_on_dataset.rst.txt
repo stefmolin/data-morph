@@ -1,0 +1,6 @@
+plot\_shape\_on\_dataset
+========================
+
+.. currentmodule:: data_morph.plotting.diagnostics
+
+.. autofunction:: plot_shape_on_dataset

@@ -1,0 +1,30 @@
+diagnostics
+===========
+
+.. automodule:: data_morph.plotting.diagnostics
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      plot_shape_on_dataset
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

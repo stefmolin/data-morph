@@ -534,9 +534,12 @@
 <span class="sd">            This shape is generated using the panda dataset.</span>
 
 <span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.plotting.diagnostics import plot_shape_on_dataset</span>
 <span class="sd">        from data_morph.shapes.lines import SlantUpLines</span>
 
-<span class="sd">        _ = SlantUpLines(DataLoader.load_dataset(&#39;panda&#39;)).plot()</span>
+<span class="sd">        dataset = DataLoader.load_dataset(&#39;panda&#39;)</span>
+<span class="sd">        shape = SlantUpLines(dataset)</span>
+<span class="sd">        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.25)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

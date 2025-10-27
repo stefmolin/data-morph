@@ -527,10 +527,10 @@ for use as a target in the morphing process.</p>
 <nav class="contents local" id="steps">
 <p class="topic-title">Steps</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#select-the-appropriate-base-class" id="id1">Select the appropriate base class</a></p></li>
-<li><p><a class="reference internal" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset" id="id2">Define the scale and placement of the shape based on the dataset</a></p></li>
-<li><p><a class="reference internal" href="#test-out-the-shape" id="id3">Test out the shape</a></p></li>
-<li><p><a class="reference internal" href="#optional-contribute-the-shape" id="id4">(Optional) Contribute the shape</a></p></li>
+<li><p><a class="reference internal" href="#select-the-appropriate-base-class" id="id3">Select the appropriate base class</a></p></li>
+<li><p><a class="reference internal" href="#define-the-scale-and-placement-of-the-shape-based-on-the-dataset" id="id4">Define the scale and placement of the shape based on the dataset</a></p></li>
+<li><p><a class="reference internal" href="#test-out-the-shape" id="id5">Test out the shape</a></p></li>
+<li><p><a class="reference internal" href="#optional-contribute-the-shape" id="id6">(Optional) Contribute the shape</a></p></li>
 </ul>
 </nav>
 <hr class="docutils" />
@@ -582,6 +582,31 @@ shape inherits from <a class="reference internal" href="../api/data_morph.shapes
 </div>
 <p>Since we inherit from <a class="reference internal" href="../api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection" title="data_morph.shapes.bases.line_collection.LineCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineCollection</span></code></a> here, we don’t need to define
 the <code class="docutils literal notranslate"><span class="pre">distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> methods (unless we want to override them).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use the <a class="reference internal" href="../api/data_morph.plotting.diagnostics.plot_shape_on_dataset.html#data_morph.plotting.diagnostics.plot_shape_on_dataset" title="data_morph.plotting.diagnostics.plot_shape_on_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_shape_on_dataset()</span></code></a> function to visualize your
+shape’s positioning relative to a given dataset. Your shape can exceed the data
+bounds (<a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.data_bounds" title="data_morph.data.dataset.Dataset.data_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.data_bounds</span></code></a>); however, it should not exceed the morph
+bounds (<a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.morph_bounds" title="data_morph.data.dataset.Dataset.morph_bounds"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.morph_bounds</span></code></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.data.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.plotting.diagnostics</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_shape_on_dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_morph.shapes.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">XLines</span>
+
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;music&#39;</span><span class="p">)</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="n">XLines</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="n">plot_shape_on_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">show_bounds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default" id="id1">
+<a class="plot-directive reference internal image-reference" href="../_images/shape-creation-1.png"><img alt="../_images/shape-creation-1.png" class="plot-directive" src="../_images/shape-creation-1.png" style="width: 384.0px; height: 288.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Visualization of the <a class="reference internal" href="../api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines" title="data_morph.shapes.lines.XLines"><code class="xref py py-class docutils literal notranslate"><span class="pre">XLines</span></code></a> shape when calculated based on the
+music <a class="reference internal" href="../api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, with the dataset’s bounds.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="test-out-the-shape">
 <h2>Test out the shape<a class="headerlink" href="#test-out-the-shape" title="Link to this heading">#</a></h2>
@@ -642,9 +667,12 @@ in the package:</p>
 <span class="sd">            This shape is generated using the panda dataset.</span>
 
 <span class="sd">        from data_morph.data.loader import DataLoader</span>
+<span class="sd">        from data_morph.plotting.diagnostics import plot_shape_on_dataset</span>
 <span class="sd">        from data_morph.shapes.lines import XLines</span>
 
-<span class="sd">        _ = XLines(DataLoader.load_dataset(&#39;panda&#39;)).plot()</span>
+<span class="sd">        dataset = DataLoader.load_dataset(&#39;panda&#39;)</span>
+<span class="sd">        shape = XLines(dataset)</span>
+<span class="sd">        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.25)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

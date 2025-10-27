@@ -513,6 +513,10 @@
 <li class="toctree-l3"><a class="reference internal" href="data_morph.plotting.animation.stitch_gif_animation.html">stitch_gif_animation</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="data_morph.plotting.diagnostics.html">diagnostics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="data_morph.plotting.diagnostics.plot_shape_on_dataset.html">plot_shape_on_dataset</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="data_morph.plotting.static.html">static</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="data_morph.plotting.static.plot.html">plot</a></li>
 </ul>
@@ -737,7 +741,17 @@ vertical; otherwise, it will be horizontal.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>This shape uses the formula for the <a class="reference external" href="https://en.wikipedia.org/wiki/Lemniscate_of_Bernoulli">Lemniscate of Bernoulli</a>.</p>
+<p>This shape uses the formula for the <a class="reference external" href="https://en.wikipedia.org/wiki/Lemniscate_of_Bernoulli">Lemniscate of Bernoulli</a>. It will orient itself
+vertically or horizontally depending on which direction has a larger range in the
+input dataset. For example, the panda dataset used above resulted in a horizontal
+orientation, but the music dataset results in a vertical orientation:</p>
+<figure class="align-default" id="id3">
+<a class="plot-directive reference internal image-reference" href="../_images/data_morph-shapes-points-figure_eight-FigureEight-2.png"><img alt="../_images/data_morph-shapes-points-figure_eight-FigureEight-2.png" class="plot-directive" src="../_images/data_morph-shapes-points-figure_eight-FigureEight-2.png" style="width: 384.0px; height: 288.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">This shape is generated using the music dataset.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <dl class="py method">
 <dt class="sig sig-object py" id="data_morph.shapes.points.figure_eight.FigureEight.distance">
 <span class="sig-name descname"><span class="pre">distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Number</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#data_morph.shapes.points.figure_eight.FigureEight.distance" title="Link to this definition">#</a></dt>

@@ -35,15 +35,15 @@ repos:
         exclude: (tests|docs)/.*
 
   - repo: https://github.com/stefmolin/docstringify
-    rev: 1.1.1
+    rev: 2.0.0
     hooks:
-      - id: docstringify
+      - id: docstringify-edit
         name: docstringify source code with numpydoc
-        args: [--make-changes-inplace=numpydoc]
+        args: [--overwrite, --style=numpydoc]
         files: src/.*
-      - id: docstringify
+      - id: docstringify-edit
         name: docstringify tests with stubs
-        args: [--make-changes-inplace=stub]
+        args: [--overwrite, --style=stub]
         files: tests/.*
 
   - repo: https://github.com/astral-sh/ruff-pre-commit

@@ -1,6 +1,5 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-
 requires = [
   "setuptools==76.1.0",
   "setuptools-scm",
@@ -42,23 +41,20 @@ classifiers = [
 dynamic = [
   "version",
 ]
-
 dependencies = [
   "matplotlib>=3.10",
   "numpy>=1.23.0",
   "pandas>=2.1",
   "rich>=13.9.4",
 ]
-
 urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
-urls."Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
-urls."Homepage" = "https://stefaniemolin.com/data-morph"
-urls."Source" = "https://github.com/stefmolin/data-morph"
+urls.Documentation = "https://stefaniemolin.com/data-morph/stable/api.html"
+urls.Homepage = "https://stefaniemolin.com/data-morph"
+urls.Source = "https://github.com/stefmolin/data-morph"
 scripts.data-morph = "data_morph.cli:main"
 
 [dependency-groups]
 dev = [ "pre-commit", { include-group = "docs" }, { include-group = "test" } ]
-
 test = [
   "pytest>=8.3.4",
   "pytest-cov>=4.1.0",
@@ -66,7 +62,6 @@ test = [
   "pytest-randomly>=3.12.0",
   "pytest-xdist>=3.6.1",
 ]
-
 docs = [
   "pydata-sphinx-theme>=0.15.3",
   "sphinx>=7.2.6",
@@ -75,21 +70,17 @@ docs = [
   "sphinx-design>=0.6.1",
 ]
 
-[tool.setuptools.packages.find]
-where = [
+[tool.setuptools]
+dynamic.version = { attr = "data_morph.__version__" }
+package-data."data_morph.data.starter_shapes" = [
+  "*",
+]
+package-data."data_morph.plotting.config" = [
+  "*",
+]
+packages.find.where = [
   "src",
 ]
-
-[tool.setuptools.package-data]
-"data_morph.data.starter_shapes" = [
-  "*",
-]
-"data_morph.plotting.config" = [
-  "*",
-]
-
-[tool.setuptools.dynamic]
-version = { attr = "data_morph.__version__" }
 
 [tool.ruff]
 line-length = 88
@@ -126,13 +117,11 @@ lint.ignore = [
   "E501",   # line-too-long
   "TRY003", # avoid specifying long messages outside the exception class (revisit later and consider making custom exceptions)
 ]
-
 lint.extend-per-file-ignores."docs/*" = [
   "ANN",
   "ERA",
-] # docs build (allow commented code and don't require annotations)
-
-lint.extend-per-file-ignores."tests/*" = [ "ANN" ] # don't require annotations for tests
+]  # docs build (allow commented code and don't require annotations)
+lint.extend-per-file-ignores."tests/*" = [ "ANN" ]  # don't require annotations for tests
 lint.isort.known-first-party = [
   "data_morph",
 ]
@@ -140,10 +129,10 @@ lint.isort.split-on-trailing-comma = false
 
 [tool.codespell]
 ignore-words-list = "recuse"
-ignore-regex = 'https://([\w/\.])+'
+ignore-regex = "https://([\\w/\\.])+"
 
-[tool.pytest.ini_options]
-addopts = [
+[tool.pytest]
+ini_options.addopts = [
   "-ra",
   "-l",
   "-v",
@@ -157,11 +146,11 @@ addopts = [
   "--no-cov-on-fail",
   "--cov-report=term-missing",
 ]
-xfail_strict = true
-testpaths = [
+ini_options.xfail_strict = true
+ini_options.testpaths = [
   "tests",
 ]
-markers = [
+ini_options.markers = [
   "bounds: Run tests on bounds logic.",
   "circles: Run tests on circular shapes.",
   "cli: Run tests involving the CLI.",
@@ -184,12 +173,12 @@ checks = [
   "SA01", # or a see also section
   "SS06", # and don't require the summary to fit on one line
 ]
-exclude = [ # don't report on checks for these
-  '\.__init__$',
-  '\.__iter__$',
-  '\.__repr__$',
-  '\.__str__$',
+exclude = [  # don't report on checks for these
+  "\\.__init__$",
+  "\\.__iter__$",
+  "\\.__repr__$",
+  "\\.__str__$",
 ]
-override_SS05 = [ # allow docstrings to start with these words
-  '^Unambiguous ',
+override_SS05 = [  # allow docstrings to start with these words
+  "^Unambiguous ",
 ]

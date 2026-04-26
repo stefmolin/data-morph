@@ -1,5 +1,7 @@
 """Star shape."""
 
+import itertools
+
 from ...data.dataset import Dataset
 from ..bases.line_collection import LineCollection
 
@@ -13,11 +15,13 @@ class Star(LineCollection):
        :caption:
             This shape is generated using the panda dataset.
 
-        import matplotlib.pyplot as plt
         from data_morph.data.loader import DataLoader
+        from data_morph.plotting.diagnostics import plot_shape_on_dataset
         from data_morph.shapes.lines import Star
 
-        _ = Star(DataLoader.load_dataset('panda')).plot()
+        dataset = DataLoader.load_dataset('panda')
+        shape = Star(dataset)
+        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.25)
 
     Parameters
     ----------
@@ -46,4 +50,4 @@ class Star(LineCollection):
             [xmin, ymin + y_range * 0.625],
         ]
 
-        super().__init__(*list(zip(pts[:-1], pts[1:])))
+        super().__init__(*list(itertools.pairwise(pts)))

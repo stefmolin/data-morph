@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Data Morph" src="https://github.com/stefmolin/data-morph/raw/main/docs/_static/logo.png">
+  <img alt="Data Morph" src="https://stefaniemolin.com/data-morph/stable/_static/logo.png">
 
   <hr>
 
@@ -70,7 +70,7 @@
 Data Morph transforms an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing. It is intended to be used as a teaching tool to illustrate the importance of data visualization (see the [Data Morph in the Classroom](https://stefaniemolin.com/data-morph/stable/index.html#classroom-ideas) section for ideas).
 
 <div align="center">
-  <img alt="Morphing the panda dataset into the star shape." src="https://raw.githubusercontent.com/stefmolin/data-morph/main/docs/_static/panda-to-star-eased.gif">
+  <img alt="Morphing the panda dataset into the star shape." src="https://stefaniemolin.com/data-morph/stable/_images/panda-to-star-eased.gif">
   <br/>
 </div>
 
@@ -98,7 +98,7 @@ Once installed, Data Morph can be used on the command line or as an importable P
 Run `data-morph` on the command line:
 
 ```console
-$ data-morph --start-shape panda --target-shape star
+$ data-morph --start panda --target star
 ```
 
 This produces the animation in the newly-created `morphed_data` directory within your current working directory (shown above). More examples, including how to run multiple transformations in parallel, can be found in the [documentation](https://stefaniemolin.com/data-morph/).

@@ -29,6 +29,8 @@ def test_frame_stitching(sample_data, tmp_path, forward_only):
             y_bounds=bounds,
             save_to=(tmp_path / f'{start_shape}-to-{target_shape}-{frame}.png'),
             decimals=2,
+            with_median=False,
+            marginals=None,
         )
 
     duration_multipliers = [0, 0, 0, 0, 1, 1, *frame_numbers[2:], frame_numbers[-1]]
@@ -119,6 +121,6 @@ def test_invalid_easing_step(ease_function, invalid_step):
     ease_func = getattr(animation, ease_function)
 
     with pytest.raises(
-        ValueError, match='Step must be an integer or float, between 0 and 1.'
+        ValueError, match='Step must be an integer or float, between 0 and 1'
     ):
         ease_func(invalid_step)

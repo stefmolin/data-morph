@@ -18,9 +18,12 @@ class Scatter(PointCollection):
             This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
+        from data_morph.plotting.diagnostics import plot_shape_on_dataset
         from data_morph.shapes.points import Scatter
 
-        _ = Scatter(DataLoader.load_dataset('panda')).plot()
+        dataset = DataLoader.load_dataset('panda')
+        shape = Scatter(dataset)
+        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.1)
 
     Parameters
     ----------
@@ -30,21 +33,16 @@ class Scatter(PointCollection):
 
     def __init__(self, dataset: Dataset) -> None:
         rng = np.random.default_rng(1)
-        center = (dataset.data.x.mean(), dataset.data.y.mean())
+        morph_range = dataset.morph_bounds.range
+        center = dataset.morph_bounds.center
         points = [center]
-        max_radius = max(dataset.data.x.std(), dataset.data.y.std())
         points.extend(
             [
                 (
-                    center[0]
-                    + np.cos(angle) * radius
-                    + rng.standard_normal() * max_radius,
-                    center[1]
-                    + np.sin(angle) * radius
-                    + rng.standard_normal() * max_radius,
+                    center[0] + np.cos(angle) * rng.uniform(0, morph_range[0] / 2),
+                    center[1] + np.sin(angle) * rng.uniform(0, morph_range[1] / 2),
                 )
-                for radius in np.linspace(max_radius // 5, max_radius, num=5)
-                for angle in np.linspace(0, 360, num=50, endpoint=False)
+                for angle in np.linspace(0, 720, num=100, endpoint=False)
             ]
         )
         super().__init__(*points)

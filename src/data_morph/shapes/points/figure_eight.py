@@ -16,9 +16,12 @@ class FigureEight(PointCollection):
             This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
+        from data_morph.plotting.diagnostics import plot_shape_on_dataset
         from data_morph.shapes.points import FigureEight
 
-        _ = FigureEight(DataLoader.load_dataset('panda')).plot()
+        dataset = DataLoader.load_dataset('panda')
+        shape = FigureEight(dataset)
+        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.25)
 
     Parameters
     ----------
@@ -30,7 +33,23 @@ class FigureEight(PointCollection):
     Notes
     -----
     This shape uses the formula for the `Lemniscate of Bernoulli
-    <https://en.wikipedia.org/wiki/Lemniscate_of_Bernoulli>`_.
+    <https://en.wikipedia.org/wiki/Lemniscate_of_Bernoulli>`_. It will orient itself
+    vertically or horizontally depending on which direction has a larger range in the
+    input dataset. For example, the panda dataset used above resulted in a horizontal
+    orientation, but the music dataset results in a vertical orientation:
+
+    .. plot::
+       :scale: 75
+       :caption:
+            This shape is generated using the music dataset.
+
+        from data_morph.data.loader import DataLoader
+        from data_morph.plotting.diagnostics import plot_shape_on_dataset
+        from data_morph.shapes.points import FigureEight
+
+        dataset = DataLoader.load_dataset('music')
+        shape = FigureEight(dataset)
+        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.1)
     """
 
     name = 'figure_eight'

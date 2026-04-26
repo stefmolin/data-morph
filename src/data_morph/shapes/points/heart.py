@@ -16,9 +16,12 @@ class Heart(PointCollection):
             This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
+        from data_morph.plotting.diagnostics import plot_shape_on_dataset
         from data_morph.shapes.points import Heart
 
-        _ = Heart(DataLoader.load_dataset('panda')).plot()
+        dataset = DataLoader.load_dataset('panda')
+        shape = Heart(dataset)
+        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.25)
 
     Parameters
     ----------
@@ -35,8 +38,9 @@ class Heart(PointCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        _, xmax = dataset.data_bounds.x_bounds
-        x_shift, y_shift = dataset.data_bounds.center
+        data_bounds = dataset.data_bounds
+        (_, xmax), (_, ymax) = data_bounds
+        x_shift, y_shift = data_bounds.center
 
         t = np.linspace(-3, 3, num=80)
 
@@ -44,8 +48,10 @@ class Heart(PointCollection):
         y = 13 * np.cos(t) - 5 * np.cos(2 * t) - 2 * np.cos(3 * t) - np.cos(4 * t)
 
         # scale by the half the widest width of the heart
-        scale_factor = (xmax - x_shift) / 16
+        scale_factor = min((xmax - x_shift), (ymax - y_shift)) / 16
 
         super().__init__(
-            *np.stack([x * scale_factor + x_shift, y * scale_factor + y_shift], axis=1)
+            *self._center(
+                np.stack([x * scale_factor, y * scale_factor], axis=1), data_bounds
+            )
         )

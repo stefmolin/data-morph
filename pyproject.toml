@@ -24,18 +24,18 @@ authors = [
   { name = "Aaron Stevens", email = "bheklilr2@gmail.com" },
   { name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com" },
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Framework :: Matplotlib",
   "Intended Audience :: Education",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
@@ -44,31 +44,36 @@ dynamic = [
 ]
 
 dependencies = [
-  "matplotlib>=3.7",
-  "numpy>=1.20",
-  "pandas>=1.2",
+  "matplotlib>=3.10",
+  "numpy>=1.23.0",
+  "pandas>=2.1",
   "rich>=13.9.4",
 ]
-optional-dependencies.dev = [
-  "pre-commit",
-  "pytest",
-  "pytest-cov",
-  "pytest-mock",
-  "pytest-randomly",
-  "pytest-xdist",
+
+urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
+urls."Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
+urls."Homepage" = "https://stefaniemolin.com/data-morph"
+urls."Source" = "https://github.com/stefmolin/data-morph"
+scripts.data-morph = "data_morph.cli:main"
+
+[dependency-groups]
+dev = [ "pre-commit", { include-group = "docs" }, { include-group = "test" } ]
+
+test = [
+  "pytest>=8.3.4",
+  "pytest-cov>=4.1.0",
+  "pytest-mock>=3.10.0",
+  "pytest-randomly>=3.12.0",
+  "pytest-xdist>=3.6.1",
 ]
-optional-dependencies.docs = [
+
+docs = [
   "pydata-sphinx-theme>=0.15.3",
   "sphinx>=7.2.6",
   "sphinx-argparse-cli>=1.16.0",
   "sphinx-copybutton>=0.5.1",
   "sphinx-design>=0.6.1",
 ]
-urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
-urls."Documentation" = "https://stefaniemolin.com/data-morph/stable/api.html"
-urls."Homepage" = "https://stefaniemolin.com/data-morph"
-urls."Source" = "https://github.com/stefmolin/data-morph"
-scripts.data-morph = "data_morph.cli:main"
 
 [tool.setuptools.packages.find]
 where = [
@@ -90,6 +95,7 @@ version = { attr = "data_morph.__version__" }
 line-length = 88
 format.indent-style = "space"
 format.quote-style = "single"
+format.skip-magic-trailing-comma = false
 format.docstring-code-format = true
 lint.select = [
   "ANN",  # flake8-annotations
@@ -130,6 +136,7 @@ lint.extend-per-file-ignores."tests/*" = [ "ANN" ] # don't require annotations f
 lint.isort.known-first-party = [
   "data_morph",
 ]
+lint.isort.split-on-trailing-comma = false
 
 [tool.codespell]
 ignore-words-list = "recuse"
@@ -179,11 +186,10 @@ checks = [
 ]
 exclude = [ # don't report on checks for these
   '\.__init__$',
+  '\.__iter__$',
   '\.__repr__$',
   '\.__str__$',
 ]
 override_SS05 = [ # allow docstrings to start with these words
-  '^Process ',
-  '^Assess ',
-  '^Access ',
+  '^Unambiguous ',
 ]

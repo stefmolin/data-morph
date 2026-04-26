@@ -38,16 +38,31 @@ Run ``data-morph`` on the command line:
 
 .. code:: console
 
-   $ data-morph --start-shape panda --target-shape star
+   $ data-morph --start panda --target star
 
 This produces the following animation in the newly-created ``morphed_data`` directory
 within your current working directory:
 
 .. figure:: _static/panda-to-star.gif
-   :alt: Morphing the panda dataset into the star shape.
+   :alt: Morphing the panda dataset into the star shape with marginal plots.
    :align: center
 
-   Morphing the panda :class:`.Dataset` into the star :class:`.Shape`.
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape` with marginal plots.
+
+If you don't want the marginal plots (the probability density histograms on the sides),
+you can use classic mode:
+
+.. code:: console
+
+   $ data-morph --start panda --target star --classic
+
+Animations generated in classic mode include only the scatter plot and the summary statistics:
+
+.. figure:: _static/panda-to-star-classic.gif
+   :alt: Morphing the panda dataset into the star shape using classic mode.
+   :align: center
+
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape` using classic mode.
 
 You can smooth the transition with the ``--ease`` or ``--ease-in`` and ``--ease-out`` flags.
 The ``--freeze`` flag allows you to start the animation with the specified number of frames
@@ -55,7 +70,7 @@ of the initial shape:
 
 .. code:: console
 
-   $ data-morph --start-shape panda --target-shape star --freeze 50 --ease
+   $ data-morph --start panda --target star --freeze 50 --ease
 
 Here is the resulting animation:
 
@@ -74,7 +89,7 @@ the command below:
 
 .. code:: console
 
-   $ data-morph --start-shape music soccer --target-shape heart diamond
+   $ data-morph --start music soccer --target heart diamond
 
 .. tip::
 
@@ -84,7 +99,7 @@ the command below:
 
    .. code:: console
 
-      $ data-morph --start-shape music soccer --target-shape heart diamond --workers 0
+      $ data-morph --start music soccer --target heart diamond --workers 0
 
    If you have the GNU ``parallel`` command on your machine, you can use it to run
    a slightly faster parallelized Data Morph (since it incurs less Python overhead),
@@ -93,7 +108,7 @@ the command below:
    .. code:: console
 
       $ parallel --progress -j0 \
-      >     data-morph --start-shape {1} --target-shape {2} \
+      >     data-morph --start {1} --target {2} \
       >     ::: music soccer ::: heart diamond
 
    Check out the `GNU parallel documentation <https://www.gnu.org/software/parallel/sphinx.html>`_

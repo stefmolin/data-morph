@@ -6,6 +6,7 @@ from numbers import Number
 from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ..bounds.bounding_box import BoundingBox
 from ..bounds.interval import Interval
@@ -55,19 +56,27 @@ class Dataset:
         self.data: pd.DataFrame = self._validate_data(data).pipe(
             self._scale_data, scale
         )
-        """pandas.DataFrame: DataFrame containing columns x and y."""
+        """DataFrame containing columns x and y."""
 
         self.name: str = name
-        """str: The name to use for the dataset."""
+        """The name to use for the dataset."""
 
         self.data_bounds: BoundingBox = self._derive_data_bounds()
-        """BoundingBox: The bounds of the data."""
+        """The bounds of the data."""
 
         self.morph_bounds: BoundingBox = self._derive_morphing_bounds()
-        """BoundingBox: The limits for the morphing process."""
+        """The limits for the morphing process."""
 
         self.plot_bounds: BoundingBox = self._derive_plotting_bounds()
-        """BoundingBox: The bounds to use when plotting the morphed data."""
+        """The bounds to use when plotting the morphed data."""
+
+        self.marginals: tuple[
+            tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]
+        ] = (
+            np.histogram(self.data.x, bins=30, range=self.plot_bounds.x_bounds),
+            np.histogram(self.data.y, bins=30, range=self.plot_bounds.y_bounds),
+        )
+        """The counts per bin and bin boundaries for generating marginal plots."""
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} name={self.name} scaled={self._scaled}>'
@@ -192,6 +201,7 @@ class Dataset:
         ax: Axes | None = None,
         show_bounds: bool = True,
         title: str | None = 'default',
+        alpha: Number = 1,
     ) -> Axes:
         """
         Plot the dataset and its bounds.
@@ -205,6 +215,8 @@ class Dataset:
         title : str | ``None``, optional
             Title to use for the plot. The default will call ``str()`` on the
             Dataset. Pass ``None`` to leave the plot untitled.
+        alpha : Number, default ``1``
+            The transparency to use for the points in the plot.
 
         Returns
         -------
@@ -216,7 +228,7 @@ class Dataset:
             fig.get_layout_engine().set(w_pad=0.2, h_pad=0.2)
 
         ax.axis('equal')
-        ax.scatter(self.data.x, self.data.y, s=2, color='black')
+        ax.scatter(self.data.x, self.data.y, s=2, color='black', alpha=alpha)
         ax.set(xlabel='', ylabel='', title=self if title == 'default' else title)
 
         if show_bounds:

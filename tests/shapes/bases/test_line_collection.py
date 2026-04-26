@@ -3,7 +3,9 @@
 import itertools
 import re
 
+import matplotlib.pyplot as plt
 import pytest
+from matplotlib.axes import Axes
 
 from data_morph.shapes.bases.line_collection import LineCollection
 
@@ -49,3 +51,13 @@ class TestLineCollection:
             )
             is not None
         )
+
+    @pytest.mark.parametrize('existing_ax', [True, False])
+    def test_plot(self, line_collection, existing_ax):
+        """Test the plot() method is working."""
+        input_ax = plt.subplots()[1] if existing_ax else None
+        result_ax = line_collection.plot(input_ax)
+
+        assert isinstance(result_ax, Axes)
+        assert len(result_ax.lines) == len(line_collection.lines)
+        assert pytest.approx(result_ax.get_aspect()) == 1.0

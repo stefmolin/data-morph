@@ -19,9 +19,12 @@ class Spade(PointCollection):
             This shape is generated using the panda dataset.
 
         from data_morph.data.loader import DataLoader
+        from data_morph.plotting.diagnostics import plot_shape_on_dataset
         from data_morph.shapes.points import Spade
 
-        _ = Spade(DataLoader.load_dataset('panda')).plot()
+        dataset = DataLoader.load_dataset('panda')
+        shape = Spade(dataset)
+        plot_shape_on_dataset(dataset, shape, show_bounds=False, alpha=0.25)
 
     Parameters
     ----------
@@ -30,8 +33,9 @@ class Spade(PointCollection):
     """
 
     def __init__(self, dataset: Dataset) -> None:
-        _, xmax = dataset.data_bounds.x_bounds
-        x_shift, y_shift = dataset.data_bounds.center
+        data_bounds = dataset.data_bounds
+        _, xmax = data_bounds.x_bounds
+        x_shift, y_shift = data_bounds.center
 
         # upside-down heart
         heart_points = self._get_inverted_heart(dataset, y_shift)
@@ -43,7 +47,7 @@ class Spade(PointCollection):
         x = np.concatenate((heart_points[:, 0], base_x), axis=0)
         y = np.concatenate((heart_points[:, 1], base_y), axis=0)
 
-        super().__init__(*np.stack([x, y], axis=1))
+        super().__init__(*self._center(np.stack([x, y], axis=1), data_bounds))
 
     @staticmethod
     def _get_inverted_heart(dataset: Dataset, y_shift: Number) -> np.ndarray:

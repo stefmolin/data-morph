@@ -16,6 +16,8 @@ if TYPE_CHECKING:
 
     from matplotlib.axes import Axes
 
+    from ...bounds.bounding_box import BoundingBox
+
 
 class PointCollection(Shape):
     """
@@ -36,6 +38,32 @@ class PointCollection(Shape):
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} of {len(self.points)} points>'
+
+    @staticmethod
+    def _center(points: np.ndarray, bounds: BoundingBox) -> np.ndarray:
+        """
+        Center the points within the bounding box.
+
+        Parameters
+        ----------
+        points : np.ndarray
+            The points to center.
+        bounds : BoundingBox
+            The bounding box within which to center the points.
+
+        Returns
+        -------
+        np.ndarray
+            The centered points.
+        """
+        maxes = points.max(axis=0)
+        span = maxes - points.min(axis=0)
+        gap = (np.array(bounds.range) - span) / 2
+
+        (_, xmax), (_, ymax) = bounds
+        shift = np.array([xmax, ymax]) - maxes - gap
+
+        return points + shift
 
     def distance(self, x: Number, y: Number) -> float:
         """

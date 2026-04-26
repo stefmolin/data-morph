@@ -27,25 +27,25 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_argparse_cli.css" />
     <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/tutorials/style.css?v=61399967" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=c2d0aac2"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=c677161f"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -53,17 +53,24 @@
     <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){ dataLayer.push(arguments); }
+                gtag('consent', 'default', {
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied',
+                    'analytics_storage': 'denied'
+                });
                 gtag('js', new Date());
                 gtag('config', 'G-FMNM78QSKK');
             </script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'cli';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://stefaniemolin.com/data-morph/stable/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://stefaniemolin.com/data-morph/dev/cli.html" />
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -73,20 +80,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -112,7 +125,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -522,7 +535,7 @@
 <section id="data-morph---CLI-interface">
 <h2>data-morph - CLI interface<a class="headerlink" href="#data-morph---CLI-interface" title="Link to this heading">#</a></h2>
 <p>Morph an input dataset of 2D points into select shapes, while preserving the summary statistics to a given number of decimal points through simulated annealing.</p>
-<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">data-morph [-h] [--version] [-w WORKERS] --start START_SHAPE [START_SHAPE ...]</span>
+<div class="sphinx-argparse-cli-wrap highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">data-morph [-h] [--version] [-w WORKERS] --start START_SHAPE [START_SHAPE ...]</span>
 <span class="go">           --target TARGET_SHAPE [TARGET_SHAPE ...] [--decimals {0,1,2,3,4,5}]</span>
 <span class="go">           [--iterations ITERATIONS] [--scale SCALE] [--seed SEED] [--shake SHAKE]</span>
 <span class="go">           [--with-median] [--keep-frames] [-o DIRECTORY] [--write-data] [--classic] [--ease]</span>
@@ -541,8 +554,8 @@
 <h3>Shape Configuration (required)<a class="headerlink" href="#data-morph-Shape-Configuration-(required)" title="Link to this heading">#</a></h3>
 <p>Specify the start and target shapes.</p>
 <ul class="simple">
-<li><p id="data-morph---start"><span id="data-morph---start-shape"></span><a class="reference internal" href="#data-morph---start" title="data-morph --start"><strong><code class="docutils literal notranslate"><span class="pre">--start</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">START_SHAPE</span></code>, <a class="reference internal" href="#data-morph---start-shape" title="data-morph --start-shape"><strong><code class="docutils literal notranslate"><span class="pre">--start-shape</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">START_SHAPE</span></code> - The starting shape(s). A valid starting shape could be any of [<code class="docutils literal notranslate"><span class="pre">'bunny'</span></code>, <code class="docutils literal notranslate"><span class="pre">'cat'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dino'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dog'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gorilla'</span></code>, <code class="docutils literal notranslate"><span class="pre">'music'</span></code>, <code class="docutils literal notranslate"><span class="pre">'panda'</span></code>, <code class="docutils literal notranslate"><span class="pre">'pi'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Python'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SDS'</span></code>, <code class="docutils literal notranslate"><span class="pre">'sheep'</span></code>, <code class="docutils literal notranslate"><span class="pre">'soccer'</span></code>] or a path to a CSV file, in which case it should have two columns <code class="docutils literal notranslate"><span class="pre">'x'</span></code> and <code class="docutils literal notranslate"><span class="pre">'y'</span></code>. See the documentation for visualizations of the built-in datasets. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
-<li><p id="data-morph---target"><span id="data-morph---target-shape"></span><a class="reference internal" href="#data-morph---target" title="data-morph --target"><strong><code class="docutils literal notranslate"><span class="pre">--target</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">TARGET_SHAPE</span></code>, <a class="reference internal" href="#data-morph---target-shape" title="data-morph --target-shape"><strong><code class="docutils literal notranslate"><span class="pre">--target-shape</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">TARGET_SHAPE</span></code> - The shape(s) to convert to. If multiple shapes are provided, the starting shape will be converted to each target shape separately. Valid target shapes are <code class="docutils literal notranslate"><span class="pre">'bullseye'</span></code>, <code class="docutils literal notranslate"><span class="pre">'circle'</span></code>, <code class="docutils literal notranslate"><span class="pre">'club'</span></code>, <code class="docutils literal notranslate"><span class="pre">'diamond'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dots'</span></code>, <code class="docutils literal notranslate"><span class="pre">'down_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'figure_eight'</span></code>, <code class="docutils literal notranslate"><span class="pre">'h_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'heart'</span></code>, <code class="docutils literal notranslate"><span class="pre">'high_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'left_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rectangle'</span></code>, <code class="docutils literal notranslate"><span class="pre">'right_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rings'</span></code>, <code class="docutils literal notranslate"><span class="pre">'scatter'</span></code>, <code class="docutils literal notranslate"><span class="pre">'slant_down'</span></code>, <code class="docutils literal notranslate"><span class="pre">'slant_up'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spade'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spiral'</span></code>, <code class="docutils literal notranslate"><span class="pre">'star'</span></code>, <code class="docutils literal notranslate"><span class="pre">'up_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'v_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'wide_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'x'</span></code>. Use <code class="docutils literal notranslate"><span class="pre">'all'</span></code> to convert to all target shapes in a single run. See the documentation for visualizations of the available target shapes. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p id="data-morph---start"><span id="data-morph---start-shape"></span><a class="reference internal" href="#data-morph---start" title="data-morph --start"><strong><code class="docutils literal notranslate"><span class="pre">--start</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">START_SHAPE</span></code>, <a class="reference internal" href="#data-morph---start-shape" title="data-morph --start-shape"><strong><code class="docutils literal notranslate"><span class="pre">--start-shape</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">START_SHAPE</span></code> - The starting shape(s). A valid starting shape could be any of [<code class="docutils literal notranslate"><span class="pre">'bunny'</span></code>, <code class="docutils literal notranslate"><span class="pre">'cat'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dino'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dog'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gorilla'</span></code>, <code class="docutils literal notranslate"><span class="pre">'music'</span></code>, <code class="docutils literal notranslate"><span class="pre">'panda'</span></code>, <code class="docutils literal notranslate"><span class="pre">'pi'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Python'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SDS'</span></code>, <code class="docutils literal notranslate"><span class="pre">'sheep'</span></code>, <code class="docutils literal notranslate"><span class="pre">'soccer'</span></code>] or a path to a CSV file, in which case it should have two columns <code class="docutils literal notranslate"><span class="pre">'x'</span></code> and <code class="docutils literal notranslate"><span class="pre">'y'</span></code>. See the documentation for visualizations of the built-in datasets.</p></li>
+<li><p id="data-morph---target"><span id="data-morph---target-shape"></span><a class="reference internal" href="#data-morph---target" title="data-morph --target"><strong><code class="docutils literal notranslate"><span class="pre">--target</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">TARGET_SHAPE</span></code>, <a class="reference internal" href="#data-morph---target-shape" title="data-morph --target-shape"><strong><code class="docutils literal notranslate"><span class="pre">--target-shape</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">TARGET_SHAPE</span></code> - The shape(s) to convert to. If multiple shapes are provided, the starting shape will be converted to each target shape separately. Valid target shapes are <code class="docutils literal notranslate"><span class="pre">'bullseye'</span></code>, <code class="docutils literal notranslate"><span class="pre">'circle'</span></code>, <code class="docutils literal notranslate"><span class="pre">'club'</span></code>, <code class="docutils literal notranslate"><span class="pre">'diamond'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dots'</span></code>, <code class="docutils literal notranslate"><span class="pre">'down_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'figure_eight'</span></code>, <code class="docutils literal notranslate"><span class="pre">'h_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'heart'</span></code>, <code class="docutils literal notranslate"><span class="pre">'high_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'left_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rectangle'</span></code>, <code class="docutils literal notranslate"><span class="pre">'right_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rings'</span></code>, <code class="docutils literal notranslate"><span class="pre">'scatter'</span></code>, <code class="docutils literal notranslate"><span class="pre">'slant_down'</span></code>, <code class="docutils literal notranslate"><span class="pre">'slant_up'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spade'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spiral'</span></code>, <code class="docutils literal notranslate"><span class="pre">'star'</span></code>, <code class="docutils literal notranslate"><span class="pre">'up_parab'</span></code>, <code class="docutils literal notranslate"><span class="pre">'v_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'wide_lines'</span></code>, <code class="docutils literal notranslate"><span class="pre">'x'</span></code>. Use <code class="docutils literal notranslate"><span class="pre">'all'</span></code> to convert to all target shapes in a single run. See the documentation for visualizations of the available target shapes.</p></li>
 </ul>
 </section>
 <section id="data-morph-Morph-Configuration">
@@ -551,8 +564,8 @@
 <ul class="simple">
 <li><p id="data-morph---decimals"><a class="reference internal" href="#data-morph---decimals" title="data-morph --decimals"><strong><code class="docutils literal notranslate"><span class="pre">--decimals</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">DECIMALS</span></code> - The number of decimal places to preserve equality. Defaults to 2. (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>)</p></li>
 <li><p id="data-morph---iterations"><a class="reference internal" href="#data-morph---iterations" title="data-morph --iterations"><strong><code class="docutils literal notranslate"><span class="pre">--iterations</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">ITERATIONS</span></code> - The number of iterations to run. Defaults to 100,000. Datasets with more observations may require more iterations. (default: <code class="docutils literal notranslate"><span class="pre">100000</span></code>)</p></li>
-<li><p id="data-morph---scale"><a class="reference internal" href="#data-morph---scale" title="data-morph --scale"><strong><code class="docutils literal notranslate"><span class="pre">--scale</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SCALE</span></code> - Scale the data on both x and y by dividing by a scale factor. For example, <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">10</span></code> divides all x and y values by 10. Datasets with large values will morph faster after scaling down. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
-<li><p id="data-morph---seed"><a class="reference internal" href="#data-morph---seed" title="data-morph --seed"><strong><code class="docutils literal notranslate"><span class="pre">--seed</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SEED</span></code> - Provide a seed for reproducible results. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p id="data-morph---scale"><a class="reference internal" href="#data-morph---scale" title="data-morph --scale"><strong><code class="docutils literal notranslate"><span class="pre">--scale</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SCALE</span></code> - Scale the data on both x and y by dividing by a scale factor. For example, <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">10</span></code> divides all x and y values by 10. Datasets with large values will morph faster after scaling down.</p></li>
+<li><p id="data-morph---seed"><a class="reference internal" href="#data-morph---seed" title="data-morph --seed"><strong><code class="docutils literal notranslate"><span class="pre">--seed</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SEED</span></code> - Provide a seed for reproducible results.</p></li>
 <li><p id="data-morph---shake"><a class="reference internal" href="#data-morph---shake" title="data-morph --shake"><strong><code class="docutils literal notranslate"><span class="pre">--shake</span></code></strong></a> <code class="docutils literal notranslate"><span class="pre">SHAKE</span></code> - The standard deviation for the random movement applied in each direction, which will be sampled from a normal distribution with a mean of zero. Note that morphing initially sets the shake to 1, and then decreases the shake value over time toward the minimum value defined here, which defaults to 0.3. Datasets with large values may benefit from scaling (see <code class="docutils literal notranslate"><span class="pre">--scale</span></code>) or increasing this towards 1, along with increasing the number of iterations (see <code class="docutils literal notranslate"><span class="pre">--iterations</span></code>).</p></li>
 <li><p id="data-morph---with-median"><a class="reference internal" href="#data-morph---with-median" title="data-morph --with-median"><strong><code class="docutils literal notranslate"><span class="pre">--with-median</span></code></strong></a> - Whether to require the median to be preserved. Note that this will be a little slower.</p></li>
 </ul>
@@ -645,8 +658,8 @@ to as many worker processes as possible:</p>
     class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-morph---CLI-interface">data-morph - CLI interface</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-morph-options">options</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-morph-Shape-Configuration-(required)">Shape Configuration (required)</a></li>
@@ -672,8 +685,8 @@ to as many worker processes as possible:</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -684,7 +697,7 @@ to as many worker processes as possible:</p>
 
   <p class="copyright">
     
-      © Copyright 2023-2025, Stefanie Molin.
+      © Copyright 2023-2026, Stefanie Molin.
       <br/>
     
   </p>
@@ -693,7 +706,7 @@ to as many worker processes as possible:</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     <br/>
   </p>
 </div>
@@ -707,7 +720,7 @@ to as many worker processes as possible:</p>
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
 </p></div>
       
     </div>

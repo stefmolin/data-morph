@@ -71,16 +71,16 @@ docs = [
 ]
 
 [tool.setuptools]
-dynamic.version = { attr = "data_morph.__version__" }
+packages.find.where = [
+  "src",
+]
 package-data."data_morph.data.starter_shapes" = [
   "*",
 ]
 package-data."data_morph.plotting.config" = [
   "*",
 ]
-packages.find.where = [
-  "src",
-]
+dynamic.version = { attr = "data_morph.__version__" }
 
 [tool.ruff]
 line-length = 88
@@ -132,6 +132,9 @@ ignore-words-list = "recuse"
 ignore-regex = "https://([\\w/\\.])+"
 
 [tool.pytest]
+ini_options.testpaths = [
+  "tests",
+]
 ini_options.addopts = [
   "-ra",
   "-l",
@@ -146,10 +149,6 @@ ini_options.addopts = [
   "--no-cov-on-fail",
   "--cov-report=term-missing",
 ]
-ini_options.xfail_strict = true
-ini_options.testpaths = [
-  "tests",
-]
 ini_options.markers = [
   "bounds: Run tests on bounds logic.",
   "circles: Run tests on circular shapes.",
@@ -163,6 +162,7 @@ ini_options.markers = [
   "polygons: Run tests on polygon shapes.",
   "shapes: Run tests related to shapes.",
 ]
+ini_options.xfail_strict = true
 
 [tool.numpydoc_validation]
 checks = [

@@ -29,26 +29,26 @@ repos:
         exclude: (\.(svg|png|pdf)$)|(CODE_OF_CONDUCT.md)
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.12
+    rev: v0.15.20
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --show-fixes]
       - id: ruff-format
 
   - repo: https://github.com/numpy/numpydoc
-    rev: v1.10.0
+    rev: v1.11.0rc0
     hooks:
       - id: numpydoc-validation
         exclude: (tests|docs)/.*
 
   - repo: https://github.com/stefmolin/docstringify
-    rev: 1.1.1
+    rev: 2.0.0
     hooks:
       - id: docstringify
         files: tests/.*
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.21.1
+    rev: v2.25.1
     hooks:
       - id: pyproject-fmt
         args: [--keep-full-version, --no-print-diff]

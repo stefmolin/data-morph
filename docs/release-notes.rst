@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Unreleased
+----------
+
+Dependency Updates
+^^^^^^^^^^^^^^^^^^
+* Drop support for Python 3.10
+* Raise ``numpy`` lower bound to 1.23.2
+
 0.4.0 (September 27, 2026)
 --------------------------
 

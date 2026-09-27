@@ -1,6 +1,37 @@
 Release Notes
 =============
 
+0.3.1 (May 14, 2025)
+-------------------------
+
+What's New
+^^^^^^^^^^
+
+Documentation
+~~~~~~~~~~~~~
+* Add CLI reference link to README and mention more examples are in the docs
+* Add new dev version to switcher and reorder versions in the switcher
+* Updated UML diagram in :doc:`tutorials/shape-creation` tutorial.
+
+Morphing
+~~~~~~~~
+* Rework calculations for :class:`.Circle`, :class:`.Bullseye`, and :class:`.Rings` shapes
+* Separate the :class:`.Circle`, :class:`.Bullseye`, and :class:`.Rings` shapes into separate modules
+* Separate calculation for radii for :class:`.Bullseye` and :class:`.Rings`
+* Change :class:`.Rings` shape to be only three circles
+* Expand test cases for :class:`.Circle`, :class:`.Bullseye`, and :class:`.Rings` shapes
+* Make it possible to shrink to align aspect ratio and update :class:`.Star` shape
+
+Tooling
+~~~~~~~
+* Have publishing workflow generate notes for GitHub release automatically
+* Enable ``pre-commit autoupdate`` and replace linting action
+* Add more test cases for diamond and rectangle shapes
+
+Dependency Updates
+^^^^^^^^^^^^^^^^^^
+* Raise ``matplotlib`` lower bound to 3.7
+
 0.3.0 (February 17, 2025)
 -------------------------
 

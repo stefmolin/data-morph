@@ -5,6 +5,11 @@
 # https://github.com/actions/stale
 name: Mark stale issues and pull requests
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 on:
   schedule:
     - cron: '27 20 * * *'

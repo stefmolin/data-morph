@@ -23,7 +23,7 @@ Morphing
 Tooling
 ~~~~~~~
 * Add :func:`.plot_shape_on_dataset` diagnostic function to visualize shapes superimposed on datasets
-* Add tests for :class:`.LineCollection` and :class:`.Dataset` :meth:`.plot` methods
+* Add tests for :meth:`.LineCollection.plot` and :meth:`.Dataset.plot` methods
 * Switch to using dependency groups in ``pyproject.toml``
 
 Dependency Updates

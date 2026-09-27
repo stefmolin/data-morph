@@ -1,8 +1,37 @@
 Release Notes
 =============
 
-0.3.1 (May 14, 2025)
+0.4.0 (Unreleased)
 -------------------------
+
+What's New
+^^^^^^^^^^
+
+Documentation
+~~~~~~~~~~~~~
+* Update :doc:`tutorials/shape-creation` tutorial to show example of using the shape diagnostic function (:func:`.plot_shape_on_dataset`)
+* Update all shape docs to use the :func:`.plot_shape_on_dataset` diagnostic function
+* Use shorthand ``--start`` and ``--target`` for CLI in docs and tests
+
+Morphing
+~~~~~~~~
+* Add marginal plots to morphing visualization with the option to use the simpler (classic) plot from previous versions
+* Add the option to preserve the median while morphing (in addition to the mean and standard deviation)
+* Simplify :class:`.Scatter` generation
+* Update :class:`.Heart` and :class:`.Spade` logic
+
+Tooling
+~~~~~~~
+* Add :func:`.plot_shape_on_dataset` diagnostic function to visualize shapes superimposed on datasets
+* Add tests for :class:`.LineCollection` and :class:`.Dataset` :meth:`.plot` methods
+* Switch to using dependency groups in ``pyproject.toml``
+
+Dependency Updates
+^^^^^^^^^^^^^^^^^^
+* Add support for Python 3.14
+
+0.3.1 (May 14, 2025)
+--------------------
 
 What's New
 ^^^^^^^^^^

@@ -1,8 +1,16 @@
 Release Notes
 =============
 
-0.4.0 (Unreleased)
--------------------------
+Unreleased
+----------
+
+Dependency Updates
+^^^^^^^^^^^^^^^^^^
+* Drop support for Python 3.10
+* Raise ``numpy`` lower bound to 1.23.2
+
+0.4.0 (September 27, 2026)
+--------------------------
 
 What's New
 ^^^^^^^^^^
@@ -29,6 +37,9 @@ Tooling
 Dependency Updates
 ^^^^^^^^^^^^^^^^^^
 * Add support for Python 3.14
+* Raise ``matplotlib`` lower bound to 3.10
+* Raise ``numpy`` lower bound to 1.23
+* Raise ``pandas`` lower bound to 2.1
 
 0.3.1 (May 14, 2025)
 --------------------

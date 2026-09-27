@@ -636,7 +636,7 @@ wheels = [
 
 [[package]]
 name = "data-morph-ai"
-version = "0.4.0.dev0"
+version = "0.4.0"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib", version = "3.10.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
@@ -646,6 +646,7 @@ dependencies = [
     { name = "numpy", version = "2.5.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "pandas", version = "3.0.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "pillow" },
     { name = "rich" },
 ]
 
@@ -690,9 +691,10 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "matplotlib", specifier = ">=3.10" },
+    { name = "matplotlib", specifier = ">=3.10.0" },
     { name = "numpy", specifier = ">=1.23.0" },
-    { name = "pandas", specifier = ">=2.1" },
+    { name = "pandas", specifier = ">=2.1.0" },
+    { name = "pillow", specifier = ">=12.3.0" },
     { name = "rich", specifier = ">=13.9.4" },
 ]
 

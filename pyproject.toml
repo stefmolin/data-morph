@@ -23,14 +23,13 @@ authors = [
   { name = "Aaron Stevens", email = "bheklilr2@gmail.com" },
   { name = "Justin Matejka", email = "Justin.Matejka@Autodesk.com" },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Framework :: Matplotlib",
   "Intended Audience :: Education",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -26,8 +25,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +36,10 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/tutorials/style.css?v=61399967" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
     <script src="../../../_static/documentation_options.js?v=c2d0aac2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -48,7 +47,6 @@
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=c677161f"></script>
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
-    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-FMNM78QSKK"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){ dataLayer.push(arguments); }
@@ -58,12 +56,17 @@
                     'ad_personalization': 'denied',
                     'analytics_storage': 'denied'
                 });
+            </script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-FMNM78QSKK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', 'G-FMNM78QSKK');
             </script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/data_morph/plotting/static';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://stefaniemolin.com/data-morph/stable/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -124,7 +127,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -240,7 +243,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -270,11 +273,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -287,8 +297,7 @@
           
           
           
-          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -299,8 +308,7 @@
           
           
           
-          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">Twitter</span></a>
+          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
         </li>
 </ul></div>
       
@@ -311,7 +319,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -435,11 +443,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -452,8 +467,7 @@
           
           
           
-          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -464,8 +478,7 @@
           
           
           
-          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">Twitter</span></a>
+          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
         </li>
 </ul></div>
         
@@ -529,7 +542,7 @@
                 <article class="bd-article">
                   
   <h1>Source code for data_morph.plotting.static</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Utility functions for static plotting.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Utility functions for static plotting."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -552,13 +565,13 @@
     <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.axes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes</span>
 
 <span class="n">_STATISTIC_DISPLAY_NAME_MAPPING</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;x_mean&#39;</span><span class="p">:</span> <span class="s1">&#39;X Mean&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;y_mean&#39;</span><span class="p">:</span> <span class="s1">&#39;Y Mean&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;x_stdev&#39;</span><span class="p">:</span> <span class="s1">&#39;X SD&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;y_stdev&#39;</span><span class="p">:</span> <span class="s1">&#39;Y SD&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;x_median&#39;</span><span class="p">:</span> <span class="s1">&#39;X Med.&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;y_median&#39;</span><span class="p">:</span> <span class="s1">&#39;Y Med.&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;correlation&#39;</span><span class="p">:</span> <span class="s1">&#39;Corr.&#39;</span><span class="p">,</span>
+    <span class="s1">'x_mean'</span><span class="p">:</span> <span class="s1">'X Mean'</span><span class="p">,</span>
+    <span class="s1">'y_mean'</span><span class="p">:</span> <span class="s1">'Y Mean'</span><span class="p">,</span>
+    <span class="s1">'x_stdev'</span><span class="p">:</span> <span class="s1">'X SD'</span><span class="p">,</span>
+    <span class="s1">'y_stdev'</span><span class="p">:</span> <span class="s1">'Y SD'</span><span class="p">,</span>
+    <span class="s1">'x_median'</span><span class="p">:</span> <span class="s1">'X Med.'</span><span class="p">,</span>
+    <span class="s1">'y_median'</span><span class="p">:</span> <span class="s1">'Y Med.'</span><span class="p">,</span>
+    <span class="s1">'correlation'</span><span class="p">:</span> <span class="s1">'Corr.'</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -576,7 +589,7 @@
     <span class="n">with_median</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="o">**</span><span class="n">save_kwds</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># noqa: ANN401</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Plot the dataset and summary statistics.</span>
 
 <span class="sd">    Parameters</span>
@@ -601,17 +614,17 @@
 <span class="sd">    -------</span>
 <span class="sd">    matplotlib.axes.Axes or None</span>
 <span class="sd">        When ``save_to`` is falsey, an :class:`~matplotlib.axes.Axes` object is returned.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">add_marginals</span> <span class="o">=</span> <span class="n">marginals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
         <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span> <span class="k">if</span> <span class="n">add_marginals</span> <span class="k">else</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-        <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;constrained&#39;</span><span class="p">,</span>
-        <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">},</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s1">'constrained'</span><span class="p">,</span>
+        <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">'aspect'</span><span class="p">:</span> <span class="s1">'equal'</span><span class="p">},</span>
     <span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">get_layout_engine</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">w_pad</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">h_pad</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="n">x_bounds</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="n">y_bounds</span><span class="p">)</span>
 
     <span class="n">tick_formatter</span> <span class="o">=</span> <span class="n">EngFormatter</span><span class="p">()</span>
@@ -626,7 +639,7 @@
             <span class="p">[</span><span class="n">ax_histx</span><span class="p">,</span> <span class="n">ax_histy</span><span class="p">],</span>
             <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">],</span>
             <span class="n">marginals</span><span class="p">,</span>
-            <span class="p">[</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">'vertical'</span><span class="p">,</span> <span class="s1">'horizontal'</span><span class="p">],</span>
             <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">):</span>
             <span class="n">marginal_ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -635,9 +648,9 @@
                 <span class="n">values</span><span class="p">,</span>
                 <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span>
                 <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span>
                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-                <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;#EAEAF2&#39;</span><span class="p">,</span>
+                <span class="n">ec</span><span class="o">=</span><span class="s1">'#EAEAF2'</span><span class="p">,</span>
                 <span class="n">orientation</span><span class="o">=</span><span class="n">orientation</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -645,13 +658,13 @@
 
     <span class="k">if</span> <span class="n">with_median</span><span class="p">:</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;x_mean&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;x_median&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;x_stdev&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;y_mean&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;y_median&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;y_stdev&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
+            <span class="s1">'x_mean'</span><span class="p">,</span>
+            <span class="s1">'x_median'</span><span class="p">,</span>
+            <span class="s1">'x_stdev'</span><span class="p">,</span>
+            <span class="s1">'y_mean'</span><span class="p">,</span>
+            <span class="s1">'y_median'</span><span class="p">,</span>
+            <span class="s1">'y_stdev'</span><span class="p">,</span>
+            <span class="s1">'correlation'</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">locs</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="mf">0.94</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.49</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.21</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">]</span>
@@ -659,7 +672,7 @@
             <span class="k">else</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.78</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;x_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;y_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;x_stdev&#39;</span><span class="p">,</span> <span class="s1">&#39;y_stdev&#39;</span><span class="p">,</span> <span class="s1">&#39;correlation&#39;</span><span class="p">)</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'x_mean'</span><span class="p">,</span> <span class="s1">'y_mean'</span><span class="p">,</span> <span class="s1">'x_stdev'</span><span class="p">,</span> <span class="s1">'y_stdev'</span><span class="p">,</span> <span class="s1">'correlation'</span><span class="p">)</span>
         <span class="n">locs</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">add_marginals</span>
@@ -680,7 +693,7 @@
         <span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="c1"># If `max_label_length = 10`, this string will be &quot;{:&lt;10}: {:0.7f}&quot;, then we</span>
+    <span class="c1"># If `max_label_length = 10`, this string will be "{:&lt;10}: {:0.7f}", then we</span>
     <span class="c1"># can pull the `.format` method for that string to reduce typing it</span>
     <span class="c1"># repeatedly</span>
     <span class="n">visible_decimals</span> <span class="o">=</span> <span class="mi">7</span>
@@ -690,8 +703,8 @@
         <span class="ow">or</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">y_mean</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">mean_y_digits</span> <span class="o">&gt;=</span> <span class="n">max_stat</span><span class="p">)</span>
         <span class="k">else</span> <span class="mi">1</span>
     <span class="p">)</span>
-    <span class="n">formatter</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">{{</span><span class="s1">:&lt;</span><span class="si">{</span><span class="n">max_label_length</span><span class="si">}</span><span class="se">}}</span><span class="s1">: </span><span class="se">{{</span><span class="s1">:</span><span class="si">{</span><span class="n">max_stat</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">visible_decimals</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">visible_decimals</span><span class="si">}</span><span class="s1">f</span><span class="se">}}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
-    <span class="n">corr_formatter</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">{{</span><span class="s1">:&lt;</span><span class="si">{</span><span class="n">max_label_length</span><span class="si">}</span><span class="se">}}</span><span class="s1">: </span><span class="se">{{</span><span class="s1">:+</span><span class="si">{</span><span class="n">max_stat</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">visible_decimals</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">visible_decimals</span><span class="si">}</span><span class="s1">f</span><span class="se">}}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="se">{{</span><span class="s1">:&lt;</span><span class="si">{</span><span class="n">max_label_length</span><span class="si">}</span><span class="se">}}</span><span class="s1">: </span><span class="se">{{</span><span class="s1">:</span><span class="si">{</span><span class="n">max_stat</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">visible_decimals</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">visible_decimals</span><span class="si">}</span><span class="s1">f</span><span class="se">}}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span>
+    <span class="n">corr_formatter</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="se">{{</span><span class="s1">:&lt;</span><span class="si">{</span><span class="n">max_label_length</span><span class="si">}</span><span class="se">}}</span><span class="s1">: </span><span class="se">{{</span><span class="s1">:+</span><span class="si">{</span><span class="n">max_stat</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">visible_decimals</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">visible_decimals</span><span class="si">}</span><span class="s1">f</span><span class="se">}}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span>
     <span class="n">stat_clip</span> <span class="o">=</span> <span class="n">visible_decimals</span> <span class="o">-</span> <span class="n">decimals</span>
 
     <span class="n">add_stat_text</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
@@ -699,13 +712,13 @@
         <span class="mf">1.4</span> <span class="k">if</span> <span class="n">add_marginals</span> <span class="k">else</span> <span class="mf">1.05</span><span class="p">,</span>
         <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
         <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-        <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">label</span> <span class="o">=</span> <span class="n">_STATISTIC_DISPLAY_NAME_MAPPING</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
         <span class="n">stat</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s1">&#39;correlation&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s1">'correlation'</span><span class="p">:</span>
             <span class="n">correlation_str</span> <span class="o">=</span> <span class="n">corr_formatter</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">correlation</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
                 <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">correlation_str</span><span class="p">,</span> <span class="n">correlation_str</span><span class="p">[:</span><span class="o">-</span><span class="n">stat_clip</span><span class="p">]],</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span>
@@ -723,7 +736,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">dirname</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
         <span class="n">dirname</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_to</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">save_kwds</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_to</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">,</span> <span class="o">**</span><span class="n">save_kwds</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
 
 </pre></div>
@@ -749,8 +762,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -771,7 +784,6 @@
 
   <p class="sphinx-version">
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
-    <br/>
   </p>
 </div>
       
@@ -784,7 +796,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0.
 </p></div>
       
     </div>

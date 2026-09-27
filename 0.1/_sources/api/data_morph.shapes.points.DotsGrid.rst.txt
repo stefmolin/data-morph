@@ -1,6 +1,0 @@
-DotsGrid
-========
-
-.. currentmodule:: data_morph.shapes.points
-
-.. autoclass:: DotsGrid

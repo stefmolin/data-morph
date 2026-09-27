@@ -1,6 +1,0 @@
-DownParabola
-============
-
-.. currentmodule:: data_morph.shapes.points
-
-.. autoclass:: DownParabola

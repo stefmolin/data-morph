@@ -1,6 +1,0 @@
-UpParabola
-==========
-
-.. currentmodule:: data_morph.shapes.points
-
-.. autoclass:: UpParabola

@@ -1,6 +1,0 @@
-get\_values
-===========
-
-.. currentmodule:: data_morph.data.stats
-
-.. autofunction:: get_values

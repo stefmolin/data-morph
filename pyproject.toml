@@ -31,7 +31,7 @@ classifiers = [
 ]
 dependencies = [  # uv pip compile pyproject.toml --resolution=lowest-direct --group dev
   "matplotlib>=3.10.0",
-  "numpy>=1.23.0",
+  "numpy>=1.23.2",
   "pandas>=2.1.0",
   "pillow>=12.3.0",
   "rich>=13.9.4",
@@ -53,7 +53,7 @@ test = [
 ]
 docs = [
   "pydata-sphinx-theme>=0.15.3",
-  "sphinx>=7.3.5",
+  "sphinx>=8.2.0",
   "sphinx-argparse-cli>=1.16.0",
   "sphinx-copybutton>=0.5.1",
   "sphinx-design>=0.6.1",

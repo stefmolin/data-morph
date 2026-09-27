@@ -636,6 +636,7 @@ wheels = [
 
 [[package]]
 name = "data-morph-ai"
+version = "0.4.0.dev0"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib", version = "3.10.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },

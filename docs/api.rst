@@ -26,7 +26,7 @@ API
 
 This produces the following animation in the directory specified as ``output_dir`` above:
 
-.. figure:: _static/panda_to_star.gif
+.. figure:: _static/panda-to-star.gif
    :alt: Morphing the panda dataset into the star shape.
    :align: center
 

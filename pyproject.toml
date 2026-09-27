@@ -29,7 +29,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
-dependencies = [  # uv pip compile pyproject.toml --resolution=lowest
+dependencies = [  # uv pip compile pyproject.toml --resolution=lowest-direct --group dev
   "matplotlib>=3.10.0",
   "numpy>=1.23.0",
   "pandas>=2.1.0",
@@ -43,7 +43,7 @@ urls.Source = "https://github.com/stefmolin/data-morph"
 scripts.data-morph = "data_morph.cli:main"
 
 [dependency-groups]
-dev = [ "pre-commit", { include-group = "docs" }, { include-group = "test" } ]
+dev = [ "pre-commit>=4.6.0", { include-group = "docs" }, { include-group = "test" } ]
 test = [
   "pytest>=8.3.4",
   "pytest-cov>=4.1.0",
@@ -53,7 +53,7 @@ test = [
 ]
 docs = [
   "pydata-sphinx-theme>=0.15.3",
-  "sphinx>=7.2.6",
+  "sphinx>=7.3.5",
   "sphinx-argparse-cli>=1.16.0",
   "sphinx-copybutton>=0.5.1",
   "sphinx-design>=0.6.1",

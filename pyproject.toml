@@ -7,6 +7,7 @@ requires = [
 
 [project]
 name = "data-morph-ai"
+version = "0.4.0.dev0"
 description = "Teaching tool on the importance of data visualization."
 readme = "README.md"
 keywords = [
@@ -37,9 +38,6 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Topic :: Scientific/Engineering :: Visualization",
-]
-dynamic = [
-  "version",
 ]
 dependencies = [
   "matplotlib>=3.10",

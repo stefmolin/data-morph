@@ -1,0 +1,33 @@
+parabola
+========
+
+.. automodule:: data_morph.shapes.points.parabola
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      DownParabola
+      LeftParabola
+      RightParabola
+      UpParabola
+   
+   
+
+   
+   
+   
+
+
+

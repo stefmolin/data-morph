@@ -1,0 +1,30 @@
+line\_collection
+================
+
+.. automodule:: data_morph.shapes.bases.line_collection
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      LineCollection
+   
+   
+
+   
+   
+   
+
+
+

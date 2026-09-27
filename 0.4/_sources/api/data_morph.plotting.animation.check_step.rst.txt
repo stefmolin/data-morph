@@ -1,0 +1,6 @@
+check\_step
+===========
+
+.. currentmodule:: data_morph.plotting.animation
+
+.. autofunction:: check_step

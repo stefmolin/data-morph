@@ -1,0 +1,30 @@
+shape
+=====
+
+.. automodule:: data_morph.shapes.bases.shape
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Shape
+   
+   
+
+   
+   
+   
+
+
+

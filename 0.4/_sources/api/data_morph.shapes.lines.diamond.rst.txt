@@ -1,0 +1,30 @@
+diamond
+=======
+
+.. automodule:: data_morph.shapes.lines.diamond
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Diamond
+   
+   
+
+   
+   
+   
+
+
+

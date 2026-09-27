@@ -1,0 +1,6 @@
+style\_context
+==============
+
+.. currentmodule:: data_morph.plotting.style
+
+.. autofunction:: style_context

@@ -1,0 +1,36 @@
+animation
+=========
+
+.. automodule:: data_morph.plotting.animation
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      check_step
+      ease_in_out_quadratic
+      ease_in_out_sine
+      ease_in_sine
+      ease_out_sine
+      linear
+      stitch_gif_animation
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,35 @@
+﻿shapes
+======
+
+.. automodule:: data_morph.shapes
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   bases
+   circles
+   factory
+   lines
+   points
+

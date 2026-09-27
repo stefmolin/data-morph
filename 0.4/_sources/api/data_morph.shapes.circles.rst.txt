@@ -1,0 +1,33 @@
+circles
+=======
+
+.. automodule:: data_morph.shapes.circles
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   bullseye
+   circle
+   rings
+

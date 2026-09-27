@@ -1,0 +1,6 @@
+DataMorpher
+===========
+
+.. currentmodule:: data_morph.morpher
+
+.. autoclass:: DataMorpher

@@ -1,0 +1,6 @@
+Spiral
+======
+
+.. currentmodule:: data_morph.shapes.points.spiral
+
+.. autoclass:: Spiral

@@ -1,0 +1,6 @@
+Shape
+=====
+
+.. currentmodule:: data_morph.shapes.bases.shape
+
+.. autoclass:: Shape

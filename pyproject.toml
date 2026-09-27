@@ -78,7 +78,6 @@ package-data."data_morph.data.starter_shapes" = [
 package-data."data_morph.plotting.config" = [
   "*",
 ]
-dynamic.version = { attr = "data_morph.__version__" }
 
 [tool.ruff]
 line-length = 88

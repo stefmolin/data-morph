@@ -35,5 +35,9 @@ Read more about the creation of Data Morph in `this article
 and `this slide deck <https://stefaniemolin.com/data-morph-talk/#/>`_.
 """
 
-__version__ = '0.4.0.dev0'
+from importlib.metadata import version
+
+__version__ = version('data-morph-ai')
 MAIN_DIR = __name__
+
+__all__ = ['MAIN_DIR', '__version__']

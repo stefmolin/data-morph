@@ -1,23 +1,15 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = [
-  "setuptools==83.0.0",
-  "setuptools-scm",
-]
+requires = [ "setuptools==83.0.0", "setuptools-scm" ]
 
 [project]
 name = "data-morph-ai"
+version = "0.4.0.dev0"
 description = "Teaching tool on the importance of data visualization."
 readme = "README.md"
-keywords = [
-  "data animation",
-  "data visualization",
-  "summary statistics",
-]
+keywords = [ "data animation", "data visualization", "summary statistics" ]
 license = { file = "LICENSE" }
-maintainers = [
-  { name = "Stefanie Molin" },
-]
+maintainers = [ { name = "Stefanie Molin" } ]
 authors = [
   { name = "Stefanie Molin", email = "data-morph@stefaniemolin.com" },
   { name = "Aaron Stevens", email = "bheklilr2@gmail.com" },
@@ -38,13 +30,11 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
-dynamic = [
-  "version",
-]
-dependencies = [
-  "matplotlib>=3.10",
+dependencies = [  # uv pip compile pyproject.toml --resolution=lowest
+  "matplotlib>=3.10.0",
   "numpy>=1.23.0",
-  "pandas>=2.1",
+  "pandas>=2.1.0",
+  "pillow>=12.3.0",
   "rich>=13.9.4",
 ]
 urls."Bug Tracker" = "https://github.com/stefmolin/data-morph/issues"
@@ -71,16 +61,9 @@ docs = [
 ]
 
 [tool.setuptools]
-packages.find.where = [
-  "src",
-]
-package-data."data_morph.data.starter_shapes" = [
-  "*",
-]
-package-data."data_morph.plotting.config" = [
-  "*",
-]
-dynamic.version = { attr = "data_morph.__version__" }
+packages.find.where = [ "src" ]
+package-data."data_morph.data.starter_shapes" = [ "*" ]
+package-data."data_morph.plotting.config" = [ "*" ]
 
 [tool.ruff]
 line-length = 88
@@ -121,10 +104,10 @@ lint.extend-per-file-ignores."docs/*" = [
   "ANN",
   "ERA",
 ]  # docs build (allow commented code and don't require annotations)
-lint.extend-per-file-ignores."tests/*" = [ "ANN" ]  # don't require annotations for tests
-lint.isort.known-first-party = [
-  "data_morph",
-]
+lint.extend-per-file-ignores."tests/*" = [
+  "ANN",
+]  # don't require annotations for tests
+lint.isort.known-first-party = [ "data_morph" ]
 lint.isort.split-on-trailing-comma = false
 
 [tool.codespell]
@@ -132,9 +115,7 @@ ignore-words-list = "recuse"
 ignore-regex = "https://([\\w/\\.])+"
 
 [tool.pytest]
-ini_options.testpaths = [
-  "tests",
-]
+ini_options.testpaths = [ "tests" ]
 ini_options.addopts = [
   "-ra",
   "-l",

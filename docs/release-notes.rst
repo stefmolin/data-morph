@@ -29,6 +29,9 @@ Tooling
 Dependency Updates
 ^^^^^^^^^^^^^^^^^^
 * Add support for Python 3.14
+* Raise ``matplotlib`` lower bound to 3.10
+* Raise ``numpy`` lower bound to 1.23
+* Raise ``pandas`` lower bound to 2.1
 
 0.3.1 (May 14, 2025)
 --------------------

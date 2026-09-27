@@ -7,6 +7,13 @@ to be used as a teaching tool to illustrate the importance of data visualization
 `Data Morph in the classroom <https://stefaniemolin.com/data-morph/stable/index.html#classroom-ideas>`_
 for ideas).
 
+.. figure:: _static/panda-to-star-median.gif
+   :alt: Morphing the panda dataset into the star shape with marginal plots.
+   :align: center
+
+   Morphing the panda :class:`.Dataset` into the star :class:`.Shape` with marginal
+   plots, preserving the median in addition to the mean and standard deviation.
+
 Notes
 -----
 This code has been altered by Stefanie Molin to work for other input datasets

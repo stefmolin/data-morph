@@ -30,7 +30,8 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
-dependencies = [  # uv pip compile pyproject.toml --resolution=lowest-direct --group dev
+dependencies = [
+  # uv pip compile pyproject.toml --resolution=lowest-direct --group dev
   "matplotlib>=3.10.0",
   "numpy>=1.23.2",
   "pandas>=2.1.0",
@@ -153,12 +154,14 @@ checks = [
   "SA01", # or a see also section
   "SS06", # and don't require the summary to fit on one line
 ]
-exclude = [  # don't report on checks for these
+exclude = [
+  # don't report on checks for these
   "\\.__init__$",
   "\\.__iter__$",
   "\\.__repr__$",
   "\\.__str__$",
 ]
-override_SS05 = [  # allow docstrings to start with these words
+override_SS05 = [
+  # allow docstrings to start with these words
   "^Unambiguous ",
 ]

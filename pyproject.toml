@@ -1,10 +1,9 @@
 [build-system]
-build-backend = "setuptools.build_meta"
-requires = [ "setuptools==83.0.0", "setuptools-scm" ]
+build-backend = "hatchling.build"
+requires = [ "hatch-vcs", "hatchling" ]
 
 [project]
 name = "data-morph-ai"
-version = "0.5.0.dev1"
 description = "Teaching tool on the importance of data visualization."
 readme = "README.md"
 keywords = [ "data animation", "data visualization", "summary statistics" ]
@@ -30,6 +29,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
+dynamic = [ "version" ]
 dependencies = [
   # uv pip compile pyproject.toml --resolution=lowest-direct --group dev
   "matplotlib>=3.10.0",
@@ -61,10 +61,10 @@ docs = [
   "sphinx-design>=0.6.1",
 ]
 
-[tool.setuptools]
-packages.find.where = [ "src" ]
-package-data."data_morph.data.starter_shapes" = [ "*" ]
-package-data."data_morph.plotting.config" = [ "*" ]
+[tool.hatch]
+version.source = "vcs"
+version.raw-options.version_scheme = "release-branch-semver"  # dev versions on main target the next minor release
+build.targets.wheel.packages = [ "src/data_morph" ]
 
 [tool.ruff]
 line-length = 88

@@ -26,8 +26,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/tutorials/style.css?v=61399967" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../_static/documentation_options.js?v=1a648454"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -67,7 +67,7 @@
             </script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/data_morph.shapes.factory.ShapeFactory';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://stefaniemolin.com/data-morph/stable/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -81,6 +81,7 @@
     <link rel="next" title="lines" href="data_morph.shapes.lines.html" />
     <link rel="prev" title="factory" href="data_morph.shapes.factory.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
   
@@ -755,7 +756,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="data_morph.shapes.factory.ShapeFactory">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">data_morph.shapes.factory.</span></span><span class="sig-name descname"><span class="pre">ShapeFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset" title="data_morph.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/data_morph/shapes/factory.html#ShapeFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.factory.ShapeFactory" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Factory for generating shape objects based on data.</p>
 <figure class="align-default" id="id1">
 <img alt="../_images/data_morph-shapes-factory-ShapeFactory-1.png" class="plot-directive" src="../_images/data_morph-shapes-factory-ShapeFactory-1.png" />
@@ -770,19 +771,19 @@
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES">
-<span class="sig-name descname"><span class="pre">AVAILABLE_SHAPES</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['bullseye',</span> <span class="pre">'circle',</span> <span class="pre">'club',</span> <span class="pre">'diamond',</span> <span class="pre">'dots',</span> <span class="pre">'down_parab',</span> <span class="pre">'figure_eight',</span> <span class="pre">'h_lines',</span> <span class="pre">'heart',</span> <span class="pre">'high_lines',</span> <span class="pre">'left_parab',</span> <span class="pre">'rectangle',</span> <span class="pre">'right_parab',</span> <span class="pre">'rings',</span> <span class="pre">'scatter',</span> <span class="pre">'slant_down',</span> <span class="pre">'slant_up',</span> <span class="pre">'spade',</span> <span class="pre">'spiral',</span> <span class="pre">'star',</span> <span class="pre">'up_parab',</span> <span class="pre">'v_lines',</span> <span class="pre">'wide_lines',</span> <span class="pre">'x']</span></span><a class="headerlink" href="#data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">AVAILABLE_SHAPES</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['bullseye',</span> <span class="pre">'circle',</span> <span class="pre">'club',</span> <span class="pre">'diamond',</span> <span class="pre">'dots',</span> <span class="pre">'down_parab',</span> <span class="pre">'figure_eight',</span> <span class="pre">'h_lines',</span> <span class="pre">'heart',</span> <span class="pre">'high_lines',</span> <span class="pre">'left_parab',</span> <span class="pre">'rectangle',</span> <span class="pre">'right_parab',</span> <span class="pre">'rings',</span> <span class="pre">'scatter',</span> <span class="pre">'slant_down',</span> <span class="pre">'slant_up',</span> <span class="pre">'spade',</span> <span class="pre">'spiral',</span> <span class="pre">'star',</span> <span class="pre">'up_parab',</span> <span class="pre">'v_lines',</span> <span class="pre">'wide_lines',</span> <span class="pre">'x']</span></span><a class="headerlink" href="#data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES" title="Link to this definition">#</a></dt>
 <dd><p>The list of available shapes, which can be visualized with
 <a class="reference internal" href="#data_morph.shapes.factory.ShapeFactory.plot_available_shapes" title="data_morph.shapes.factory.ShapeFactory.plot_available_shapes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_available_shapes()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="data_morph.shapes.factory.ShapeFactory.generate_shape">
-<span class="sig-name descname"><span class="pre">generate_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.14)"><span class="pre">Number</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><span class="pre">Shape</span></a></span></span><a class="reference internal" href="../_modules/data_morph/shapes/factory.html#ShapeFactory.generate_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.factory.ShapeFactory.generate_shape" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">generate_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/numbers.html#numbers.Number" title="(in Python v3.15)"><span class="pre">Number</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape" title="data_morph.shapes.bases.shape.Shape"><span class="pre">Shape</span></a></span></span><a class="reference internal" href="../_modules/data_morph/shapes/factory.html#ShapeFactory.generate_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_morph.shapes.factory.ShapeFactory.generate_shape" title="Link to this definition">#</a></dt>
 <dd><p>Generate the shape object based on the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The desired shape. See <a class="reference internal" href="#data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES" title="data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AVAILABLE_SHAPES</span></code></a>.</p></li>
+<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – The desired shape. See <a class="reference internal" href="#data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES" title="data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AVAILABLE_SHAPES</span></code></a>.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments to pass down when creating
 the shape.</p></li>
 </ul>
@@ -866,8 +867,8 @@ the shape.</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -900,7 +901,7 @@ the shape.</p></li>
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
 </p></div>
       
     </div>

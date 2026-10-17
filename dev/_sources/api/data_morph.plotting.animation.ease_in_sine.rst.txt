@@ -1,6 +1,0 @@
-ease\_in\_sine
-==============
-
-.. currentmodule:: data_morph.plotting.animation
-
-.. autofunction:: ease_in_sine

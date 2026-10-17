@@ -1,6 +1,0 @@
-ease\_in\_out\_quadratic
-========================
-
-.. currentmodule:: data_morph.plotting.animation
-
-.. autofunction:: ease_in_out_quadratic

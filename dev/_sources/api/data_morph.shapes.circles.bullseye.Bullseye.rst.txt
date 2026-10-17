@@ -1,6 +1,0 @@
-Bullseye
-========
-
-.. currentmodule:: data_morph.shapes.circles.bullseye
-
-.. autoclass:: Bullseye

@@ -1,6 +1,0 @@
-DataMorphProgress
-=================
-
-.. currentmodule:: data_morph.progress
-
-.. autoclass:: DataMorphProgress

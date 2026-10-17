@@ -1,6 +1,0 @@
-linear
-======
-
-.. currentmodule:: data_morph.plotting.animation
-
-.. autofunction:: linear

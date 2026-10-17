@@ -1,6 +1,0 @@
-SummaryStatistics
-=================
-
-.. currentmodule:: data_morph.data.stats
-
-.. autoclass:: SummaryStatistics

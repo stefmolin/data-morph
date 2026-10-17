@@ -9,6 +9,7 @@ name: Deploy Docs
 on:
   push:
     branches: [ "main" ]
+    tags: [ "*", "!*-rc*" ]  # releases update the docs for their minor version (path filters don't apply to tags)
     paths:
       - '.github/workflows/docs.yml'
       - 'docs/**'
@@ -16,9 +17,10 @@ on:
       - '!src/data_morph/__main__.py'
   workflow_dispatch:
 
+# each run deploys the full gh-pages tree, so runs must not overlap
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
 jobs:
   docs:

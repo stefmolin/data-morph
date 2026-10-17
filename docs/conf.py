@@ -13,7 +13,7 @@ from pathlib import Path
 import data_morph
 
 sys.path.insert(0, str(Path().absolute()))
-from post_build import determine_versions
+from post_build import base_url, determine_versions
 
 project = 'Data Morph'
 current_year = dt.date.today().year
@@ -101,7 +101,7 @@ plot_html_show_formats = False
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_baseurl = f'https://stefaniemolin.com/data-morph/{version_match}/'
+html_baseurl = f'{base_url}/{version_match}/'
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
 html_css_files = ['tutorials/style.css']
@@ -115,7 +115,7 @@ html_theme_options = {
     'navbar_align': 'left',
     'navbar_end': ['version-switcher', 'theme-switcher', 'navbar-icon-links'],
     'switcher': {
-        'json_url': 'https://stefaniemolin.com/data-morph/stable/_static/switcher.json',
+        'json_url': f'{base_url}/stable/_static/switcher.json',
         'version_match': version_match,
     },
     'external_links': [

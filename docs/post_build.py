@@ -90,5 +90,9 @@ if __name__ == '__main__':
             shutil.rmtree(versioned_build)
         shutil.copytree(build, versioned_build)
 
+        # prune old dev docs if we are making a release
+        if (dev_build := build_html_dir / 'dev').exists():
+            shutil.rmtree(dev_build)
+
     update_switcher()
     print(f'Build finished. The HTML pages are in {build}.')

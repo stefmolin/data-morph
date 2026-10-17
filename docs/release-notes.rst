@@ -1,8 +1,15 @@
 Release Notes
 =============
 
-Unreleased
-----------
+0.4.1 (October 16, 2026)
+------------------------
+
+What's New
+^^^^^^^^^^
+
+Tooling
+~~~~~~~
+* Switch build backend to hatchling with dynamic versioning
 
 Dependency Updates
 ^^^^^^^^^^^^^^^^^^

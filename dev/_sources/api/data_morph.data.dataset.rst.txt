@@ -1,0 +1,30 @@
+dataset
+=======
+
+.. automodule:: data_morph.data.dataset
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Dataset
+   
+   
+
+   
+   
+   
+
+
+

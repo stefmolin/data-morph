@@ -1,0 +1,6 @@
+Heart
+=====
+
+.. currentmodule:: data_morph.shapes.points.heart
+
+.. autoclass:: Heart

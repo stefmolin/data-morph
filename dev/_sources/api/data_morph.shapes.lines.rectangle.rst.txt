@@ -1,0 +1,30 @@
+rectangle
+=========
+
+.. automodule:: data_morph.shapes.lines.rectangle
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Rectangle
+   
+   
+
+   
+   
+   
+
+
+

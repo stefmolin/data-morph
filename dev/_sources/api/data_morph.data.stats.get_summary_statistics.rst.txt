@@ -1,0 +1,6 @@
+get\_summary\_statistics
+========================
+
+.. currentmodule:: data_morph.data.stats
+
+.. autofunction:: get_summary_statistics

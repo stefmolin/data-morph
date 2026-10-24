@@ -1,0 +1,6 @@
+BoundingBox
+===========
+
+.. currentmodule:: data_morph.bounds.bounding_box
+
+.. autoclass:: BoundingBox

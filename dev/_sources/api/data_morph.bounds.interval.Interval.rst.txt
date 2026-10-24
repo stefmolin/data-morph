@@ -1,0 +1,6 @@
+Interval
+========
+
+.. currentmodule:: data_morph.bounds.interval
+
+.. autoclass:: Interval

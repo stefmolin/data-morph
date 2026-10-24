@@ -1,0 +1,6 @@
+DataLoader
+==========
+
+.. currentmodule:: data_morph.data.loader
+
+.. autoclass:: DataLoader

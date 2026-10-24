@@ -1,0 +1,6 @@
+PointCollection
+===============
+
+.. currentmodule:: data_morph.shapes.bases.point_collection
+
+.. autoclass:: PointCollection

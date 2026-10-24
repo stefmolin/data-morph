@@ -1,0 +1,38 @@
+points
+======
+
+.. automodule:: data_morph.shapes.points
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   club
+   dots_grid
+   figure_eight
+   heart
+   parabola
+   scatter
+   spade
+   spiral
+

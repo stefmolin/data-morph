@@ -1,0 +1,6 @@
+plot
+====
+
+.. currentmodule:: data_morph.plotting.static
+
+.. autofunction:: plot

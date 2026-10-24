@@ -1,0 +1,30 @@
+figure\_eight
+=============
+
+.. automodule:: data_morph.shapes.points.figure_eight
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      FigureEight
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,30 @@
+bounding\_box
+=============
+
+.. automodule:: data_morph.bounds.bounding_box
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      BoundingBox
+   
+   
+
+   
+   
+   
+
+
+

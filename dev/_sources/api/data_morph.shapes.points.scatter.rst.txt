@@ -1,0 +1,30 @@
+scatter
+=======
+
+.. automodule:: data_morph.shapes.points.scatter
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Scatter
+   
+   
+
+   
+   
+   
+
+
+

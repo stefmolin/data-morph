@@ -5,6 +5,11 @@
         "url": "https://stefaniemolin.com/data-morph/stable/"
     },
     {
+        "name": "dev",
+        "version": "dev",
+        "url": "https://stefaniemolin.com/data-morph/dev/"
+    },
+    {
         "name": "0.3",
         "version": "0.3",
         "url": "https://stefaniemolin.com/data-morph/0.3/"

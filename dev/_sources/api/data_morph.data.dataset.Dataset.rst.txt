@@ -1,0 +1,6 @@
+Dataset
+=======
+
+.. currentmodule:: data_morph.data.dataset
+
+.. autoclass:: Dataset

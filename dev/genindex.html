@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; Data Morph 0.4.2.dev1+gcec9fcd7d documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_argparse_cli.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/tutorials/style.css?v=61399967" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="_static/documentation_options.js?v=18a09ebc"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=c677161f"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('consent', 'default', {
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied',
+                    'analytics_storage': 'denied'
+                });
+            </script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-FMNM78QSKK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-FMNM78QSKK');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://stefaniemolin.com/data-morph/stable/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://stefaniemolin.com/data-morph/dev/genindex.html" />
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Data Morph 0.4.2.dev1+gcec9fcd7d documentation - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Data Morph 0.4.2.dev1+gcec9fcd7d documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="quickstart.html">
+    Quick Start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="cli.html">
+    CLI Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="release-notes.html">
+    Release Notes
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">
+    Article about Data Morph
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com/data-morph-talk/#/">
+    Conference Talk Slides on Data Morph
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://stefaniemolin.com">
+    Stefanie Molin's Website
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="quickstart.html">
+    Quick Start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="cli.html">
+    CLI Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="release-notes.html">
+    Release Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://stefaniemolin.com/articles/data-science/introducing-data-morph/">
+    Article about Data Morph
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://stefaniemolin.com/data-morph-talk/#/">
+    Conference Talk Slides on Data Morph
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://stefaniemolin.com">
+    Stefanie Molin's Website
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/stefmolin/data-morph" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/StefanieMolin" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.add_task">add_task() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.add_task">[1]</a>
+</li>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.adjust_bounds">adjust_bounds() (data_morph.bounds.bounding_box.BoundingBox method)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.adjust_bounds">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.bounds.interval.Interval.html#data_morph.bounds.interval.Interval.adjust_bounds">(data_morph.bounds.interval.Interval method)</a>, <a href="api/data_morph.bounds.interval.html#data_morph.bounds.interval.Interval.adjust_bounds">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.advance">advance() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.advance">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.align_aspect_ratio">align_aspect_ratio() (data_morph.bounds.bounding_box.BoundingBox method)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.align_aspect_ratio">[1]</a>
+</li>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.aspect_ratio">aspect_ratio (data_morph.bounds.bounding_box.BoundingBox property)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.aspect_ratio">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader.AVAILABLE_DATASETS">AVAILABLE_DATASETS (data_morph.data.loader.DataLoader attribute)</a>, <a href="api/data_morph.data.loader.html#data_morph.data.loader.DataLoader.AVAILABLE_DATASETS">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES">AVAILABLE_SHAPES (data_morph.shapes.factory.ShapeFactory attribute)</a>, <a href="api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory.AVAILABLE_SHAPES">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox">BoundingBox (class in data_morph.bounds.bounding_box)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Bullseye">Bullseye (class in data_morph.shapes.circles)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.bullseye.Bullseye.html#data_morph.shapes.circles.bullseye.Bullseye">(class in data_morph.shapes.circles.bullseye)</a>, <a href="api/data_morph.shapes.circles.bullseye.html#data_morph.shapes.circles.bullseye.Bullseye">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.center">center (data_morph.bounds.bounding_box.BoundingBox property)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.center">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.bounds.interval.Interval.html#data_morph.bounds.interval.Interval.center">(data_morph.bounds.interval.Interval property)</a>, <a href="api/data_morph.bounds.interval.html#data_morph.bounds.interval.Interval.center">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Circle.center">(data_morph.shapes.circles.Circle attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.circle.Circle.html#data_morph.shapes.circles.circle.Circle.center">(data_morph.shapes.circles.circle.Circle attribute)</a>, <a href="api/data_morph.shapes.circles.circle.html#data_morph.shapes.circles.circle.Circle.center">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.plotting.animation.check_step.html#data_morph.plotting.animation.check_step">check_step() (in module data_morph.plotting.animation)</a>, <a href="api/data_morph.plotting.animation.html#data_morph.plotting.animation.check_step">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Circle">Circle (class in data_morph.shapes.circles)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.circle.Circle.html#data_morph.shapes.circles.circle.Circle">(class in data_morph.shapes.circles.circle)</a>, <a href="api/data_morph.shapes.circles.circle.html#data_morph.shapes.circles.circle.Circle">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Bullseye.circles">circles (data_morph.shapes.circles.Bullseye attribute)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.bullseye.Bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.circles">(data_morph.shapes.circles.bullseye.Bullseye attribute)</a>, <a href="api/data_morph.shapes.circles.bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.circles">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Rings.circles">(data_morph.shapes.circles.Rings attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.rings.Rings.html#data_morph.shapes.circles.rings.Rings.circles">(data_morph.shapes.circles.rings.Rings attribute)</a>, <a href="api/data_morph.shapes.circles.rings.html#data_morph.shapes.circles.rings.Rings.circles">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.clone">clone() (data_morph.bounds.bounding_box.BoundingBox method)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.clone">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.bounds.interval.Interval.html#data_morph.bounds.interval.Interval.clone">(data_morph.bounds.interval.Interval method)</a>, <a href="api/data_morph.bounds.interval.html#data_morph.bounds.interval.Interval.clone">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Club">Club (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.club.Club.html#data_morph.shapes.points.club.Club">(class in data_morph.shapes.points.club)</a>, <a href="api/data_morph.shapes.points.club.html#data_morph.shapes.points.club.Club">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.console">console (data_morph.progress.DataMorphProgress property)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.console">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.correlation">correlation (data_morph.data.stats.SummaryStatistics attribute)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.correlation">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.count">count() (data_morph.data.stats.SummaryStatistics method)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.count">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.data">data (data_morph.data.dataset.Dataset attribute)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset.data">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.data_bounds">data_bounds (data_morph.data.dataset.Dataset attribute)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset.data_bounds">[1]</a>
+</li>
+      <li>
+    data_morph
+
+      <ul>
+        <li><a href="api.html#module-data_morph">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.bounds
+
+      <ul>
+        <li><a href="api/data_morph.bounds.html#module-data_morph.bounds">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.bounds.bounding_box
+
+      <ul>
+        <li><a href="api/data_morph.bounds.bounding_box.html#module-data_morph.bounds.bounding_box">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.bounds.interval
+
+      <ul>
+        <li><a href="api/data_morph.bounds.interval.html#module-data_morph.bounds.interval">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.data
+
+      <ul>
+        <li><a href="api/data_morph.data.html#module-data_morph.data">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.data.dataset
+
+      <ul>
+        <li><a href="api/data_morph.data.dataset.html#module-data_morph.data.dataset">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.data.loader
+
+      <ul>
+        <li><a href="api/data_morph.data.loader.html#module-data_morph.data.loader">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.data.stats
+
+      <ul>
+        <li><a href="api/data_morph.data.stats.html#module-data_morph.data.stats">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.morpher
+
+      <ul>
+        <li><a href="api/data_morph.morpher.html#module-data_morph.morpher">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.plotting
+
+      <ul>
+        <li><a href="api/data_morph.plotting.html#module-data_morph.plotting">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.plotting.animation
+
+      <ul>
+        <li><a href="api/data_morph.plotting.animation.html#module-data_morph.plotting.animation">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.plotting.diagnostics
+
+      <ul>
+        <li><a href="api/data_morph.plotting.diagnostics.html#module-data_morph.plotting.diagnostics">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.plotting.static
+
+      <ul>
+        <li><a href="api/data_morph.plotting.static.html#module-data_morph.plotting.static">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.plotting.style
+
+      <ul>
+        <li><a href="api/data_morph.plotting.style.html#module-data_morph.plotting.style">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.progress
+
+      <ul>
+        <li><a href="api/data_morph.progress.html#module-data_morph.progress">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes
+
+      <ul>
+        <li><a href="api/data_morph.shapes.html#module-data_morph.shapes">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.bases
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.html#module-data_morph.shapes.bases">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.bases.line_collection
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.line_collection.html#module-data_morph.shapes.bases.line_collection">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.bases.point_collection
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.point_collection.html#module-data_morph.shapes.bases.point_collection">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.bases.shape
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.shape.html#module-data_morph.shapes.bases.shape">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.circles
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.html#module-data_morph.shapes.circles">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.circles.bullseye
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.bullseye.html#module-data_morph.shapes.circles.bullseye">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.circles.circle
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.circle.html#module-data_morph.shapes.circles.circle">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.circles.rings
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.rings.html#module-data_morph.shapes.circles.rings">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.factory
+
+      <ul>
+        <li><a href="api/data_morph.shapes.factory.html#module-data_morph.shapes.factory">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.html#module-data_morph.shapes.lines">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.diamond
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.diamond.html#module-data_morph.shapes.lines.diamond">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.high_lines
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.high_lines.html#module-data_morph.shapes.lines.high_lines">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.horizontal_lines
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.html#module-data_morph.shapes.lines.horizontal_lines">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.rectangle
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.rectangle.html#module-data_morph.shapes.lines.rectangle">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.slant_down
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.slant_down.html#module-data_morph.shapes.lines.slant_down">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.slant_up
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.slant_up.html#module-data_morph.shapes.lines.slant_up">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.star
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.star.html#module-data_morph.shapes.lines.star">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.vertical_lines
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.html#module-data_morph.shapes.lines.vertical_lines">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.wide_lines
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.html#module-data_morph.shapes.lines.wide_lines">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.lines.x_lines
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.x_lines.html#module-data_morph.shapes.lines.x_lines">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.html#module-data_morph.shapes.points">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points.club
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.club.html#module-data_morph.shapes.points.club">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    data_morph.shapes.points.dots_grid
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.dots_grid.html#module-data_morph.shapes.points.dots_grid">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points.figure_eight
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.figure_eight.html#module-data_morph.shapes.points.figure_eight">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points.heart
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.heart.html#module-data_morph.shapes.points.heart">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points.parabola
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.parabola.html#module-data_morph.shapes.points.parabola">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points.scatter
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.scatter.html#module-data_morph.shapes.points.scatter">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points.spade
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.spade.html#module-data_morph.shapes.points.spade">module</a>
+</li>
+      </ul></li>
+      <li>
+    data_morph.shapes.points.spiral
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.spiral.html#module-data_morph.shapes.points.spiral">module</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader">DataLoader (class in data_morph.data.loader)</a>, <a href="api/data_morph.data.loader.html#data_morph.data.loader.DataLoader">[1]</a>
+</li>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher">DataMorpher (class in data_morph.morpher)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress">DataMorphProgress (class in data_morph.progress)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset">Dataset (class in data_morph.data.dataset)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset">[1]</a>
+</li>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.decimals">decimals (data_morph.morpher.DataMorpher attribute)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.decimals">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Diamond">Diamond (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.diamond.Diamond.html#data_morph.shapes.lines.diamond.Diamond">(class in data_morph.shapes.lines.diamond)</a>, <a href="api/data_morph.shapes.lines.diamond.html#data_morph.shapes.lines.diamond.Diamond">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection.distance">distance() (data_morph.shapes.bases.line_collection.LineCollection method)</a>, <a href="api/data_morph.shapes.bases.line_collection.html#data_morph.shapes.bases.line_collection.LineCollection.distance">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.distance">(data_morph.shapes.bases.point_collection.PointCollection method)</a>, <a href="api/data_morph.shapes.bases.point_collection.html#data_morph.shapes.bases.point_collection.PointCollection.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape.distance">(data_morph.shapes.bases.shape.Shape method)</a>, <a href="api/data_morph.shapes.bases.shape.html#data_morph.shapes.bases.shape.Shape.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Bullseye.distance">(data_morph.shapes.circles.Bullseye method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.bullseye.Bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.distance">(data_morph.shapes.circles.bullseye.Bullseye method)</a>, <a href="api/data_morph.shapes.circles.bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Circle.distance">(data_morph.shapes.circles.Circle method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.circle.Circle.html#data_morph.shapes.circles.circle.Circle.distance">(data_morph.shapes.circles.circle.Circle method)</a>, <a href="api/data_morph.shapes.circles.circle.html#data_morph.shapes.circles.circle.Circle.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Rings.distance">(data_morph.shapes.circles.Rings method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.rings.Rings.html#data_morph.shapes.circles.rings.Rings.distance">(data_morph.shapes.circles.rings.Rings method)</a>, <a href="api/data_morph.shapes.circles.rings.html#data_morph.shapes.circles.rings.Rings.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Diamond.distance">(data_morph.shapes.lines.Diamond method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.diamond.Diamond.html#data_morph.shapes.lines.diamond.Diamond.distance">(data_morph.shapes.lines.diamond.Diamond method)</a>, <a href="api/data_morph.shapes.lines.diamond.html#data_morph.shapes.lines.diamond.Diamond.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.high_lines.HighLines.html#data_morph.shapes.lines.high_lines.HighLines.distance">(data_morph.shapes.lines.high_lines.HighLines method)</a>, <a href="api/data_morph.shapes.lines.high_lines.html#data_morph.shapes.lines.high_lines.HighLines.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HighLines.distance">(data_morph.shapes.lines.HighLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.HorizontalLines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.distance">(data_morph.shapes.lines.horizontal_lines.HorizontalLines method)</a>, <a href="api/data_morph.shapes.lines.horizontal_lines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HorizontalLines.distance">(data_morph.shapes.lines.HorizontalLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Rectangle.distance">(data_morph.shapes.lines.Rectangle method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.rectangle.Rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.distance">(data_morph.shapes.lines.rectangle.Rectangle method)</a>, <a href="api/data_morph.shapes.lines.rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_down.SlantDownLines.html#data_morph.shapes.lines.slant_down.SlantDownLines.distance">(data_morph.shapes.lines.slant_down.SlantDownLines method)</a>, <a href="api/data_morph.shapes.lines.slant_down.html#data_morph.shapes.lines.slant_down.SlantDownLines.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_up.SlantUpLines.html#data_morph.shapes.lines.slant_up.SlantUpLines.distance">(data_morph.shapes.lines.slant_up.SlantUpLines method)</a>, <a href="api/data_morph.shapes.lines.slant_up.html#data_morph.shapes.lines.slant_up.SlantUpLines.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantDownLines.distance">(data_morph.shapes.lines.SlantDownLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantUpLines.distance">(data_morph.shapes.lines.SlantUpLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Star.distance">(data_morph.shapes.lines.Star method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.star.Star.html#data_morph.shapes.lines.star.Star.distance">(data_morph.shapes.lines.star.Star method)</a>, <a href="api/data_morph.shapes.lines.star.html#data_morph.shapes.lines.star.Star.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.VerticalLines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.distance">(data_morph.shapes.lines.vertical_lines.VerticalLines method)</a>, <a href="api/data_morph.shapes.lines.vertical_lines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.VerticalLines.distance">(data_morph.shapes.lines.VerticalLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.WideLines.html#data_morph.shapes.lines.wide_lines.WideLines.distance">(data_morph.shapes.lines.wide_lines.WideLines method)</a>, <a href="api/data_morph.shapes.lines.wide_lines.html#data_morph.shapes.lines.wide_lines.WideLines.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.WideLines.distance">(data_morph.shapes.lines.WideLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.x_lines.XLines.html#data_morph.shapes.lines.x_lines.XLines.distance">(data_morph.shapes.lines.x_lines.XLines method)</a>, <a href="api/data_morph.shapes.lines.x_lines.html#data_morph.shapes.lines.x_lines.XLines.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines.distance">(data_morph.shapes.lines.XLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Club.distance">(data_morph.shapes.points.Club method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.club.Club.html#data_morph.shapes.points.club.Club.distance">(data_morph.shapes.points.club.Club method)</a>, <a href="api/data_morph.shapes.points.club.html#data_morph.shapes.points.club.Club.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.dots_grid.DotsGrid.html#data_morph.shapes.points.dots_grid.DotsGrid.distance">(data_morph.shapes.points.dots_grid.DotsGrid method)</a>, <a href="api/data_morph.shapes.points.dots_grid.html#data_morph.shapes.points.dots_grid.DotsGrid.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DotsGrid.distance">(data_morph.shapes.points.DotsGrid method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DownParabola.distance">(data_morph.shapes.points.DownParabola method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.figure_eight.FigureEight.html#data_morph.shapes.points.figure_eight.FigureEight.distance">(data_morph.shapes.points.figure_eight.FigureEight method)</a>, <a href="api/data_morph.shapes.points.figure_eight.html#data_morph.shapes.points.figure_eight.FigureEight.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.FigureEight.distance">(data_morph.shapes.points.FigureEight method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Heart.distance">(data_morph.shapes.points.Heart method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.heart.Heart.html#data_morph.shapes.points.heart.Heart.distance">(data_morph.shapes.points.heart.Heart method)</a>, <a href="api/data_morph.shapes.points.heart.html#data_morph.shapes.points.heart.Heart.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.LeftParabola.distance">(data_morph.shapes.points.LeftParabola method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.DownParabola.html#data_morph.shapes.points.parabola.DownParabola.distance">(data_morph.shapes.points.parabola.DownParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.DownParabola.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.LeftParabola.html#data_morph.shapes.points.parabola.LeftParabola.distance">(data_morph.shapes.points.parabola.LeftParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.LeftParabola.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.RightParabola.html#data_morph.shapes.points.parabola.RightParabola.distance">(data_morph.shapes.points.parabola.RightParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.RightParabola.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.UpParabola.html#data_morph.shapes.points.parabola.UpParabola.distance">(data_morph.shapes.points.parabola.UpParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.UpParabola.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.RightParabola.distance">(data_morph.shapes.points.RightParabola method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Scatter.distance">(data_morph.shapes.points.Scatter method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.scatter.Scatter.distance">(data_morph.shapes.points.scatter.Scatter method)</a>, <a href="api/data_morph.shapes.points.scatter.html#data_morph.shapes.points.scatter.Scatter.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spade.distance">(data_morph.shapes.points.Spade method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spade.Spade.html#data_morph.shapes.points.spade.Spade.distance">(data_morph.shapes.points.spade.Spade method)</a>, <a href="api/data_morph.shapes.points.spade.html#data_morph.shapes.points.spade.Spade.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spiral.distance">(data_morph.shapes.points.Spiral method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spiral.Spiral.html#data_morph.shapes.points.spiral.Spiral.distance">(data_morph.shapes.points.spiral.Spiral method)</a>, <a href="api/data_morph.shapes.points.spiral.html#data_morph.shapes.points.spiral.Spiral.distance">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.UpParabola.distance">(data_morph.shapes.points.UpParabola method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DotsGrid">DotsGrid (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.dots_grid.DotsGrid.html#data_morph.shapes.points.dots_grid.DotsGrid">(class in data_morph.shapes.points.dots_grid)</a>, <a href="api/data_morph.shapes.points.dots_grid.html#data_morph.shapes.points.dots_grid.DotsGrid">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DownParabola">DownParabola (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.parabola.DownParabola.html#data_morph.shapes.points.parabola.DownParabola">(class in data_morph.shapes.points.parabola)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.DownParabola">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.plotting.animation.ease_in_out_quadratic.html#data_morph.plotting.animation.ease_in_out_quadratic">ease_in_out_quadratic() (in module data_morph.plotting.animation)</a>, <a href="api/data_morph.plotting.animation.html#data_morph.plotting.animation.ease_in_out_quadratic">[1]</a>
+</li>
+      <li><a href="api/data_morph.plotting.animation.ease_in_out_sine.html#data_morph.plotting.animation.ease_in_out_sine">ease_in_out_sine() (in module data_morph.plotting.animation)</a>, <a href="api/data_morph.plotting.animation.html#data_morph.plotting.animation.ease_in_out_sine">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.plotting.animation.ease_in_sine.html#data_morph.plotting.animation.ease_in_sine">ease_in_sine() (in module data_morph.plotting.animation)</a>, <a href="api/data_morph.plotting.animation.html#data_morph.plotting.animation.ease_in_sine">[1]</a>
+</li>
+      <li><a href="api/data_morph.plotting.animation.ease_out_sine.html#data_morph.plotting.animation.ease_out_sine">ease_out_sine() (in module data_morph.plotting.animation)</a>, <a href="api/data_morph.plotting.animation.html#data_morph.plotting.animation.ease_out_sine">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.FigureEight">FigureEight (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.figure_eight.FigureEight.html#data_morph.shapes.points.figure_eight.FigureEight">(class in data_morph.shapes.points.figure_eight)</a>, <a href="api/data_morph.shapes.points.figure_eight.html#data_morph.shapes.points.figure_eight.FigureEight">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.finished">finished (data_morph.progress.DataMorphProgress property)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.finished">[1]</a>
+</li>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.forward_only_animation">forward_only_animation (data_morph.morpher.DataMorpher attribute)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.forward_only_animation">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory.generate_shape">generate_shape() (data_morph.shapes.factory.ShapeFactory method)</a>, <a href="api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory.generate_shape">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.get_default_columns">get_default_columns() (data_morph.progress.DataMorphProgress class method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.get_default_columns">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection.get_name">get_name() (data_morph.shapes.bases.line_collection.LineCollection class method)</a>, <a href="api/data_morph.shapes.bases.line_collection.html#data_morph.shapes.bases.line_collection.LineCollection.get_name">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.get_name">(data_morph.shapes.bases.point_collection.PointCollection class method)</a>, <a href="api/data_morph.shapes.bases.point_collection.html#data_morph.shapes.bases.point_collection.PointCollection.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape.get_name">(data_morph.shapes.bases.shape.Shape class method)</a>, <a href="api/data_morph.shapes.bases.shape.html#data_morph.shapes.bases.shape.Shape.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Bullseye.get_name">(data_morph.shapes.circles.Bullseye class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.bullseye.Bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.get_name">(data_morph.shapes.circles.bullseye.Bullseye class method)</a>, <a href="api/data_morph.shapes.circles.bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Circle.get_name">(data_morph.shapes.circles.Circle class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.circle.Circle.html#data_morph.shapes.circles.circle.Circle.get_name">(data_morph.shapes.circles.circle.Circle class method)</a>, <a href="api/data_morph.shapes.circles.circle.html#data_morph.shapes.circles.circle.Circle.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Rings.get_name">(data_morph.shapes.circles.Rings class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.rings.Rings.html#data_morph.shapes.circles.rings.Rings.get_name">(data_morph.shapes.circles.rings.Rings class method)</a>, <a href="api/data_morph.shapes.circles.rings.html#data_morph.shapes.circles.rings.Rings.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Diamond.get_name">(data_morph.shapes.lines.Diamond class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.diamond.Diamond.html#data_morph.shapes.lines.diamond.Diamond.get_name">(data_morph.shapes.lines.diamond.Diamond class method)</a>, <a href="api/data_morph.shapes.lines.diamond.html#data_morph.shapes.lines.diamond.Diamond.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.high_lines.HighLines.html#data_morph.shapes.lines.high_lines.HighLines.get_name">(data_morph.shapes.lines.high_lines.HighLines class method)</a>, <a href="api/data_morph.shapes.lines.high_lines.html#data_morph.shapes.lines.high_lines.HighLines.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HighLines.get_name">(data_morph.shapes.lines.HighLines class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.HorizontalLines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.get_name">(data_morph.shapes.lines.horizontal_lines.HorizontalLines class method)</a>, <a href="api/data_morph.shapes.lines.horizontal_lines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HorizontalLines.get_name">(data_morph.shapes.lines.HorizontalLines class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Rectangle.get_name">(data_morph.shapes.lines.Rectangle class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.rectangle.Rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.get_name">(data_morph.shapes.lines.rectangle.Rectangle class method)</a>, <a href="api/data_morph.shapes.lines.rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_down.SlantDownLines.html#data_morph.shapes.lines.slant_down.SlantDownLines.get_name">(data_morph.shapes.lines.slant_down.SlantDownLines class method)</a>, <a href="api/data_morph.shapes.lines.slant_down.html#data_morph.shapes.lines.slant_down.SlantDownLines.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_up.SlantUpLines.html#data_morph.shapes.lines.slant_up.SlantUpLines.get_name">(data_morph.shapes.lines.slant_up.SlantUpLines class method)</a>, <a href="api/data_morph.shapes.lines.slant_up.html#data_morph.shapes.lines.slant_up.SlantUpLines.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantDownLines.get_name">(data_morph.shapes.lines.SlantDownLines class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantUpLines.get_name">(data_morph.shapes.lines.SlantUpLines class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Star.get_name">(data_morph.shapes.lines.Star class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.star.Star.html#data_morph.shapes.lines.star.Star.get_name">(data_morph.shapes.lines.star.Star class method)</a>, <a href="api/data_morph.shapes.lines.star.html#data_morph.shapes.lines.star.Star.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.VerticalLines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.get_name">(data_morph.shapes.lines.vertical_lines.VerticalLines class method)</a>, <a href="api/data_morph.shapes.lines.vertical_lines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.VerticalLines.get_name">(data_morph.shapes.lines.VerticalLines class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.WideLines.html#data_morph.shapes.lines.wide_lines.WideLines.get_name">(data_morph.shapes.lines.wide_lines.WideLines class method)</a>, <a href="api/data_morph.shapes.lines.wide_lines.html#data_morph.shapes.lines.wide_lines.WideLines.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.WideLines.get_name">(data_morph.shapes.lines.WideLines class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.x_lines.XLines.html#data_morph.shapes.lines.x_lines.XLines.get_name">(data_morph.shapes.lines.x_lines.XLines class method)</a>, <a href="api/data_morph.shapes.lines.x_lines.html#data_morph.shapes.lines.x_lines.XLines.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines.get_name">(data_morph.shapes.lines.XLines class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Club.get_name">(data_morph.shapes.points.Club class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.club.Club.html#data_morph.shapes.points.club.Club.get_name">(data_morph.shapes.points.club.Club class method)</a>, <a href="api/data_morph.shapes.points.club.html#data_morph.shapes.points.club.Club.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.dots_grid.DotsGrid.html#data_morph.shapes.points.dots_grid.DotsGrid.get_name">(data_morph.shapes.points.dots_grid.DotsGrid class method)</a>, <a href="api/data_morph.shapes.points.dots_grid.html#data_morph.shapes.points.dots_grid.DotsGrid.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DotsGrid.get_name">(data_morph.shapes.points.DotsGrid class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DownParabola.get_name">(data_morph.shapes.points.DownParabola class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.figure_eight.FigureEight.html#data_morph.shapes.points.figure_eight.FigureEight.get_name">(data_morph.shapes.points.figure_eight.FigureEight class method)</a>, <a href="api/data_morph.shapes.points.figure_eight.html#data_morph.shapes.points.figure_eight.FigureEight.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.FigureEight.get_name">(data_morph.shapes.points.FigureEight class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Heart.get_name">(data_morph.shapes.points.Heart class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.heart.Heart.html#data_morph.shapes.points.heart.Heart.get_name">(data_morph.shapes.points.heart.Heart class method)</a>, <a href="api/data_morph.shapes.points.heart.html#data_morph.shapes.points.heart.Heart.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.LeftParabola.get_name">(data_morph.shapes.points.LeftParabola class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.DownParabola.html#data_morph.shapes.points.parabola.DownParabola.get_name">(data_morph.shapes.points.parabola.DownParabola class method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.DownParabola.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.LeftParabola.html#data_morph.shapes.points.parabola.LeftParabola.get_name">(data_morph.shapes.points.parabola.LeftParabola class method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.LeftParabola.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.RightParabola.html#data_morph.shapes.points.parabola.RightParabola.get_name">(data_morph.shapes.points.parabola.RightParabola class method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.RightParabola.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.UpParabola.html#data_morph.shapes.points.parabola.UpParabola.get_name">(data_morph.shapes.points.parabola.UpParabola class method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.UpParabola.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.RightParabola.get_name">(data_morph.shapes.points.RightParabola class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Scatter.get_name">(data_morph.shapes.points.Scatter class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.scatter.Scatter.get_name">(data_morph.shapes.points.scatter.Scatter class method)</a>, <a href="api/data_morph.shapes.points.scatter.html#data_morph.shapes.points.scatter.Scatter.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spade.get_name">(data_morph.shapes.points.Spade class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spade.Spade.html#data_morph.shapes.points.spade.Spade.get_name">(data_morph.shapes.points.spade.Spade class method)</a>, <a href="api/data_morph.shapes.points.spade.html#data_morph.shapes.points.spade.Spade.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spiral.get_name">(data_morph.shapes.points.Spiral class method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spiral.Spiral.html#data_morph.shapes.points.spiral.Spiral.get_name">(data_morph.shapes.points.spiral.Spiral class method)</a>, <a href="api/data_morph.shapes.points.spiral.html#data_morph.shapes.points.spiral.Spiral.get_name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.UpParabola.get_name">(data_morph.shapes.points.UpParabola class method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.get_renderable">get_renderable() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.get_renderable">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.get_renderables">get_renderables() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.get_renderables">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.get_summary_statistics.html#data_morph.data.stats.get_summary_statistics">get_summary_statistics() (in module data_morph.data.stats)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.get_summary_statistics">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Heart">Heart (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.heart.Heart.html#data_morph.shapes.points.heart.Heart">(class in data_morph.shapes.points.heart)</a>, <a href="api/data_morph.shapes.points.heart.html#data_morph.shapes.points.heart.Heart">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HighLines">HighLines (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.high_lines.HighLines.html#data_morph.shapes.lines.high_lines.HighLines">(class in data_morph.shapes.lines.high_lines)</a>, <a href="api/data_morph.shapes.lines.high_lines.html#data_morph.shapes.lines.high_lines.HighLines">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HorizontalLines">HorizontalLines (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.HorizontalLines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines">(class in data_morph.shapes.lines.horizontal_lines)</a>, <a href="api/data_morph.shapes.lines.horizontal_lines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.index">index() (data_morph.data.stats.SummaryStatistics method)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.index">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.bounds.interval.Interval.html#data_morph.bounds.interval.Interval">Interval (class in data_morph.bounds.interval)</a>, <a href="api/data_morph.bounds.interval.html#data_morph.bounds.interval.Interval">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.keep_frames">keep_frames (data_morph.morpher.DataMorpher attribute)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.keep_frames">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.LeftParabola">LeftParabola (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.parabola.LeftParabola.html#data_morph.shapes.points.parabola.LeftParabola">(class in data_morph.shapes.points.parabola)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.LeftParabola">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.plotting.animation.html#data_morph.plotting.animation.linear">linear() (in module data_morph.plotting.animation)</a>, <a href="api/data_morph.plotting.animation.linear.html#data_morph.plotting.animation.linear">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection">LineCollection (class in data_morph.shapes.bases.line_collection)</a>, <a href="api/data_morph.shapes.bases.line_collection.html#data_morph.shapes.bases.line_collection.LineCollection">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection.lines">lines (data_morph.shapes.bases.line_collection.LineCollection attribute)</a>, <a href="api/data_morph.shapes.bases.line_collection.html#data_morph.shapes.bases.line_collection.LineCollection.lines">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Diamond.lines">(data_morph.shapes.lines.Diamond attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.diamond.Diamond.html#data_morph.shapes.lines.diamond.Diamond.lines">(data_morph.shapes.lines.diamond.Diamond attribute)</a>, <a href="api/data_morph.shapes.lines.diamond.html#data_morph.shapes.lines.diamond.Diamond.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.high_lines.HighLines.html#data_morph.shapes.lines.high_lines.HighLines.lines">(data_morph.shapes.lines.high_lines.HighLines attribute)</a>, <a href="api/data_morph.shapes.lines.high_lines.html#data_morph.shapes.lines.high_lines.HighLines.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HighLines.lines">(data_morph.shapes.lines.HighLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.HorizontalLines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.lines">(data_morph.shapes.lines.horizontal_lines.HorizontalLines attribute)</a>, <a href="api/data_morph.shapes.lines.horizontal_lines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HorizontalLines.lines">(data_morph.shapes.lines.HorizontalLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Rectangle.lines">(data_morph.shapes.lines.Rectangle attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.rectangle.Rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.lines">(data_morph.shapes.lines.rectangle.Rectangle attribute)</a>, <a href="api/data_morph.shapes.lines.rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_down.SlantDownLines.html#data_morph.shapes.lines.slant_down.SlantDownLines.lines">(data_morph.shapes.lines.slant_down.SlantDownLines attribute)</a>, <a href="api/data_morph.shapes.lines.slant_down.html#data_morph.shapes.lines.slant_down.SlantDownLines.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_up.SlantUpLines.html#data_morph.shapes.lines.slant_up.SlantUpLines.lines">(data_morph.shapes.lines.slant_up.SlantUpLines attribute)</a>, <a href="api/data_morph.shapes.lines.slant_up.html#data_morph.shapes.lines.slant_up.SlantUpLines.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantDownLines.lines">(data_morph.shapes.lines.SlantDownLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantUpLines.lines">(data_morph.shapes.lines.SlantUpLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Star.lines">(data_morph.shapes.lines.Star attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.star.Star.html#data_morph.shapes.lines.star.Star.lines">(data_morph.shapes.lines.star.Star attribute)</a>, <a href="api/data_morph.shapes.lines.star.html#data_morph.shapes.lines.star.Star.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.VerticalLines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.lines">(data_morph.shapes.lines.vertical_lines.VerticalLines attribute)</a>, <a href="api/data_morph.shapes.lines.vertical_lines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.VerticalLines.lines">(data_morph.shapes.lines.VerticalLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.WideLines.html#data_morph.shapes.lines.wide_lines.WideLines.lines">(data_morph.shapes.lines.wide_lines.WideLines attribute)</a>, <a href="api/data_morph.shapes.lines.wide_lines.html#data_morph.shapes.lines.wide_lines.WideLines.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.WideLines.lines">(data_morph.shapes.lines.WideLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.x_lines.XLines.html#data_morph.shapes.lines.x_lines.XLines.lines">(data_morph.shapes.lines.x_lines.XLines attribute)</a>, <a href="api/data_morph.shapes.lines.x_lines.html#data_morph.shapes.lines.x_lines.XLines.lines">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines.lines">(data_morph.shapes.lines.XLines attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader.load_dataset">load_dataset() (data_morph.data.loader.DataLoader class method)</a>, <a href="api/data_morph.data.loader.html#data_morph.data.loader.DataLoader.load_dataset">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.make_tasks_table">make_tasks_table() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.make_tasks_table">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.marginals">marginals (data_morph.data.dataset.Dataset attribute)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset.marginals">[1]</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="api.html#module-data_morph">data_morph</a>
+</li>
+        <li><a href="api/data_morph.bounds.html#module-data_morph.bounds">data_morph.bounds</a>
+</li>
+        <li><a href="api/data_morph.bounds.bounding_box.html#module-data_morph.bounds.bounding_box">data_morph.bounds.bounding_box</a>
+</li>
+        <li><a href="api/data_morph.bounds.interval.html#module-data_morph.bounds.interval">data_morph.bounds.interval</a>
+</li>
+        <li><a href="api/data_morph.data.html#module-data_morph.data">data_morph.data</a>
+</li>
+        <li><a href="api/data_morph.data.dataset.html#module-data_morph.data.dataset">data_morph.data.dataset</a>
+</li>
+        <li><a href="api/data_morph.data.loader.html#module-data_morph.data.loader">data_morph.data.loader</a>
+</li>
+        <li><a href="api/data_morph.data.stats.html#module-data_morph.data.stats">data_morph.data.stats</a>
+</li>
+        <li><a href="api/data_morph.morpher.html#module-data_morph.morpher">data_morph.morpher</a>
+</li>
+        <li><a href="api/data_morph.plotting.html#module-data_morph.plotting">data_morph.plotting</a>
+</li>
+        <li><a href="api/data_morph.plotting.animation.html#module-data_morph.plotting.animation">data_morph.plotting.animation</a>
+</li>
+        <li><a href="api/data_morph.plotting.diagnostics.html#module-data_morph.plotting.diagnostics">data_morph.plotting.diagnostics</a>
+</li>
+        <li><a href="api/data_morph.plotting.static.html#module-data_morph.plotting.static">data_morph.plotting.static</a>
+</li>
+        <li><a href="api/data_morph.plotting.style.html#module-data_morph.plotting.style">data_morph.plotting.style</a>
+</li>
+        <li><a href="api/data_morph.progress.html#module-data_morph.progress">data_morph.progress</a>
+</li>
+        <li><a href="api/data_morph.shapes.html#module-data_morph.shapes">data_morph.shapes</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.html#module-data_morph.shapes.bases">data_morph.shapes.bases</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.line_collection.html#module-data_morph.shapes.bases.line_collection">data_morph.shapes.bases.line_collection</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.point_collection.html#module-data_morph.shapes.bases.point_collection">data_morph.shapes.bases.point_collection</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.shape.html#module-data_morph.shapes.bases.shape">data_morph.shapes.bases.shape</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#module-data_morph.shapes.circles">data_morph.shapes.circles</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.bullseye.html#module-data_morph.shapes.circles.bullseye">data_morph.shapes.circles.bullseye</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.circle.html#module-data_morph.shapes.circles.circle">data_morph.shapes.circles.circle</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.rings.html#module-data_morph.shapes.circles.rings">data_morph.shapes.circles.rings</a>
+</li>
+        <li><a href="api/data_morph.shapes.factory.html#module-data_morph.shapes.factory">data_morph.shapes.factory</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#module-data_morph.shapes.lines">data_morph.shapes.lines</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.diamond.html#module-data_morph.shapes.lines.diamond">data_morph.shapes.lines.diamond</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.high_lines.html#module-data_morph.shapes.lines.high_lines">data_morph.shapes.lines.high_lines</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.html#module-data_morph.shapes.lines.horizontal_lines">data_morph.shapes.lines.horizontal_lines</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.rectangle.html#module-data_morph.shapes.lines.rectangle">data_morph.shapes.lines.rectangle</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_down.html#module-data_morph.shapes.lines.slant_down">data_morph.shapes.lines.slant_down</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_up.html#module-data_morph.shapes.lines.slant_up">data_morph.shapes.lines.slant_up</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.star.html#module-data_morph.shapes.lines.star">data_morph.shapes.lines.star</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.html#module-data_morph.shapes.lines.vertical_lines">data_morph.shapes.lines.vertical_lines</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.html#module-data_morph.shapes.lines.wide_lines">data_morph.shapes.lines.wide_lines</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.x_lines.html#module-data_morph.shapes.lines.x_lines">data_morph.shapes.lines.x_lines</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#module-data_morph.shapes.points">data_morph.shapes.points</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.club.html#module-data_morph.shapes.points.club">data_morph.shapes.points.club</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.dots_grid.html#module-data_morph.shapes.points.dots_grid">data_morph.shapes.points.dots_grid</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.figure_eight.html#module-data_morph.shapes.points.figure_eight">data_morph.shapes.points.figure_eight</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.heart.html#module-data_morph.shapes.points.heart">data_morph.shapes.points.heart</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.html#module-data_morph.shapes.points.parabola">data_morph.shapes.points.parabola</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.scatter.html#module-data_morph.shapes.points.scatter">data_morph.shapes.points.scatter</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spade.html#module-data_morph.shapes.points.spade">data_morph.shapes.points.spade</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spiral.html#module-data_morph.shapes.points.spiral">data_morph.shapes.points.spiral</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.morph">morph() (data_morph.morpher.DataMorpher method)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.morph">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.morph_bounds">morph_bounds (data_morph.data.dataset.Dataset attribute)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset.morph_bounds">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.name">name (data_morph.data.dataset.Dataset attribute)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset.name">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection.name">(data_morph.shapes.bases.line_collection.LineCollection attribute)</a>, <a href="api/data_morph.shapes.bases.line_collection.html#data_morph.shapes.bases.line_collection.LineCollection.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.name">(data_morph.shapes.bases.point_collection.PointCollection attribute)</a>, <a href="api/data_morph.shapes.bases.point_collection.html#data_morph.shapes.bases.point_collection.PointCollection.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape.name">(data_morph.shapes.bases.shape.Shape attribute)</a>, <a href="api/data_morph.shapes.bases.shape.html#data_morph.shapes.bases.shape.Shape.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Bullseye.name">(data_morph.shapes.circles.Bullseye attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.bullseye.Bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.name">(data_morph.shapes.circles.bullseye.Bullseye attribute)</a>, <a href="api/data_morph.shapes.circles.bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Circle.name">(data_morph.shapes.circles.Circle attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.circle.Circle.html#data_morph.shapes.circles.circle.Circle.name">(data_morph.shapes.circles.circle.Circle attribute)</a>, <a href="api/data_morph.shapes.circles.circle.html#data_morph.shapes.circles.circle.Circle.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Rings.name">(data_morph.shapes.circles.Rings attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.rings.Rings.html#data_morph.shapes.circles.rings.Rings.name">(data_morph.shapes.circles.rings.Rings attribute)</a>, <a href="api/data_morph.shapes.circles.rings.html#data_morph.shapes.circles.rings.Rings.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Diamond.name">(data_morph.shapes.lines.Diamond attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.diamond.Diamond.html#data_morph.shapes.lines.diamond.Diamond.name">(data_morph.shapes.lines.diamond.Diamond attribute)</a>, <a href="api/data_morph.shapes.lines.diamond.html#data_morph.shapes.lines.diamond.Diamond.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.high_lines.HighLines.html#data_morph.shapes.lines.high_lines.HighLines.name">(data_morph.shapes.lines.high_lines.HighLines attribute)</a>, <a href="api/data_morph.shapes.lines.high_lines.html#data_morph.shapes.lines.high_lines.HighLines.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HighLines.name">(data_morph.shapes.lines.HighLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.HorizontalLines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.name">(data_morph.shapes.lines.horizontal_lines.HorizontalLines attribute)</a>, <a href="api/data_morph.shapes.lines.horizontal_lines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HorizontalLines.name">(data_morph.shapes.lines.HorizontalLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Rectangle.name">(data_morph.shapes.lines.Rectangle attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.rectangle.Rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.name">(data_morph.shapes.lines.rectangle.Rectangle attribute)</a>, <a href="api/data_morph.shapes.lines.rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_down.SlantDownLines.html#data_morph.shapes.lines.slant_down.SlantDownLines.name">(data_morph.shapes.lines.slant_down.SlantDownLines attribute)</a>, <a href="api/data_morph.shapes.lines.slant_down.html#data_morph.shapes.lines.slant_down.SlantDownLines.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_up.SlantUpLines.html#data_morph.shapes.lines.slant_up.SlantUpLines.name">(data_morph.shapes.lines.slant_up.SlantUpLines attribute)</a>, <a href="api/data_morph.shapes.lines.slant_up.html#data_morph.shapes.lines.slant_up.SlantUpLines.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantDownLines.name">(data_morph.shapes.lines.SlantDownLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantUpLines.name">(data_morph.shapes.lines.SlantUpLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Star.name">(data_morph.shapes.lines.Star attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.star.Star.html#data_morph.shapes.lines.star.Star.name">(data_morph.shapes.lines.star.Star attribute)</a>, <a href="api/data_morph.shapes.lines.star.html#data_morph.shapes.lines.star.Star.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.VerticalLines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.name">(data_morph.shapes.lines.vertical_lines.VerticalLines attribute)</a>, <a href="api/data_morph.shapes.lines.vertical_lines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.VerticalLines.name">(data_morph.shapes.lines.VerticalLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.WideLines.html#data_morph.shapes.lines.wide_lines.WideLines.name">(data_morph.shapes.lines.wide_lines.WideLines attribute)</a>, <a href="api/data_morph.shapes.lines.wide_lines.html#data_morph.shapes.lines.wide_lines.WideLines.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.WideLines.name">(data_morph.shapes.lines.WideLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.x_lines.XLines.html#data_morph.shapes.lines.x_lines.XLines.name">(data_morph.shapes.lines.x_lines.XLines attribute)</a>, <a href="api/data_morph.shapes.lines.x_lines.html#data_morph.shapes.lines.x_lines.XLines.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines.name">(data_morph.shapes.lines.XLines attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Club.name">(data_morph.shapes.points.Club attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.club.Club.html#data_morph.shapes.points.club.Club.name">(data_morph.shapes.points.club.Club attribute)</a>, <a href="api/data_morph.shapes.points.club.html#data_morph.shapes.points.club.Club.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.dots_grid.DotsGrid.html#data_morph.shapes.points.dots_grid.DotsGrid.name">(data_morph.shapes.points.dots_grid.DotsGrid attribute)</a>, <a href="api/data_morph.shapes.points.dots_grid.html#data_morph.shapes.points.dots_grid.DotsGrid.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DotsGrid.name">(data_morph.shapes.points.DotsGrid attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DownParabola.name">(data_morph.shapes.points.DownParabola attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.figure_eight.FigureEight.html#data_morph.shapes.points.figure_eight.FigureEight.name">(data_morph.shapes.points.figure_eight.FigureEight attribute)</a>, <a href="api/data_morph.shapes.points.figure_eight.html#data_morph.shapes.points.figure_eight.FigureEight.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.FigureEight.name">(data_morph.shapes.points.FigureEight attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Heart.name">(data_morph.shapes.points.Heart attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.heart.Heart.html#data_morph.shapes.points.heart.Heart.name">(data_morph.shapes.points.heart.Heart attribute)</a>, <a href="api/data_morph.shapes.points.heart.html#data_morph.shapes.points.heart.Heart.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.LeftParabola.name">(data_morph.shapes.points.LeftParabola attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.DownParabola.html#data_morph.shapes.points.parabola.DownParabola.name">(data_morph.shapes.points.parabola.DownParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.DownParabola.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.LeftParabola.html#data_morph.shapes.points.parabola.LeftParabola.name">(data_morph.shapes.points.parabola.LeftParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.LeftParabola.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.RightParabola.html#data_morph.shapes.points.parabola.RightParabola.name">(data_morph.shapes.points.parabola.RightParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.RightParabola.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.UpParabola.html#data_morph.shapes.points.parabola.UpParabola.name">(data_morph.shapes.points.parabola.UpParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.UpParabola.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.RightParabola.name">(data_morph.shapes.points.RightParabola attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Scatter.name">(data_morph.shapes.points.Scatter attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.scatter.Scatter.name">(data_morph.shapes.points.scatter.Scatter attribute)</a>, <a href="api/data_morph.shapes.points.scatter.html#data_morph.shapes.points.scatter.Scatter.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spade.name">(data_morph.shapes.points.Spade attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spade.Spade.html#data_morph.shapes.points.spade.Spade.name">(data_morph.shapes.points.spade.Spade attribute)</a>, <a href="api/data_morph.shapes.points.spade.html#data_morph.shapes.points.spade.Spade.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spiral.name">(data_morph.shapes.points.Spiral attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spiral.Spiral.html#data_morph.shapes.points.spiral.Spiral.name">(data_morph.shapes.points.spiral.Spiral attribute)</a>, <a href="api/data_morph.shapes.points.spiral.html#data_morph.shapes.points.spiral.Spiral.name">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.UpParabola.name">(data_morph.shapes.points.UpParabola attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.num_frames">num_frames (data_morph.morpher.DataMorpher attribute)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.num_frames">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.open">open() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.open">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.output_dir">output_dir (data_morph.morpher.DataMorpher attribute)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.output_dir">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.plot">plot() (data_morph.data.dataset.Dataset method)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset.plot">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.bases.line_collection.LineCollection.html#data_morph.shapes.bases.line_collection.LineCollection.plot">(data_morph.shapes.bases.line_collection.LineCollection method)</a>, <a href="api/data_morph.shapes.bases.line_collection.html#data_morph.shapes.bases.line_collection.LineCollection.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.plot">(data_morph.shapes.bases.point_collection.PointCollection method)</a>, <a href="api/data_morph.shapes.bases.point_collection.html#data_morph.shapes.bases.point_collection.PointCollection.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape.plot">(data_morph.shapes.bases.shape.Shape method)</a>, <a href="api/data_morph.shapes.bases.shape.html#data_morph.shapes.bases.shape.Shape.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Bullseye.plot">(data_morph.shapes.circles.Bullseye method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.bullseye.Bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.plot">(data_morph.shapes.circles.bullseye.Bullseye method)</a>, <a href="api/data_morph.shapes.circles.bullseye.html#data_morph.shapes.circles.bullseye.Bullseye.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Circle.plot">(data_morph.shapes.circles.Circle method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.circle.Circle.html#data_morph.shapes.circles.circle.Circle.plot">(data_morph.shapes.circles.circle.Circle method)</a>, <a href="api/data_morph.shapes.circles.circle.html#data_morph.shapes.circles.circle.Circle.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Rings.plot">(data_morph.shapes.circles.Rings method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.circles.rings.Rings.html#data_morph.shapes.circles.rings.Rings.plot">(data_morph.shapes.circles.rings.Rings method)</a>, <a href="api/data_morph.shapes.circles.rings.html#data_morph.shapes.circles.rings.Rings.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Diamond.plot">(data_morph.shapes.lines.Diamond method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.diamond.Diamond.html#data_morph.shapes.lines.diamond.Diamond.plot">(data_morph.shapes.lines.diamond.Diamond method)</a>, <a href="api/data_morph.shapes.lines.diamond.html#data_morph.shapes.lines.diamond.Diamond.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.high_lines.HighLines.html#data_morph.shapes.lines.high_lines.HighLines.plot">(data_morph.shapes.lines.high_lines.HighLines method)</a>, <a href="api/data_morph.shapes.lines.high_lines.html#data_morph.shapes.lines.high_lines.HighLines.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HighLines.plot">(data_morph.shapes.lines.HighLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.horizontal_lines.HorizontalLines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.plot">(data_morph.shapes.lines.horizontal_lines.HorizontalLines method)</a>, <a href="api/data_morph.shapes.lines.horizontal_lines.html#data_morph.shapes.lines.horizontal_lines.HorizontalLines.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.HorizontalLines.plot">(data_morph.shapes.lines.HorizontalLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Rectangle.plot">(data_morph.shapes.lines.Rectangle method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.rectangle.Rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.plot">(data_morph.shapes.lines.rectangle.Rectangle method)</a>, <a href="api/data_morph.shapes.lines.rectangle.html#data_morph.shapes.lines.rectangle.Rectangle.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_down.SlantDownLines.html#data_morph.shapes.lines.slant_down.SlantDownLines.plot">(data_morph.shapes.lines.slant_down.SlantDownLines method)</a>, <a href="api/data_morph.shapes.lines.slant_down.html#data_morph.shapes.lines.slant_down.SlantDownLines.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.slant_up.SlantUpLines.html#data_morph.shapes.lines.slant_up.SlantUpLines.plot">(data_morph.shapes.lines.slant_up.SlantUpLines method)</a>, <a href="api/data_morph.shapes.lines.slant_up.html#data_morph.shapes.lines.slant_up.SlantUpLines.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantDownLines.plot">(data_morph.shapes.lines.SlantDownLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantUpLines.plot">(data_morph.shapes.lines.SlantUpLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Star.plot">(data_morph.shapes.lines.Star method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.star.Star.html#data_morph.shapes.lines.star.Star.plot">(data_morph.shapes.lines.star.Star method)</a>, <a href="api/data_morph.shapes.lines.star.html#data_morph.shapes.lines.star.Star.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.VerticalLines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.plot">(data_morph.shapes.lines.vertical_lines.VerticalLines method)</a>, <a href="api/data_morph.shapes.lines.vertical_lines.html#data_morph.shapes.lines.vertical_lines.VerticalLines.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.VerticalLines.plot">(data_morph.shapes.lines.VerticalLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.WideLines.html#data_morph.shapes.lines.wide_lines.WideLines.plot">(data_morph.shapes.lines.wide_lines.WideLines method)</a>, <a href="api/data_morph.shapes.lines.wide_lines.html#data_morph.shapes.lines.wide_lines.WideLines.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.WideLines.plot">(data_morph.shapes.lines.WideLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.x_lines.XLines.html#data_morph.shapes.lines.x_lines.XLines.plot">(data_morph.shapes.lines.x_lines.XLines method)</a>, <a href="api/data_morph.shapes.lines.x_lines.html#data_morph.shapes.lines.x_lines.XLines.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines.plot">(data_morph.shapes.lines.XLines method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Club.plot">(data_morph.shapes.points.Club method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.club.Club.html#data_morph.shapes.points.club.Club.plot">(data_morph.shapes.points.club.Club method)</a>, <a href="api/data_morph.shapes.points.club.html#data_morph.shapes.points.club.Club.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.dots_grid.DotsGrid.html#data_morph.shapes.points.dots_grid.DotsGrid.plot">(data_morph.shapes.points.dots_grid.DotsGrid method)</a>, <a href="api/data_morph.shapes.points.dots_grid.html#data_morph.shapes.points.dots_grid.DotsGrid.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DotsGrid.plot">(data_morph.shapes.points.DotsGrid method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DownParabola.plot">(data_morph.shapes.points.DownParabola method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.figure_eight.FigureEight.html#data_morph.shapes.points.figure_eight.FigureEight.plot">(data_morph.shapes.points.figure_eight.FigureEight method)</a>, <a href="api/data_morph.shapes.points.figure_eight.html#data_morph.shapes.points.figure_eight.FigureEight.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.FigureEight.plot">(data_morph.shapes.points.FigureEight method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Heart.plot">(data_morph.shapes.points.Heart method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.heart.Heart.html#data_morph.shapes.points.heart.Heart.plot">(data_morph.shapes.points.heart.Heart method)</a>, <a href="api/data_morph.shapes.points.heart.html#data_morph.shapes.points.heart.Heart.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.LeftParabola.plot">(data_morph.shapes.points.LeftParabola method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.DownParabola.html#data_morph.shapes.points.parabola.DownParabola.plot">(data_morph.shapes.points.parabola.DownParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.DownParabola.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.LeftParabola.html#data_morph.shapes.points.parabola.LeftParabola.plot">(data_morph.shapes.points.parabola.LeftParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.LeftParabola.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.RightParabola.html#data_morph.shapes.points.parabola.RightParabola.plot">(data_morph.shapes.points.parabola.RightParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.RightParabola.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.UpParabola.html#data_morph.shapes.points.parabola.UpParabola.plot">(data_morph.shapes.points.parabola.UpParabola method)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.UpParabola.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.RightParabola.plot">(data_morph.shapes.points.RightParabola method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Scatter.plot">(data_morph.shapes.points.Scatter method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.scatter.Scatter.plot">(data_morph.shapes.points.scatter.Scatter method)</a>, <a href="api/data_morph.shapes.points.scatter.html#data_morph.shapes.points.scatter.Scatter.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spade.plot">(data_morph.shapes.points.Spade method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spade.Spade.html#data_morph.shapes.points.spade.Spade.plot">(data_morph.shapes.points.spade.Spade method)</a>, <a href="api/data_morph.shapes.points.spade.html#data_morph.shapes.points.spade.Spade.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spiral.plot">(data_morph.shapes.points.Spiral method)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spiral.Spiral.html#data_morph.shapes.points.spiral.Spiral.plot">(data_morph.shapes.points.spiral.Spiral method)</a>, <a href="api/data_morph.shapes.points.spiral.html#data_morph.shapes.points.spiral.Spiral.plot">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.UpParabola.plot">(data_morph.shapes.points.UpParabola method)</a>
+</li>
+        <li><a href="api/data_morph.plotting.static.html#data_morph.plotting.static.plot">(in module data_morph.plotting.static)</a>, <a href="api/data_morph.plotting.static.plot.html#data_morph.plotting.static.plot">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.loader.DataLoader.html#data_morph.data.loader.DataLoader.plot_available_datasets">plot_available_datasets() (data_morph.data.loader.DataLoader class method)</a>, <a href="api/data_morph.data.loader.html#data_morph.data.loader.DataLoader.plot_available_datasets">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory.plot_available_shapes">plot_available_shapes() (data_morph.shapes.factory.ShapeFactory method)</a>, <a href="api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory.plot_available_shapes">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.dataset.Dataset.html#data_morph.data.dataset.Dataset.plot_bounds">plot_bounds (data_morph.data.dataset.Dataset attribute)</a>, <a href="api/data_morph.data.dataset.html#data_morph.data.dataset.Dataset.plot_bounds">[1]</a>
+</li>
+      <li><a href="api/data_morph.plotting.diagnostics.html#data_morph.plotting.diagnostics.plot_shape_on_dataset">plot_shape_on_dataset() (in module data_morph.plotting.diagnostics)</a>, <a href="api/data_morph.plotting.diagnostics.plot_shape_on_dataset.html#data_morph.plotting.diagnostics.plot_shape_on_dataset">[1]</a>
+</li>
+      <li><a href="api/data_morph.plotting.style.html#data_morph.plotting.style.plot_with_custom_style">plot_with_custom_style() (in module data_morph.plotting.style)</a>, <a href="api/data_morph.plotting.style.plot_with_custom_style.html#data_morph.plotting.style.plot_with_custom_style">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection">PointCollection (class in data_morph.shapes.bases.point_collection)</a>, <a href="api/data_morph.shapes.bases.point_collection.html#data_morph.shapes.bases.point_collection.PointCollection">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.bases.point_collection.PointCollection.html#data_morph.shapes.bases.point_collection.PointCollection.points">points (data_morph.shapes.bases.point_collection.PointCollection attribute)</a>, <a href="api/data_morph.shapes.bases.point_collection.html#data_morph.shapes.bases.point_collection.PointCollection.points">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Club.points">(data_morph.shapes.points.Club attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.club.Club.html#data_morph.shapes.points.club.Club.points">(data_morph.shapes.points.club.Club attribute)</a>, <a href="api/data_morph.shapes.points.club.html#data_morph.shapes.points.club.Club.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.dots_grid.DotsGrid.html#data_morph.shapes.points.dots_grid.DotsGrid.points">(data_morph.shapes.points.dots_grid.DotsGrid attribute)</a>, <a href="api/data_morph.shapes.points.dots_grid.html#data_morph.shapes.points.dots_grid.DotsGrid.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DotsGrid.points">(data_morph.shapes.points.DotsGrid attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.DownParabola.points">(data_morph.shapes.points.DownParabola attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.figure_eight.FigureEight.html#data_morph.shapes.points.figure_eight.FigureEight.points">(data_morph.shapes.points.figure_eight.FigureEight attribute)</a>, <a href="api/data_morph.shapes.points.figure_eight.html#data_morph.shapes.points.figure_eight.FigureEight.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.FigureEight.points">(data_morph.shapes.points.FigureEight attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Heart.points">(data_morph.shapes.points.Heart attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.heart.Heart.html#data_morph.shapes.points.heart.Heart.points">(data_morph.shapes.points.heart.Heart attribute)</a>, <a href="api/data_morph.shapes.points.heart.html#data_morph.shapes.points.heart.Heart.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.LeftParabola.points">(data_morph.shapes.points.LeftParabola attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.DownParabola.html#data_morph.shapes.points.parabola.DownParabola.points">(data_morph.shapes.points.parabola.DownParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.DownParabola.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.LeftParabola.html#data_morph.shapes.points.parabola.LeftParabola.points">(data_morph.shapes.points.parabola.LeftParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.LeftParabola.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.RightParabola.html#data_morph.shapes.points.parabola.RightParabola.points">(data_morph.shapes.points.parabola.RightParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.RightParabola.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.parabola.UpParabola.html#data_morph.shapes.points.parabola.UpParabola.points">(data_morph.shapes.points.parabola.UpParabola attribute)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.UpParabola.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.RightParabola.points">(data_morph.shapes.points.RightParabola attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Scatter.points">(data_morph.shapes.points.Scatter attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.scatter.Scatter.points">(data_morph.shapes.points.scatter.Scatter attribute)</a>, <a href="api/data_morph.shapes.points.scatter.html#data_morph.shapes.points.scatter.Scatter.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spade.points">(data_morph.shapes.points.Spade attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spade.Spade.html#data_morph.shapes.points.spade.Spade.points">(data_morph.shapes.points.spade.Spade attribute)</a>, <a href="api/data_morph.shapes.points.spade.html#data_morph.shapes.points.spade.Spade.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spiral.points">(data_morph.shapes.points.Spiral attribute)</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.spiral.Spiral.html#data_morph.shapes.points.spiral.Spiral.points">(data_morph.shapes.points.spiral.Spiral attribute)</a>, <a href="api/data_morph.shapes.points.spiral.html#data_morph.shapes.points.spiral.Spiral.points">[1]</a>
+</li>
+        <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.UpParabola.points">(data_morph.shapes.points.UpParabola attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Circle.radius">radius (data_morph.shapes.circles.Circle attribute)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.circle.Circle.html#data_morph.shapes.circles.circle.Circle.radius">(data_morph.shapes.circles.circle.Circle attribute)</a>, <a href="api/data_morph.shapes.circles.circle.html#data_morph.shapes.circles.circle.Circle.radius">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.range">range (data_morph.bounds.bounding_box.BoundingBox property)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.range">[1]</a>
+
+      <ul>
+        <li><a href="api/data_morph.bounds.interval.Interval.html#data_morph.bounds.interval.Interval.range">(data_morph.bounds.interval.Interval property)</a>, <a href="api/data_morph.bounds.interval.html#data_morph.bounds.interval.Interval.range">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Rectangle">Rectangle (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.rectangle.Rectangle.html#data_morph.shapes.lines.rectangle.Rectangle">(class in data_morph.shapes.lines.rectangle)</a>, <a href="api/data_morph.shapes.lines.rectangle.html#data_morph.shapes.lines.rectangle.Rectangle">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.refresh">refresh() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.refresh">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.remove_task">remove_task() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.remove_task">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.reset">reset() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.reset">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.RightParabola">RightParabola (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.parabola.RightParabola.html#data_morph.shapes.points.parabola.RightParabola">(class in data_morph.shapes.points.parabola)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.RightParabola">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.circles.html#data_morph.shapes.circles.Rings">Rings (class in data_morph.shapes.circles)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.circles.rings.Rings.html#data_morph.shapes.circles.rings.Rings">(class in data_morph.shapes.circles.rings)</a>, <a href="api/data_morph.shapes.circles.rings.html#data_morph.shapes.circles.rings.Rings">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Scatter">Scatter (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.scatter.Scatter.html#data_morph.shapes.points.scatter.Scatter">(class in data_morph.shapes.points.scatter)</a>, <a href="api/data_morph.shapes.points.scatter.html#data_morph.shapes.points.scatter.Scatter">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.bases.shape.Shape.html#data_morph.shapes.bases.shape.Shape">Shape (class in data_morph.shapes.bases.shape)</a>, <a href="api/data_morph.shapes.bases.shape.html#data_morph.shapes.bases.shape.Shape">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.factory.ShapeFactory.html#data_morph.shapes.factory.ShapeFactory">ShapeFactory (class in data_morph.shapes.factory)</a>, <a href="api/data_morph.shapes.factory.html#data_morph.shapes.factory.ShapeFactory">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantDownLines">SlantDownLines (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.slant_down.SlantDownLines.html#data_morph.shapes.lines.slant_down.SlantDownLines">(class in data_morph.shapes.lines.slant_down)</a>, <a href="api/data_morph.shapes.lines.slant_down.html#data_morph.shapes.lines.slant_down.SlantDownLines">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.SlantUpLines">SlantUpLines (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.slant_up.SlantUpLines.html#data_morph.shapes.lines.slant_up.SlantUpLines">(class in data_morph.shapes.lines.slant_up)</a>, <a href="api/data_morph.shapes.lines.slant_up.html#data_morph.shapes.lines.slant_up.SlantUpLines">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spade">Spade (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.spade.Spade.html#data_morph.shapes.points.spade.Spade">(class in data_morph.shapes.points.spade)</a>, <a href="api/data_morph.shapes.points.spade.html#data_morph.shapes.points.spade.Spade">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.Spiral">Spiral (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.spiral.Spiral.html#data_morph.shapes.points.spiral.Spiral">(class in data_morph.shapes.points.spiral)</a>, <a href="api/data_morph.shapes.points.spiral.html#data_morph.shapes.points.spiral.Spiral">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.Star">Star (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.star.Star.html#data_morph.shapes.lines.star.Star">(class in data_morph.shapes.lines.star)</a>, <a href="api/data_morph.shapes.lines.star.html#data_morph.shapes.lines.star.Star">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.start">start() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.start">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.start_task">start_task() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.start_task">[1]</a>
+</li>
+      <li><a href="api/data_morph.plotting.animation.html#data_morph.plotting.animation.stitch_gif_animation">stitch_gif_animation() (in module data_morph.plotting.animation)</a>, <a href="api/data_morph.plotting.animation.stitch_gif_animation.html#data_morph.plotting.animation.stitch_gif_animation">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.stop">stop() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.stop">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.stop_task">stop_task() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.stop_task">[1]</a>
+</li>
+      <li><a href="api/data_morph.plotting.style.html#data_morph.plotting.style.style_context">style_context() (in module data_morph.plotting.style)</a>, <a href="api/data_morph.plotting.style.style_context.html#data_morph.plotting.style.style_context">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics">SummaryStatistics (class in data_morph.data.stats)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.task_ids">task_ids (data_morph.progress.DataMorphProgress property)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.task_ids">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.tasks">tasks (data_morph.progress.DataMorphProgress property)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.tasks">[1]</a>
+</li>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.track">track() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.track">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.update">update() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.update">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.points.html#data_morph.shapes.points.UpParabola">UpParabola (class in data_morph.shapes.points)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.points.parabola.UpParabola.html#data_morph.shapes.points.parabola.UpParabola">(class in data_morph.shapes.points.parabola)</a>, <a href="api/data_morph.shapes.points.parabola.html#data_morph.shapes.points.parabola.UpParabola">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.VerticalLines">VerticalLines (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.vertical_lines.VerticalLines.html#data_morph.shapes.lines.vertical_lines.VerticalLines">(class in data_morph.shapes.lines.vertical_lines)</a>, <a href="api/data_morph.shapes.lines.vertical_lines.html#data_morph.shapes.lines.vertical_lines.VerticalLines">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.WideLines">WideLines (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.wide_lines.WideLines.html#data_morph.shapes.lines.wide_lines.WideLines">(class in data_morph.shapes.lines.wide_lines)</a>, <a href="api/data_morph.shapes.lines.wide_lines.html#data_morph.shapes.lines.wide_lines.WideLines">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.progress.DataMorphProgress.html#data_morph.progress.DataMorphProgress.wrap_file">wrap_file() (data_morph.progress.DataMorphProgress method)</a>, <a href="api/data_morph.progress.html#data_morph.progress.DataMorphProgress.wrap_file">[1]</a>
+</li>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.write_data">write_data (data_morph.morpher.DataMorpher attribute)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.write_data">[1]</a>
+</li>
+      <li><a href="api/data_morph.morpher.DataMorpher.html#data_morph.morpher.DataMorpher.write_images">write_images (data_morph.morpher.DataMorpher attribute)</a>, <a href="api/data_morph.morpher.html#data_morph.morpher.DataMorpher.write_images">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.x_bounds">x_bounds (data_morph.bounds.bounding_box.BoundingBox attribute)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.x_bounds">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.x_mean">x_mean (data_morph.data.stats.SummaryStatistics attribute)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.x_mean">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.x_median">x_median (data_morph.data.stats.SummaryStatistics attribute)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.x_median">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.x_stdev">x_stdev (data_morph.data.stats.SummaryStatistics attribute)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.x_stdev">[1]</a>
+</li>
+      <li><a href="api/data_morph.shapes.lines.html#data_morph.shapes.lines.XLines">XLines (class in data_morph.shapes.lines)</a>
+
+      <ul>
+        <li><a href="api/data_morph.shapes.lines.x_lines.XLines.html#data_morph.shapes.lines.x_lines.XLines">(class in data_morph.shapes.lines.x_lines)</a>, <a href="api/data_morph.shapes.lines.x_lines.html#data_morph.shapes.lines.x_lines.XLines">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.bounds.bounding_box.BoundingBox.html#data_morph.bounds.bounding_box.BoundingBox.y_bounds">y_bounds (data_morph.bounds.bounding_box.BoundingBox attribute)</a>, <a href="api/data_morph.bounds.bounding_box.html#data_morph.bounds.bounding_box.BoundingBox.y_bounds">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.y_mean">y_mean (data_morph.data.stats.SummaryStatistics attribute)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.y_mean">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.y_median">y_median (data_morph.data.stats.SummaryStatistics attribute)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.y_median">[1]</a>
+</li>
+      <li><a href="api/data_morph.data.stats.SummaryStatistics.html#data_morph.data.stats.SummaryStatistics.y_stdev">y_stdev (data_morph.data.stats.SummaryStatistics attribute)</a>, <a href="api/data_morph.data.stats.html#data_morph.data.stats.SummaryStatistics.y_stdev">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023-2026, Stefanie Molin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

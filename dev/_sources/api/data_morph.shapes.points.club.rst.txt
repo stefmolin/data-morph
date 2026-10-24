@@ -1,0 +1,30 @@
+club
+====
+
+.. automodule:: data_morph.shapes.points.club
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      Club
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,30 @@
+static
+======
+
+.. automodule:: data_morph.plotting.static
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      plot
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

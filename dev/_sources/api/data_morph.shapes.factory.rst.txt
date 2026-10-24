@@ -1,0 +1,30 @@
+factory
+=======
+
+.. automodule:: data_morph.shapes.factory
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      ShapeFactory
+   
+   
+
+   
+   
+   
+
+
+

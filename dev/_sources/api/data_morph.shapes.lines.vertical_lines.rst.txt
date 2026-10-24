@@ -1,0 +1,30 @@
+vertical\_lines
+===============
+
+.. automodule:: data_morph.shapes.lines.vertical_lines
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      VerticalLines
+   
+   
+
+   
+   
+   
+
+
+

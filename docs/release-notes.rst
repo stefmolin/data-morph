@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Unreleased
+----------
+
+Dependency Updates
+^^^^^^^^^^^^^^^^^^
+* Raise ``pillow`` lower bound to 13.0.0
+
 0.4.1 (October 16, 2026)
 ------------------------
 
